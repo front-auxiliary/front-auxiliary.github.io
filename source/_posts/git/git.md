@@ -15,9 +15,9 @@ git help <command> # 显示command的help
 
 git show # 显示某次提交的内容 git show $id
 
-git co -- <file> # 抛弃工作区修改
+#git co -- <file> # 抛弃工作区修改
 
-git co . # 抛弃工作区修改
+#git co . # 抛弃工作区修改
 
 git add <file> # 将工作文件修改提交到本地暂存区
 
@@ -85,7 +85,7 @@ git br --no-merged # 查看尚未被合并到当前分支的分支
 
 git co <branch> # 切换到某个分支
 
-git co -b <new_branch> # 创建新的分支，并且切换过去
+git co -b <new_branch> # 
 
 git co -b <new_branch> <branch> # 基于branch创建新的new_branch
 
@@ -107,11 +107,11 @@ git rebase master <branch> # 将master rebase到branch，相当于： git co <br
 
  Git补丁管理(方便在多台机器上开发同步时用)
 
-git diff > ../sync.patch # 生成补丁
+# git diff > ../sync.patch # 生成补丁
 
-git apply ../sync.patch # 打补丁
+# git apply ../sync.patch # 打补丁
 
-git apply --check ../sync.patch #测试补丁能否成功
+# git apply --check ../sync.patch #测试补丁能否成功
 ```
 ### Git暂存管理
 ```
@@ -119,7 +119,7 @@ git stash # 暂存
 
 git stash list # 列所有stash
 
-git stash apply # 恢复暂存的内容
+git stash apply # 恢复暂存创建新的分支，并且切换过去的内容
 
 git stash drop # 删除暂存区
 ```
@@ -127,13 +127,13 @@ git stash drop # 删除暂存区
 ```
 git pull # 抓取远程仓库所有分支更新并合并到本地
 
-git pull --no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
+error：git pull --no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
 
 git fetch origin # 抓取远程仓库更新
 
 git merge origin/master # 将远程主分支合并到本地当前分支
 
-git co --track origin/branch # 跟踪某个远程分支创建相应的本地分支
+# git co --track origin/branch # 跟踪某个远程分支创建相应的本地分支
 
 git co -b <local_branch> origin/<remote_branch> # 基于远程分支创建本地分支，功能同上
 

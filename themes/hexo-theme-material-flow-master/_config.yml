@@ -60,5 +60,5 @@ social:
   url: https://github.com/stkevintan
 - slug: twitter
   url: https://twitter.com/kevinsfork
-- slug: rss
-	url: /atom.xml
+# - slug: rss
+	# url: /atom.xml

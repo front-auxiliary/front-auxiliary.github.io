@@ -13,6 +13,7 @@ tags:
 
 以下代码实现的效果为下图
 ```
+
 overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;

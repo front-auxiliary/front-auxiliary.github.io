@@ -1,9 +1,9 @@
 <section class='m_widget about'>
-<div style="background:#f7f7f7;padding:10px;">
-<img style="width:100px;margin:auto;border-radius: 50%;" class='avatar waves-image' src='/images/other.png' />
-</div>
+<% if(config.avatar) { %>
+<img class='avatar waves-image' src='<%= url_for(config.avatar) %>' />
+<%} %>
 <div class='header'><%=config.author %></div>
 <div class='content'>
-<div class='desc'><%=config.subtitle %></div>
+<div class='desc'>Tempora mutantur, nos et mutamur in illis ...</div>
 </div>
 </section>

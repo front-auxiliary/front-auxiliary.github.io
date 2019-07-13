@@ -73,7 +73,8 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: hexo-theme-material-flow-master
-theme: hexo-theme-icarus
+# theme: hexo-theme-icarus
+theme: hexo-andy
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

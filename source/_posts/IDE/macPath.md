@@ -6,12 +6,12 @@ tags:
   - mac
   - 辅助工具
 ---
-# mac终端配置sublime和vsCode的快捷方式
 
 ## vsCode的终端命令配置
 ### mac端配置
 >vsCode的终端命令配置较为简单，运行VS code并打开命令面板（ ⇧⌘P ），然后输入 shell command 找到: Install ‘code' command in PATH 就行了。
-code命令还支持其他参数，具体看![这里](http://www.jianshu.com/p/3dda4756eca5)
+
+code命令还支持其他参数，具体看 [Visual Studio Code入门](http://www.jianshu.com/p/3dda4756eca5)
 
 ```
 //配好后的使用方法(打开当前路径)

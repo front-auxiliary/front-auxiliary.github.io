@@ -165,7 +165,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 187 个字)
+                    1 分钟 读完 (大约 204 个字)
                 </span>
                 
                 
@@ -174,17 +174,11 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
             
         </h1>
         <div class="content">
-            <h1 id="javaScript的new实现原理"><a href="#javaScript的new实现原理" class="headerlink" title="javaScript的new实现原理"></a>javaScript的new实现原理</h1><p>其实javascript的new关键字只不过做了五件事情。</p>
-<p>1.创建Object</p>
-<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
-<p>3.将构造函数classA内部的this指向创建的Object</p>
-<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
-<p>5.执行构造函数class</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
+            <h1 id="javaScript的forEach实现原理"><a href="#javaScript的forEach实现原理" class="headerlink" title="javaScript的forEach实现原理"></a>javaScript的forEach实现原理</h1><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -216,7 +210,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 204 个字)
+                    1 分钟 读完 (大约 187 个字)
                 </span>
                 
                 
@@ -225,11 +219,17 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
             
         </h1>
         <div class="content">
-            <h1 id="javaScript的forEach实现原理"><a href="#javaScript的forEach实现原理" class="headerlink" title="javaScript的forEach实现原理"></a>javaScript的forEach实现原理</h1><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+            <h1 id="javaScript的new实现原理"><a href="#javaScript的new实现原理" class="headerlink" title="javaScript的new实现原理"></a>javaScript的new实现原理</h1><p>其实javascript的new关键字只不过做了五件事情。</p>
+<p>1.创建Object</p>
+<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
+<p>3.将构造函数classA内部的this指向创建的Object</p>
+<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
+<p>5.执行构造函数class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -323,74 +323,6 @@ then：绑定回调函数
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1751 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/slice/">Array.prototype.slice应用和原理探析</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Array-prototype-slice应用和原理探析"><a href="#Array-prototype-slice应用和原理探析" class="headerlink" title="Array.prototype.slice应用和原理探析"></a>Array.prototype.slice应用和原理探析</h1><h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
-<h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
-<h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
-<p>有必要探究一番其使用方式和内部原理。</p>
-<h3 id="问题拆解"><a href="#问题拆解" class="headerlink" title="问题拆解"></a>问题拆解</h3><p>Array.prototype.slice作为Array.prototype对象的一个方法，对其调用在API中有详细说明，并不费解，对Array.prototype.slice的疑问可拆解为两个方面：一是该函数究竟返回什么对象？二是该函数可应用于什么对象？即非数组对象需要满足什么条件才能借用(复用)该函数？</p>
-<h3 id="该函数究竟返回什么对象"><a href="#该函数究竟返回什么对象" class="headerlink" title="该函数究竟返回什么对象"></a>该函数究竟返回什么对象</h3><p>为了探究返回对象的类型信息，写一个简单的对象工具集合：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objs = &#123;  </span><br><span class="line">    &quot;descType&quot;:function(o)&#123;  </span><br><span class="line">        console.info(o);  </span><br><span class="line">        console.info(&quot;typeof o:&quot; + (typeof o));  </span><br><span class="line">        console.info(&quot;o.constructor:&quot; + (o.constructor));  </span><br><span class="line">        console.info(&quot;o instanceof Object:&quot; + (o instanceof Object));  </span><br><span class="line">        console.info(&quot;o instanceof Array:&quot; + (o instanceof Array));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>然后测试几个简单的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var v = [&apos;a&apos;,true,9].slice(0);  </span><br><span class="line">objs.descType(v);</span><br><span class="line">// typeof o:object</span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;</span><br><span class="line">// o instanceof Object:true</span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
-<p>数组对象自身上调用slice方法当然不必再使用“var v = Array.prototype.slice.call([‘a’,true,9]);”这种方法，虽然是可以这样用的，结果表明返回的对象的确是Array类型的对象。</p>
-<h3 id="该函数可应用于什么对象"><a href="#该函数可应用于什么对象" class="headerlink" title="该函数可应用于什么对象"></a>该函数可应用于什么对象</h3><p>1 既然该方法是作为Array.prototype的方法，那么数组对象本身当然可以调用该方法。</p>
-<p>2 Arguments类型的对象可正确调用该函数。</p>
-<p>同样用一个简单的例子测试下arguments对象借用该函数后的对象类型。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;  </span><br><span class="line">    objs.descType(arguments);  </span><br><span class="line">    var newArg = Array.prototype.slice.call(arguments, 0);  </span><br><span class="line">    objs.descType(newArg);  </span><br><span class="line">&#125;  </span><br><span class="line">f(&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;);</span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">/// o.constructor:function Object() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:false  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
-<p>可以看到arguments对象本身并不是Array类型的–o instanceof Array:false，进一步展开该对象细节，可以看到其属性列表如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">callee:function f()  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
-<p>有length属性，有’0’,’1’,’2’属性，有’callee’属性，是一个Arguments类型的一个对象实例。而经过Array.prototype.slice.call调用后返回的对象就是一个真真正正的Array对象：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
-<p>这说明arguments对象和转换后的array对象非常类似–不仅属性类似，连用法也类似，比如arguments对象也支持[]运算符调用其属性值(其实本质是对象元素访问的通用语法，只不过属性名刚好为转换为字符串的整数而已)。所以结论是在js语言中，对arguments对象调用Array.prototype.slice.call(arguments, 0)纯属“闲的蛋疼”的做法(除非设计的函数用法非常的动态，比如需要对参数做shift等之类的数组操作)。</p>
-<p>那么除了arguments对象之外，其他类型的对象可以借用Array.prototype.slice函数么？继续简单的测试几个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(true,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&apos;abc&apos;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(256,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&#123;&#125;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(undefined,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(null,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(NaN,0));</span><br></pre></td></tr></table></figure></p>
-<p>对undefined和null调用slice抛出异常，这是预期的行为，对NaN/true/256/{}返回一个空数组对象，对字符串’abc’返回一个数组：[“a”, “b”, “c”]，现在的重点是对对象调用的探究，传入一个初始化为空的对象直接量返回的是一个空数组对象，而上面测试在arguments对象上调用slice返回一个正常的数组–两者有何区别？</p>
-<p>一个很容易联想的点子是该调用对象应该具备length属性才可以被slice正确处理，测试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5&#125;,0));</span><br></pre></td></tr></table></figure></p>
-<p>结果果然是一个length值为5的数组对象，但其中5个元素值都为undefined。那么更进一步的想法应该是：调用对象除了有length属性之外，是不是也应该有索引属性名？即自动转换为字符类型的整数数字属性名？再试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5,&apos;0&apos;:&apos;gebilaowang&apos;,&apos;1&apos;:&apos;ximenqin&apos;&#125;,0));</span><br></pre></td></tr></table></figure></p>
-<p>ok，大功告成，结果果然是预期数组：[“gebilaowang”,”ximenqin”,undefined,undefined,undefined]。因此结论是：只有具备”可转换为数值型的length属性”并且同时具备”索引属性”的对象才可以正确被slice函数处理(返回或者说转换为预期数组)，这种类型的对象经过查阅果然有一种专属称谓–Array-like Object。</p>
-<h3 id="3-Array-like对象可正确调用该函数。"><a href="#3-Array-like对象可正确调用该函数。" class="headerlink" title="3 Array-like对象可正确调用该函数。"></a>3 Array-like对象可正确调用该函数。</h3><p>现在来探究jQuery中对Array.prototype.slice方法的使用场景，jQuery对各种原型方法的应用当然是非常牛逼的甚至达到炉火纯青的境界，其实jQuery对象本身就是一个Array-like对象，因为其有length属性，也有索引属性，分析其初始化构造函数(1.6.1版本)即可明白(特别注意对this.length和this[index]属性的设置)：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype.init: function( selector, context, rootjQuery ) &#123;  </span><br><span class="line">            var match, elem, ret, doc;  </span><br><span class="line"></span><br><span class="line">            // Handle $(&quot;&quot;), $(null), or $(undefined)  </span><br><span class="line">            if ( !selector ) &#123;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle $(DOMElement)  </span><br><span class="line">            if ( selector.nodeType ) &#123;  </span><br><span class="line">                this.context = this[0] = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // The body element only exists once, optimize finding it  </span><br><span class="line">            if ( selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body ) &#123;  </span><br><span class="line">                this.context = document;  </span><br><span class="line">                this[0] = document.body;  </span><br><span class="line">                this.selector = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle HTML strings  </span><br><span class="line">            if ( typeof selector === &quot;string&quot; ) &#123;  </span><br><span class="line">              // Are we dealing with HTML string or an ID?  </span><br><span class="line">               if ( selector.charAt(0) === &quot;&lt;&quot; &amp;&amp; selector.charAt( selector.length - 1 ) === &quot;&gt;&quot; &amp;&amp; selector.length &gt;= 3 ) &#123;  </span><br><span class="line">                   // Assume that strings that start and end with &lt;&gt; are HTML and skip the regex check  </span><br><span class="line">                   match = [ null, selector, null ];  </span><br><span class="line"></span><br><span class="line">               &#125; else &#123;  </span><br><span class="line">                   match = quickExpr.exec( selector );  </span><br><span class="line">               &#125;  </span><br><span class="line"></span><br><span class="line">               // Verify a match, and that no context was specified for #id  </span><br><span class="line">               if ( match &amp;&amp; (match[1] || !context) ) &#123;  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(html) -&gt; $(array)  </span><br><span class="line">                   if ( match[1] ) &#123;  </span><br><span class="line">                       context = context instanceof jQuery ? context[0] : context;  </span><br><span class="line">                       doc = (context ? context.ownerDocument || context : document);  </span><br><span class="line"></span><br><span class="line">                       // If a single string is passed in and it&apos;s a single tag  </span><br><span class="line">                       // just do a createElement and skip the rest  </span><br><span class="line">                       ret = rsingleTag.exec( selector );  </span><br><span class="line"></span><br><span class="line">                       if ( ret ) &#123;  </span><br><span class="line">                           if ( jQuery.isPlainObject( context ) ) &#123;  </span><br><span class="line">                               selector = [ document.createElement( ret[1] ) ];  </span><br><span class="line">                               jQuery.fn.attr.call( selector, context, true );  </span><br><span class="line"></span><br><span class="line">                           &#125; else &#123;  </span><br><span class="line">                               selector = [ doc.createElement( ret[1] ) ];  </span><br><span class="line">                           &#125;  </span><br><span class="line"></span><br><span class="line">                       &#125; else &#123;  </span><br><span class="line">                           ret = jQuery.buildFragment( [ match[1] ], [ doc ] );  </span><br><span class="line">                           selector = (ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment).childNodes;  </span><br><span class="line">                       &#125;  </span><br><span class="line"></span><br><span class="line">                       return jQuery.merge( this, selector );  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(&quot;#id&quot;)  </span><br><span class="line">                   &#125; else &#123;  </span><br><span class="line">                        elem = document.getElementById( match[2] );  </span><br><span class="line"></span><br><span class="line">                        // Check parentNode to catch when Blackberry 4.6 returns  </span><br><span class="line">                        // nodes that are no longer in the document #6963  </span><br><span class="line">                        if ( elem &amp;&amp; elem.parentNode ) &#123;  </span><br><span class="line">                            // Handle the case where IE and Opera return items  </span><br><span class="line">                            // by name instead of ID  </span><br><span class="line">                            if ( elem.id !== match[2] ) &#123;  </span><br><span class="line">                                return rootjQuery.find( selector );  </span><br><span class="line">                            &#125;  </span><br><span class="line"></span><br><span class="line">                            // Otherwise, we inject the element directly into the jQuery object  </span><br><span class="line">                            this.length = 1;  </span><br><span class="line">                            this[0] = elem;  </span><br><span class="line">                        &#125;  </span><br><span class="line"></span><br><span class="line">                        this.context = document;  </span><br><span class="line">                        this.selector = selector;  </span><br><span class="line">                        return this;  </span><br><span class="line">                    &#125;  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, $(...))  </span><br><span class="line">                &#125; else if ( !context || context.jquery ) &#123;  </span><br><span class="line">                    return (context || rootjQuery).find( selector );  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, context)  </span><br><span class="line">                // (which is just equivalent to: $(context).find(expr)  </span><br><span class="line">                &#125; else &#123;  </span><br><span class="line">                    return this.constructor( context ).find( selector );  </span><br><span class="line">                &#125;  </span><br><span class="line"></span><br><span class="line">            // HANDLE: $(function)  </span><br><span class="line">            // Shortcut for document ready  </span><br><span class="line">            &#125; else if ( jQuery.isFunction( selector ) ) &#123;  </span><br><span class="line">               return rootjQuery.ready( selector );  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           if (selector.selector !== undefined) &#123;  </span><br><span class="line">               this.selector = selector.selector;  </span><br><span class="line">               this.context = selector.context;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           return jQuery.makeArray( selector, this );  </span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure></p>
-<p>这是分析并理解jQuery背后原理的最基础最前提的一步。</p>
-<h3 id="原理探析"><a href="#原理探析" class="headerlink" title="原理探析"></a>原理探析</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function slice(start, end) &#123;   </span><br><span class="line">    var startToUse = start || 0,   </span><br><span class="line">        endToUse = end || ToUint32(this.length),   </span><br><span class="line">        result = [];   </span><br><span class="line">    for(var i = startToUse; i &lt; endToUse; i++) &#123;   </span><br><span class="line">        result.push(this[i]);   </span><br><span class="line">    &#125;  </span><br><span class="line">    return result;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
                     14 分钟 读完 (大约 2122 个字)
                 </span>
                 
@@ -429,6 +361,74 @@ then：绑定回调函数
 <p>可以将以上 react-router 的整个包装闭环总结为</p>
 <p>回调函数：含有能够更新 react UI 的 react setState 方法。<br>注册回调：在 Router componentWillMount 中使用 history.listen 注册的回调函数，最终放在 history 模块的 回调函数数组 changeListeners 中。<br>触发回调：Link 点击触发 history 中回调函数数组 changeListeners 的执行，从而触发原来 listen 中的 setState 方法，更新了页面<br>至于前进与后退的实现，是通过监听 popstate 以及 hashchange 的事件，当前进或后退 url 更新时，触发这两个事件的回调函数，回调的执行方式 Link 大致相同，最终同样更新了 UI ，这里就不再说明。</p>
 <p>react-router 主要是利用底层 history 模块的机制，通过结合 react 的架构机制做一层包装，实际自身的内容并不多，但其包装的思想笔者认为很值得学习，有兴趣的建议阅读下源码，相信会有其他收获。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 分钟 读完 (大约 1751 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/slice/">Array.prototype.slice应用和原理探析</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Array-prototype-slice应用和原理探析"><a href="#Array-prototype-slice应用和原理探析" class="headerlink" title="Array.prototype.slice应用和原理探析"></a>Array.prototype.slice应用和原理探析</h1><h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
+<h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
+<h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
+<p>有必要探究一番其使用方式和内部原理。</p>
+<h3 id="问题拆解"><a href="#问题拆解" class="headerlink" title="问题拆解"></a>问题拆解</h3><p>Array.prototype.slice作为Array.prototype对象的一个方法，对其调用在API中有详细说明，并不费解，对Array.prototype.slice的疑问可拆解为两个方面：一是该函数究竟返回什么对象？二是该函数可应用于什么对象？即非数组对象需要满足什么条件才能借用(复用)该函数？</p>
+<h3 id="该函数究竟返回什么对象"><a href="#该函数究竟返回什么对象" class="headerlink" title="该函数究竟返回什么对象"></a>该函数究竟返回什么对象</h3><p>为了探究返回对象的类型信息，写一个简单的对象工具集合：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objs = &#123;  </span><br><span class="line">    &quot;descType&quot;:function(o)&#123;  </span><br><span class="line">        console.info(o);  </span><br><span class="line">        console.info(&quot;typeof o:&quot; + (typeof o));  </span><br><span class="line">        console.info(&quot;o.constructor:&quot; + (o.constructor));  </span><br><span class="line">        console.info(&quot;o instanceof Object:&quot; + (o instanceof Object));  </span><br><span class="line">        console.info(&quot;o instanceof Array:&quot; + (o instanceof Array));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后测试几个简单的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var v = [&apos;a&apos;,true,9].slice(0);  </span><br><span class="line">objs.descType(v);</span><br><span class="line">// typeof o:object</span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;</span><br><span class="line">// o instanceof Object:true</span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
+<p>数组对象自身上调用slice方法当然不必再使用“var v = Array.prototype.slice.call([‘a’,true,9]);”这种方法，虽然是可以这样用的，结果表明返回的对象的确是Array类型的对象。</p>
+<h3 id="该函数可应用于什么对象"><a href="#该函数可应用于什么对象" class="headerlink" title="该函数可应用于什么对象"></a>该函数可应用于什么对象</h3><p>1 既然该方法是作为Array.prototype的方法，那么数组对象本身当然可以调用该方法。</p>
+<p>2 Arguments类型的对象可正确调用该函数。</p>
+<p>同样用一个简单的例子测试下arguments对象借用该函数后的对象类型。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;  </span><br><span class="line">    objs.descType(arguments);  </span><br><span class="line">    var newArg = Array.prototype.slice.call(arguments, 0);  </span><br><span class="line">    objs.descType(newArg);  </span><br><span class="line">&#125;  </span><br><span class="line">f(&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;);</span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">/// o.constructor:function Object() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:false  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
+<p>可以看到arguments对象本身并不是Array类型的–o instanceof Array:false，进一步展开该对象细节，可以看到其属性列表如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">callee:function f()  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
+<p>有length属性，有’0’,’1’,’2’属性，有’callee’属性，是一个Arguments类型的一个对象实例。而经过Array.prototype.slice.call调用后返回的对象就是一个真真正正的Array对象：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
+<p>这说明arguments对象和转换后的array对象非常类似–不仅属性类似，连用法也类似，比如arguments对象也支持[]运算符调用其属性值(其实本质是对象元素访问的通用语法，只不过属性名刚好为转换为字符串的整数而已)。所以结论是在js语言中，对arguments对象调用Array.prototype.slice.call(arguments, 0)纯属“闲的蛋疼”的做法(除非设计的函数用法非常的动态，比如需要对参数做shift等之类的数组操作)。</p>
+<p>那么除了arguments对象之外，其他类型的对象可以借用Array.prototype.slice函数么？继续简单的测试几个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(true,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&apos;abc&apos;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(256,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&#123;&#125;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(undefined,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(null,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(NaN,0));</span><br></pre></td></tr></table></figure></p>
+<p>对undefined和null调用slice抛出异常，这是预期的行为，对NaN/true/256/{}返回一个空数组对象，对字符串’abc’返回一个数组：[“a”, “b”, “c”]，现在的重点是对对象调用的探究，传入一个初始化为空的对象直接量返回的是一个空数组对象，而上面测试在arguments对象上调用slice返回一个正常的数组–两者有何区别？</p>
+<p>一个很容易联想的点子是该调用对象应该具备length属性才可以被slice正确处理，测试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5&#125;,0));</span><br></pre></td></tr></table></figure></p>
+<p>结果果然是一个length值为5的数组对象，但其中5个元素值都为undefined。那么更进一步的想法应该是：调用对象除了有length属性之外，是不是也应该有索引属性名？即自动转换为字符类型的整数数字属性名？再试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5,&apos;0&apos;:&apos;gebilaowang&apos;,&apos;1&apos;:&apos;ximenqin&apos;&#125;,0));</span><br></pre></td></tr></table></figure></p>
+<p>ok，大功告成，结果果然是预期数组：[“gebilaowang”,”ximenqin”,undefined,undefined,undefined]。因此结论是：只有具备”可转换为数值型的length属性”并且同时具备”索引属性”的对象才可以正确被slice函数处理(返回或者说转换为预期数组)，这种类型的对象经过查阅果然有一种专属称谓–Array-like Object。</p>
+<h3 id="3-Array-like对象可正确调用该函数。"><a href="#3-Array-like对象可正确调用该函数。" class="headerlink" title="3 Array-like对象可正确调用该函数。"></a>3 Array-like对象可正确调用该函数。</h3><p>现在来探究jQuery中对Array.prototype.slice方法的使用场景，jQuery对各种原型方法的应用当然是非常牛逼的甚至达到炉火纯青的境界，其实jQuery对象本身就是一个Array-like对象，因为其有length属性，也有索引属性，分析其初始化构造函数(1.6.1版本)即可明白(特别注意对this.length和this[index]属性的设置)：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype.init: function( selector, context, rootjQuery ) &#123;  </span><br><span class="line">            var match, elem, ret, doc;  </span><br><span class="line"></span><br><span class="line">            // Handle $(&quot;&quot;), $(null), or $(undefined)  </span><br><span class="line">            if ( !selector ) &#123;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle $(DOMElement)  </span><br><span class="line">            if ( selector.nodeType ) &#123;  </span><br><span class="line">                this.context = this[0] = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // The body element only exists once, optimize finding it  </span><br><span class="line">            if ( selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body ) &#123;  </span><br><span class="line">                this.context = document;  </span><br><span class="line">                this[0] = document.body;  </span><br><span class="line">                this.selector = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle HTML strings  </span><br><span class="line">            if ( typeof selector === &quot;string&quot; ) &#123;  </span><br><span class="line">              // Are we dealing with HTML string or an ID?  </span><br><span class="line">               if ( selector.charAt(0) === &quot;&lt;&quot; &amp;&amp; selector.charAt( selector.length - 1 ) === &quot;&gt;&quot; &amp;&amp; selector.length &gt;= 3 ) &#123;  </span><br><span class="line">                   // Assume that strings that start and end with &lt;&gt; are HTML and skip the regex check  </span><br><span class="line">                   match = [ null, selector, null ];  </span><br><span class="line"></span><br><span class="line">               &#125; else &#123;  </span><br><span class="line">                   match = quickExpr.exec( selector );  </span><br><span class="line">               &#125;  </span><br><span class="line"></span><br><span class="line">               // Verify a match, and that no context was specified for #id  </span><br><span class="line">               if ( match &amp;&amp; (match[1] || !context) ) &#123;  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(html) -&gt; $(array)  </span><br><span class="line">                   if ( match[1] ) &#123;  </span><br><span class="line">                       context = context instanceof jQuery ? context[0] : context;  </span><br><span class="line">                       doc = (context ? context.ownerDocument || context : document);  </span><br><span class="line"></span><br><span class="line">                       // If a single string is passed in and it&apos;s a single tag  </span><br><span class="line">                       // just do a createElement and skip the rest  </span><br><span class="line">                       ret = rsingleTag.exec( selector );  </span><br><span class="line"></span><br><span class="line">                       if ( ret ) &#123;  </span><br><span class="line">                           if ( jQuery.isPlainObject( context ) ) &#123;  </span><br><span class="line">                               selector = [ document.createElement( ret[1] ) ];  </span><br><span class="line">                               jQuery.fn.attr.call( selector, context, true );  </span><br><span class="line"></span><br><span class="line">                           &#125; else &#123;  </span><br><span class="line">                               selector = [ doc.createElement( ret[1] ) ];  </span><br><span class="line">                           &#125;  </span><br><span class="line"></span><br><span class="line">                       &#125; else &#123;  </span><br><span class="line">                           ret = jQuery.buildFragment( [ match[1] ], [ doc ] );  </span><br><span class="line">                           selector = (ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment).childNodes;  </span><br><span class="line">                       &#125;  </span><br><span class="line"></span><br><span class="line">                       return jQuery.merge( this, selector );  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(&quot;#id&quot;)  </span><br><span class="line">                   &#125; else &#123;  </span><br><span class="line">                        elem = document.getElementById( match[2] );  </span><br><span class="line"></span><br><span class="line">                        // Check parentNode to catch when Blackberry 4.6 returns  </span><br><span class="line">                        // nodes that are no longer in the document #6963  </span><br><span class="line">                        if ( elem &amp;&amp; elem.parentNode ) &#123;  </span><br><span class="line">                            // Handle the case where IE and Opera return items  </span><br><span class="line">                            // by name instead of ID  </span><br><span class="line">                            if ( elem.id !== match[2] ) &#123;  </span><br><span class="line">                                return rootjQuery.find( selector );  </span><br><span class="line">                            &#125;  </span><br><span class="line"></span><br><span class="line">                            // Otherwise, we inject the element directly into the jQuery object  </span><br><span class="line">                            this.length = 1;  </span><br><span class="line">                            this[0] = elem;  </span><br><span class="line">                        &#125;  </span><br><span class="line"></span><br><span class="line">                        this.context = document;  </span><br><span class="line">                        this.selector = selector;  </span><br><span class="line">                        return this;  </span><br><span class="line">                    &#125;  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, $(...))  </span><br><span class="line">                &#125; else if ( !context || context.jquery ) &#123;  </span><br><span class="line">                    return (context || rootjQuery).find( selector );  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, context)  </span><br><span class="line">                // (which is just equivalent to: $(context).find(expr)  </span><br><span class="line">                &#125; else &#123;  </span><br><span class="line">                    return this.constructor( context ).find( selector );  </span><br><span class="line">                &#125;  </span><br><span class="line"></span><br><span class="line">            // HANDLE: $(function)  </span><br><span class="line">            // Shortcut for document ready  </span><br><span class="line">            &#125; else if ( jQuery.isFunction( selector ) ) &#123;  </span><br><span class="line">               return rootjQuery.ready( selector );  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           if (selector.selector !== undefined) &#123;  </span><br><span class="line">               this.selector = selector.selector;  </span><br><span class="line">               this.context = selector.context;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           return jQuery.makeArray( selector, this );  </span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>这是分析并理解jQuery背后原理的最基础最前提的一步。</p>
+<h3 id="原理探析"><a href="#原理探析" class="headerlink" title="原理探析"></a>原理探析</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function slice(start, end) &#123;   </span><br><span class="line">    var startToUse = start || 0,   </span><br><span class="line">        endToUse = end || ToUint32(this.length),   </span><br><span class="line">        result = [];   </span><br><span class="line">    for(var i = startToUse; i &lt; endToUse; i++) &#123;   </span><br><span class="line">        result.push(this[i]);   </span><br><span class="line">    &#125;  </span><br><span class="line">    return result;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -809,16 +809,16 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/packagejson/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -866,25 +866,6 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
@@ -897,6 +878,25 @@ then：绑定回调函数
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1534,16 +1534,16 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/packagejson/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1591,25 +1591,6 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
@@ -1622,6 +1603,25 @@ then：绑定回调函数
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

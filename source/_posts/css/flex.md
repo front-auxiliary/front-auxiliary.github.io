@@ -9,8 +9,6 @@ tags:
   - 布局
 ---
 
-# Flex布局
-
 
 注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。
 
@@ -19,7 +17,7 @@ tags:
 
 ### 一、基本概念
 
-<img src='images/flex/flexBox.png' width='700px'/>
+{% asset_img flexBox.png flexbox %}
 
 ```
 Flex容器（flex container）：采用Flex布局的元素。
@@ -45,8 +43,7 @@ Flex容器（flex container）：采用Flex布局的元素。
 	  flex-direction: row | row-reverse | column | column-reverse;
 	}
 ```
-<img src='images/flex/direction.png' width='700px'/>
-
+{% asset_img direction.png direction %}
 他有四个值
 *  row(默认值)：主轴为水平方向，起点在左边
 *  row-reverse:主轴为水平方向，起点为右边
@@ -90,7 +87,7 @@ flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认
 * space-between：两端对齐，项目之间的间隔都相等
 * space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
 
-<img src='images/flex/justify-content.png' width='500px'/>
+{% asset_img justify-content.png justify-content %}
 
 ##### align-items
 align-items属性定义项目在交叉轴上如何对齐
@@ -120,7 +117,8 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 * space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
 
 
-<img src='/images/flex/align-content.png' width='500px'/>
+{% asset_img align-content.png align-content %}
+
 
 ### 三、项目的属性
 以下6个属性设置在项目上
@@ -138,8 +136,8 @@ order属性定义项目的排列顺序。数值越小，排列越靠前，默认
   order: <integer>;
 }
 ```
+{% asset_img order.png order %}
 
-<img src='images/flex/order.png' width='500px'/>
 ##### flex-grow
 flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
@@ -181,7 +179,8 @@ align-self属性允许单个项目有与其他项目不一样的对齐方式，�
   align-self: auto | flex-start | flex-end | center | baseline | stretch;
 }
 ```
-<img src='images/flex/align-self.png' width='500px'/>
+{% asset_img align-self.png align-self %}
+
 
 ### 四、flex兼容性
 

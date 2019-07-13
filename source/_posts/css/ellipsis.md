@@ -18,7 +18,7 @@ overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;
 ```
-![单行](./images/ellipsis/ellipsis1.png)
+{% asset_img ellipsis1.png 单行省略 %}
 先介绍一下多行文本添加省略号的css代码
 
 以下代码实现的效果为下图
@@ -28,7 +28,8 @@ display: -webkit-box;
 -webkit-line-clamp: 3;
 overflow: hidden;
 ```
-![单行](./images/ellipsis/ellipsis2.png)
+{% asset_img ellipsis2.png 多行省略 %}
+
 
 先介绍一下多行文本添加省略号的css代码的优化
 

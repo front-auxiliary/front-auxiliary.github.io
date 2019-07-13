@@ -7,7 +7,6 @@ tags:
   - javascript
   - new
 ---
-# javaScript的new实现原理
 
 其实javascript的new关键字只不过做了五件事情。
 

@@ -8,7 +8,6 @@ tags:
   - javascript
   - 执行上下文
 ---
-# 执行上下文
 
 >在《JavaScript深入之执行上下文栈》中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。
 

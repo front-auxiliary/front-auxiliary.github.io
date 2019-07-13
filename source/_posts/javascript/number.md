@@ -7,7 +7,6 @@ tags:
   - javascript
   - number
 ---
-# Number深入解析
 ### Number简介
 >javaScript不区分整数值和浮点数值。javaScript中所有的数字均用浮点数值表示。javaScript应用的是IEEE754标准定义64位浮点格式表示的数字。它表示的最大值是+/-1.7976931348623157*10<sup>308</sup>,最小值是+/-5 *10<sup>-324</sup>。javaScript能够表示的正数范围是-2<sup>53</sup>~2<sup>53</sup>,包含界限。如果使用了超出此范围的整数，则无法保证低位数字的精度。还需要注意的是javaScript中实际的操作（比如数组索引）则是基于32位整数。在javaScript中直接出现的数值称之为数字直接量（numneric lieral）。
 

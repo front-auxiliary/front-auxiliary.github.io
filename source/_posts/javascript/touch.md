@@ -7,7 +7,6 @@ tags:
   - javascript
   - touch
 ---
-# 移动端事件——Touch事件
 
 ## Touch事件
 

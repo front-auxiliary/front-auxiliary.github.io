@@ -6,7 +6,6 @@ tags:
   - node
   - 异常处理
 ---
-# node异常处理机制详解
 
 ---
 1. assert()

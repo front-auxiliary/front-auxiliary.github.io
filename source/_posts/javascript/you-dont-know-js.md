@@ -5,7 +5,6 @@ categories: javaScript阅读
 description: 你不知道的js（上）
 ---
 
-# 你不知道的js（上）
 ### LHS与RHS
 >LHS可以理解为某变量被赋值，RHS可以理解为被调用
 

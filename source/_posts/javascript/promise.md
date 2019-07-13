@@ -9,7 +9,6 @@ tags:
   - promise
   - es6
 ---
-# promise原理解析
 ##### promise模式
 
 这几种方式的可维护性逐级递增，理解难度也逐级递增。这篇总结也是针对promise模式的。

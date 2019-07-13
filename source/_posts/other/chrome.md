@@ -96,7 +96,7 @@ my_clock(clock_div);
 ```
 
 ## 扩展导入
-![扩展导入](./play.png)
+{% asset_img play.png 扩展导入 %}
 
 
 ## 到这了一个简单的chrome扩展就完成了

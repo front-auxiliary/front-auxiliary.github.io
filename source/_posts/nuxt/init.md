@@ -7,7 +7,6 @@ tags:
   - nuxt
   - 服务端项目集成
 ---
-## Nuxt.js 是什么？
 Nuxt.js 是一个基于 Vue.js 的通用应用框架。
 
 通过对客户端/服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI渲染。
@@ -49,8 +48,7 @@ $ npm run dev
 ```
 
 访问 http://localhost:3000
-![启动页](./init.png)
-
+{% asset_img init.png 启动页 %}
 ### 集成 iview UI框架
 
 ```
@@ -68,7 +66,9 @@ Vue.use(iView)
 ```
 
 这里有个大坑因为Nuxt语法检测机制在Vue.use(iView)的后面要加一个回车要不会报一下错误，这个问题当时让我很郁闷
-![报错](./error.png)
+
+{% asset_img error.png 启动页 %}
+
 
 ### 修改 nuxt.config.js
 在module.exports最后添加如下内容：
@@ -77,7 +77,8 @@ Vue.use(iView)
     css: ['iview/dist/styles/iview.css'],
 ```
 
-![添加](./add.png)
+{% asset_img add.png 添加 %}
+
 
 ### 在pages/index.vue,加入 Button 标签
 
@@ -85,7 +86,8 @@ Vue.use(iView)
 <Button type="primary">Primary</Button>
 ```
 
-![按钮](./button.png)
+{% asset_img add.png 按钮 %}
+
 
 ### 再次启动页面
 
@@ -94,6 +96,8 @@ $ npm run dev
 ```
 
 效果页面如下：
-![最后的效果](./end.png)
+
+{% asset_img end.png 最后的效果 %}
+
 
 ### 大功告成 后续会添加nuxt的相关内容

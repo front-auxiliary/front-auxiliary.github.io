@@ -14,7 +14,8 @@ tags:
 ### mac下自定义命令的配置
 
 在命令行里用 VSCode 打开 .zshrc 文件如图：
-![mac的path路径文件](./zshrc.jpg)
+{% asset_img zshrc.jpg mac的path路径文件 %}
+
 上图是我自定的自定义命令
 
 ### window 下自定义命令

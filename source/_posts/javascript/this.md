@@ -7,7 +7,6 @@ tags:
   - javascript
   - this
 ---
-# javaScript的this
 ### this的常见绑定形式
 1.默认绑定
 2.隐式绑定

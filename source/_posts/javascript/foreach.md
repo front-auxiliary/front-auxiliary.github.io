@@ -7,7 +7,6 @@ tags:
   - javascript
   - forEach
 ---
-# javaScript的forEach实现原理
 ```
 function forEach(object, block, context, fn) {
 	if(object == null) return;

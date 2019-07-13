@@ -7,7 +7,6 @@ tags:
   - javascript
   - 错误类型
 ---
-# javaScript各种错误类型
 
 #### 1.SyntaxError（语法错误）
 

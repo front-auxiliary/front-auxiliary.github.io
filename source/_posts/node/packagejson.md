@@ -9,7 +9,6 @@ tags:
   - 配置
 ---
 
-# packagejson文件详解
 
 ### 目录
 

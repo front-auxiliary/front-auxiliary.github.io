@@ -8,11 +8,10 @@ tags:
   - thinkjs
 ---
 
-# thinkjs项目目录解析
 
 ### 目录
 
-![目录结构](./directory.png)
+{% asset_img directory.png 目录结构 %}
 
 
 注：指定不同的模式创建的项目目录机构可能有细微的差别，但总体是类似的

@@ -9,7 +9,6 @@ tags:
   - caller
   - callee
 ---
-# javaScript的arguments, caller, callee
 
 ### arguments
 arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。

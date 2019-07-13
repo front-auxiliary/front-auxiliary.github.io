@@ -9,8 +9,6 @@ tags:
   - Array.prototype.slice
 ---
 
-
-# Array.prototype.slice应用和原理探析
 ### 问题由来
 Array.prototype.slice常见于两种调用场景：
 

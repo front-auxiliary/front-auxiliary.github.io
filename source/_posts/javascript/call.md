@@ -9,7 +9,6 @@ tags:
   - apply
   - bind
 ---
-# javaScript的call,apply,bind
 
 1、方法定义
 call方法:

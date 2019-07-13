@@ -9,10 +9,12 @@ tags:
   - webSocket
   - html5
 ---
-# webSocket
 #### 目录结构如下
 
-![目录](./images/webSocket/directory.png)
+{% asset_img directory.png RGB示意图 %}
+
+
+<!-- ![目录](./images/webSocket/directory.png) -->
 
 ##### WebSocketTestChat.java里的代码:
 ```

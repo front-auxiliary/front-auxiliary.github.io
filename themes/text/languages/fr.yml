@@ -1,0 +1,37 @@
+common:
+    archive:
+        one: 'Archive'
+        other: '档案'
+    category:
+        one: 'Catégorie'
+        other: '分类'
+    tag:
+        one: 'Tag'
+        other: '标签'
+    post:
+        one: 'Article'
+        other: '文章数'
+    prev: 'Préc'
+    next: 'Suiv'
+widget:
+    follow: '进入GitHub'
+    recents: 'Récents'
+    links: '推荐网站'
+    tag_cloud: '云标签'
+    catalogue: 'Catalogue'
+article:
+    more: 'Read More'
+    comments: 'Commentaires'
+    read: 'read'
+    about: 'About'
+    words: 'words'
+search:
+    search: 'Search'
+    hint: 'Type something...'
+insight:
+    hint: 'Type something...'
+    posts: 'Articles'
+    pages: 'Pages'
+    categories: 'Catégories'
+    tags: 'Tags'
+    untitled: '(Untitled)'

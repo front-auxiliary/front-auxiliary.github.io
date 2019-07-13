@@ -1,0 +1,46 @@
+common:
+    archive:
+        one: 'Arsip'
+        other: '更新'
+    category:
+        one: 'Kategori'
+        other: '分类'
+    tag:
+        one: 'Tag'
+        other: '标签'
+    post:
+        one: 'Artikel'
+        other: '文章数'
+    prev: 'Sebelumnya'
+    next: 'Berikutnya'
+widget:
+    follow: 'IKUTI'
+    recents: '分类'
+    links: '推荐网站'
+    
+    tag_cloud: '云标签'
+    catalogue: 'Katalog'
+article:
+    more: 'Selengkapnya'
+    comments: 'Komentar'
+    read: 'membaca'
+    about: 'Sekitar'
+    words: 'kata'
+search:
+    search: 'Pencarian'
+    hint: 'Tulis Sesuatu..'
+insight:
+    hint: 'Tulis Sesuatu..'
+    posts: 'Artikel'
+    pages: 'Halaman'
+    categories: 'Kategori'
+    tags: 'Tag'
+    untitled: 'Tanpa Judul'
+donate:
+    title: 'Suka dengan artikel ini? Bantu penulis dengan donasi melalui'
+    alipay: 'Alipay'
+    wechat: 'Wechat'
+    paypal: 'Paypal'
+    patreon: 'Patreon'
+plugin:
+    backtotop: 'Kembali ke atas'

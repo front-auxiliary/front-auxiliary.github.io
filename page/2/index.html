@@ -1,0 +1,2877 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>front-auxiliary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="学无止境">
+<meta property="og:type" content="website">
+<meta property="og:title" content="front-auxiliary">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="front-auxiliary">
+<meta property="og:description" content="学无止境">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="front-auxiliary">
+<meta name="twitter:description" content="学无止境">
+<meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/other.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/other.png" alt="front-auxiliary" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">首页</a>
+                
+                <a class="navbar-item" href="/archives">时光轴</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 130 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
+<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>stage 不再是配置项，以 presets 的形式添加。</p>
+<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/ECMAScript/">ECMAScript</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 503 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/javaScript/ECMAScript/">ECMAScript 提案</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="标准的流程包括五个步骤："><a href="#标准的流程包括五个步骤：" class="headerlink" title="标准的流程包括五个步骤："></a>标准的流程包括五个步骤：</h2><h3 id="stage0-strawman"><a href="#stage0-strawman" class="headerlink" title="stage0 strawman"></a>stage0 strawman</h3><p>任何讨论、想法、改变或者还没加到提案的特性都在这个阶段。只有TC39成员可以提交。</p>
+<h3 id="stage1-proposal"><a href="#stage1-proposal" class="headerlink" title="stage1 proposal"></a>stage1 proposal</h3><p>（1）产出一个正式的提案。<br>（2）发现潜在的问题，例如与其他特性的关系，实现难题。<br>（3）提案包括详细的API描述，使用例子，以及关于相关的语义和算法。</p>
+<h3 id="stage2-draft"><a href="#stage2-draft" class="headerlink" title="stage2 draft"></a>stage2 draft</h3><p>（1）提供一个初始的草案规范，与最终标准中包含的特性不会有太大差别。草案之后，原则上只接受增量修改。<br>（2）开始实验如何实现，实现形式包括polyfill, 实现引擎（提供草案执行本地支持），或者编译转换（例如babel）</p>
+<h3 id="stage3-candidate"><a href="#stage3-candidate" class="headerlink" title="stage3 candidate"></a>stage3 candidate</h3><p>（1）候选阶段，获得具体实现和用户的反馈。此后，只有在实现和使用过程中出现了重大问题才会修改。 （2）规范文档必须是完整的，评审人和ECMAScript的编辑要在规范上签字。<br>（3）至少要在一个浏览器中实现，提供polyfill或者babel插件。</p>
+<h3 id="stage4-finished"><a href="#stage4-finished" class="headerlink" title="stage4 finished"></a>stage4 finished</h3><p>（1）已经准备就绪，该特性会出现在下个版本的ECMAScript规范之中。<br>（2）需要通过有2个独立的实现并通过验收测试，以获取使用过程中的重要实践经验。</p>
+<h2 id="TC39什么鬼？什么成分？主要业务是什么？"><a href="#TC39什么鬼？什么成分？主要业务是什么？" class="headerlink" title="TC39什么鬼？什么成分？主要业务是什么？"></a>TC39什么鬼？什么成分？主要业务是什么？</h2><p>一个推动 JavaScript 发展的委员会，由各个主流浏览器厂商的代表构成。制定ECMAScript标准，标准生成的流程，并实现。</p>
+<h2 id="相关-stage0-4的具体内容查看地址"><a href="#相关-stage0-4的具体内容查看地址" class="headerlink" title="相关 stage0-4的具体内容查看地址"></a>相关 stage0-4的具体内容查看地址</h2><p>stage0 的提案 <a href="https://github.com/tc39/proposals/blob/master/stage-0-proposals.md" target="_blank" rel="noopener">https://github.com/tc39/proposals/blob/master/stage-0-proposals.md</a><br>stage1 - 4 的提案 <a href="https://github.com/tc39/proposa" target="_blank" rel="noopener">https://github.com/tc39/proposa</a></p>
+<p>推荐阅读：<br><a href="https://zhuanlan.zhihu.com/p/27762556" target="_blank" rel="noopener">精读 TC39 与 ECMAScript 提案</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 481 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/parcel/parcelDev/">parcel使用</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="什么是pracel"><a href="#什么是pracel" class="headerlink" title="什么是pracel"></a>什么是pracel</h3><p>parcel是一个前端项目打包器，现在我们已有的打包器与webpack和gulp。</p>
+<h3 id="为什么要把pracel拿出来说一说"><a href="#为什么要把pracel拿出来说一说" class="headerlink" title="为什么要把pracel拿出来说一说"></a>为什么要把pracel拿出来说一说</h3><p>最近许多的网站推送pracel的相关消息，说什么零配置，打包速度快。</p>
+<h3 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h3><ol>
+<li>我们现在使用的打包工具有哪些？</li>
+<li>我们为什么要是用这些打包工具，使用这些打包工具为我们解决了什么问题？</li>
+<li>现在已用到的打包工具给我们造成了什么困扰？</li>
+</ol>
+<h3 id="用parcel建一个简单的项目"><a href="#用parcel建一个简单的项目" class="headerlink" title="用parcel建一个简单的项目"></a>用parcel建一个简单的项目</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Yarn:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<p>npm:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建package-json"><a href="#创建package-json" class="headerlink" title="创建package.json"></a>创建package.json</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y</span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建一个-index-html-和-index-js-文件。"><a href="#创建一个-index-html-和-index-js-文件。" class="headerlink" title="创建一个 index.html 和 index.js 文件。"></a>创建一个 index.html 和 index.js 文件。</h4><p>index.html<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>index.js<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;hello world&quot;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="在package-json重配置"><a href="#在package-json重配置" class="headerlink" title="在package.json重配置"></a>在package.json重配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;parcel index.html -p 4000&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="Babel配置"><a href="#Babel配置" class="headerlink" title="Babel配置"></a>Babel配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-preset-env</span><br></pre></td></tr></table></figure>
+<p> .babelrc文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostCSS配置"><a href="#PostCSS配置" class="headerlink" title="PostCSS配置"></a>PostCSS配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-modules autoprefixer</span><br></pre></td></tr></table></figure>
+<p>.postcssrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;modules&quot;: true,</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;autoprefixer&quot;: &#123;</span><br><span class="line">      &quot;grid&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostHTML配置"><a href="#PostHTML配置" class="headerlink" title="PostHTML配置"></a>PostHTML配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add posthtml-img-autosize</span><br></pre></td></tr></table></figure>
+<p>.posthtmlrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;posthtml-img-autosize&quot;: &#123;</span><br><span class="line">      &quot;root&quot;: &quot;./images&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/yihaoliu/parcelReact" target="_blank" rel="noopener">parcelReact项目</a>。</p>
+<p>虽然说parcel是零配置但是在没有配置的情况下明显项目的灵活度降低许多，下载react有create-react-app进行构建，vue有vue-cli进行构架其实在项目配置相对来说已经非常少了，但是parcel没有配置文件还是让项目的开发有点难受，比如文件起别名，还有proxyConfig进行跨域处理在项目的开发时期都是很重有的事情，只能说对于一个初学web的人员来说配置变少了尤其是没有用到三大框架的项目组pracel还是使用很方便的，对于一些h5小网页比如基于canvas的小游戏的开发用pracel来构建还是非常方便的，但对于大型网站来说。。。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/优化/">优化</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 451 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/other/optimize/web/">web优化</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="作者：sunlei"><a href="#作者：sunlei" class="headerlink" title="作者：sunlei"></a>作者：sunlei</h3><p> <strong>script 标签的优化</strong> </p>
+<ul>
+<li>默认情况HTML解析，然后加载JS，此时HTML解析中断，然后执行JS，最后JS执行完成恢复HTML解析。</li>
+<li>defer情况是HTMl和JS 并驾齐驱，等HTML加载完成再执行JS。</li>
+<li>async 情况则HTMl和JS并驾齐驱,JS执行可能在HTML解析完成之前。 </li>
+<li>module情况和defer情况类似，只是在提取过程中多加载了多个JS文件。</li>
+</ul>
+<blockquote>
+<p>怎么区分 有以下几点 </p>
+</blockquote>
+<ol>
+<li>defer翻译过来是延缓的意思，也就是拖拖拉拉了，所以比较懒，也就是说什么都不想做，也就是哪怕你把饭端在我面前，我也懒得动嘴的那种，这么一想，我们不就记住了，哪怕你客户端把JS文件下载好了，我也懒得执行，最后实在是大家都干完事了，我才不情愿的去执行JS文件。</li>
+</ol>
+<hr>
+<ol start="2">
+<li>async翻译过来就是异步的意思，异步异步，不就是一步一步嘛，什么都想一步到位，也就是说，只要下载完我就立马执行，至于其他的想都不想。</li>
+</ol>
+<hr>
+<ol start="3">
+<li>module翻译过来就是模块的意思，es6用过的人基本都了解这个关键字，加载也和defer差不多，只不过可以加载多个JS文件而已。</li>
+</ol>
+<p><strong>从上面我们可以看出，如果你的脚本依赖于DOM构建完成是否完成，则可以使用defer；如果无需DOM的构建，那就可以放心的使用async了</strong></p>
+<h2 id="扩展导入"><a href="#扩展导入" class="headerlink" title="扩展导入"></a>扩展导入</h2><p><img src="./image.png" alt="扩展导入"><br><img src="./async.png" alt="图片详解解析步骤"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/array/">array</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 325 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/javaScript/array/function/">关于数组的使用</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Array-方法"><a href="#Array-方法" class="headerlink" title="Array 方法"></a>Array 方法</h1><h2 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h2><blockquote>
+<p>连接两个或者多个数组并返回新的数组，该方法不会影响原数组。</p>
+</blockquote>
+<h3 id="es6-实现concat"><a href="#es6-实现concat" class="headerlink" title="es6 实现concat"></a>es6 实现concat</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr1 = [2,3];</span><br><span class="line">let arr2 = [4,5];</span><br><span class="line">let arr3 = [...arr1,...arr2]</span><br></pre></td></tr></table></figure>
+<h3 id="实现一个concat"><a href="#实现一个concat" class="headerlink" title="实现一个concat"></a>实现一个concat</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.myConcat = function () &#123;</span><br><span class="line">  let arr = this.slice(0);</span><br><span class="line">  arguments.length &amp;&amp; [].forEach.call(arguments,(value) =&gt; &#123;</span><br><span class="line">    if (Array.isArray(value)) &#123;</span><br><span class="line">     value.forEach(val =&gt; &#123;</span><br><span class="line">       arr.push(val);</span><br><span class="line">     &#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      arr.push(value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">concat()</td>
+<td style="text-align:center">连接两个或更多的数组，并返回结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">join()</td>
+<td style="text-align:center">把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。</td>
+</tr>
+<tr>
+<td style="text-align:center">pop()</td>
+<td style="text-align:center">删除并返回数组的最后一个元素</td>
+</tr>
+<tr>
+<td style="text-align:center">push()</td>
+<td style="text-align:center">向数组的末尾添加一个或更多元素，并返回新的长度。</td>
+</tr>
+<tr>
+<td style="text-align:center">reverse()</td>
+<td style="text-align:center">颠倒数组中元素的顺序。</td>
+</tr>
+<tr>
+<td style="text-align:center">shift()</td>
+<td style="text-align:center">删除并返回数组的第一个元素</td>
+</tr>
+<tr>
+<td style="text-align:center">slice()</td>
+<td style="text-align:center">从某个已有的数组返回选定的元素</td>
+</tr>
+<tr>
+<td style="text-align:center">sort()</td>
+<td style="text-align:center">对数组的元素进行排序</td>
+</tr>
+<tr>
+<td style="text-align:center">splice()</td>
+<td style="text-align:center">删除元素，并向数组添加新元素。</td>
+</tr>
+<tr>
+<td style="text-align:center">toSource()</td>
+<td style="text-align:center">返回该对象的源代码。</td>
+</tr>
+<tr>
+<td style="text-align:center">toString()</td>
+<td style="text-align:center">把数组转换为字符串，并返回结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">toLocaleString()</td>
+<td style="text-align:center">把数组转换为本地数组，并返回结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">unshift()</td>
+<td style="text-align:center">向数组的开头添加一个或更多元素，并返回新的长度。</td>
+</tr>
+<tr>
+<td style="text-align:center">valueOf()</td>
+<td style="text-align:center">返回数组对象的原始值</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    10 分钟 读完 (大约 1464 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/vue/router/">vue-router</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h1><blockquote>
+<p>Vue.js的一大特色就是构建单页面应用十分方便，既然要方便构建单页面应用那么自然少不了路由，vue-router就是vue官方提供的一个路由框架。总体来说，vue-router设计得简单好用，下面就来聊聊我实际用到过的一些方法，文章没有提到的可以去查看官方文档。vue-router的安装这里就不提了，相信会来看这篇博客同学，这些基本能力都是有的。</p>
+</blockquote>
+<p>先上例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- html部分，省略head --&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        &lt;router-link to=&quot;/goods&quot;&gt;商品&lt;/router-link&gt;</span><br><span class="line">        &lt;router-link to=&quot;/ratings&quot;&gt;评论&lt;/router-link&gt;</span><br><span class="line">        &lt;router-link to=&quot;/seller&quot;&gt;商家&lt;/router-link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script src=&quot;path-to-vue&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;path-to-vue-router&quot;&gt;&lt;/script&gt;</span><br><span class="line">// 首先定义或者引入路由的组件</span><br><span class="line">// 方法一：直接定义路由组件</span><br><span class="line">const goods = &#123; template: &apos;&lt;p&gt;goods&lt;/p&gt;&apos; &#125;;</span><br><span class="line">const ratings = &#123; template: &apos;&lt;p&gt;ratings&lt;/p&gt;&apos; &#125;;</span><br><span class="line">const seller = &#123; template: &apos;&lt;p&gt;seller&lt;/p&gt;&apos; &#125;;</span><br><span class="line">// 方法二：import引入路由组件</span><br><span class="line">import goods from &apos;components/goods/goods&apos;;</span><br><span class="line">import ratings from &apos;components/ratings/ratings&apos;;</span><br><span class="line">import seller from &apos;components/seller/seller&apos;;</span><br><span class="line">// 然后定义路由(routes)，components还可以是Vue.extend()创建的</span><br><span class="line">const routes = [</span><br><span class="line">  &#123; path: &apos;/goods&apos;, component: goods &#125;,</span><br><span class="line">  &#123; path: &apos;/ratings&apos;, component: ratings &#125;,</span><br><span class="line">  &#123; path: &apos;/seller&apos;, component: seller &#125;</span><br><span class="line">];</span><br><span class="line">// 接着创建路由实例</span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  // ES6缩写语法，相当于routes:routes</span><br><span class="line">  routes  </span><br><span class="line">&#125;);</span><br><span class="line">// 最后创建vue实例并挂载</span><br><span class="line">const app = new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  router</span><br><span class="line">&#125;);</span><br><span class="line">// 或者</span><br><span class="line">const app = new Vue(&#123;</span><br><span class="line">  router</span><br><span class="line">&#125;).$mount(&apos;#app&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>到这里就可以用vue-router轻松搭建一个单页面应用了。我一般都是使用模块化编程的形式，用.vue单文件，不知道在模块化编程里怎么加载vue-router的可以参考我的某个项目源码。</p>
+<p>router-link和router-view<br>看了上面的例子，一定对router-link和router-view很感兴趣。</p>
+<h3 id="router-link"><a href="#router-link" class="headerlink" title="router-link"></a>router-link</h3><p>从上面例子中的书写形式就可以看出，router-link是一个组件，它默认会被渲染成一个带有链接的a标签，通过to属性指定链接地址。<br>注意：被选中的router-link将自动添加一个class属性值.router-link-active。</p>
+<h5 id="router-link属性配置"><a href="#router-link属性配置" class="headerlink" title="router-link属性配置"></a>router-link属性配置</h5><h5 id="to"><a href="#to" class="headerlink" title="to"></a>to</h5><p>这是一个必须设置的属性，否则路由无法生效。它表示路由的链接，可以是一个字符串也可以是一个描述目标位置的对象。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=&quot;goods&quot;&gt;&lt;/router-link&gt;</span><br><span class="line">&lt;router-link to=&quot;&#123;path=&apos;goods&apos;&#125;&quot;&gt;&lt;/router-link&gt;</span><br></pre></td></tr></table></figure></p>
+<h5 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h5><p>一个布尔类型，默认为false。如果replace设置为true，那么导航不会留下history记录，点击浏览器回退按钮不会再回到这个路由。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=&quot;goods&quot; replace&gt;&lt;/router-link&gt;</span><br></pre></td></tr></table></figure></p>
+<h5 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h5><p>router-link默认渲染成a标签，也有方法让它渲染成其他标签，tag属性就用来设置router-link渲染成什么标签的。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 渲染成li标签 --&gt;</span><br><span class="line">&lt;router-link to=&quot;goods&quot; tag=&quot;li&quot;&gt;&lt;/router-link&gt;</span><br></pre></td></tr></table></figure></p>
+<h5 id="active-class"><a href="#active-class" class="headerlink" title="active-class"></a>active-class</h5><p>上面说了被选中的router-link将自动添加一个class属性值.router-link-active，这个属性就是来修改这个class值的。</p>
+<h3 id="router-view"><a href="#router-view" class="headerlink" title="router-view"></a>router-view</h3><p>这个组件十分关键，它就是用来渲染匹配到的路由的。<br>可以给router-view组件设置transition过渡，具体用法见Vue2.0 Transition常见用法全解惑。<br>还可以配合<keep-alive>使用，keep-alive可以缓存数据，这样不至于重新渲染路由组件的时候，之前那个路由组件的数据被清除了。比如对当前的路由组件a进行了一些DOM操作之后，点击进入另一个路由组件b，再回到路由组件a的时候之前的DOM操作还保存在，如果不加keep-alive再回到路由组件a时，之前的DOM操作就没有了，得重新进行。如果你的应用里有一个购物车组件，就需要用到keep-alive。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition&gt;</span><br><span class="line">  &lt;keep-alive&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">  &lt;/keep-alive&gt;</span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure></keep-alive></p>
+<h3 id="一些小需求怎么实现"><a href="#一些小需求怎么实现" class="headerlink" title="一些小需求怎么实现"></a>一些小需求怎么实现</h3><p>不同路由不同页面标题<br>多页面应用我们可以给每一个页面都设置一个不同的标题，但是如果是单页面应用的路由呢？其实也是可以实现的，实现的方法不止一种，我之前用的是结合命名路由和导航钩子函数的方法。如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 定义路由的时候如下定义，name也可为中文</span><br><span class="line">const routes = [</span><br><span class="line">  &#123; path: &apos;/goods&apos;, component: goods, name: &apos;goods&apos; &#125;,</span><br><span class="line">  &#123; path: &apos;/ratings&apos;, component: ratings, name: &apos;ratings&apos; &#125;,</span><br><span class="line">  &#123; path: &apos;/seller&apos;, component: seller, name: &apos;seller&apos; &#125;</span><br><span class="line">];</span><br><span class="line">// 创建路由实例</span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: routes</span><br><span class="line">&#125;)</span><br><span class="line">// 关键在这里，设置afterEach钩子函数</span><br><span class="line">router.afterEach((to, from, next) =&gt; &#123;</span><br><span class="line">  document.title = to.name;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h3><p>既然用到了命名路由，这里就提一下吧。命名路由就是用一个名称来标识一个路由，在定义路由的时候设置一个name属性即可。在router-link中也可以用路由的名字来链接到一个路由。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link :to=&quot;&#123; name: &apos;seller&apos;&#125;&quot;&gt;seller&lt;/router-link&gt;</span><br></pre></td></tr></table></figure></p>
+<p>导航钩子<br>这个我还没怎么用过，它主要是用来拦截导航的，想使用的参考官方文档吧。</p>
+<p>怎么刚进入应用就渲染某个路由组件<br>刚进入应用都是进入到“/”这个路由的，如果想直接进入到“/goods”怎么办，这里提供两种方法。一种是利用重定向，另一种是利用vue-router的导航式编程。</p>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">  &#123; path: &apos;/&apos;, redirect: &apos;/goods&apos;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>是不是很简单呢？重定向的目标也可以是一个命名的路由。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">  &#123; path: &apos;/&apos;, redirect: &#123; name: &apos;goods&apos; &#125;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h3 id="导航式编程"><a href="#导航式编程" class="headerlink" title="导航式编程"></a>导航式编程</h3><p>利用vue-router的导航式编程的router.push方法也可以实现上面的需求。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在创建vue实例并挂载后调用</span><br><span class="line">router.push(&apos;/goods&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>router.push方法就是用来动态导航到不同的链接的。它会向history栈添加一个新的记录，点击<router-link :to="...">等同于调用router.push(…)。</router-link></p>
+<p>vue-router中还有router.replace方法和router.go方法，概念及用法可参考<a href="https://router.vuejs.org/zh-cn/" target="_blank" rel="noopener">https://router.vuejs.org/zh-cn</a>。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 589 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/vue/lifecyce/">vue生命周期</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h1><h3 id="下面的表格是1-0-版本与2-0-版本的对比"><a href="#下面的表格是1-0-版本与2-0-版本的对比" class="headerlink" title="下面的表格是1.0+版本与2.0+版本的对比"></a>下面的表格是1.0+版本与2.0+版本的对比</h3><table>
+<thead>
+<tr>
+<th>vue1.0+</th>
+<th>vue2.0</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td>beforeCreate</td>
+<td style="text-align:center">组件实例刚被创建，组件属性计算之前，如data属性</td>
+</tr>
+<tr>
+<td>created</td>
+<td>created</td>
+<td style="text-align:center">组件实例创建完成，属性已绑定，但DOM还没生成,$el属性还不存在</td>
+</tr>
+<tr>
+<td>beforeCompile</td>
+<td>beforeMount</td>
+<td style="text-align:center">模板编译/挂载之前</td>
+</tr>
+<tr>
+<td>compiled</td>
+<td>mounted</td>
+<td style="text-align:center">模板编译/挂载之后</td>
+</tr>
+<tr>
+<td>ready</td>
+<td>mounted</td>
+<td style="text-align:center">模板编译/挂载之后</td>
+</tr>
+<tr>
+<td>-</td>
+<td>beforeUpdate</td>
+<td style="text-align:center">组件更新之前</td>
+</tr>
+<tr>
+<td>-</td>
+<td>updated</td>
+<td style="text-align:center">组件更新之后</td>
+</tr>
+<tr>
+<td>-</td>
+<td>activated</td>
+<td style="text-align:center">for keep-alive，组件被激活时调用</td>
+</tr>
+<tr>
+<td>-</td>
+<td>deactivated</td>
+<td style="text-align:center">for keep-alive，组件被移除时调用</td>
+</tr>
+<tr>
+<td>activated</td>
+<td>-</td>
+<td style="text-align:center">不做解释</td>
+</tr>
+<tr>
+<td>detached</td>
+<td>-</td>
+<td style="text-align:center">不做解释</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>beforeDestroy</td>
+<td style="text-align:center">组件销毁前调用</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>destroyed</td>
+<td style="text-align:center">组件销毁后调用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="用代码说清这些"><a href="#用代码说清这些" class="headerlink" title="用代码说清这些"></a>用代码说清这些</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.jsdelivr.net/vue/2.1.3/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">     &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">  var app = new Vue(&#123;</span><br><span class="line">      el: &apos;#app&apos;,</span><br><span class="line">      data: &#123;</span><br><span class="line">          message : &quot;xuxiao is boy&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">       beforeCreate: function () &#123;</span><br><span class="line">                console.group(&apos;beforeCreate 创建前状态===============》&apos;);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot; , &quot;el     : &quot; + this.$el); //undefined</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //undefined</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message)  </span><br><span class="line">        &#125;,</span><br><span class="line">        created: function () &#123;</span><br><span class="line">            console.group(&apos;created 创建完毕状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el); //undefined</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //已被初始化</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message); //已被初始化</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeMount: function () &#123;</span><br><span class="line">            console.group(&apos;beforeMount 挂载前状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + (this.$el)); //已被初始化</span><br><span class="line">            console.log(this.$el);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //已被初始化  </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message); //已被初始化  </span><br><span class="line">        &#125;,</span><br><span class="line">        mounted: function () &#123;</span><br><span class="line">            console.group(&apos;mounted 挂载结束状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el); //已被初始化</span><br><span class="line">            console.log(this.$el);    </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //已被初始化</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message); //已被初始化</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeUpdate: function () &#123;</span><br><span class="line">            console.group(&apos;beforeUpdate 更新前状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);   </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message);</span><br><span class="line">        &#125;,</span><br><span class="line">        updated: function () &#123;</span><br><span class="line">            console.group(&apos;updated 更新完成状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message);</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeDestroy: function () &#123;</span><br><span class="line">            console.group(&apos;beforeDestroy 销毁前状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);    </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message);</span><br><span class="line">        &#125;,</span><br><span class="line">        destroyed: function () &#123;</span><br><span class="line">            console.group(&apos;destroyed 销毁完成状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);  </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="附一张图后面慢慢理解"><a href="#附一张图后面慢慢理解" class="headerlink" title="附一张图后面慢慢理解"></a>附一张图后面慢慢理解</h3><p><img src="./images/lifecyce/lifecyce.png" alt="生命周期"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 78 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/vue/start/">Vue项目搭建</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="Vue项目搭建"><a href="#Vue项目搭建" class="headerlink" title="Vue项目搭建"></a>Vue项目搭建</h3><p>Vue项目搭建非常简单这里就只说一下命令操作<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ npm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"># 安装依赖，走你</span><br><span class="line">$ cd my-project</span><br><span class="line">$ npm install</span><br><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="noopener">Vue项目搭建原文地址</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 126 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/other/cmd/">自定义命令行配置</a>
+            
+        </h1>
+        <div class="content">
+            <p>平常在开发的时候因为项目多集合项目之间频繁切换非常浪费时间，因为启动项目是命令行所以想配置一个自定义命令来快速的进行项目切换和编辑器打开以及启动。</p>
+<h3 id="mac下自定义命令的配置"><a href="#mac下自定义命令的配置" class="headerlink" title="mac下自定义命令的配置"></a>mac下自定义命令的配置</h3><p>在命令行里用 VSCode 打开 .zshrc 文件如图：<br><img src="./zshrc.jpg" alt="mac的path路径文件"><br>上图是我自定的自定义命令</p>
+<h3 id="window-下自定义命令"><a href="#window-下自定义命令" class="headerlink" title="window 下自定义命令"></a>window 下自定义命令</h3>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/node/">node</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 分钟 读完 (大约 2060 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/node/packagejson/">packagejson文件详解</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="packagejson文件详解"><a href="#packagejson文件详解" class="headerlink" title="packagejson文件详解"></a>packagejson文件详解</h1><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1. 概述</span><br><span class="line">2. scripts字段</span><br><span class="line">3. dependencies字段，devDependencies字段</span><br><span class="line">4. peerDependencies</span><br><span class="line">5. bin字段</span><br><span class="line">6. main字段</span><br><span class="line">7. config 字段</span><br><span class="line">8. 其他</span><br><span class="line">9. browser字段</span><br><span class="line">10. engines 字段</span><br><span class="line">11. man字段</span><br><span class="line">12. preferGlobal字段</span><br><span class="line">13. style字段</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>每个项目的根目录下面，一般都有一个package.json文件，定义了这个项目所需要的各种模块，以及项目的配置信息（比如名称、版本、许可证等元数据）。npm install命令根据这个配置文件，自动下载所需的模块，也就是配置项目所需的运行和开发环境。</p>
+<p>下面是一个最简单的package.json文件，只定义两项元数据：项目名称和项目版本。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;xxx&quot;,</span><br><span class="line">  &quot;version&quot; : &quot;0.0.0&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>package.json文件就是一个JSON对象，该对象的每一个成员就是当前项目的一项设置。比如name就是项目名称，version是版本（遵守“大版本.次要版本.小版本”的格式）。</p>
+<p>下面是一个更完整的package.json文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;Hello World&quot;,</span><br><span class="line">	&quot;version&quot;: &quot;0.0.1&quot;,</span><br><span class="line">	&quot;author&quot;: &quot;张三&quot;,</span><br><span class="line">	&quot;description&quot;: &quot;第一个node.js程序&quot;,</span><br><span class="line">	&quot;keywords&quot;:[&quot;node.js&quot;,&quot;javascript&quot;],</span><br><span class="line">	&quot;repository&quot;: &#123;</span><br><span class="line">		&quot;type&quot;: &quot;git&quot;,</span><br><span class="line">		&quot;url&quot;: &quot;https://path/to/url&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;license&quot;:&quot;MIT&quot;,</span><br><span class="line">	&quot;engines&quot;: &#123;&quot;node&quot;: &quot;0.10.x&quot;&#125;,</span><br><span class="line">	&quot;bugs&quot;:&#123;&quot;url&quot;:&quot;http://path/to/bug&quot;,&quot;email&quot;:&quot;bug@example.com&quot;&#125;,</span><br><span class="line">	&quot;contributors&quot;:[&#123;&quot;name&quot;:&quot;李四&quot;,&quot;email&quot;:&quot;lisi@example.com&quot;&#125;],</span><br><span class="line">	&quot;scripts&quot;: &#123;</span><br><span class="line">		&quot;start&quot;: &quot;node index.js&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;dependencies&quot;: &#123;</span><br><span class="line">		&quot;express&quot;: &quot;latest&quot;,</span><br><span class="line">		&quot;mongoose&quot;: &quot;~3.8.3&quot;,</span><br><span class="line">		&quot;handlebars-runtime&quot;: &quot;~1.0.12&quot;,</span><br><span class="line">		&quot;express3-handlebars&quot;: &quot;~0.5.0&quot;,</span><br><span class="line">		&quot;MD5&quot;: &quot;~1.2.0&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;devDependencies&quot;: &#123;</span><br><span class="line">		&quot;bower&quot;: &quot;~1.2.8&quot;,</span><br><span class="line">		&quot;grunt&quot;: &quot;~0.4.1&quot;,</span><br><span class="line">		&quot;grunt-contrib-concat&quot;: &quot;~0.3.0&quot;,</span><br><span class="line">		&quot;grunt-contrib-jshint&quot;: &quot;~0.7.2&quot;,</span><br><span class="line">		&quot;grunt-contrib-uglify&quot;: &quot;~0.2.7&quot;,</span><br><span class="line">		&quot;grunt-contrib-clean&quot;: &quot;~0.5.0&quot;,</span><br><span class="line">		&quot;browserify&quot;: &quot;2.36.1&quot;,</span><br><span class="line">		&quot;grunt-browserify&quot;: &quot;~1.3.0&quot;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面详细解释package.json文件的各个字段。</p>
+<h3 id="2-scripts字段"><a href="#2-scripts字段" class="headerlink" title="2. scripts字段"></a>2. scripts字段</h3><p>scripts指定了运行脚本命令的npm命令行缩写，比如start指定了运行npm run start时，所要执行的命令。</p>
+<p>下面的设置指定了npm run preinstall、npm run postinstall、npm run start、npm run test时，所要执行的命令。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;preinstall&quot;: &quot;echo here it comes!&quot;,</span><br><span class="line">    &quot;postinstall&quot;: &quot;echo there it goes!&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;node index.js&quot;,</span><br><span class="line">    &quot;test&quot;: &quot;tap test/*.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-dependencies字段，devDependencies字段"><a href="#3-dependencies字段，devDependencies字段" class="headerlink" title="3. dependencies字段，devDependencies字段"></a>3. dependencies字段，devDependencies字段</h3><p>dependencies字段指定了项目运行所依赖的模块，devDependencies指定项目开发所需要的模块。</p>
+<p>它们都指向一个对象。该对象的各个成员，分别由模块名和对应的版本要求组成，表示依赖的模块及其版本范围。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;browserify&quot;: &quot;~13.0.0&quot;,</span><br><span class="line">    &quot;karma-browserify&quot;: &quot;~5.0.1&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的版本可以加上各种限定，主要有以下几种</p>
+<blockquote>
+<p>指定版本：比如1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。<br>波浪号（tilde）+指定版本：比如~1.2.2，表示安装1.2.x的最新版本（不低于1.2.2），但是不安装1.3.x，也就是说安装时不改变大版本号和次要版本号。<br>插入号（caret）+指定版本：比如ˆ1.2.2，表示安装1.x.x的最新版本（不低于1.2.2），但是不安装2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。<br>latest：安装最新版本。</p>
+</blockquote>
+<p>package.json文件可以手工编写，也可以使用npm init命令自动生成。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure>
+<p>这个命令采用互动方式，要求用户回答一些问题，然后在当前目录生成一个基本的package.json文件。所有问题之中，只有项目名称（name）和项目版本（version）是必填的，其他都是选填的。</p>
+<p>有了package.json文件，直接使用npm install命令，就会在当前目录中安装所需要的模块。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>如果一个模块不在package.json文件之中，可以单独安装这个模块，并使用相应的参数，将其写入package.json文件之中。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install express --save</span><br><span class="line">$ npm install express --save-dev</span><br></pre></td></tr></table></figure>
+<p>上面代码表示单独安装express模块，–save参数表示将该模块写入dependencies属性，–save-dev表示将该模块写入devDependencies属性。</p>
+<h3 id="4-peerDependencies"><a href="#4-peerDependencies" class="headerlink" title="4. peerDependencies"></a>4. peerDependencies</h3><p>有时，你的项目和所依赖的模块，都会同时依赖另一个模块，但是所依赖的版本不一样。比如，你的项目依赖A模块和B模块的1.0版，而A模块本身又依赖B模块的2.0版。</p>
+<p>大多数情况下，这不构成问题，B模块的两个版本可以并存，同时运行。但是，有一种情况，会出现问题，就是这种依赖关系将暴露给用户。</p>
+<p>最典型的场景就是插件，比如A模块是B模块的插件。用户安装的B模块是1.0版本，但是A插件只能和2.0版本的B模块一起使用。这时，用户要是将1.0版本的B的实例传给A，就会出现问题。因此，需要一种机制，在模板安装的时候提醒用户，如果A和B一起安装，那么B必须是2.0模块。</p>
+<p>peerDependencies字段，就是用来供插件指定其所需要的主工具的版本。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;chai-as-promised&quot;,</span><br><span class="line">  &quot;peerDependencies&quot;: &#123;</span><br><span class="line">    &quot;chai&quot;: &quot;1.x&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码指定，安装chai-as-promised模块时，主程序chai必须一起安装，而且chai的版本必须是1.x。如果你的项目指定的依赖是chai的2.0版本，就会报错。</p>
+<p>注意，从npm 3.0版开始，peerDependencies不再会默认安装了。</p>
+<h3 id="5-bin字段"><a href="#5-bin字段" class="headerlink" title="5. bin字段"></a>5. bin字段</h3><p>bin项用来指定各个内部命令对应的可执行文件的位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">  &quot;someTool&quot;: &quot;./bin/someTool.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码指定，someTool 命令对应的可执行文件为 bin 子目录下的 someTool.js。Npm会寻找这个文件，在node_modules/.bin/目录下建立符号链接。在上面的例子中，someTool.js会建立符号链接npm_modules/.bin/someTool。由于node_modules/.bin/目录会在运行时加入系统的PATH变量，因此在运行npm时，就可以不带路径，直接通过命令来调用这些脚本。</p>
+<p>因此，像下面这样的写法可以采用简写。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scripts: &#123;  </span><br><span class="line">  start: &apos;./node_modules/someTool/someTool.js build&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 简写为</span><br><span class="line"></span><br><span class="line">scripts: &#123;  </span><br><span class="line">  start: &apos;someTool build&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所有node_modules/.bin/目录下的命令，都可以用npm run [命令]的格式运行。在命令行下，键入npm run，然后按tab键，就会显示所有可以使用的命令。</p>
+<h3 id="6-main字段"><a href="#6-main字段" class="headerlink" title="6. main字段"></a>6. main字段</h3><p>main字段指定了加载的入口文件，require(‘moduleName’)就会加载这个文件。这个字段的默认值是模块根目录下面的index.js。</p>
+<h3 id="7-config-字段"><a href="#7-config-字段" class="headerlink" title="7. config 字段"></a>7. config 字段</h3><p>config字段用于添加命令行的环境变量。</p>
+<p>下面是一个package.json文件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;foo&quot;,</span><br><span class="line">  &quot;config&quot; : &#123; &quot;port&quot; : &quot;8080&quot; &#125;,</span><br><span class="line">  &quot;scripts&quot; : &#123; &quot;start&quot; : &quot;node server.js&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，在server.js脚本就可以引用config字段的值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">  .createServer(...)</span><br><span class="line">  .listen(process.env.npm_package_config_port)</span><br></pre></td></tr></table></figure>
+<p>用户执行npm run start命令时，这个脚本就可以得到值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run start</span><br></pre></td></tr></table></figure>
+<p>用户可以改变这个值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm config set foo:port 80</span><br></pre></td></tr></table></figure>
+<h3 id="8-其他"><a href="#8-其他" class="headerlink" title="8. 其他"></a>8. 其他</h3><h4 id="8-1-browser字段"><a href="#8-1-browser字段" class="headerlink" title="8.1 browser字段"></a>8.1 browser字段</h4><p>browser指定该模板供浏览器使用的版本。Browserify这样的浏览器打包工具，通过它就知道该打包那个文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;browser&quot;: &#123;</span><br><span class="line">  &quot;tipso&quot;: &quot;./node_modules/tipso/src/tipso.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h4 id="8-1-engines-字段"><a href="#8-1-engines-字段" class="headerlink" title="8.1 engines 字段"></a>8.1 engines 字段</h4><p>engines字段指明了该模块运行的平台，比如 Node 的某个版本或者浏览器。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;engines&quot; : &#123; &quot;node&quot; : &quot;&gt;=0.10.3 &lt;0.12&quot; &#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>该字段也可以指定适用的npm版本。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;engines&quot; : &#123; &quot;npm&quot; : &quot;~1.0.20&quot; &#125; &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-3-man字段"><a href="#8-3-man字段" class="headerlink" title="8.3 man字段"></a>8.3 man字段</h4><p>man用来指定当前模块的man文档的位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;man&quot; :[ &quot;./doc/calc.1&quot; ]</span><br></pre></td></tr></table></figure>
+<h4 id="8-4-preferGlobal字段"><a href="#8-4-preferGlobal字段" class="headerlink" title="8.4 preferGlobal字段"></a>8.4 preferGlobal字段</h4><p>preferGlobal的值是布尔值，表示当用户不将该模块安装为全局模块时（即不用–global参数），要不要显示警告，表示该模块的本意就是安装为全局模块。</p>
+<h4 id="8-5-style字段"><a href="#8-5-style字段" class="headerlink" title="8.5 style字段"></a>8.5 style字段</h4><p>style指定供浏览器使用时，样式文件所在的位置。样式文件打包工具parcelify，通过它知道样式文件的打包位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;style&quot;: [</span><br><span class="line">  &quot;./node_modules/tipso/src/tipso.css&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    
+<div class="card card-transparent">
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous">
+            <a class="is-flex-grow has-text-black-ter" href="/">上一页</a>
+        </div>
+        <div class="pagination-next">
+            <a class="is-flex-grow has-text-black-ter" href="/page/3/">下一页</a>
+        </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
+            
+            <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
+            
+            <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/6/">6</a></li>
+            
+        </ul>
+    </nav>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/other.png" alt="front-auxiliary">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        front-auxiliary
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        离心最近的地方，行程最远
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China BeiJing</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        59
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        22
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        80
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/front-auxiliary" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">front-auxiliary</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ECMAScript/">
+            <span class="level-start">
+                <span class="level-item">ECMAScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/IDE/">
+            <span class="level-start">
+                <span class="level-item">IDE</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/array/">
+            <span class="level-start">
+                <span class="level-item">array</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/chrome/">
+            <span class="level-start">
+                <span class="level-item">chrome</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/css3/">
+            <span class="level-start">
+                <span class="level-item">css3</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/css应用/">
+            <span class="level-start">
+                <span class="level-item">css应用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/html5/">
+            <span class="level-start">
+                <span class="level-item">html5</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript原理/">
+            <span class="level-start">
+                <span class="level-item">javaScript原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript基础/">
+            <span class="level-start">
+                <span class="level-item">javaScript基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript应用/">
+            <span class="level-start">
+                <span class="level-item">javaScript应用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript阅读/">
+            <span class="level-start">
+                <span class="level-item">javaScript阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/node/">
+            <span class="level-start">
+                <span class="level-item">node</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/nuxt/">
+            <span class="level-start">
+                <span class="level-item">nuxt</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/parcel/">
+            <span class="level-start">
+                <span class="level-item">parcel</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/react/">
+            <span class="level-start">
+                <span class="level-item">react</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vue/">
+            <span class="level-start">
+                <span class="level-item">vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/webpack/">
+            <span class="level-start">
+                <span class="level-item">webpack</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/优化/">
+            <span class="level-start">
+                <span class="level-item">优化</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/命令行/">
+            <span class="level-start">
+                <span class="level-item">命令行</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/方案思路/">
+            <span class="level-start">
+                <span class="level-item">方案思路</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/辅助工具/">
+            <span class="level-start">
+                <span class="level-item">辅助工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/辅助知识/">
+            <span class="level-start">
+                <span class="level-item">辅助知识</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Array-prototype-slice/" style="font-size: 10px;">Array.prototype.slice</a> <a href="/tags/ECMAScript提案/" style="font-size: 10px;">ECMAScript提案</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/IDE/" style="font-size: 13.75px;">IDE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/arguments/" style="font-size: 10px;">arguments</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/babel/" style="font-size: 11.25px;">babel</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/callee/" style="font-size: 10px;">callee</a> <a href="/tags/caller/" style="font-size: 10px;">caller</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clamp/" style="font-size: 10px;">clamp</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/css/" style="font-size: 11.25px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/flex/" style="font-size: 10px;">flex</a> <a href="/tags/forEach/" style="font-size: 10px;">forEach</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javasript/" style="font-size: 10px;">javasript</a> <a href="/tags/mac/" style="font-size: 11.25px;">mac</a> <a href="/tags/mobx/" style="font-size: 10px;">mobx</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/node/" style="font-size: 17.5px;">node</a> <a href="/tags/number/" style="font-size: 10px;">number</a> <a href="/tags/nuxt/" style="font-size: 10px;">nuxt</a> <a href="/tags/package-json/" style="font-size: 10px;">package.json</a> <a href="/tags/packaging/" style="font-size: 16.25px;">packaging</a> <a href="/tags/parcel/" style="font-size: 10px;">parcel</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/resolve/" style="font-size: 10px;">resolve</a> <a href="/tags/router/" style="font-size: 12.5px;">router</a> <a href="/tags/stage/" style="font-size: 10px;">stage</a> <a href="/tags/thinkjs/" style="font-size: 10px;">thinkjs</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/touch/" style="font-size: 10px;">touch</a> <a href="/tags/try-catch/" style="font-size: 10px;">try-catch</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue/" style="font-size: 13.75px;">vue</a> <a href="/tags/webSocket/" style="font-size: 10px;">webSocket</a> <a href="/tags/webpack/" style="font-size: 17.5px;">webpack</a> <a href="/tags/webpack2-x的变化/" style="font-size: 10px;">webpack2.x的变化</a> <a href="/tags/webpack路径简写/" style="font-size: 10px;">webpack路径简写</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/上拉加载/" style="font-size: 10px;">上拉加载</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/布局/" style="font-size: 11.25px;">布局</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/异常处理/" style="font-size: 11.25px;">异常处理</a> <a href="/tags/执行上下文/" style="font-size: 10px;">执行上下文</a> <a href="/tags/数据层/" style="font-size: 11.25px;">数据层</a> <a href="/tags/服务端项目集成/" style="font-size: 10px;">服务端项目集成</a> <a href="/tags/柯里化函数/" style="font-size: 10px;">柯里化函数</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/生命周期/" style="font-size: 11.25px;">生命周期</a> <a href="/tags/目录结构/" style="font-size: 10px;">目录结构</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a> <a href="/tags/辅助工具/" style="font-size: 18.75px;">辅助工具</a> <a href="/tags/辅助知识/" style="font-size: 10px;">辅助知识</a> <a href="/tags/配置/" style="font-size: 11.25px;">配置</a> <a href="/tags/错误类型/" style="font-size: 10px;">错误类型</a> <a href="/tags/项目打包/" style="font-size: 10px;">项目打包</a> <a href="/tags/项目搭建/" style="font-size: 12.5px;">项目搭建</a> <a href="/tags/颜色/" style="font-size: 10px;">颜色</a> <a href="/tags/颜色算法/" style="font-size: 10px;">颜色算法</a> <a href="/tags/颜色转换/" style="font-size: 10px;">颜色转换</a> <a href="/tags/颜色选择器/" style="font-size: 10px;">颜色选择器</a> <a href="/tags/鼠标相关/" style="font-size: 10px;">鼠标相关</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/node/application/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array-prototype-slice/">
+                        <span class="tag">Array.prototype.slice</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ECMAScript提案/">
+                        <span class="tag">ECMAScript提案</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IDE/">
+                        <span class="tag">IDE</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Javascript/">
+                        <span class="tag">Javascript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/apply/">
+                        <span class="tag">apply</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arguments/">
+                        <span class="tag">arguments</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/array/">
+                        <span class="tag">array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/babel/">
+                        <span class="tag">babel</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bind/">
+                        <span class="tag">bind</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cache/">
+                        <span class="tag">cache</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/call/">
+                        <span class="tag">call</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/callee/">
+                        <span class="tag">callee</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/caller/">
+                        <span class="tag">caller</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/clamp/">
+                        <span class="tag">clamp</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cmd/">
+                        <span class="tag">cmd</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css3/">
+                        <span class="tag">css3</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/flex/">
+                        <span class="tag">flex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/forEach/">
+                        <span class="tag">forEach</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/html5/">
+                        <span class="tag">html5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javascript/">
+                        <span class="tag">javascript</span>
+                        <span class="tag is-grey">22</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javasript/">
+                        <span class="tag">javasript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mac/">
+                        <span class="tag">mac</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mobx/">
+                        <span class="tag">mobx</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/new/">
+                        <span class="tag">new</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node/">
+                        <span class="tag">node</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/number/">
+                        <span class="tag">number</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nuxt/">
+                        <span class="tag">nuxt</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/package-json/">
+                        <span class="tag">package.json</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/packaging/">
+                        <span class="tag">packaging</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/parcel/">
+                        <span class="tag">parcel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/promise/">
+                        <span class="tag">promise</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/prototype/">
+                        <span class="tag">prototype</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/resolve/">
+                        <span class="tag">resolve</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/router/">
+                        <span class="tag">router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stage/">
+                        <span class="tag">stage</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/thinkjs/">
+                        <span class="tag">thinkjs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/this/">
+                        <span class="tag">this</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/touch/">
+                        <span class="tag">touch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/try-catch/">
+                        <span class="tag">try-catch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vim/">
+                        <span class="tag">vim</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webSocket/">
+                        <span class="tag">webSocket</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack2-x的变化/">
+                        <span class="tag">webpack2.x的变化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack路径简写/">
+                        <span class="tag">webpack路径简写</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/window/">
+                        <span class="tag">window</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/上拉加载/">
+                        <span class="tag">上拉加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/优化/">
+                        <span class="tag">优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/原型链/">
+                        <span class="tag">原型链</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/变量提升/">
+                        <span class="tag">变量提升</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/布局/">
+                        <span class="tag">布局</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发经验/">
+                        <span class="tag">开发经验</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异常处理/">
+                        <span class="tag">异常处理</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/执行上下文/">
+                        <span class="tag">执行上下文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据层/">
+                        <span class="tag">数据层</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/服务端项目集成/">
+                        <span class="tag">服务端项目集成</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/柯里化函数/">
+                        <span class="tag">柯里化函数</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/框架/">
+                        <span class="tag">框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则/">
+                        <span class="tag">正则</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/生命周期/">
+                        <span class="tag">生命周期</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/目录结构/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/路由/">
+                        <span class="tag">路由</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助工具/">
+                        <span class="tag">辅助工具</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助知识/">
+                        <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/配置/">
+                        <span class="tag">配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/错误类型/">
+                        <span class="tag">错误类型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目打包/">
+                        <span class="tag">项目打包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目搭建/">
+                        <span class="tag">项目搭建</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色/">
+                        <span class="tag">颜色</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色算法/">
+                        <span class="tag">颜色算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色转换/">
+                        <span class="tag">颜色转换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色选择器/">
+                        <span class="tag">颜色选择器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/鼠标相关/">
+                        <span class="tag">鼠标相关</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/node/application/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array-prototype-slice/">
+                        <span class="tag">Array.prototype.slice</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ECMAScript提案/">
+                        <span class="tag">ECMAScript提案</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IDE/">
+                        <span class="tag">IDE</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Javascript/">
+                        <span class="tag">Javascript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/apply/">
+                        <span class="tag">apply</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arguments/">
+                        <span class="tag">arguments</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/array/">
+                        <span class="tag">array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/babel/">
+                        <span class="tag">babel</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bind/">
+                        <span class="tag">bind</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cache/">
+                        <span class="tag">cache</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/call/">
+                        <span class="tag">call</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/callee/">
+                        <span class="tag">callee</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/caller/">
+                        <span class="tag">caller</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/clamp/">
+                        <span class="tag">clamp</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cmd/">
+                        <span class="tag">cmd</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css3/">
+                        <span class="tag">css3</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/flex/">
+                        <span class="tag">flex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/forEach/">
+                        <span class="tag">forEach</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/html5/">
+                        <span class="tag">html5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javascript/">
+                        <span class="tag">javascript</span>
+                        <span class="tag is-grey">22</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javasript/">
+                        <span class="tag">javasript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mac/">
+                        <span class="tag">mac</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mobx/">
+                        <span class="tag">mobx</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/new/">
+                        <span class="tag">new</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node/">
+                        <span class="tag">node</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/number/">
+                        <span class="tag">number</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nuxt/">
+                        <span class="tag">nuxt</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/package-json/">
+                        <span class="tag">package.json</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/packaging/">
+                        <span class="tag">packaging</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/parcel/">
+                        <span class="tag">parcel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/promise/">
+                        <span class="tag">promise</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/prototype/">
+                        <span class="tag">prototype</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/resolve/">
+                        <span class="tag">resolve</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/router/">
+                        <span class="tag">router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stage/">
+                        <span class="tag">stage</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/thinkjs/">
+                        <span class="tag">thinkjs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/this/">
+                        <span class="tag">this</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/touch/">
+                        <span class="tag">touch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/try-catch/">
+                        <span class="tag">try-catch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vim/">
+                        <span class="tag">vim</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webSocket/">
+                        <span class="tag">webSocket</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack2-x的变化/">
+                        <span class="tag">webpack2.x的变化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack路径简写/">
+                        <span class="tag">webpack路径简写</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/window/">
+                        <span class="tag">window</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/上拉加载/">
+                        <span class="tag">上拉加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/优化/">
+                        <span class="tag">优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/原型链/">
+                        <span class="tag">原型链</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/变量提升/">
+                        <span class="tag">变量提升</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/布局/">
+                        <span class="tag">布局</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发经验/">
+                        <span class="tag">开发经验</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异常处理/">
+                        <span class="tag">异常处理</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/执行上下文/">
+                        <span class="tag">执行上下文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据层/">
+                        <span class="tag">数据层</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/服务端项目集成/">
+                        <span class="tag">服务端项目集成</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/柯里化函数/">
+                        <span class="tag">柯里化函数</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/框架/">
+                        <span class="tag">框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则/">
+                        <span class="tag">正则</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/生命周期/">
+                        <span class="tag">生命周期</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/目录结构/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/路由/">
+                        <span class="tag">路由</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助工具/">
+                        <span class="tag">辅助工具</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助知识/">
+                        <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/配置/">
+                        <span class="tag">配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/错误类型/">
+                        <span class="tag">错误类型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目打包/">
+                        <span class="tag">项目打包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目搭建/">
+                        <span class="tag">项目搭建</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色/">
+                        <span class="tag">颜色</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色算法/">
+                        <span class="tag">颜色算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色转换/">
+                        <span class="tag">颜色转换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色选择器/">
+                        <span class="tag">颜色选择器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/鼠标相关/">
+                        <span class="tag">鼠标相关</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/other.png" alt="front-auxiliary" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 front-auxiliary&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

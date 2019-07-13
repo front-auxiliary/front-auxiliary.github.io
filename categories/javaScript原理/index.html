@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>分类: javaScript原理 - front-auxiliary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="学无止境">
+<meta property="og:type" content="website">
+<meta property="og:title" content="front-auxiliary">
+<meta property="og:url" content="http://yoursite.com/categories/javaScript原理/index.html">
+<meta property="og:site_name" content="front-auxiliary">
+<meta property="og:description" content="学无止境">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="front-auxiliary">
+<meta name="twitter:description" content="学无止境">
+<meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/other.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/other.png" alt="front-auxiliary" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">首页</a>
+                
+                <a class="navbar-item" href="/archives">时光轴</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">javaScript原理</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 187 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="javaScript的new实现原理"><a href="#javaScript的new实现原理" class="headerlink" title="javaScript的new实现原理"></a>javaScript的new实现原理</h1><p>其实javascript的new关键字只不过做了五件事情。</p>
+<p>1.创建Object</p>
+<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
+<p>3.将构造函数classA内部的this指向创建的Object</p>
+<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
+<p>5.执行构造函数class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 204 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="javaScript的forEach实现原理"><a href="#javaScript的forEach实现原理" class="headerlink" title="javaScript的forEach实现原理"></a>javaScript的forEach实现原理</h1><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 815 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/promise/">promise原理解析</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="promise原理解析"><a href="#promise原理解析" class="headerlink" title="promise原理解析"></a>promise原理解析</h1><h5 id="promise模式"><a href="#promise模式" class="headerlink" title="promise模式"></a>promise模式</h5><p>这几种方式的可维护性逐级递增，理解难度也逐级递增。这篇总结也是针对promise模式的。</p>
+<p>promise模式那么多中异步编程的方式，为什么选择promise, 因为前面几种方式不够灵活，用起来不够痛快，不优雅。为了降低异步编程的复杂性，所以promise。</p>
+<p>promise的核心是有一个promise对象，这个对象有一个重要的then()方法, 它用于指定回调函数，如：<br>f1().then(f2);</p>
+<p>promise模式在任何时刻都有三种状态：已完成（resolved），未完成（unfulfilled），那么then()方法就是为状态变化指定不同的回调函数，并总是返回一个promise对象，方便链式调用。</p>
+<p>那promise模式下，返回的数据如何在各个回调函数之间传播呢，通过resolve方法，你可以将一个函数的返回值作为参数传递给另一个函数，并且将另一个函数的返回值作为参数再传递给下一个函数……像一条“链”一样无限的这么做下去。</p>
+<h5 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//constructor</span><br><span class="line">var promise = function() &#123;</span><br><span class="line">	this.callbacks = [];</span><br><span class="line">&#125;</span><br><span class="line">promise.prototype = &#123;</span><br><span class="line">  construct: promise,</span><br><span class="line">	//成功的操作</span><br><span class="line">	resolve: function(result) &#123;</span><br><span class="line">		this.complete(&apos;resolve&apos;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//失败</span><br><span class="line">	reject: function(result) &#123;</span><br><span class="line">		this.complete(&quot;reject&quot;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//执行回调</span><br><span class="line">	complete: function(type, result) &#123;</span><br><span class="line">		while(this.callbacks[0]) &#123;</span><br><span class="line">			this.callbacks.shift()[type](result);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	then: function(successHandler, failedHandler) &#123;</span><br><span class="line">		this.callbacks.push(&#123;</span><br><span class="line">			resolve: successHandler,</span><br><span class="line">			reject: failedHandler</span><br><span class="line">		&#125;);</span><br><span class="line">		return this;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//运行下边是方法的调用</span><br><span class="line">var pro = new promise();</span><br><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		pro.resolve(&apos;数据1&apos;);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return pro;</span><br><span class="line">&#125;;</span><br><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delay1().then(callback1)</span><br><span class="line">console.log(&quot;我是最后吗&quot;);</span><br><span class="line"> /*</span><br><span class="line"> *以上方法输出的结果分别是</span><br><span class="line"> *我是最后吗</span><br><span class="line"> *数据1</span><br><span class="line"> *数据2</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>#####代码分析<br>我们可看到一个简单的promise对象的构造函数的结构：</p>
+<pre><code>callbacks: 用于管理回调函数
+resolve: 请求成功时执行的方法
+reject:请求失败时执行的方法
+complete: 执行回调
+then：绑定回调函数
+</code></pre><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		promise.resolve(‘数据1’);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return promise;</span><br><span class="line">&#125;;</span><br><span class="line">//这个函数通过setTimeout方法， 异步传递一个数据1， 并返回一个promise对象(必须)。</span><br></pre></td></tr></table></figure>
+<p>#####第二步<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">	promise.resolve(re);</span><br><span class="line">&#125;;</span><br><span class="line">//callback1和callback2都是要通过then方法注册的回调函数， 其中callback1通过resolve方法把数据往下传递。</span><br></pre></td></tr></table></figure></p>
+<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delay1().then(callback1).then(callback2);</span><br><span class="line">//delay1() 方法执行完， 因为返回了一个promise对象， 所以可以再调用then() 方法为delay1() 的setTimeout异步执行操作指定回调函数, 又因为then() 方法也返回的是promise对象， 所以还可以再调用then方法</span><br></pre></td></tr></table></figure>
+<h5 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">	promise.resolve(&apos;数据1&apos;);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">//一秒之后， 当其他代码执行完成， 开始执行异步代码promise.resolve(‘数据1’);，</span><br><span class="line">//这里调用promise的resolve() 方法， 指定了一个成功状态， 并把数据1作为参数。</span><br></pre></td></tr></table></figure>
+<h5 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resolve: function(result) &#123;</span><br><span class="line">  this.complete(&quot;resolve&quot;, result);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"><a href="#第六步：循环执行回调，将上一个回调的结果传递给下一个回调" class="headerlink" title="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"></a>第六步：循环执行回调，将上一个回调的结果传递给下一个回调</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">complete: function(type, result) &#123;</span><br><span class="line">	while(this.callbacks[0]) &#123;</span><br><span class="line">		this.callbacks.shift()[type](result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 分钟 读完 (大约 1751 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/slice/">Array.prototype.slice应用和原理探析</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Array-prototype-slice应用和原理探析"><a href="#Array-prototype-slice应用和原理探析" class="headerlink" title="Array.prototype.slice应用和原理探析"></a>Array.prototype.slice应用和原理探析</h1><h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
+<h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
+<h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
+<p>有必要探究一番其使用方式和内部原理。</p>
+<h3 id="问题拆解"><a href="#问题拆解" class="headerlink" title="问题拆解"></a>问题拆解</h3><p>Array.prototype.slice作为Array.prototype对象的一个方法，对其调用在API中有详细说明，并不费解，对Array.prototype.slice的疑问可拆解为两个方面：一是该函数究竟返回什么对象？二是该函数可应用于什么对象？即非数组对象需要满足什么条件才能借用(复用)该函数？</p>
+<h3 id="该函数究竟返回什么对象"><a href="#该函数究竟返回什么对象" class="headerlink" title="该函数究竟返回什么对象"></a>该函数究竟返回什么对象</h3><p>为了探究返回对象的类型信息，写一个简单的对象工具集合：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objs = &#123;  </span><br><span class="line">    &quot;descType&quot;:function(o)&#123;  </span><br><span class="line">        console.info(o);  </span><br><span class="line">        console.info(&quot;typeof o:&quot; + (typeof o));  </span><br><span class="line">        console.info(&quot;o.constructor:&quot; + (o.constructor));  </span><br><span class="line">        console.info(&quot;o instanceof Object:&quot; + (o instanceof Object));  </span><br><span class="line">        console.info(&quot;o instanceof Array:&quot; + (o instanceof Array));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后测试几个简单的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var v = [&apos;a&apos;,true,9].slice(0);  </span><br><span class="line">objs.descType(v);</span><br><span class="line">// typeof o:object</span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;</span><br><span class="line">// o instanceof Object:true</span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
+<p>数组对象自身上调用slice方法当然不必再使用“var v = Array.prototype.slice.call([‘a’,true,9]);”这种方法，虽然是可以这样用的，结果表明返回的对象的确是Array类型的对象。</p>
+<h3 id="该函数可应用于什么对象"><a href="#该函数可应用于什么对象" class="headerlink" title="该函数可应用于什么对象"></a>该函数可应用于什么对象</h3><p>1 既然该方法是作为Array.prototype的方法，那么数组对象本身当然可以调用该方法。</p>
+<p>2 Arguments类型的对象可正确调用该函数。</p>
+<p>同样用一个简单的例子测试下arguments对象借用该函数后的对象类型。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;  </span><br><span class="line">    objs.descType(arguments);  </span><br><span class="line">    var newArg = Array.prototype.slice.call(arguments, 0);  </span><br><span class="line">    objs.descType(newArg);  </span><br><span class="line">&#125;  </span><br><span class="line">f(&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;);</span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">/// o.constructor:function Object() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:false  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
+<p>可以看到arguments对象本身并不是Array类型的–o instanceof Array:false，进一步展开该对象细节，可以看到其属性列表如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">callee:function f()  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
+<p>有length属性，有’0’,’1’,’2’属性，有’callee’属性，是一个Arguments类型的一个对象实例。而经过Array.prototype.slice.call调用后返回的对象就是一个真真正正的Array对象：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
+<p>这说明arguments对象和转换后的array对象非常类似–不仅属性类似，连用法也类似，比如arguments对象也支持[]运算符调用其属性值(其实本质是对象元素访问的通用语法，只不过属性名刚好为转换为字符串的整数而已)。所以结论是在js语言中，对arguments对象调用Array.prototype.slice.call(arguments, 0)纯属“闲的蛋疼”的做法(除非设计的函数用法非常的动态，比如需要对参数做shift等之类的数组操作)。</p>
+<p>那么除了arguments对象之外，其他类型的对象可以借用Array.prototype.slice函数么？继续简单的测试几个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(true,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&apos;abc&apos;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(256,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&#123;&#125;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(undefined,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(null,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(NaN,0));</span><br></pre></td></tr></table></figure></p>
+<p>对undefined和null调用slice抛出异常，这是预期的行为，对NaN/true/256/{}返回一个空数组对象，对字符串’abc’返回一个数组：[“a”, “b”, “c”]，现在的重点是对对象调用的探究，传入一个初始化为空的对象直接量返回的是一个空数组对象，而上面测试在arguments对象上调用slice返回一个正常的数组–两者有何区别？</p>
+<p>一个很容易联想的点子是该调用对象应该具备length属性才可以被slice正确处理，测试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5&#125;,0));</span><br></pre></td></tr></table></figure></p>
+<p>结果果然是一个length值为5的数组对象，但其中5个元素值都为undefined。那么更进一步的想法应该是：调用对象除了有length属性之外，是不是也应该有索引属性名？即自动转换为字符类型的整数数字属性名？再试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5,&apos;0&apos;:&apos;gebilaowang&apos;,&apos;1&apos;:&apos;ximenqin&apos;&#125;,0));</span><br></pre></td></tr></table></figure></p>
+<p>ok，大功告成，结果果然是预期数组：[“gebilaowang”,”ximenqin”,undefined,undefined,undefined]。因此结论是：只有具备”可转换为数值型的length属性”并且同时具备”索引属性”的对象才可以正确被slice函数处理(返回或者说转换为预期数组)，这种类型的对象经过查阅果然有一种专属称谓–Array-like Object。</p>
+<h3 id="3-Array-like对象可正确调用该函数。"><a href="#3-Array-like对象可正确调用该函数。" class="headerlink" title="3 Array-like对象可正确调用该函数。"></a>3 Array-like对象可正确调用该函数。</h3><p>现在来探究jQuery中对Array.prototype.slice方法的使用场景，jQuery对各种原型方法的应用当然是非常牛逼的甚至达到炉火纯青的境界，其实jQuery对象本身就是一个Array-like对象，因为其有length属性，也有索引属性，分析其初始化构造函数(1.6.1版本)即可明白(特别注意对this.length和this[index]属性的设置)：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype.init: function( selector, context, rootjQuery ) &#123;  </span><br><span class="line">            var match, elem, ret, doc;  </span><br><span class="line"></span><br><span class="line">            // Handle $(&quot;&quot;), $(null), or $(undefined)  </span><br><span class="line">            if ( !selector ) &#123;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle $(DOMElement)  </span><br><span class="line">            if ( selector.nodeType ) &#123;  </span><br><span class="line">                this.context = this[0] = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // The body element only exists once, optimize finding it  </span><br><span class="line">            if ( selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body ) &#123;  </span><br><span class="line">                this.context = document;  </span><br><span class="line">                this[0] = document.body;  </span><br><span class="line">                this.selector = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle HTML strings  </span><br><span class="line">            if ( typeof selector === &quot;string&quot; ) &#123;  </span><br><span class="line">              // Are we dealing with HTML string or an ID?  </span><br><span class="line">               if ( selector.charAt(0) === &quot;&lt;&quot; &amp;&amp; selector.charAt( selector.length - 1 ) === &quot;&gt;&quot; &amp;&amp; selector.length &gt;= 3 ) &#123;  </span><br><span class="line">                   // Assume that strings that start and end with &lt;&gt; are HTML and skip the regex check  </span><br><span class="line">                   match = [ null, selector, null ];  </span><br><span class="line"></span><br><span class="line">               &#125; else &#123;  </span><br><span class="line">                   match = quickExpr.exec( selector );  </span><br><span class="line">               &#125;  </span><br><span class="line"></span><br><span class="line">               // Verify a match, and that no context was specified for #id  </span><br><span class="line">               if ( match &amp;&amp; (match[1] || !context) ) &#123;  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(html) -&gt; $(array)  </span><br><span class="line">                   if ( match[1] ) &#123;  </span><br><span class="line">                       context = context instanceof jQuery ? context[0] : context;  </span><br><span class="line">                       doc = (context ? context.ownerDocument || context : document);  </span><br><span class="line"></span><br><span class="line">                       // If a single string is passed in and it&apos;s a single tag  </span><br><span class="line">                       // just do a createElement and skip the rest  </span><br><span class="line">                       ret = rsingleTag.exec( selector );  </span><br><span class="line"></span><br><span class="line">                       if ( ret ) &#123;  </span><br><span class="line">                           if ( jQuery.isPlainObject( context ) ) &#123;  </span><br><span class="line">                               selector = [ document.createElement( ret[1] ) ];  </span><br><span class="line">                               jQuery.fn.attr.call( selector, context, true );  </span><br><span class="line"></span><br><span class="line">                           &#125; else &#123;  </span><br><span class="line">                               selector = [ doc.createElement( ret[1] ) ];  </span><br><span class="line">                           &#125;  </span><br><span class="line"></span><br><span class="line">                       &#125; else &#123;  </span><br><span class="line">                           ret = jQuery.buildFragment( [ match[1] ], [ doc ] );  </span><br><span class="line">                           selector = (ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment).childNodes;  </span><br><span class="line">                       &#125;  </span><br><span class="line"></span><br><span class="line">                       return jQuery.merge( this, selector );  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(&quot;#id&quot;)  </span><br><span class="line">                   &#125; else &#123;  </span><br><span class="line">                        elem = document.getElementById( match[2] );  </span><br><span class="line"></span><br><span class="line">                        // Check parentNode to catch when Blackberry 4.6 returns  </span><br><span class="line">                        // nodes that are no longer in the document #6963  </span><br><span class="line">                        if ( elem &amp;&amp; elem.parentNode ) &#123;  </span><br><span class="line">                            // Handle the case where IE and Opera return items  </span><br><span class="line">                            // by name instead of ID  </span><br><span class="line">                            if ( elem.id !== match[2] ) &#123;  </span><br><span class="line">                                return rootjQuery.find( selector );  </span><br><span class="line">                            &#125;  </span><br><span class="line"></span><br><span class="line">                            // Otherwise, we inject the element directly into the jQuery object  </span><br><span class="line">                            this.length = 1;  </span><br><span class="line">                            this[0] = elem;  </span><br><span class="line">                        &#125;  </span><br><span class="line"></span><br><span class="line">                        this.context = document;  </span><br><span class="line">                        this.selector = selector;  </span><br><span class="line">                        return this;  </span><br><span class="line">                    &#125;  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, $(...))  </span><br><span class="line">                &#125; else if ( !context || context.jquery ) &#123;  </span><br><span class="line">                    return (context || rootjQuery).find( selector );  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, context)  </span><br><span class="line">                // (which is just equivalent to: $(context).find(expr)  </span><br><span class="line">                &#125; else &#123;  </span><br><span class="line">                    return this.constructor( context ).find( selector );  </span><br><span class="line">                &#125;  </span><br><span class="line"></span><br><span class="line">            // HANDLE: $(function)  </span><br><span class="line">            // Shortcut for document ready  </span><br><span class="line">            &#125; else if ( jQuery.isFunction( selector ) ) &#123;  </span><br><span class="line">               return rootjQuery.ready( selector );  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           if (selector.selector !== undefined) &#123;  </span><br><span class="line">               this.selector = selector.selector;  </span><br><span class="line">               this.context = selector.context;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           return jQuery.makeArray( selector, this );  </span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>这是分析并理解jQuery背后原理的最基础最前提的一步。</p>
+<h3 id="原理探析"><a href="#原理探析" class="headerlink" title="原理探析"></a>原理探析</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function slice(start, end) &#123;   </span><br><span class="line">    var startToUse = start || 0,   </span><br><span class="line">        endToUse = end || ToUint32(this.length),   </span><br><span class="line">        result = [];   </span><br><span class="line">    for(var i = startToUse; i &lt; endToUse; i++) &#123;   </span><br><span class="line">        result.push(this[i]);   </span><br><span class="line">    &#125;  </span><br><span class="line">    return result;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 分钟 读完 (大约 2122 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/router/">路由实现原理解析</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="路由实现原理解析"><a href="#路由实现原理解析" class="headerlink" title="路由实现原理解析"></a>路由实现原理解析</h1><p><a href="https://github.com/joeyguo/blog/issues/2" target="_blank" rel="noopener">原文地址</a></p>
+<p>在单页应用上，前端路由并不陌生。很多前端框架也会有独立开发或推荐配套使用的路由系统。那么，当我们在谈前端路由的时候，还可以谈些什么？本文将简要分析并实现一个的前端路由，并对 react-router 进行分析。</p>
+<h3 id="一个极简前端路由实现"><a href="#一个极简前端路由实现" class="headerlink" title="一个极简前端路由实现"></a>一个极简前端路由实现</h3><p>说一下前端路由实现的简要原理，以 hash 形式（也可以使用 History API 来处理）为例，当 url 的 hash 发生变化时，触发 hashchange 注册的回调，回调中去进行不同的操作，进行不同的内容的展示。直接看代码或许更直观。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Router() &#123;</span><br><span class="line">    this.routes = &#123;&#125;;</span><br><span class="line">    this.currentUrl = &apos;&apos;;</span><br><span class="line">&#125;</span><br><span class="line">Router.prototype.route = function(path, callback) &#123;</span><br><span class="line">    this.routes[path] = callback || function()&#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">Router.prototype.refresh = function() &#123;</span><br><span class="line">    this.currentUrl = location.hash.slice(1) || &apos;/&apos;;</span><br><span class="line">    this.routes[this.currentUrl]();</span><br><span class="line">&#125;;</span><br><span class="line">Router.prototype.init = function() &#123;</span><br><span class="line">    window.addEventListener(&apos;load&apos;, this.refresh.bind(this), false);</span><br><span class="line">    window.addEventListener(&apos;hashchange&apos;, this.refresh.bind(this), false);</span><br><span class="line">&#125;</span><br><span class="line">window.Router = new Router();</span><br><span class="line">window.Router.init();</span><br></pre></td></tr></table></figure></p>
+<p>上面路由系统 Router 对象实现，主要提供三个方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">init 监听浏览器 url hash 更新事件</span><br><span class="line">route 存储路由更新时的回调到回调数组routes中，回调函数将负责对页面的更新</span><br><span class="line">refresh 执行当前url对应的回调函数，更新页面</span><br><span class="line">Router 调用方式以及呈现效果如下：点击触发 url 的 hash 改变，并对应地更新内容（这里为 body 背景色）</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/&quot;&gt;turn white&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/blue&quot;&gt;turn blue&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/green&quot;&gt;turn green&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">var content = document.querySelector(&apos;body&apos;);</span><br><span class="line">// change Page anything</span><br><span class="line">function changeBgColor(color) &#123;</span><br><span class="line">    content.style.backgroundColor = color;</span><br><span class="line">&#125;</span><br><span class="line">Router.route(&apos;/&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;white&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(&apos;/blue&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;blue&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(&apos;/green&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;green&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>以上为一个前端路由的简单实现，点击查看完整代码，虽然简单，但实际上很多路由系统的根基都立于此，其他路由系统主要是对自身使用的框架机制的进行配套及优化，如与 react 配套的 react-router。</p>
+<h3 id="react-router-分析"><a href="#react-router-分析" class="headerlink" title="react-router 分析"></a>react-router 分析</h3><p>react-router 与 history 结合形式</p>
+<p>react-router 是基于 history 模块提供的 api 进行开发的，结合的形式本文记为 包装方式。所以在开始对其分析之前，先举一个简单的例子来说明如何进行对象的包装。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// 原对象</span><br><span class="line">var historyModule = &#123;</span><br><span class="line">    listener: [],</span><br><span class="line">    listen: function (listener) &#123;</span><br><span class="line">        this.listener.push(listener);</span><br><span class="line">        console.log(&apos;historyModule listen..&apos;)</span><br><span class="line">    &#125;,</span><br><span class="line">    updateLocation: function()&#123;</span><br><span class="line">        this.listener.forEach(function(listener)&#123;</span><br><span class="line">            listener(&apos;new localtion&apos;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Router 将使用 historyModule 对象，并对其包装</span><br><span class="line">var Router = &#123;</span><br><span class="line">    source: &#123;&#125;,</span><br><span class="line">    init: function(source)&#123;</span><br><span class="line">        this.source = source;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 对 historyModule的listen进行了一层包装</span><br><span class="line">    listen: function(listener) &#123;</span><br><span class="line">        return this.source.listen(function(location)&#123;</span><br><span class="line">            console.log(&apos;Router listen tirgger.&apos;);</span><br><span class="line">            listener(location);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 将 historyModule 注入进 Router 中</span><br><span class="line">Router.init(historyModule);</span><br><span class="line">// Router 注册监听</span><br><span class="line">Router.listen(function(location)&#123;</span><br><span class="line">    console.log(location + &apos;-&gt; Router setState.&apos;);</span><br><span class="line">&#125;)</span><br><span class="line">// historyModule 触发回调</span><br><span class="line">historyModule.updateLocation();</span><br><span class="line"></span><br><span class="line">返回：</span><br><span class="line">22</span><br></pre></td></tr></table></figure></p>
+<p>可看到 historyModule 中含有机制：historyModule.updateLocation() -&gt; listener( )，Router 通过对其进行包装开发，针对 historyModule 的机制对 Router 也起到了作用，即historyModule.updateLocation() 将触发 Router.listen 中的回调函数 。点击查看完整代码<br>这种包装形式能够充分利用原对象（historyModule ）的内部机制，减少开发成本，也更好的分离包装函数（Router）的逻辑，减少对原对象的影响。</p>
+<h3 id="react-router-使用方式"><a href="#react-router-使用方式" class="headerlink" title="react-router 使用方式"></a>react-router 使用方式</h3><p>react-router 以 react component 的组件方式提供 API， 包含 Router，Route，Redirect，Link 等等，这样能够充分利用 react component 提供的生命周期特性，同时也让定义路由跟写 react component 达到统一，如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">render((</span><br><span class="line">  &lt;Router history=&#123;browserHistory&#125;&gt;</span><br><span class="line">    &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">      &lt;Route path=&quot;about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">      &lt;Route path=&quot;users&quot; component=&#123;Users&#125;&gt;</span><br><span class="line">        &lt;Route path=&quot;/user/:userId&quot; component=&#123;User&#125;/&gt;</span><br><span class="line">      &lt;/Route&gt;</span><br><span class="line">      &lt;Route path=&quot;*&quot; component=&#123;NoMatch&#125;/&gt;</span><br><span class="line">    &lt;/Route&gt;</span><br><span class="line">  &lt;/Router&gt;</span><br><span class="line">), document.body)</span><br></pre></td></tr></table></figure></p>
+<p>就这样，声明了一份含有 path to component 的各个映射的路由表。<br>react-router 还提供的 Link 组件（如下），作为提供更新 url 的途径，触发 Link 后最终将通过如上面定义的路由表进行匹配，并拿到对应的 component 及 state 进行 render 渲染页面。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=&#123;`/user/89757`&#125;&gt;&apos;joey&apos;&lt;/Link&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里不细讲 react-router 的使用，详情可见：<a href="https://github.com/reactjs/react-router" target="_blank" rel="noopener">https://github.com/reactjs/react-router</a></p>
+<p>从点击 Link 到 render 对应 component ，路由中发生了什么</p>
+<p>为何能够触发 render component ？</p>
+<p>主要是因为触发了 react setState 的方法从而能够触发 render component。<br>从顶层组件 Router 出发（下面代码从 react-router/Router 中摘取），可看到 Router 在 react component 生命周期之组件被挂载前 componentWillMount 中使用 this.history.listen 去注册了 url 更新的回调函数。回调函数将在 url 更新时触发，回调中的 setState 起到 render 了新的 component 的作用。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.componentWillMount = function componentWillMount() &#123;</span><br><span class="line">    // .. 省略其他</span><br><span class="line">    var createHistory = this.props.history;</span><br><span class="line"></span><br><span class="line">    this.history = _useRoutes2[&apos;default&apos;](createHistory)(&#123;</span><br><span class="line">      routes: _RouteUtils.createRoutes(routes || children),</span><br><span class="line">      parseQueryString: parseQueryString,</span><br><span class="line">      stringifyQuery: stringifyQuery</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    this._unlisten = this.history.listen(function (error, state) &#123;</span><br><span class="line">        _this.setState(state, _this.props.onUpdate);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面的 _useRoutes2 对 history 操作便是对其做一层包装，所以调用的 this.history 实际为包装以后的对象，该对象含有 _useRoutes2 中的 listen 方法，如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function listen(listener) &#123;</span><br><span class="line">      return history.listen(function (location) &#123;</span><br><span class="line">          // .. 省略其他</span><br><span class="line">          match(location, function (error, redirectLocation, nextState) &#123;</span><br><span class="line">            listener(null, nextState);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可看到，上面代码中，主要分为两部分</p>
+<p>使用了 history 模块的 listen 注册了一个含有 setState 的回调函数（这样就能使用 history 模块中的机制）<br>回调中的 match 方法为 react-router 所特有，match 函数根据当前 location 以及前面写的 Route 路由表匹配出对应的路由子集得到新的路由状态值 state，具体实现可见 react-router/matchRoutes ，再根据 state 得到对应的 component ，最终执行了 match 中的回调 listener(null, nextState) ，即执行了 Router 中的监听回调（setState），从而更新了展示。<br>以上，为起始注册的监听，及回调的作用。</p>
+<p>如何触发监听的回调函数的执行？</p>
+<p>这里还得从如何更新 url 说起。一般来说，url 更新主要有两种方式：简单的 hash 更新或使用 history api 进行地址更新。在 react-router 中，其提供了 Link 组件，该组件能在 render 中使用，最终会表现为 a 标签，并将 Link 中的各个参数组合放它的 href 属性中。可以从 react-router/ Link 中看到，对该组件的点击事件进行了阻止了浏览器的默认跳转行为，而改用 history 模块的 pushState 方法去触发 url 更新。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Link.prototype.render = function render() &#123;</span><br><span class="line">    // .. 省略其他</span><br><span class="line">    props.onClick = function (e) &#123;</span><br><span class="line">      return _this.handleClick(e);</span><br><span class="line">    &#125;;</span><br><span class="line">    if (history) &#123;</span><br><span class="line">     // .. 省略其他</span><br><span class="line">      props.href = history.createHref(to, query);</span><br><span class="line">    &#125;</span><br><span class="line">    return _react2[&apos;default&apos;].createElement(&apos;a&apos;, props);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Link.prototype.handleClick = function handleClick(event) &#123;</span><br><span class="line">    // .. 省略其他</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    this.context.history.pushState(this.props.state, this.props.to, this.props.query);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>对 history 模块的 pushState 方法对 url 的更新形式，同样分为两种，分别在 history/createBrowserHistory 及 history/createHashHistory 各自的 finishTransition 中，如 history/createBrowserHistory 中使用的是 window.history.replaceState(historyState, null, path); 而 history/createHashHistory 则使用 window.location.hash = url，调用哪个是根据我们一开始创建 history 的方式。</p>
+<p>更新 url 的显示是一部分，另一部分是根据 url 去更新展示，也就是触发前面的监听。这是在前面 finishTransition 更新 url 之后实现的，调用的是 history/createHistory 中的 updateLocation 方法，changeListeners 中为 history/createHistory 中的 listen 中所添加的，如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function updateLocation(newLocation) &#123;</span><br><span class="line">   // 示意代码</span><br><span class="line">    location = newLocation;</span><br><span class="line">    changeListeners.forEach(function (listener) &#123;</span><br><span class="line">      listener(location);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">function listen(listener) &#123;</span><br><span class="line">     // 示意代码</span><br><span class="line">    changeListeners.push(listener);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###总结</p>
+<p>可以将以上 react-router 的整个包装闭环总结为</p>
+<p>回调函数：含有能够更新 react UI 的 react setState 方法。<br>注册回调：在 Router componentWillMount 中使用 history.listen 注册的回调函数，最终放在 history 模块的 回调函数数组 changeListeners 中。<br>触发回调：Link 点击触发 history 中回调函数数组 changeListeners 的执行，从而触发原来 listen 中的 setState 方法，更新了页面<br>至于前进与后退的实现，是通过监听 popstate 以及 hashchange 的事件，当前进或后退 url 更新时，触发这两个事件的回调函数，回调的执行方式 Link 大致相同，最终同样更新了 UI ，这里就不再说明。</p>
+<p>react-router 主要是利用底层 history 模块的机制，通过结合 react 的架构机制做一层包装，实际自身的内容并不多，但其包装的思想笔者认为很值得学习，有兴趣的建议阅读下源码，相信会有其他收获。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/other.png" alt="front-auxiliary">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        front-auxiliary
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        离心最近的地方，行程最远
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China BeiJing</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        59
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        22
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        80
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/front-auxiliary" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">front-auxiliary</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ECMAScript/">
+            <span class="level-start">
+                <span class="level-item">ECMAScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/IDE/">
+            <span class="level-start">
+                <span class="level-item">IDE</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/array/">
+            <span class="level-start">
+                <span class="level-item">array</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/chrome/">
+            <span class="level-start">
+                <span class="level-item">chrome</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/css3/">
+            <span class="level-start">
+                <span class="level-item">css3</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/css应用/">
+            <span class="level-start">
+                <span class="level-item">css应用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/html5/">
+            <span class="level-start">
+                <span class="level-item">html5</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript原理/">
+            <span class="level-start">
+                <span class="level-item">javaScript原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript基础/">
+            <span class="level-start">
+                <span class="level-item">javaScript基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript应用/">
+            <span class="level-start">
+                <span class="level-item">javaScript应用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript阅读/">
+            <span class="level-start">
+                <span class="level-item">javaScript阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/node/">
+            <span class="level-start">
+                <span class="level-item">node</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/nuxt/">
+            <span class="level-start">
+                <span class="level-item">nuxt</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/parcel/">
+            <span class="level-start">
+                <span class="level-item">parcel</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/react/">
+            <span class="level-start">
+                <span class="level-item">react</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vue/">
+            <span class="level-start">
+                <span class="level-item">vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/webpack/">
+            <span class="level-start">
+                <span class="level-item">webpack</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/优化/">
+            <span class="level-start">
+                <span class="level-item">优化</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/命令行/">
+            <span class="level-start">
+                <span class="level-item">命令行</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/方案思路/">
+            <span class="level-start">
+                <span class="level-item">方案思路</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/辅助工具/">
+            <span class="level-start">
+                <span class="level-item">辅助工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/辅助知识/">
+            <span class="level-start">
+                <span class="level-item">辅助知识</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Array-prototype-slice/" style="font-size: 10px;">Array.prototype.slice</a> <a href="/tags/ECMAScript提案/" style="font-size: 10px;">ECMAScript提案</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/IDE/" style="font-size: 13.75px;">IDE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/arguments/" style="font-size: 10px;">arguments</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/babel/" style="font-size: 11.25px;">babel</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/callee/" style="font-size: 10px;">callee</a> <a href="/tags/caller/" style="font-size: 10px;">caller</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clamp/" style="font-size: 10px;">clamp</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/css/" style="font-size: 11.25px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/flex/" style="font-size: 10px;">flex</a> <a href="/tags/forEach/" style="font-size: 10px;">forEach</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javasript/" style="font-size: 10px;">javasript</a> <a href="/tags/mac/" style="font-size: 11.25px;">mac</a> <a href="/tags/mobx/" style="font-size: 10px;">mobx</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/node/" style="font-size: 17.5px;">node</a> <a href="/tags/number/" style="font-size: 10px;">number</a> <a href="/tags/nuxt/" style="font-size: 10px;">nuxt</a> <a href="/tags/package-json/" style="font-size: 10px;">package.json</a> <a href="/tags/packaging/" style="font-size: 16.25px;">packaging</a> <a href="/tags/parcel/" style="font-size: 10px;">parcel</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/resolve/" style="font-size: 10px;">resolve</a> <a href="/tags/router/" style="font-size: 12.5px;">router</a> <a href="/tags/stage/" style="font-size: 10px;">stage</a> <a href="/tags/thinkjs/" style="font-size: 10px;">thinkjs</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/touch/" style="font-size: 10px;">touch</a> <a href="/tags/try-catch/" style="font-size: 10px;">try-catch</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue/" style="font-size: 13.75px;">vue</a> <a href="/tags/webSocket/" style="font-size: 10px;">webSocket</a> <a href="/tags/webpack/" style="font-size: 17.5px;">webpack</a> <a href="/tags/webpack2-x的变化/" style="font-size: 10px;">webpack2.x的变化</a> <a href="/tags/webpack路径简写/" style="font-size: 10px;">webpack路径简写</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/上拉加载/" style="font-size: 10px;">上拉加载</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/布局/" style="font-size: 11.25px;">布局</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/异常处理/" style="font-size: 11.25px;">异常处理</a> <a href="/tags/执行上下文/" style="font-size: 10px;">执行上下文</a> <a href="/tags/数据层/" style="font-size: 11.25px;">数据层</a> <a href="/tags/服务端项目集成/" style="font-size: 10px;">服务端项目集成</a> <a href="/tags/柯里化函数/" style="font-size: 10px;">柯里化函数</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/生命周期/" style="font-size: 11.25px;">生命周期</a> <a href="/tags/目录结构/" style="font-size: 10px;">目录结构</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a> <a href="/tags/辅助工具/" style="font-size: 18.75px;">辅助工具</a> <a href="/tags/辅助知识/" style="font-size: 10px;">辅助知识</a> <a href="/tags/配置/" style="font-size: 11.25px;">配置</a> <a href="/tags/错误类型/" style="font-size: 10px;">错误类型</a> <a href="/tags/项目打包/" style="font-size: 10px;">项目打包</a> <a href="/tags/项目搭建/" style="font-size: 12.5px;">项目搭建</a> <a href="/tags/颜色/" style="font-size: 10px;">颜色</a> <a href="/tags/颜色算法/" style="font-size: 10px;">颜色算法</a> <a href="/tags/颜色转换/" style="font-size: 10px;">颜色转换</a> <a href="/tags/颜色选择器/" style="font-size: 10px;">颜色选择器</a> <a href="/tags/鼠标相关/" style="font-size: 10px;">鼠标相关</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/node/application/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array-prototype-slice/">
+                        <span class="tag">Array.prototype.slice</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ECMAScript提案/">
+                        <span class="tag">ECMAScript提案</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IDE/">
+                        <span class="tag">IDE</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Javascript/">
+                        <span class="tag">Javascript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/apply/">
+                        <span class="tag">apply</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arguments/">
+                        <span class="tag">arguments</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/array/">
+                        <span class="tag">array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/babel/">
+                        <span class="tag">babel</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bind/">
+                        <span class="tag">bind</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cache/">
+                        <span class="tag">cache</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/call/">
+                        <span class="tag">call</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/callee/">
+                        <span class="tag">callee</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/caller/">
+                        <span class="tag">caller</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/clamp/">
+                        <span class="tag">clamp</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cmd/">
+                        <span class="tag">cmd</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css3/">
+                        <span class="tag">css3</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/flex/">
+                        <span class="tag">flex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/forEach/">
+                        <span class="tag">forEach</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/html5/">
+                        <span class="tag">html5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javascript/">
+                        <span class="tag">javascript</span>
+                        <span class="tag is-grey">22</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javasript/">
+                        <span class="tag">javasript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mac/">
+                        <span class="tag">mac</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mobx/">
+                        <span class="tag">mobx</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/new/">
+                        <span class="tag">new</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node/">
+                        <span class="tag">node</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/number/">
+                        <span class="tag">number</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nuxt/">
+                        <span class="tag">nuxt</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/package-json/">
+                        <span class="tag">package.json</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/packaging/">
+                        <span class="tag">packaging</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/parcel/">
+                        <span class="tag">parcel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/promise/">
+                        <span class="tag">promise</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/prototype/">
+                        <span class="tag">prototype</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/resolve/">
+                        <span class="tag">resolve</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/router/">
+                        <span class="tag">router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stage/">
+                        <span class="tag">stage</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/thinkjs/">
+                        <span class="tag">thinkjs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/this/">
+                        <span class="tag">this</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/touch/">
+                        <span class="tag">touch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/try-catch/">
+                        <span class="tag">try-catch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vim/">
+                        <span class="tag">vim</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webSocket/">
+                        <span class="tag">webSocket</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack2-x的变化/">
+                        <span class="tag">webpack2.x的变化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack路径简写/">
+                        <span class="tag">webpack路径简写</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/window/">
+                        <span class="tag">window</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/上拉加载/">
+                        <span class="tag">上拉加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/优化/">
+                        <span class="tag">优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/原型链/">
+                        <span class="tag">原型链</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/变量提升/">
+                        <span class="tag">变量提升</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/布局/">
+                        <span class="tag">布局</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发经验/">
+                        <span class="tag">开发经验</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异常处理/">
+                        <span class="tag">异常处理</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/执行上下文/">
+                        <span class="tag">执行上下文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据层/">
+                        <span class="tag">数据层</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/服务端项目集成/">
+                        <span class="tag">服务端项目集成</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/柯里化函数/">
+                        <span class="tag">柯里化函数</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/框架/">
+                        <span class="tag">框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则/">
+                        <span class="tag">正则</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/生命周期/">
+                        <span class="tag">生命周期</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/目录结构/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/路由/">
+                        <span class="tag">路由</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助工具/">
+                        <span class="tag">辅助工具</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助知识/">
+                        <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/配置/">
+                        <span class="tag">配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/错误类型/">
+                        <span class="tag">错误类型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目打包/">
+                        <span class="tag">项目打包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目搭建/">
+                        <span class="tag">项目搭建</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色/">
+                        <span class="tag">颜色</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色算法/">
+                        <span class="tag">颜色算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色转换/">
+                        <span class="tag">颜色转换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色选择器/">
+                        <span class="tag">颜色选择器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/鼠标相关/">
+                        <span class="tag">鼠标相关</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/node/application/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array-prototype-slice/">
+                        <span class="tag">Array.prototype.slice</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ECMAScript提案/">
+                        <span class="tag">ECMAScript提案</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IDE/">
+                        <span class="tag">IDE</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Javascript/">
+                        <span class="tag">Javascript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/apply/">
+                        <span class="tag">apply</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arguments/">
+                        <span class="tag">arguments</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/array/">
+                        <span class="tag">array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/babel/">
+                        <span class="tag">babel</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bind/">
+                        <span class="tag">bind</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cache/">
+                        <span class="tag">cache</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/call/">
+                        <span class="tag">call</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/callee/">
+                        <span class="tag">callee</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/caller/">
+                        <span class="tag">caller</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/clamp/">
+                        <span class="tag">clamp</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cmd/">
+                        <span class="tag">cmd</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css3/">
+                        <span class="tag">css3</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/flex/">
+                        <span class="tag">flex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/forEach/">
+                        <span class="tag">forEach</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/html5/">
+                        <span class="tag">html5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javascript/">
+                        <span class="tag">javascript</span>
+                        <span class="tag is-grey">22</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javasript/">
+                        <span class="tag">javasript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mac/">
+                        <span class="tag">mac</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mobx/">
+                        <span class="tag">mobx</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/new/">
+                        <span class="tag">new</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node/">
+                        <span class="tag">node</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/number/">
+                        <span class="tag">number</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nuxt/">
+                        <span class="tag">nuxt</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/package-json/">
+                        <span class="tag">package.json</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/packaging/">
+                        <span class="tag">packaging</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/parcel/">
+                        <span class="tag">parcel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/promise/">
+                        <span class="tag">promise</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/prototype/">
+                        <span class="tag">prototype</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/resolve/">
+                        <span class="tag">resolve</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/router/">
+                        <span class="tag">router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stage/">
+                        <span class="tag">stage</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/thinkjs/">
+                        <span class="tag">thinkjs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/this/">
+                        <span class="tag">this</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/touch/">
+                        <span class="tag">touch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/try-catch/">
+                        <span class="tag">try-catch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vim/">
+                        <span class="tag">vim</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webSocket/">
+                        <span class="tag">webSocket</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack2-x的变化/">
+                        <span class="tag">webpack2.x的变化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack路径简写/">
+                        <span class="tag">webpack路径简写</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/window/">
+                        <span class="tag">window</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/上拉加载/">
+                        <span class="tag">上拉加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/优化/">
+                        <span class="tag">优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/原型链/">
+                        <span class="tag">原型链</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/变量提升/">
+                        <span class="tag">变量提升</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/布局/">
+                        <span class="tag">布局</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发经验/">
+                        <span class="tag">开发经验</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异常处理/">
+                        <span class="tag">异常处理</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/执行上下文/">
+                        <span class="tag">执行上下文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据层/">
+                        <span class="tag">数据层</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/服务端项目集成/">
+                        <span class="tag">服务端项目集成</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/柯里化函数/">
+                        <span class="tag">柯里化函数</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/框架/">
+                        <span class="tag">框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则/">
+                        <span class="tag">正则</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/生命周期/">
+                        <span class="tag">生命周期</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/目录结构/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/路由/">
+                        <span class="tag">路由</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助工具/">
+                        <span class="tag">辅助工具</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助知识/">
+                        <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/配置/">
+                        <span class="tag">配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/错误类型/">
+                        <span class="tag">错误类型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目打包/">
+                        <span class="tag">项目打包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目搭建/">
+                        <span class="tag">项目搭建</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色/">
+                        <span class="tag">颜色</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色算法/">
+                        <span class="tag">颜色算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色转换/">
+                        <span class="tag">颜色转换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色选择器/">
+                        <span class="tag">颜色选择器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/鼠标相关/">
+                        <span class="tag">鼠标相关</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/other.png" alt="front-auxiliary" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 front-auxiliary&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

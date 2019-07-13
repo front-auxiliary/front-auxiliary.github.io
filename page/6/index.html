@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 323 个字)
+                    2 分钟 读完 (大约 314 个字)
                 </span>
                 
                 
@@ -167,7 +167,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="变量提升与函数提升"><a href="#变量提升与函数提升" class="headerlink" title="变量提升与函数提升"></a>变量提升与函数提升</h1><blockquote>
+            <blockquote>
 <p>在JavaScript中存在提升的情况，这种提升有两种提升分别是变量提升与函数提升，而且是函数会首先被提升，然后才是变量。</p>
 </blockquote>
 <h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>看下面的例子：</p>
@@ -219,7 +219,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 396 个字)
+                    3 分钟 读完 (大约 391 个字)
                 </span>
                 
                 
@@ -232,7 +232,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="javaScript的arguments-caller-callee"><a href="#javaScript的arguments-caller-callee" class="headerlink" title="javaScript的arguments, caller, callee"></a>javaScript的arguments, caller, callee</h1><h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
 <p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
 <p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
@@ -269,7 +269,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1021 个字)
+                    7 分钟 读完 (大约 1016 个字)
                 </span>
                 
                 
@@ -282,7 +282,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="柯里化函数"><a href="#柯里化函数" class="headerlink" title="柯里化函数"></a>柯里化函数</h1><blockquote>
+            <blockquote>
 <p>在计算机科学中，柯里化（英语：Currying），又译为卡瑞化或加里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家哈斯凯尔·加里命名的，尽管它是 Moses Schönfinkel 和 Gottlob Frege 发明的。</p>
 </blockquote>
 <h5 id="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"><a href="#这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。" class="headerlink" title="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"></a>这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。</h5><p>看一下通用实现：</p>
@@ -360,185 +360,6 @@
 <h3 id="Git远程仓库管理"><a href="#Git远程仓库管理" class="headerlink" title="Git远程仓库管理"></a>Git远程仓库管理</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GitHub</span><br><span class="line"></span><br><span class="line">git remote -v # 查看远程服务器地址和仓库名称</span><br><span class="line"></span><br><span class="line">git remote show origin # 查看远程服务器仓库状态</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github:robbin/robbin_site.git # 添加远程仓库地址</span><br><span class="line"></span><br><span class="line">git remote set-url origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm &lt;repository&gt; # 删除远程仓库</span><br></pre></td></tr></table></figure>
 <h3 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare robbin_site robbin_site.git # 用带版本的项目创建纯版本仓库</span><br><span class="line"></span><br><span class="line">scp -r my_project.git git@ git.csdn.net:~ # 将纯仓库上传到服务器上</span><br><span class="line"></span><br><span class="line">mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git --bare init # 在服务器创建纯仓库</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址</span><br><span class="line"></span><br><span class="line">git push -u origin master # 客户端首次提交</span><br><span class="line"></span><br><span class="line">git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track</span><br><span class="line"></span><br><span class="line">git remote set-head origin master # 设置远程仓库的HEAD指向master分支</span><br></pre></td></tr></table></figure>
 <h3 id="也可以命令设置跟踪远程库和本地库"><a href="#也可以命令设置跟踪远程库和本地库" class="headerlink" title="也可以命令设置跟踪远程库和本地库"></a>也可以命令设置跟踪远程库和本地库</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream master origin/master</span><br><span class="line"></span><br><span class="line">git branch --set-upstream develop origin/develop</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 42 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1777 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/sublime/sublimePlug/">sublime插件总结</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="sublime-插件"><a href="#sublime-插件" class="headerlink" title="sublime 插件"></a>sublime 插件</h1><h3 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h3><p>   <a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">https://www.sublimetext.com/3</a>  //下载网址，可以选择版本 sublime Text3    以dmp结尾的</p>
-<h3 id="删除插件："><a href="#删除插件：" class="headerlink" title="删除插件："></a>删除插件：</h3><ol>
-<li>command+shift+P,输入package</li>
-<li>查找remove package</li>
-<li>输入你要删除的package</li>
-<li>回车，OK</li>
-</ol>
-<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件:"></a>安装插件:</h3><pre><code>1. 安装 Package Control   http://www.jianshu.com/p/5baa47642375 (利用Package Control来安装其他插件)
-
-2. 上面的 Package Control 安装完以后, 就可以通过快捷键 command + shift + p 并输入 install package, 来选择需要安装的插件.
-
-3. 插件有时默认的快捷键会和其他的软件的快捷键冲突，所以可以自己设置插件的快捷键
- 点击菜单 Preferences -&gt; KeyBindings - User, 加入如下内容
- [{ &quot;keys&quot;: [&quot;ctrl+1&quot;], &quot;command&quot;: &quot;alignment&quot; }]
- 将快捷键修改成自己要改的。
-</code></pre><h3 id="Sublime-Text常用插件总结"><a href="#Sublime-Text常用插件总结" class="headerlink" title="Sublime Text常用插件总结:"></a>Sublime Text常用插件总结:</h3><pre><code>我认为插件比较官方了解可以参考此链接：https://packagecontrol.io/packages/Babel
-后面换上不同的插件名称即可，不过可能只是大致介绍一些基础重要的。
-</code></pre><p><strong>1.) Emmet</strong></p>
-<pre><code>Emmet使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度。 具体使用链接：http://www.iteye.com/news/27580  (桌面有两个我写的文件,不过对js和less没有作用)
-</code></pre><p><strong>2.)Alignment</strong></p>
-<p> 这插件用于对齐代码赋值语句，如<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title = &quot;sublime text</span><br></pre></td></tr></table></figure></p>
-<p> 按下快捷键后, 会变成:<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name    = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title   = &quot;sublime text”</span><br></pre></td></tr></table></figure></p>
-<p><strong>3.)Trimmer</strong></p>
-<p>   你知道当你编写代码时，由于错误或别的某些原因，会产生一些不必要的空格。需要注意的是多余的空格有时也会造成错误。这个插件会自动删除这些不必要的空格，也可以删除空行，可以达到压缩css和js的效果。</p>
-<p><strong>4.)autoprefixer</strong></p>
-<p>  自动在代码前面添加兼容性前缀</p>
-<p>  例子：<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">使用前：</span><br><span class="line">.wsl&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">    -webkit-border-radius:20px;</span><br><span class="line">     border-radius:20px;</span><br><span class="line">  &#125;</span><br><span class="line">使用后：</span><br><span class="line">.wsl&#123;</span><br><span class="line">   display:-webkit-box;</span><br><span class="line">   display:-ms-flexbox;</span><br><span class="line">   display:flex;</span><br><span class="line">   border-radius:20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注释：效果明显，多于的 CSS/less 会自动删掉，border-radius 早就已经不需要前缀了，只有 Firefox 3.6，Chrome 4，Safari 4 和 Android 2.1 需要前缀；</p>
-<p>快捷键设置方式还是如上第三步所示：</p>
-<p>  <img src="images/11.jpg" width="350px" height="100px"></p>
-<p><strong>5.)Less</strong></p>
-<pre><code>功能：LESS高亮插件
-简介：用LESS的同学都知道，sublime没有支持less的语法高亮，所以这个插件可以帮上我们
-使用：打开.less文件或者设置为less格式
-//在没安装这个插件之前less文件中的代码是白色的，看着很不舒服，安装了这个插件则会让代码加上颜色
-</code></pre><p><strong>6.)Babel</strong></p>
-<pre><code>这个插件支持ES6， React.js, jsx代码高亮，对 JavaScript, jQuery 也有很好的扩展。
-按照上述步骤安装后，在view-&gt;Syntax(语法)-&gt;这个时候安装了babel就会有一项选择Babel-&gt;Babel(javascript)这一项，代码就会变高亮。 （默认是Syntax下面的javascript）。
-</code></pre><p><strong>7.)BracketHighlighter</strong></p>
-<ol>
-<li><p>BracketHighlighter插件能为Sublime Text提供括号，引号这类高亮功能，但安装此插件后，默认没有高亮，只有下划线表示，不是很醒目，跟进一步的修改可以</p>
-<p><a href="http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</a>   (mac)</p>
-<p><a href="http://www.cnblogs.com/willingtolove/p/4657320.html" target="_blank" rel="noopener">http://www.cnblogs.com/willingtolove/p/4657320.html</a>       (windows)</p>
-</li>
-<li><p>可以参考此链接 ,很有用,执行完第二步是白色高亮</p>
-<p><img src="images/12.jpg" width="300px" height="100px"></p>
-</li>
-<li><p>若想彩色高亮则根据步骤继续进行第三步。</p>
-<p><img src="images/13.jpg" width="300px" height="50px">,</p>
-<p><img src="images/14.jpg" width="300px" height="100x"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> Bracket Quote 表示引号     </span><br><span class="line"> Bracket Tag   表示标签</span><br><span class="line"> Bracket Angle 表示角 （这个可以自己试试）</span><br><span class="line"> Bracket Square 表示方括号</span><br><span class="line"> Bracket Round  表示小括号</span><br><span class="line"> Bracket Curly  表示大括号</span><br><span class="line">不过实现彩色的效果还需要安装SublimeLinter</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="主题相关插件8-9"><a href="#主题相关插件8-9" class="headerlink" title="{主题相关插件8-9}"></a>{主题相关插件8-9}</h4><p><strong>8.)Theme-Soda</strong></p>
-<p> Soda主题是sublime上一款很著名的清爽型主题，分两种：</p>
-<p> <code>light:</code></p>
-<p> <img src="images/15.jpg" width="300px" height="50px"></p>
-<p>  <code>dark:</code></p>
-<p> <img src="images/16.jpg" width="300px" height="50px"></p>
-<p> <code>两者之间的切换通过在 （菜单 Preferences -&gt; Settings - User）中加入 &quot;theme&quot;: &quot;Soda Light.sublime-theme&quot; 或 &quot;theme&quot;: &quot;Soda Dark.sublime-theme”</code></p>
-<p> <img src="images/17.jpg" width="300px" height="100px"></p>
-<p> <code>如果想要原来默认的则去掉这句话不写即可，默认：</code></p>
-<p> <img src="images/18.jpg" width="300px" height="50px"></p>
-<p>保存之后发现怎么代码区域还是黑色的背景，菜单栏颜色已经切换了，别急，这里还少了一步，就是配置一下color scheme,就用下面的插件介绍</p>
-<p><strong>9.)ColorSublime</strong><br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">主题可以参考此链接： http://www.jianshu.com/p/13fedee165f1</span><br><span class="line">主要以ColorSublime为插件安装</span><br><span class="line">安装了ColorSublime后，在控制面板里输入安装ColorSublime:install theme</span><br><span class="line">就可以如链接所示，选择你相中的主体安装</span><br></pre></td></tr></table></figure></p>
-<h4 id="文件模版10"><a href="#文件模版10" class="headerlink" title="{文件模版10}"></a>{文件模版10}</h4><p><strong>10.)SublimeTmpl</strong></p>
-<p><a href="http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/" target="_blank" rel="noopener">http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/</a><br>只看使用，安装就行，Sublime Text 新建文件的模版插件</p>
-<h4 id="JS代码格式化11"><a href="#JS代码格式化11" class="headerlink" title="{JS代码格式化11}"></a>{JS代码格式化11}</h4><p><strong>11.)JsFormat</strong></p>
-<p>  这是一款将JS格式化的插件，安装后即可在JS文件中通过鼠标右键-&gt;JsFormat或键盘快捷键Ctrl+Alt+F对JS进行格式化</p>
-<h4 id="右键菜单功能增强插件12"><a href="#右键菜单功能增强插件12" class="headerlink" title="{右键菜单功能增强插件12}"></a>{右键菜单功能增强插件12}</h4><p><strong>12.)SideBarEnhancements</strong></p>
-<p>  这是一款很实用的右键菜单增强功能，安装之前左侧菜单栏右键只有几个功能，安装之后增加了很多实用功能。<br>  可以参考这个链接，有个简单的说明：<a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html</a></p>
-<h4 id="只针对-css的文件代码排序13"><a href="#只针对-css的文件代码排序13" class="headerlink" title="{只针对.css的文件代码排序13}"></a>{只针对.css的文件代码排序13}</h4><p><strong>13.)CSScomb</strong><br> <code>格式化前：</code></p>
-<p> <img src="images/19.jpg" width="250px" height="130px">,</p>
-<p> <code>格式化后：快捷键 ctrl+shift+c</code></p>
-<p> <img src="images/20.jpg" width="250px" height="200px">,</p>
-<p> 但是会产生一些空行，可以解决:<br> 在sublime中下载<code>CSS Format</code>插件，然后执行 edit-&gt;css format-&gt;expanded 即可此   时空行将会消除。</p>
-<p> <img src="images/21.jpg" width="250px" height="200px">,</p>
-<p><code>我认为可以先用css最后可以改成less文件可以参考这个链接：https://segmentfault.com/a/1190000004577644</code></p>
-<h4 id="文件中打开命令行窗口14"><a href="#文件中打开命令行窗口14" class="headerlink" title="{文件中打开命令行窗口14}"></a>{文件中打开命令行窗口14}</h4><p><strong>14.)Terminal</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在编程过程中我们需要经常使用到命令行窗口，此快捷键可以在sublime Text3中打开cmd窗口，默认打开的是终端，如果想要打开iTerm,可以在setting-&gt;user中设置：</span><br><span class="line">快捷键（mac）:cmd+shift+t</span><br><span class="line">可以参考链接：https://packagecontrol.io/packages/Terminal</span><br></pre></td></tr></table></figure></p>
-<h3 id="查看html、css兼容的15"><a href="#查看html、css兼容的15" class="headerlink" title="{查看html、css兼容的15}"></a>{查看html、css兼容的15}</h3><p><strong>15.)Can I Use</strong></p>
-<p>不过只是针对html和css，选中一个词或标签按快捷键：ctrl+alt+f就会跳到<a href="http://caniuse.com/，可以看到兼容到哪些浏览器" target="_blank" rel="noopener">http://caniuse.com/，可以看到兼容到哪些浏览器</a></p>
-<h3 id="代码校验16"><a href="#代码校验16" class="headerlink" title="{代码校验16}"></a>{代码校验16}</h3><p><strong>16.)SublimeLinter</strong></p>
-<p>  SublimeLinter是一个代码校验插件，它可以帮你找出错误或编写不规范的代码<br>  会在页面上产生一些点，点击点会有提示在下方<br>  可以按照这个安装：  </p>
-<p>  <a href="http://www.cnblogs.com/xiaofeixiang/p/4853625.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaofeixiang/p/4853625.html</a></p>
-<p>  可以通过这个研究：</p>
-<p>  <a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html</a></p>
-<p>  <strong>(但是不知道怎么把下面提示区域放大？)</strong></p>
-<p>####{在文件中调用Git命令17}<br><strong>17.)Git</strong></p>
-<p>   可以参考此链接：<a href="https://packagecontrol.io/packages/Git" target="_blank" rel="noopener">https://packagecontrol.io/packages/Git</a><br>   安装完git后可以在mac中用命令打开：cmd+shift+p，输入git就会出现很多git命令。</p>
-<p> <strong>(但是git status可以用，其他的怎么用？)</strong></p>
 
         </div>
         
@@ -711,7 +532,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 497 个字)
+                    12 分钟 读完 (大约 1777 个字)
                 </span>
                 
                 
@@ -720,22 +541,324 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/atom/">atom快捷键总结</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/sublime/sublimePlug/">sublime插件总结</a>
             
         </h1>
         <div class="content">
-            <h3 id="atom"><a href="#atom" class="headerlink" title="atom"></a>atom</h3><h3 id="一、快捷键部分"><a href="#一、快捷键部分" class="headerlink" title="一、快捷键部分"></a>一、快捷键部分</h3><h4 id="A-光标及选取部分"><a href="#A-光标及选取部分" class="headerlink" title="A:光标及选取部分"></a>A:光标及选取部分</h4><h5 id="行部分："><a href="#行部分：" class="headerlink" title="行部分："></a>行部分：</h5><p> cmd+up          光标移动至文件开始处<br> cmd+down        光标移动至文件结束处<br> cmd+click       多行同时输入<br> cmd+l           选取此行<br> ctrl+shift+n    选取下一行<br> ctrl+shift+p    选取下一行<br> cmd+shift+left  选取至此行开始处<br> cmd+shift+right 选取至此行结束处<br> cmd+shift+up    选取至文件开始<br> cmd+shift+down  选取至文件结尾   </p>
-<h5 id="单词-字符-部分："><a href="#单词-字符-部分：" class="headerlink" title="单词(字符)部分："></a>单词(字符)部分：</h5><p> cmd+shift+w     选中此单词<br> alt+shift+left  选取至此单词开始处<br> alt+shift+right 选取至此单词结束处<br> cmd+d           选取文件中和当前单词相同的下一处并增加光标<br> ctrl+cmd+g      选取文档中所有和当前光标单词相同的位置并增加光标   </p>
-<h5 id="括号部分："><a href="#括号部分：" class="headerlink" title="括号部分："></a>括号部分：</h5><p> ctrl-m 相应括号之间，html tag之间等跳转<br> ctrl-cmd-m 括号(tag)之间文本选取   </p>
-<h4 id="B-编辑操作"><a href="#B-编辑操作" class="headerlink" title="B:编辑操作"></a>B:编辑操作</h4><h5 id="行部分：-1"><a href="#行部分：-1" class="headerlink" title="行部分："></a>行部分：</h5><p>cmd-J 将下一行与当前行合并<br>ctrl-cmd-up, ctrl-cmd-down 使当前行向上或者向下移动<br>cmd-shift-D 复制当前行到下一行<br>ctrl-K 剪切到当前行结束<br>ctrl-shift-K 删除当前行<br>cmd-backspace 删除到当前行开始<br>cmd-fn-backspace 删除到当前行结束   </p>
-<h5 id="字符-单词-部分："><a href="#字符-单词-部分：" class="headerlink" title="字符(单词)部分："></a>字符(单词)部分：</h5><p> ctrl-T 使光标前后字符交换<br> alt-backspace 或 alt-H 删除到当前单词开始<br> alt-delete 或 alt-D 删除到当前单词结束<br> cmd-K+cmd-U 使当前字符大写<br> cmd-K+cmd-L 使当前字符小写   </p>
-<h4 id="C-功能部分"><a href="#C-功能部分" class="headerlink" title="C:功能部分"></a>C:功能部分</h4><p> cmd+,      打开setting<br> control+tab 切换标签页<br> control+数字 切换标签页<br> 忽略文件显示更改：<br> setting=&gt;open config Folder=&gt;config.cson=&gt;最后那个h开头的改为false   </p>
-<h3 id="二、atom实用插件"><a href="#二、atom实用插件" class="headerlink" title="二、atom实用插件"></a>二、atom实用插件</h3><h4 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1 Emmet"></a>1 Emmet</h4><p> 用法：Ctrl+Alt+Enter   </p>
-<h4 id="2-Atom-Beautify"><a href="#2-Atom-Beautify" class="headerlink" title="2 Atom Beautify"></a>2 Atom Beautify</h4><p>  代码优化   </p>
-<h4 id="3-Minimap"><a href="#3-Minimap" class="headerlink" title="3 Minimap"></a>3 Minimap</h4><p>  sublime右上角代码缩略图   </p>
-<h4 id="4-file-icons"><a href="#4-file-icons" class="headerlink" title="4 file-icons"></a>4 file-icons</h4><p>  文件图标   </p>
-<h4 id="5-atom-ternjs"><a href="#5-atom-ternjs" class="headerlink" title="5 atom-ternjs"></a>5 atom-ternjs</h4><p>  js代码提示   </p>
-<h4 id="6-atom-react-autocomplete"><a href="#6-atom-react-autocomplete" class="headerlink" title="6 atom-react-autocomplete"></a>6 atom-react-autocomplete</h4><p>  jsx代码提示   </p>
+            <h1 id="sublime-插件"><a href="#sublime-插件" class="headerlink" title="sublime 插件"></a>sublime 插件</h1><h3 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h3><p>   <a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">https://www.sublimetext.com/3</a>  //下载网址，可以选择版本 sublime Text3    以dmp结尾的</p>
+<h3 id="删除插件："><a href="#删除插件：" class="headerlink" title="删除插件："></a>删除插件：</h3><ol>
+<li>command+shift+P,输入package</li>
+<li>查找remove package</li>
+<li>输入你要删除的package</li>
+<li>回车，OK</li>
+</ol>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件:"></a>安装插件:</h3><pre><code>1. 安装 Package Control   http://www.jianshu.com/p/5baa47642375 (利用Package Control来安装其他插件)
+
+2. 上面的 Package Control 安装完以后, 就可以通过快捷键 command + shift + p 并输入 install package, 来选择需要安装的插件.
+
+3. 插件有时默认的快捷键会和其他的软件的快捷键冲突，所以可以自己设置插件的快捷键
+ 点击菜单 Preferences -&gt; KeyBindings - User, 加入如下内容
+ [{ &quot;keys&quot;: [&quot;ctrl+1&quot;], &quot;command&quot;: &quot;alignment&quot; }]
+ 将快捷键修改成自己要改的。
+</code></pre><h3 id="Sublime-Text常用插件总结"><a href="#Sublime-Text常用插件总结" class="headerlink" title="Sublime Text常用插件总结:"></a>Sublime Text常用插件总结:</h3><pre><code>我认为插件比较官方了解可以参考此链接：https://packagecontrol.io/packages/Babel
+后面换上不同的插件名称即可，不过可能只是大致介绍一些基础重要的。
+</code></pre><p><strong>1.) Emmet</strong></p>
+<pre><code>Emmet使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度。 具体使用链接：http://www.iteye.com/news/27580  (桌面有两个我写的文件,不过对js和less没有作用)
+</code></pre><p><strong>2.)Alignment</strong></p>
+<p> 这插件用于对齐代码赋值语句，如<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title = &quot;sublime text</span><br></pre></td></tr></table></figure></p>
+<p> 按下快捷键后, 会变成:<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name    = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title   = &quot;sublime text”</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.)Trimmer</strong></p>
+<p>   你知道当你编写代码时，由于错误或别的某些原因，会产生一些不必要的空格。需要注意的是多余的空格有时也会造成错误。这个插件会自动删除这些不必要的空格，也可以删除空行，可以达到压缩css和js的效果。</p>
+<p><strong>4.)autoprefixer</strong></p>
+<p>  自动在代码前面添加兼容性前缀</p>
+<p>  例子：<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">使用前：</span><br><span class="line">.wsl&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">    -webkit-border-radius:20px;</span><br><span class="line">     border-radius:20px;</span><br><span class="line">  &#125;</span><br><span class="line">使用后：</span><br><span class="line">.wsl&#123;</span><br><span class="line">   display:-webkit-box;</span><br><span class="line">   display:-ms-flexbox;</span><br><span class="line">   display:flex;</span><br><span class="line">   border-radius:20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注释：效果明显，多于的 CSS/less 会自动删掉，border-radius 早就已经不需要前缀了，只有 Firefox 3.6，Chrome 4，Safari 4 和 Android 2.1 需要前缀；</p>
+<p>快捷键设置方式还是如上第三步所示：</p>
+<p>  <img src="images/11.jpg" width="350px" height="100px"></p>
+<p><strong>5.)Less</strong></p>
+<pre><code>功能：LESS高亮插件
+简介：用LESS的同学都知道，sublime没有支持less的语法高亮，所以这个插件可以帮上我们
+使用：打开.less文件或者设置为less格式
+//在没安装这个插件之前less文件中的代码是白色的，看着很不舒服，安装了这个插件则会让代码加上颜色
+</code></pre><p><strong>6.)Babel</strong></p>
+<pre><code>这个插件支持ES6， React.js, jsx代码高亮，对 JavaScript, jQuery 也有很好的扩展。
+按照上述步骤安装后，在view-&gt;Syntax(语法)-&gt;这个时候安装了babel就会有一项选择Babel-&gt;Babel(javascript)这一项，代码就会变高亮。 （默认是Syntax下面的javascript）。
+</code></pre><p><strong>7.)BracketHighlighter</strong></p>
+<ol>
+<li><p>BracketHighlighter插件能为Sublime Text提供括号，引号这类高亮功能，但安装此插件后，默认没有高亮，只有下划线表示，不是很醒目，跟进一步的修改可以</p>
+<p><a href="http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</a>   (mac)</p>
+<p><a href="http://www.cnblogs.com/willingtolove/p/4657320.html" target="_blank" rel="noopener">http://www.cnblogs.com/willingtolove/p/4657320.html</a>       (windows)</p>
+</li>
+<li><p>可以参考此链接 ,很有用,执行完第二步是白色高亮</p>
+<p><img src="images/12.jpg" width="300px" height="100px"></p>
+</li>
+<li><p>若想彩色高亮则根据步骤继续进行第三步。</p>
+<p><img src="images/13.jpg" width="300px" height="50px">,</p>
+<p><img src="images/14.jpg" width="300px" height="100x"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> Bracket Quote 表示引号     </span><br><span class="line"> Bracket Tag   表示标签</span><br><span class="line"> Bracket Angle 表示角 （这个可以自己试试）</span><br><span class="line"> Bracket Square 表示方括号</span><br><span class="line"> Bracket Round  表示小括号</span><br><span class="line"> Bracket Curly  表示大括号</span><br><span class="line">不过实现彩色的效果还需要安装SublimeLinter</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="主题相关插件8-9"><a href="#主题相关插件8-9" class="headerlink" title="{主题相关插件8-9}"></a>{主题相关插件8-9}</h4><p><strong>8.)Theme-Soda</strong></p>
+<p> Soda主题是sublime上一款很著名的清爽型主题，分两种：</p>
+<p> <code>light:</code></p>
+<p> <img src="images/15.jpg" width="300px" height="50px"></p>
+<p>  <code>dark:</code></p>
+<p> <img src="images/16.jpg" width="300px" height="50px"></p>
+<p> <code>两者之间的切换通过在 （菜单 Preferences -&gt; Settings - User）中加入 &quot;theme&quot;: &quot;Soda Light.sublime-theme&quot; 或 &quot;theme&quot;: &quot;Soda Dark.sublime-theme”</code></p>
+<p> <img src="images/17.jpg" width="300px" height="100px"></p>
+<p> <code>如果想要原来默认的则去掉这句话不写即可，默认：</code></p>
+<p> <img src="images/18.jpg" width="300px" height="50px"></p>
+<p>保存之后发现怎么代码区域还是黑色的背景，菜单栏颜色已经切换了，别急，这里还少了一步，就是配置一下color scheme,就用下面的插件介绍</p>
+<p><strong>9.)ColorSublime</strong><br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">主题可以参考此链接： http://www.jianshu.com/p/13fedee165f1</span><br><span class="line">主要以ColorSublime为插件安装</span><br><span class="line">安装了ColorSublime后，在控制面板里输入安装ColorSublime:install theme</span><br><span class="line">就可以如链接所示，选择你相中的主体安装</span><br></pre></td></tr></table></figure></p>
+<h4 id="文件模版10"><a href="#文件模版10" class="headerlink" title="{文件模版10}"></a>{文件模版10}</h4><p><strong>10.)SublimeTmpl</strong></p>
+<p><a href="http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/" target="_blank" rel="noopener">http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/</a><br>只看使用，安装就行，Sublime Text 新建文件的模版插件</p>
+<h4 id="JS代码格式化11"><a href="#JS代码格式化11" class="headerlink" title="{JS代码格式化11}"></a>{JS代码格式化11}</h4><p><strong>11.)JsFormat</strong></p>
+<p>  这是一款将JS格式化的插件，安装后即可在JS文件中通过鼠标右键-&gt;JsFormat或键盘快捷键Ctrl+Alt+F对JS进行格式化</p>
+<h4 id="右键菜单功能增强插件12"><a href="#右键菜单功能增强插件12" class="headerlink" title="{右键菜单功能增强插件12}"></a>{右键菜单功能增强插件12}</h4><p><strong>12.)SideBarEnhancements</strong></p>
+<p>  这是一款很实用的右键菜单增强功能，安装之前左侧菜单栏右键只有几个功能，安装之后增加了很多实用功能。<br>  可以参考这个链接，有个简单的说明：<a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html</a></p>
+<h4 id="只针对-css的文件代码排序13"><a href="#只针对-css的文件代码排序13" class="headerlink" title="{只针对.css的文件代码排序13}"></a>{只针对.css的文件代码排序13}</h4><p><strong>13.)CSScomb</strong><br> <code>格式化前：</code></p>
+<p> <img src="images/19.jpg" width="250px" height="130px">,</p>
+<p> <code>格式化后：快捷键 ctrl+shift+c</code></p>
+<p> <img src="images/20.jpg" width="250px" height="200px">,</p>
+<p> 但是会产生一些空行，可以解决:<br> 在sublime中下载<code>CSS Format</code>插件，然后执行 edit-&gt;css format-&gt;expanded 即可此   时空行将会消除。</p>
+<p> <img src="images/21.jpg" width="250px" height="200px">,</p>
+<p><code>我认为可以先用css最后可以改成less文件可以参考这个链接：https://segmentfault.com/a/1190000004577644</code></p>
+<h4 id="文件中打开命令行窗口14"><a href="#文件中打开命令行窗口14" class="headerlink" title="{文件中打开命令行窗口14}"></a>{文件中打开命令行窗口14}</h4><p><strong>14.)Terminal</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在编程过程中我们需要经常使用到命令行窗口，此快捷键可以在sublime Text3中打开cmd窗口，默认打开的是终端，如果想要打开iTerm,可以在setting-&gt;user中设置：</span><br><span class="line">快捷键（mac）:cmd+shift+t</span><br><span class="line">可以参考链接：https://packagecontrol.io/packages/Terminal</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看html、css兼容的15"><a href="#查看html、css兼容的15" class="headerlink" title="{查看html、css兼容的15}"></a>{查看html、css兼容的15}</h3><p><strong>15.)Can I Use</strong></p>
+<p>不过只是针对html和css，选中一个词或标签按快捷键：ctrl+alt+f就会跳到<a href="http://caniuse.com/，可以看到兼容到哪些浏览器" target="_blank" rel="noopener">http://caniuse.com/，可以看到兼容到哪些浏览器</a></p>
+<h3 id="代码校验16"><a href="#代码校验16" class="headerlink" title="{代码校验16}"></a>{代码校验16}</h3><p><strong>16.)SublimeLinter</strong></p>
+<p>  SublimeLinter是一个代码校验插件，它可以帮你找出错误或编写不规范的代码<br>  会在页面上产生一些点，点击点会有提示在下方<br>  可以按照这个安装：  </p>
+<p>  <a href="http://www.cnblogs.com/xiaofeixiang/p/4853625.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaofeixiang/p/4853625.html</a></p>
+<p>  可以通过这个研究：</p>
+<p>  <a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html</a></p>
+<p>  <strong>(但是不知道怎么把下面提示区域放大？)</strong></p>
+<p>####{在文件中调用Git命令17}<br><strong>17.)Git</strong></p>
+<p>   可以参考此链接：<a href="https://packagecontrol.io/packages/Git" target="_blank" rel="noopener">https://packagecontrol.io/packages/Git</a><br>   安装完git后可以在mac中用命令打开：cmd+shift+p，输入git就会出现很多git命令。</p>
+<p> <strong>(但是git status可以用，其他的怎么用？)</strong></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 42 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/css3/">css3</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 分钟 读完 (大约 1679 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/CSS/flex/">Flex布局</a>
+            
+        </h1>
+        <div class="content">
+            <p>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
+<p>[flex学习地址]（<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/）" target="_blank" rel="noopener">https://css-tricks.com/snippets/css/a-guide-to-flexbox/）</a></p>
+<h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><img src="/2016/08/25/CSS/flex/flexBox.png" title="flexbox">
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flex容器（flex container）：采用Flex布局的元素。</span><br><span class="line">水平的主轴（main axis）和垂直的交叉轴（cross axis）。</span><br><span class="line">主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；</span><br><span class="line">交叉轴的开始位置叫做cross start，结束位置叫做cross end</span><br></pre></td></tr></table></figure>
+<h3 id="二、容器的属性"><a href="#二、容器的属性" class="headerlink" title="二、容器的属性"></a>二、容器的属性</h3><p>有六个属性设置在容器上</p>
+<ul>
+<li>flex-direction</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content</li>
+</ul>
+<h5 id="flex-direction属性"><a href="#flex-direction属性" class="headerlink" title="flex-direction属性"></a>flex-direction属性</h5><p>决定主轴的方向（即子元素的排列方向）<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/flex/direction.png" title="direction">
+<p>他有四个值</p>
+<ul>
+<li>row(默认值)：主轴为水平方向，起点在左边</li>
+<li>row-reverse:主轴为水平方向，起点为右边</li>
+<li>column：主轴为垂直方向，起点在上方</li>
+<li>column-reverse：主轴为垂直方向，起点在下方</li>
+</ul>
+<h5 id="flex-wrap属性"><a href="#flex-wrap属性" class="headerlink" title="flex-wrap属性"></a>flex-wrap属性</h5><p>定义如果一条轴放不下，该如何换行<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  flex-wrap: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>他有三个可取值</p>
+<ol>
+<li>nowrap(默认)：不换行<br><img src="images/flex/nowrap.png" width="700px"></li>
+<li>wrap:换行，第一行在上方<br><img src="images/flex/wrap.jpg" width="700px"></li>
+<li>wrap-reverse:换行，第一行在下方<br><img src="images/flex/wrap-reverse.jpg" width="700px"></li>
+</ol>
+<h5 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h5><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h5><p>定义了子元素在主轴上的对齐方向<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  justify-content: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>他有5个值</p>
+<ul>
+<li>flex-start(默认值)：左对齐</li>
+<li>flex-end:右对齐</li>
+<li>center：居中</li>
+<li>space-between：两端对齐，项目之间的间隔都相等</li>
+<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
+</ul>
+<img src="/2016/08/25/CSS/flex/justify-content.png" title="justify-content">
+<h5 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h5><p>align-items属性定义项目在交叉轴上如何对齐<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  align-items: flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>flex-start：交叉轴的起点对齐</li>
+<li>flex-end:交叉轴的终点对齐</li>
+<li>center：交叉轴的中点对齐</li>
+<li>baseline：项目的第一行文字的基线对齐</li>
+<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度</li>
+</ul>
+<h5 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h5><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  align-content: flex-start | flex-end | center | space-between | space-around | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>flex-start：交叉轴的起点对齐</li>
+<li>flex-end:交叉轴的终点对齐</li>
+<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
+<li>center：与交叉轴的中点对齐。</li>
+<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
+<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
+</ul>
+<img src="/2016/08/25/CSS/flex/align-content.png" title="align-content">
+<h3 id="三、项目的属性"><a href="#三、项目的属性" class="headerlink" title="三、项目的属性"></a>三、项目的属性</h3><p>以下6个属性设置在项目上</p>
+<ul>
+<li>order</li>
+<li>flex-grow</li>
+<li>flex-shrink</li>
+<li>flex-basis</li>
+<li>flex</li>
+<li>align-self</li>
+</ul>
+<h6 id="order"><a href="#order" class="headerlink" title="order"></a>order</h6><p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  order: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/flex/order.png" title="order">
+<h5 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h5><p>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。<br>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。<br><img src="images/flex/flex-grow.png" width="500px"></p>
+<h5 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h5><p>定义项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-shrink: &lt;number&gt;; /* default 1 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="images/flex/flex-shrink.jpg" width="500px"><br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小</p>
+<h5 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h5><p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-basis: &lt;length&gt; | auto; /* default auto */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间</p>
+<h5 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h5><p>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex: none | [ &lt;&apos;flex-grow&apos;&gt; &lt;&apos;flex-shrink&apos;&gt;? || &lt;&apos;flex-basis&apos;&gt; ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。<br>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值.</p>
+<h5 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h5><p>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  align-self: auto | flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/flex/align-self.png" title="align-self">
+<h3 id="四、flex兼容性"><a href="#四、flex兼容性" class="headerlink" title="四、flex兼容性"></a>四、flex兼容性</h3><p>flex更新版本</p>
+<ul>
+<li>display:box是2009年的语法版本，使用时需要加上浏览器的前缀，不过现在已经过时了。</li>
+<li>display:flex是2012年最新修正的语法版本，浏览器支持较好，也将成为以后标准的语法。</li>
+<li>中间2011年也提出了一个奇葩的语法版本display:flexbox，非官方的，当时主要是为IE浏览器使用。</li>
+</ul>
+<h4 id="PC端："><a href="#PC端：" class="headerlink" title="PC端："></a>PC端：</h4><p>display:box 浏览器支持</p>
+<table>
+<thead>
+<tr>
+<th>IE</th>
+<th style="text-align:center">Firefox</th>
+<th style="text-align:center">Chrome</th>
+<th style="text-align:center">Safari</th>
+<th>Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不支持</td>
+<td style="text-align:center">2.0-40.0（-moz-）</td>
+<td style="text-align:center">4.0-45.0(-webkit-)</td>
+<td style="text-align:center">6.0-8.0(-webkit-)</td>
+<td>15.0-29.0(-webkit-)</td>
+</tr>
+</tbody>
+</table>
+<p>display:flex浏览器支持</p>
+<table>
+<thead>
+<tr>
+<th>IE</th>
+<th style="text-align:center">Firefox</th>
+<th style="text-align:center">Chrome</th>
+<th style="text-align:center">Safari</th>
+<th>Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11.0+</td>
+<td style="text-align:center">22.0+</td>
+<td style="text-align:center">21.0+(-webkit-) 29.0+</td>
+<td style="text-align:center">6.1+(-webkit-) 9.0+</td>
+<td>15.0+(-webkit-) 17.0+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="移动端："><a href="#移动端：" class="headerlink" title="移动端："></a>移动端：</h4><h5 id="display-flex"><a href="#display-flex" class="headerlink" title="display:flex"></a>display:flex</h5><ul>
+<li>iOS的原生safari浏览器是支持的；UC浏览器支持的很好；微信浏览器不支持</li>
+<li>安卓的原生浏览器不支持，能够正常显示模块，文档流依次排列；UC浏览器不支持，显示为空白；微信浏览器不支持</li>
+</ul>
+<h5 id="display-box"><a href="#display-box" class="headerlink" title="display:box"></a>display:box</h5><ul>
+<li>ios的原生safari浏览器是支持的；UC浏览器支持的很好</li>
+<li>安卓的原生浏览器支持；UC浏览器支持</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">其实要使多浏览器兼容flexbox容器样式，可以使用如下CSS样式进行定义：</span><br><span class="line">.box &#123;</span><br><span class="line">    display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */</span><br><span class="line">    display: -moz-box; /* Firefox 17- */</span><br><span class="line">    display: -webkit-flex; /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */</span><br><span class="line">    display: -moz-flex; /* Firefox 18+ */</span><br><span class="line">    display: -ms-flexbox; /* IE 10 */</span><br><span class="line">    display: flex; /* Chrome 29+, Firefox 22+, IE 11+, Opera 12.1/17/18, Android 4.4+ */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -767,7 +890,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 186 个字)
+                    1 分钟 读完 (大约 190 个字)
                 </span>
                 
                 
@@ -782,9 +905,10 @@
         <div class="content">
             <h1 id="CSS实现单行多行添加省略号"><a href="#CSS实现单行多行添加省略号" class="headerlink" title="CSS实现单行多行添加省略号"></a>CSS实现单行多行添加省略号</h1><p>先介绍一下单行文本添加省略号的css代码</p>
 <p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">overflow: hidden;</span><br><span class="line">text-overflow:ellipsis;</span><br><span class="line">white-space: nowrap;</span><br></pre></td></tr></table></figure></p>
-<p><img src="./images/ellipsis/ellipsis1.png" alt="单行"><br>先介绍一下多行文本添加省略号的css代码</p>
+<img src="/2016/08/25/CSS/ellipsis/ellipsis1.png" title="单行省略">
+<p>先介绍一下多行文本添加省略号的css代码</p>
 <p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span><br><span class="line">-webkit-box-orient: vertical;</span><br><span class="line">-webkit-line-clamp: 3;</span><br><span class="line">overflow: hidden;</span><br></pre></td></tr></table></figure></p>
-<p><img src="./images/ellipsis/ellipsis2.png" alt="单行"></p>
+<img src="/2016/08/25/CSS/ellipsis/ellipsis2.png" title="多行省略">
 <p>先介绍一下多行文本添加省略号的css代码的优化</p>
 <p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div&#123;position: relative; line-height: 20px; max-height: 40px;overflow: hidden;&#125;</span><br><span class="line">div::after&#123;content: &quot;...&quot;; position: absolute; bottom: 0; right: 0; padding-left: 40px;</span><br><span class="line">background: -webkit-linear-gradient(left, transparent, #fff 55%);</span><br><span class="line">background: -o-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: -moz-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: linear-gradient(to right, transparent, #fff 55%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
@@ -1190,16 +1314,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1219,6 +1343,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1259,25 +1402,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1915,16 +2039,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1944,6 +2068,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1984,25 +2127,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

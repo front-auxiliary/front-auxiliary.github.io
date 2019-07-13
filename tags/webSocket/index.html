@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 327 个字)
+                    2 分钟 读完 (大约 334 个字)
                 </span>
                 
                 
@@ -173,11 +173,12 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/web-socket/">webSocket</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
             
         </h1>
         <div class="content">
-            <h1 id="webSocket"><a href="#webSocket" class="headerlink" title="webSocket"></a>webSocket</h1><h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><p><img src="./images/webSocket/directory.png" alt="目录"></p>
+            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
+<!-- ![目录](./images/webSocket/directory.png) -->
 <h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
@@ -562,16 +563,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -591,6 +592,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -631,25 +651,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1287,16 +1288,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1316,6 +1317,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1356,25 +1376,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

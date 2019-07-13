@@ -157,14 +157,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 907 个字)
+                    5 分钟 读完 (大约 744 个字)
                 </span>
                 
                 
@@ -173,157 +173,29 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/number/">Number深入解析</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/mouse/">获取鼠标的位置</a>
             
         </h1>
         <div class="content">
-            <h1 id="Number深入解析"><a href="#Number深入解析" class="headerlink" title="Number深入解析"></a>Number深入解析</h1><h3 id="Number简介"><a href="#Number简介" class="headerlink" title="Number简介"></a>Number简介</h3><blockquote>
-<p>javaScript不区分整数值和浮点数值。javaScript中所有的数字均用浮点数值表示。javaScript应用的是IEEE754标准定义64位浮点格式表示的数字。它表示的最大值是+/-1.7976931348623157<em>10<sup>308</sup>,最小值是+/-5 </em>10<sup>-324</sup>。javaScript能够表示的正数范围是-2<sup>53</sup>~2<sup>53</sup>,包含界限。如果使用了超出此范围的整数，则无法保证低位数字的精度。还需要注意的是javaScript中实际的操作（比如数组索引）则是基于32位整数。在javaScript中直接出现的数值称之为数字直接量（numneric lieral）。</p>
-</blockquote>
-<h3 id="整型直接量"><a href="#整型直接量" class="headerlink" title="整型直接量"></a>整型直接量</h3><p>javaScript中识别十进制整数以及八进制（严格模式中是禁止使用八进制的）和十六进制</p>
-<h3 id="浮点型直接量"><a href="#浮点型直接量" class="headerlink" title="浮点型直接量"></a>浮点型直接量</h3><p>浮点型直接量可以包含有小数点。下面是浮点型的书写方案：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3.14</span><br><span class="line">033.56</span><br><span class="line">.777</span><br><span class="line">6.7e33</span><br><span class="line">6.7E33</span><br><span class="line">6.7e-33</span><br><span class="line">6.7e3.3 //会报错 Uncaught SyntaxError: Unexpected number</span><br></pre></td></tr></table></figure></p>
-<p>书写语法表示为：<br>[digits][.digits][(E|e)[+|-]digits]</p>
-<h3 id="算数运算"><a href="#算数运算" class="headerlink" title="算数运算"></a>算数运算</h3><p>算数运算的运算符有：加法运算符（+）、减法运算符（-）、乘法运算符（*）、除法运算符（/）、求余运算符（%）。以及Math的属性和方法。</p>
-<ol>
-<li>Math对象的属性：</li>
+            <h3 id="获取鼠标的位置"><a href="#获取鼠标的位置" class="headerlink" title="获取鼠标的位置"></a>获取鼠标的位置</h3><h4 id="获取鼠标的位置可以分为多个情况"><a href="#获取鼠标的位置可以分为多个情况" class="headerlink" title="获取鼠标的位置可以分为多个情况"></a>获取鼠标的位置可以分为多个情况</h4><ol>
+<li><p>获取鼠标相对于浏览器窗口的位置</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.clientX;</span><br><span class="line">let y = event.clientY;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取鼠标相对于整个页面的位置</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.pageX;</span><br><span class="line">let y = event.pageY;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取鼠标相对点击元素的位置</p>
+<p>这一个获取有点难度，因为在JavaScript原生方法中没有这个方法，那么需要分析如何获取，突破点一获取点击元素的相对其父本元素的偏移量这个属性在event的target属性下边绑定可以循环的方法获取点击元素相对于页面的位置方法如下</p>
+</li>
 </ol>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">E</td>
-<td style="text-align:left">返回算术常量 e，即自然对数的底数（约等于2.718）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LN2</td>
-<td style="text-align:left">返回 2 的自然对数（约等于0.693）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LN10</td>
-<td style="text-align:left">返回 10 的自然对数（约等于2.302）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LOG2E</td>
-<td style="text-align:left">返回以 2 为底的 e 的对数（约等于 1.414）。</td>
-</tr>
-<tr>
-<td style="text-align:left">PI</td>
-<td style="text-align:left">返回圆周率（约等于3.14159）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LOG10E</td>
-<td style="text-align:left">返回以 10 为底的 e 的对数（约等于0.434）。</td>
-</tr>
-<tr>
-<td style="text-align:left">SQRT1_2</td>
-<td style="text-align:left">返回返回 2 的平方根的倒数（约等于 0.707）。</td>
-</tr>
-<tr>
-<td style="text-align:left">SQRT2</td>
-<td style="text-align:left">返回 2 的平方根（约等于 1.414）。</td>
-</tr>
-</tbody>
-</table>
-<ol start="2">
-<li>Math 对象方法</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">abs(x)</td>
-<td style="text-align:left">返回数的绝对值。</td>
-</tr>
-<tr>
-<td style="text-align:left">acos(x)</td>
-<td style="text-align:left">返回数的反余弦值。</td>
-</tr>
-<tr>
-<td style="text-align:left">asin(x)</td>
-<td style="text-align:left">返回数的反正弦值。</td>
-</tr>
-<tr>
-<td style="text-align:left">atan(x)</td>
-<td style="text-align:left">以介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值。</td>
-</tr>
-<tr>
-<td style="text-align:left">atan2(y,x)</td>
-<td style="text-align:left">返回从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）。</td>
-</tr>
-<tr>
-<td style="text-align:left">ceil(x)</td>
-<td style="text-align:left">对数进行上舍入。</td>
-</tr>
-<tr>
-<td style="text-align:left">cos(x)</td>
-<td style="text-align:left">返回数的余弦</td>
-</tr>
-<tr>
-<td style="text-align:left">exp(x)</td>
-<td style="text-align:left">返回 e 的指数</td>
-</tr>
-<tr>
-<td style="text-align:left">floor(x)</td>
-<td style="text-align:left">对数进行下舍入</td>
-</tr>
-<tr>
-<td style="text-align:left">log(x)</td>
-<td style="text-align:left">返回数的自然对数（底为e）</td>
-</tr>
-<tr>
-<td style="text-align:left">max(x,y)</td>
-<td style="text-align:left">返回 x 和 y 中的最高值</td>
-</tr>
-<tr>
-<td style="text-align:left">min(x,y)</td>
-<td style="text-align:left">返回 x 和 y 中的最低值</td>
-</tr>
-<tr>
-<td style="text-align:left">pow(x,y)</td>
-<td style="text-align:left">返回 x 的 y 次幂</td>
-</tr>
-<tr>
-<td style="text-align:left">random()</td>
-<td style="text-align:left">返回 0 ~ 1 之间的随机数</td>
-</tr>
-<tr>
-<td style="text-align:left">round(x)</td>
-<td style="text-align:left">把数四舍五入为最接近的整数</td>
-</tr>
-<tr>
-<td style="text-align:left">sin(x)</td>
-<td style="text-align:left">返回数的正弦。</td>
-</tr>
-<tr>
-<td style="text-align:left">sqrt(x)</td>
-<td style="text-align:left">返回数的平方根</td>
-</tr>
-<tr>
-<td style="text-align:left">tan(x)</td>
-<td style="text-align:left">返回角的正切</td>
-</tr>
-<tr>
-<td style="text-align:left">toSource()</td>
-<td style="text-align:left">返回该对象的源代码</td>
-</tr>
-<tr>
-<td style="text-align:left">valueOf()</td>
-<td style="text-align:left">返回 Math 对象的原始值</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Infinity与NAN"><a href="#Infinity与NAN" class="headerlink" title="Infinity与NAN"></a>Infinity与NAN</h3><p>在JavaScript的算术运算在溢出(overflow)、下益(underflow)或被零整除时不会报错。<br><strong>溢出</strong><br>当数字超出数字的上限结果用Infinity表示超出下线用-Infinity表示。关于无穷大的行为特性为：基于它们的加、减、乘、除运算的结果还是无穷大。<br><strong>下益</strong><br>当运算结果无限接近零并比JavaScript能表示的最小值还小的时候发生的一种情形。这种情况下JavaScript将会返回0，当负数发生下益时，JavaScript会返回一个特殊的值“负零”。</p>
-<p>寄语：生活想让我们缴械，但是从这一刻起我们要做的是反击 。:)</p>
+  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  /*</span><br><span class="line">  *该方法是获取点击元素相对于页面的距离</span><br><span class="line">  *传入的参数为event.target</span><br><span class="line">  */</span><br><span class="line">  function getOffset(obj)&#123;</span><br><span class="line">   var tmp=&#123;</span><br><span class="line">      val:obj.offsetParent, //获取点击元素的父本</span><br><span class="line">      x:obj.offsetLeft, //获取点击元素的相对于父本的水平偏移</span><br><span class="line">      y:obj.offsetTop, //获取点击元素的相对于父本的垂直偏移</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   while(tmp.val != null)&#123; //当父级不存在是停止循环</span><br><span class="line">    tmp.x += tmp.val.offsetLeft; //水平偏移量累计</span><br><span class="line">    tmp.y += tmp.val.offsetTop; //垂直偏移量累计</span><br><span class="line">    tmp.val = tmp.val.offsetParent; //获取父本</span><br><span class="line">   &#125;</span><br><span class="line">   return tmp; //返回点击元素相对于页面的偏移值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上函数是获取了点击元素相对于页面的水平和垂直偏移，依赖以上获得的值，只需要鼠标相对于页面的偏移减去点击元素相对于页面的偏移方法如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">*该方法是获取鼠标相对于点击元素的位移</span><br><span class="line">*传入的参数为event</span><br><span class="line">*/</span><br><span class="line">function getCurrent(elem)&#123;</span><br><span class="line">  let off = getOffset(elem.target); //获取元素相对于页面的位置</span><br><span class="line">  let tmp = &#123;&#125;;</span><br><span class="line">  return tmp = &#123;</span><br><span class="line">    x:elem.pageX - off.x,</span><br><span class="line">    y:elem.pageY - off.y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.getBoundingClientRect用于获取某个html元素相对于页面的位置集合<br>执行 object.getBoundingClientRect();会得到元素的top、right、bottom、left、width、height属性，这些属性以一个对象的方式返回。</p>
+<p>主要是left和bottom要解释一下，left是指右边到页面最左边的距离，bottom是指底边到页面顶边的距离。</p>
+<h6 id="ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。"><a href="#ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。" class="headerlink" title="(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)"></a>(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)</h6><p><img src="http://www.51xuediannao.com/uploads/allimg/160811/2340295W5-0.jpg?_=6179964" alt="图解"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;test&quot; style=&quot;width: 100px; height: 100px; background: #ddd;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function getObjXy(obj)&#123;</span><br><span class="line">        var xy = obj.getBoundingClientRect();</span><br><span class="line">        var top = xy.top-document.documentElement.clientTop+document.documentElement.scrollTop,//document.documentElement.clientTop 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            bottom = xy.bottom,</span><br><span class="line">            left = xy.left-document.documentElement.clientLeft+document.documentElement.scrollLeft,//document.documentElement.clientLeft 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            right = xy.right,</span><br><span class="line">            width = xy.width||right - left, //IE67不存在width 使用right - left获得</span><br><span class="line">            height = xy.height||bottom - top;</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            top:top,</span><br><span class="line">            right:right,</span><br><span class="line">            bottom:bottom,</span><br><span class="line">            left:left,</span><br><span class="line">            width:width,</span><br><span class="line">            height:height</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var test = getObjXy(document.getElementById(&apos;test&apos;));</span><br><span class="line">    alert(&quot;top:&quot; + test.top + &quot;, right:&quot; + test.right + &quot;, bottom:&quot; + test.bottom + &quot;, left:&quot; + test.left);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>以上就是常用的获取鼠标位置的方法</p>
 
         </div>
         
@@ -355,7 +227,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1021 个字)
+                    3 分钟 读完 (大约 391 个字)
                 </span>
                 
                 
@@ -364,34 +236,16 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/Currying/">柯里化函数</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
             
         </h1>
         <div class="content">
-            <h1 id="柯里化函数"><a href="#柯里化函数" class="headerlink" title="柯里化函数"></a>柯里化函数</h1><blockquote>
-<p>在计算机科学中，柯里化（英语：Currying），又译为卡瑞化或加里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家哈斯凯尔·加里命名的，尽管它是 Moses Schönfinkel 和 Gottlob Frege 发明的。</p>
-</blockquote>
-<h5 id="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"><a href="#这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。" class="headerlink" title="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"></a>这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。</h5><p>看一下通用实现：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function currying(fn) &#123;</span><br><span class="line">    var slice = Array.prototype.slice,</span><br><span class="line">    __args = slice.call(arguments, 1);</span><br><span class="line">    return function () &#123;</span><br><span class="line">        var __inargs = slice.call(arguments);</span><br><span class="line">        return fn.apply(null, __args.concat(__inargs));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="柯里化的实用性体现在很多方面："><a href="#柯里化的实用性体现在很多方面：" class="headerlink" title="柯里化的实用性体现在很多方面："></a>柯里化的实用性体现在很多方面：</h3><h5 id="1-提高适用性。"><a href="#1-提高适用性。" class="headerlink" title="1 提高适用性。"></a>1 提高适用性。</h5><blockquote>
-<p>【通用函数】解决了兼容性问题，但同时也会再来，使用的不便利性，不同的应用场景往，要传递很多参数，以达到解决特定问题的目的。有时候应用中，同一种规则可能会反复使用，这就可能会造成代码的重复性。</p>
-</blockquote>
-<p>看下面一个例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 数组的每一项平方</span><br><span class="line">map(square, [1, 2, 3, 4, 5]);</span><br><span class="line">map(square, [6, 7, 8, 9, 10]);</span><br><span class="line">map(square, [10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">// 数组的每一项加倍</span><br><span class="line">map(dubble, [1, 2, 3, 4, 5]);</span><br><span class="line">map(dubble, [6, 7, 8, 9, 10]);</span><br><span class="line">map(dubble, [10, 20, 30, 40, 50]);</span><br></pre></td></tr></table></figure>
-<p>例子中，创建了一个map通用函数，用于适应不同的应用场景。显然，通用性不用怀疑。同时，例子中重复传入了相同的处理函数：square和dubble。</p>
-<p>应用中这种可能会更多。当然，通用性的增强必然带来适用性的减弱。但是，我们依然可以在中间找到一种平衡。</p>
-<p>看下面，我们利用柯里化改造一下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var mapSQ = currying(map, square);</span><br><span class="line">mapSQ([1, 2, 3, 4, 5]);</span><br><span class="line">mapSQ([6, 7, 8, 9, 10]);</span><br><span class="line">mapSQ([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">var mapDB = currying(map, dubble);</span><br><span class="line">mapDB([1, 2, 3, 4, 5]);</span><br><span class="line">mapDB([6, 7, 8, 9, 10]);</span><br><span class="line">mapDB([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br></pre></td></tr></table></figure>
-<p>我们缩小了函数的适用范围，但同时提高函数的适性。当然，也有扩展函数适用范围的方法–反柯里化，留到下一篇再讨论。</p>
-<p>由此，可知柯里化不仅仅是提高了代码的合理性，更重的它突出一种思想—降低适用范围，提高适用性。</p>
-<p>下面再看一个例子，一个应用范围更广泛更熟悉的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function Ajax() &#123;</span><br><span class="line">    this.xhr = new XMLHttpRequest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ajax.prototype.open = function(type, url, data, callback) &#123;</span><br><span class="line">    this.onload = function() &#123;</span><br><span class="line">        callback(this.xhr.responseText, this.xhr.status, this.xhr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.xhr.open(type, url, data.async);</span><br><span class="line">    this.xhr.send(data.paras);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&apos;get post&apos;.split(&apos; &apos;).forEach(function(mt) &#123;</span><br><span class="line">    Ajax.prototype[mt] = currying(Ajax.prototype.open, mt);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr = new Ajax();</span><br><span class="line">xhr.get(&apos;/articles/list.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr1 = new Ajax();</span><br><span class="line">xhr1.post(&apos;/articles/add.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-延迟执行。"><a href="#2-延迟执行。" class="headerlink" title="2 延迟执行。"></a>2 延迟执行。</h5><p> 柯里化的另一个应用场景是延迟执行。不断的柯里化，累积传入的参数，最后执行。</p>
-<p>看下面：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var add = function() &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = arguments</span><br><span class="line">    return function() &#123;</span><br><span class="line">        if (!arguments.length) &#123;</span><br><span class="line">            var sum = 0;</span><br><span class="line">            for (var i = 0,</span><br><span class="line">            c; c = _args[i++];) sum += c</span><br><span class="line">            return sum</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Array.prototype.push.apply(_args, arguments) return arguments.callee</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">add(1)(2)(3)(4)();//10</span><br></pre></td></tr></table></figure></p>
-<p>通用的写法：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var curry = function(fn) &#123;</span><br><span class="line">    var _args = []</span><br><span class="line">    return function cb() &#123;</span><br><span class="line">        if (arguments.length == 0) &#123;</span><br><span class="line">            return fn.apply(this, _args)</span><br><span class="line">        &#125;</span><br><span class="line">        Array.prototype.push.apply(_args, arguments);</span><br><span class="line">        return cb;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面累加的例子，可以实验一下怎么写？</p>
-<h5 id="3-固定易变因素。"><a href="#3-固定易变因素。" class="headerlink" title="3 固定易变因素。"></a>3 固定易变因素。</h5><p>柯里化特性决定了它这应用场景。提前把易变因素，传参固定下来，生成一个更明确的应用函数。最典型的代表应用，是bind函数用以固定this这个易变对象。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.bind = function(context) &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return _this.apply(context, _args.concat(Array.prototype.slice.call(arguments)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
+<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
+<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -423,7 +277,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1648 个字)
+                    11 分钟 读完 (大约 1637 个字)
                 </span>
                 
                 
@@ -436,7 +290,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="原型到原型链"><a href="#原型到原型链" class="headerlink" title="原型到原型链"></a>原型到原型链</h1><h3 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h3><p>我们先使用构造函数创建一个对象：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &apos;Kevin&apos;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+            <h3 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h3><p>我们先使用构造函数创建一个对象：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &apos;Kevin&apos;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure></p>
 <p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
 <p>很简单吧，接下来进入正题：</p>
 <ul>
@@ -447,7 +301,7 @@
 <p>那这个函数的 prototype 属性到底指向的是什么呢？是这个函数的原型吗？</p>
 <p>其实，函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型，也就是这个例子中的 person1 和 person2 的原型。</p>
 <p>那什么是原型呢？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p>
-<p>让我们用一张图表示构造函数和实例原型之间的关系：<br><img src="./images/prototype/prototype.png" alt="让我们用一张图表示构造函数和实例原型之间的关系："></p>
+<p>让我们用一张图表示构造函数和实例原型之间的关系：<br><img src="/2016/08/25/javaScript/prototype/prototype.png" title="让我们用一张图表示构造函数和实例原型之间的关系"></p>
 <p>在这张图中我们用 Object.prototype 表示实例原型。</p>
 <p>那么我们该怎么表示实例与实例原型，也就是 person 和 Person.prototype 之间的关系呢，这时候我们就要讲到第二个属性：</p>
 <ul>
@@ -455,27 +309,25 @@
 </ul>
 <p>这是每一个JavaScript对象(除了 null )都具有的一个属性，叫<strong>proto</strong>，这个属性会指向该对象的原型。</p>
 <p>为了证明这一点,我们可以在火狐或者谷歌中输入：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure></p>
-<p>于是我们更新下关系图：<br><img src="./images/prototype/proto.png" alt="于是我们更新下关系图："></p>
+<p>于是我们更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/proto.png" title="于是我们更新下关系图"></p>
 <p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
 <ul>
 <li>constructor</li>
 </ul>
 <p>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor﻿，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
 <p>为了验证这一点，我们可以尝试：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure></p>
-<p>所以再更新下关系图：</p>
-<p><img src="./images/prototype/constructor.png" alt="于是我们更新下关系图："></p>
+<p>所以再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/constructor.png" title="于是我们更新下关系图"></p>
 <p>综上我们已经得出：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure></p>
 <p>了解了构造函数、实例原型、和实例之间的关系，接下来我们讲讲实例和原型的关系：</p>
 <p>实例与原型<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。</p>
 <p>举个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">person.name = &apos;Daisy&apos;;</span><br><span class="line">console.log(person.name) // Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) // Kevin</span><br><span class="line">在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</span><br><span class="line"></span><br><span class="line">但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.__proto__ ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</span><br></pre></td></tr></table></figure></p>
 <p>但是万一还没有找到呢？原型的原型又是什么呢？</p>
 <p>原型的原型<br>在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object();</span><br><span class="line">obj.name = &apos;Kevin&apos;</span><br><span class="line">console.log(obj.name) // Kevin</span><br></pre></td></tr></table></figure></p>
-<p>所以原型对象是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：<br><img src="./images/prototype/obj.png" alt="于是我们更新下关系图："></p>
+<p>所以原型对象是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/obj.png" title="于是我们更新下关系图"></p>
 <p>原型链<br>那 Object.prototype 的原型呢？</p>
 <p>null，不信我们可以打印：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure></p>
 <p>所以查到属性的时候查到 Object.prototype 就可以停止查找了。</p>
-<p>所以最后一张关系图就是</p>
-<p><img src="./images/prototype/objEnd.png" alt="于是我们更新下关系图："></p>
+<p>所以最后一张关系图就是<br><img src="/2016/08/25/javaScript/prototype/objEnd.png" title="于是我们更新下关系图"></p>
 <p>顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
 <p>补充<br>最后，补充三点大家可能不会注意的地方：</p>
 <p>constructor</p>
@@ -518,7 +370,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 337 个字)
+                    2 分钟 读完 (大约 331 个字)
                 </span>
                 
                 
@@ -531,7 +383,10 @@
             
         </h1>
         <div class="content">
-            <h1 id="滚到底部加载"><a href="#滚到底部加载" class="headerlink" title="滚到底部加载"></a>滚到底部加载</h1><h4 id="其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码"><a href="#其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码" class="headerlink" title="其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码"></a>其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码</h4><p>浏览器视口的高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">getWindowHeight = () =&gt; &#123;</span><br><span class="line">　　var windowHeight = 0;</span><br><span class="line">　　if(document.compatMode == &quot;CSS1Compat&quot;)&#123;</span><br><span class="line">　　　　windowHeight = document.documentElement.clientHeight;</span><br><span class="line">　　&#125;else&#123;</span><br><span class="line">　　　　windowHeight = document.body.clientHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　return windowHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码</p>
+</blockquote>
+<p>浏览器视口的高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">getWindowHeight = () =&gt; &#123;</span><br><span class="line">　　var windowHeight = 0;</span><br><span class="line">　　if(document.compatMode == &quot;CSS1Compat&quot;)&#123;</span><br><span class="line">　　　　windowHeight = document.documentElement.clientHeight;</span><br><span class="line">　　&#125;else&#123;</span><br><span class="line">　　　　windowHeight = document.body.clientHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　return windowHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>文档的总高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getScrollHeight = () =&gt; &#123;</span><br><span class="line">　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;</span><br><span class="line">　　if(document.body)&#123;</span><br><span class="line">　　　　bodyScrollHeight = document.body.scrollHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　if(document.documentElement)&#123;</span><br><span class="line">　　　　documentScrollHeight = document.documentElement.scrollHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　scrollHeight = (bodyScrollHeight - documentScrollHeight &gt; 0) ? bodyScrollHeight : documentScrollHeight;</span><br><span class="line">　　return scrollHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>滚动条在Y轴上的滚动距离<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getScrollTop = () =&gt; &#123;</span><br><span class="line">　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;</span><br><span class="line">　　if(document.body)&#123;</span><br><span class="line">　　　　bodyScrollTop = document.body.scrollTop;</span><br><span class="line">　　&#125;</span><br><span class="line">　　if(document.documentElement)&#123;</span><br><span class="line">　　　　documentScrollTop = document.documentElement.scrollTop;</span><br><span class="line">　　&#125;</span><br><span class="line">　　scrollTop = (bodyScrollTop - documentScrollTop &gt; 0) ? bodyScrollTop : documentScrollTop;</span><br><span class="line">　　return scrollTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>那么剩下的就是在js里边进行判断这里主要说在react里的用法<br>这里把所有的操作写在一个方法里<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">onScrollListener = () =&gt;&#123;</span><br><span class="line">  if(getScrollTop() + getWindowHeight() == getScrollHeight())&#123;</span><br><span class="line">    alert(&quot;滚动条已经滚动到了底部&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -569,7 +424,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 327 个字)
+                    2 分钟 读完 (大约 334 个字)
                 </span>
                 
                 
@@ -578,11 +433,12 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/web-socket/">webSocket</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
             
         </h1>
         <div class="content">
-            <h1 id="webSocket"><a href="#webSocket" class="headerlink" title="webSocket"></a>webSocket</h1><h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><p><img src="./images/webSocket/directory.png" alt="目录"></p>
+            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
+<!-- ![目录](./images/webSocket/directory.png) -->
 <h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
@@ -618,7 +474,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 分钟 读完 (大约 2122 个字)
+                    14 分钟 读完 (大约 2114 个字)
                 </span>
                 
                 
@@ -631,7 +487,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="路由实现原理解析"><a href="#路由实现原理解析" class="headerlink" title="路由实现原理解析"></a>路由实现原理解析</h1><p><a href="https://github.com/joeyguo/blog/issues/2" target="_blank" rel="noopener">原文地址</a></p>
+            <p><a href="https://github.com/joeyguo/blog/issues/2" target="_blank" rel="noopener">原文地址</a></p>
 <p>在单页应用上，前端路由并不陌生。很多前端框架也会有独立开发或推荐配套使用的路由系统。那么，当我们在谈前端路由的时候，还可以谈些什么？本文将简要分析并实现一个的前端路由，并对 react-router 进行分析。</p>
 <h3 id="一个极简前端路由实现"><a href="#一个极简前端路由实现" class="headerlink" title="一个极简前端路由实现"></a>一个极简前端路由实现</h3><p>说一下前端路由实现的简要原理，以 hash 形式（也可以使用 History API 来处理）为例，当 url 的 hash 发生变化时，触发 hashchange 注册的回调，回调中去进行不同的操作，进行不同的内容的展示。直接看代码或许更直观。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Router() &#123;</span><br><span class="line">    this.routes = &#123;&#125;;</span><br><span class="line">    this.currentUrl = &apos;&apos;;</span><br><span class="line">&#125;</span><br><span class="line">Router.prototype.route = function(path, callback) &#123;</span><br><span class="line">    this.routes[path] = callback || function()&#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">Router.prototype.refresh = function() &#123;</span><br><span class="line">    this.currentUrl = location.hash.slice(1) || &apos;/&apos;;</span><br><span class="line">    this.routes[this.currentUrl]();</span><br><span class="line">&#125;;</span><br><span class="line">Router.prototype.init = function() &#123;</span><br><span class="line">    window.addEventListener(&apos;load&apos;, this.refresh.bind(this), false);</span><br><span class="line">    window.addEventListener(&apos;hashchange&apos;, this.refresh.bind(this), false);</span><br><span class="line">&#125;</span><br><span class="line">window.Router = new Router();</span><br><span class="line">window.Router.init();</span><br></pre></td></tr></table></figure></p>
 <p>上面路由系统 Router 对象实现，主要提供三个方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">init 监听浏览器 url hash 更新事件</span><br><span class="line">route 存储路由更新时的回调到回调数组routes中，回调函数将负责对页面的更新</span><br><span class="line">refresh 执行当前url对应的回调函数，更新页面</span><br><span class="line">Router 调用方式以及呈现效果如下：点击触发 url 的 hash 改变，并对应地更新内容（这里为 body 背景色）</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/&quot;&gt;turn white&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/blue&quot;&gt;turn blue&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/green&quot;&gt;turn green&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">var content = document.querySelector(&apos;body&apos;);</span><br><span class="line">// change Page anything</span><br><span class="line">function changeBgColor(color) &#123;</span><br><span class="line">    content.style.backgroundColor = color;</span><br><span class="line">&#125;</span><br><span class="line">Router.route(&apos;/&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;white&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(&apos;/blue&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;blue&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(&apos;/green&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;green&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
@@ -687,7 +543,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1751 个字)
+                    12 分钟 读完 (大约 1741 个字)
                 </span>
                 
                 
@@ -700,7 +556,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="Array-prototype-slice应用和原理探析"><a href="#Array-prototype-slice应用和原理探析" class="headerlink" title="Array.prototype.slice应用和原理探析"></a>Array.prototype.slice应用和原理探析</h1><h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
+            <h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
 <h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
 <h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
 <p>有必要探究一番其使用方式和内部原理。</p>
@@ -755,7 +611,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    22 分钟 读完 (大约 3370 个字)
+                    22 分钟 读完 (大约 3367 个字)
                 </span>
                 
                 
@@ -768,7 +624,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="javaScript的this"><a href="#javaScript的this" class="headerlink" title="javaScript的this"></a>javaScript的this</h1><h3 id="this的常见绑定形式"><a href="#this的常见绑定形式" class="headerlink" title="this的常见绑定形式"></a>this的常见绑定形式</h3><p>1.默认绑定<br>2.隐式绑定<br>3.显示绑定<br>4.new绑定</p>
+            <h3 id="this的常见绑定形式"><a href="#this的常见绑定形式" class="headerlink" title="this的常见绑定形式"></a>this的常见绑定形式</h3><p>1.默认绑定<br>2.隐式绑定<br>3.显示绑定<br>4.new绑定</p>
 <blockquote>
 <p>判断this 现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断:</p>
 <ol>
@@ -878,7 +734,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    29 分钟 读完 (大约 4335 个字)
+                    29 分钟 读完 (大约 4325 个字)
                 </span>
                 
                 
@@ -891,7 +747,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="移动端事件——Touch事件"><a href="#移动端事件——Touch事件" class="headerlink" title="移动端事件——Touch事件"></a>移动端事件——Touch事件</h1><h2 id="Touch事件"><a href="#Touch事件" class="headerlink" title="Touch事件"></a>Touch事件</h2><h4 id="触摸事件包含4个接口"><a href="#触摸事件包含4个接口" class="headerlink" title="触摸事件包含4个接口"></a>触摸事件包含4个接口</h4><p><strong>TouchEvent</strong><br>代表当触摸行为在平面上变化的时候发生的事件.</p>
+            <h2 id="Touch事件"><a href="#Touch事件" class="headerlink" title="Touch事件"></a>Touch事件</h2><h4 id="触摸事件包含4个接口"><a href="#触摸事件包含4个接口" class="headerlink" title="触摸事件包含4个接口"></a>触摸事件包含4个接口</h4><p><strong>TouchEvent</strong><br>代表当触摸行为在平面上变化的时候发生的事件.</p>
 <p><strong>Touch</strong><br>代表用户与触摸平面间的一个接触点.</p>
 <p><strong>TouchList</strong><br>代表一系列的Touch; 一般在用户多个手指同时接触触控平面时使用这个接口.</p>
 <p><strong>DocumentTouch</strong><br>DocumentTouch 接口提供了一个便利的方法来创建 Touch 和 TouchList 对象, 可是它将被移除。 但这个方法将会继续在Document 接口中存在.</p>
@@ -1074,7 +930,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 396 个字)
+                    7 分钟 读完 (大约 1016 个字)
                 </span>
                 
                 
@@ -1083,16 +939,34 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/Currying/">柯里化函数</a>
             
         </h1>
         <div class="content">
-            <h1 id="javaScript的arguments-caller-callee"><a href="#javaScript的arguments-caller-callee" class="headerlink" title="javaScript的arguments, caller, callee"></a>javaScript的arguments, caller, callee</h1><h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
-<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
-<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>在计算机科学中，柯里化（英语：Currying），又译为卡瑞化或加里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家哈斯凯尔·加里命名的，尽管它是 Moses Schönfinkel 和 Gottlob Frege 发明的。</p>
+</blockquote>
+<h5 id="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"><a href="#这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。" class="headerlink" title="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"></a>这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。</h5><p>看一下通用实现：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function currying(fn) &#123;</span><br><span class="line">    var slice = Array.prototype.slice,</span><br><span class="line">    __args = slice.call(arguments, 1);</span><br><span class="line">    return function () &#123;</span><br><span class="line">        var __inargs = slice.call(arguments);</span><br><span class="line">        return fn.apply(null, __args.concat(__inargs));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="柯里化的实用性体现在很多方面："><a href="#柯里化的实用性体现在很多方面：" class="headerlink" title="柯里化的实用性体现在很多方面："></a>柯里化的实用性体现在很多方面：</h3><h5 id="1-提高适用性。"><a href="#1-提高适用性。" class="headerlink" title="1 提高适用性。"></a>1 提高适用性。</h5><blockquote>
+<p>【通用函数】解决了兼容性问题，但同时也会再来，使用的不便利性，不同的应用场景往，要传递很多参数，以达到解决特定问题的目的。有时候应用中，同一种规则可能会反复使用，这就可能会造成代码的重复性。</p>
+</blockquote>
+<p>看下面一个例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 数组的每一项平方</span><br><span class="line">map(square, [1, 2, 3, 4, 5]);</span><br><span class="line">map(square, [6, 7, 8, 9, 10]);</span><br><span class="line">map(square, [10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">// 数组的每一项加倍</span><br><span class="line">map(dubble, [1, 2, 3, 4, 5]);</span><br><span class="line">map(dubble, [6, 7, 8, 9, 10]);</span><br><span class="line">map(dubble, [10, 20, 30, 40, 50]);</span><br></pre></td></tr></table></figure>
+<p>例子中，创建了一个map通用函数，用于适应不同的应用场景。显然，通用性不用怀疑。同时，例子中重复传入了相同的处理函数：square和dubble。</p>
+<p>应用中这种可能会更多。当然，通用性的增强必然带来适用性的减弱。但是，我们依然可以在中间找到一种平衡。</p>
+<p>看下面，我们利用柯里化改造一下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var mapSQ = currying(map, square);</span><br><span class="line">mapSQ([1, 2, 3, 4, 5]);</span><br><span class="line">mapSQ([6, 7, 8, 9, 10]);</span><br><span class="line">mapSQ([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">var mapDB = currying(map, dubble);</span><br><span class="line">mapDB([1, 2, 3, 4, 5]);</span><br><span class="line">mapDB([6, 7, 8, 9, 10]);</span><br><span class="line">mapDB([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br></pre></td></tr></table></figure>
+<p>我们缩小了函数的适用范围，但同时提高函数的适性。当然，也有扩展函数适用范围的方法–反柯里化，留到下一篇再讨论。</p>
+<p>由此，可知柯里化不仅仅是提高了代码的合理性，更重的它突出一种思想—降低适用范围，提高适用性。</p>
+<p>下面再看一个例子，一个应用范围更广泛更熟悉的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function Ajax() &#123;</span><br><span class="line">    this.xhr = new XMLHttpRequest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ajax.prototype.open = function(type, url, data, callback) &#123;</span><br><span class="line">    this.onload = function() &#123;</span><br><span class="line">        callback(this.xhr.responseText, this.xhr.status, this.xhr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.xhr.open(type, url, data.async);</span><br><span class="line">    this.xhr.send(data.paras);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&apos;get post&apos;.split(&apos; &apos;).forEach(function(mt) &#123;</span><br><span class="line">    Ajax.prototype[mt] = currying(Ajax.prototype.open, mt);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr = new Ajax();</span><br><span class="line">xhr.get(&apos;/articles/list.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr1 = new Ajax();</span><br><span class="line">xhr1.post(&apos;/articles/add.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-延迟执行。"><a href="#2-延迟执行。" class="headerlink" title="2 延迟执行。"></a>2 延迟执行。</h5><p> 柯里化的另一个应用场景是延迟执行。不断的柯里化，累积传入的参数，最后执行。</p>
+<p>看下面：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var add = function() &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = arguments</span><br><span class="line">    return function() &#123;</span><br><span class="line">        if (!arguments.length) &#123;</span><br><span class="line">            var sum = 0;</span><br><span class="line">            for (var i = 0,</span><br><span class="line">            c; c = _args[i++];) sum += c</span><br><span class="line">            return sum</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Array.prototype.push.apply(_args, arguments) return arguments.callee</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">add(1)(2)(3)(4)();//10</span><br></pre></td></tr></table></figure></p>
+<p>通用的写法：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var curry = function(fn) &#123;</span><br><span class="line">    var _args = []</span><br><span class="line">    return function cb() &#123;</span><br><span class="line">        if (arguments.length == 0) &#123;</span><br><span class="line">            return fn.apply(this, _args)</span><br><span class="line">        &#125;</span><br><span class="line">        Array.prototype.push.apply(_args, arguments);</span><br><span class="line">        return cb;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面累加的例子，可以实验一下怎么写？</p>
+<h5 id="3-固定易变因素。"><a href="#3-固定易变因素。" class="headerlink" title="3 固定易变因素。"></a>3 固定易变因素。</h5><p>柯里化特性决定了它这应用场景。提前把易变因素，传参固定下来，生成一个更明确的应用函数。最典型的代表应用，是bind函数用以固定this这个易变对象。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.bind = function(context) &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return _this.apply(context, _args.concat(Array.prototype.slice.call(arguments)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -1494,16 +1368,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1523,6 +1397,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1563,25 +1456,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -2219,16 +2093,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -2248,6 +2122,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -2288,25 +2181,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

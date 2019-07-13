@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 分钟 读完 (大约 2060 个字)
+                    6 分钟 读完 (大约 868 个字)
                 </span>
                 
                 
@@ -163,69 +163,36 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/node/packagejson/">packagejson文件详解</a>
+                <a class="has-link-black-ter" href="/2019/07/13/node/application/">thinkjs项目目录解析</a>
             
         </h1>
         <div class="content">
-            <h1 id="packagejson文件详解"><a href="#packagejson文件详解" class="headerlink" title="packagejson文件详解"></a>packagejson文件详解</h1><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1. 概述</span><br><span class="line">2. scripts字段</span><br><span class="line">3. dependencies字段，devDependencies字段</span><br><span class="line">4. peerDependencies</span><br><span class="line">5. bin字段</span><br><span class="line">6. main字段</span><br><span class="line">7. config 字段</span><br><span class="line">8. 其他</span><br><span class="line">9. browser字段</span><br><span class="line">10. engines 字段</span><br><span class="line">11. man字段</span><br><span class="line">12. preferGlobal字段</span><br><span class="line">13. style字段</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>每个项目的根目录下面，一般都有一个package.json文件，定义了这个项目所需要的各种模块，以及项目的配置信息（比如名称、版本、许可证等元数据）。npm install命令根据这个配置文件，自动下载所需的模块，也就是配置项目所需的运行和开发环境。</p>
-<p>下面是一个最简单的package.json文件，只定义两项元数据：项目名称和项目版本。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;xxx&quot;,</span><br><span class="line">  &quot;version&quot; : &quot;0.0.0&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>package.json文件就是一个JSON对象，该对象的每一个成员就是当前项目的一项设置。比如name就是项目名称，version是版本（遵守“大版本.次要版本.小版本”的格式）。</p>
-<p>下面是一个更完整的package.json文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;Hello World&quot;,</span><br><span class="line">	&quot;version&quot;: &quot;0.0.1&quot;,</span><br><span class="line">	&quot;author&quot;: &quot;张三&quot;,</span><br><span class="line">	&quot;description&quot;: &quot;第一个node.js程序&quot;,</span><br><span class="line">	&quot;keywords&quot;:[&quot;node.js&quot;,&quot;javascript&quot;],</span><br><span class="line">	&quot;repository&quot;: &#123;</span><br><span class="line">		&quot;type&quot;: &quot;git&quot;,</span><br><span class="line">		&quot;url&quot;: &quot;https://path/to/url&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;license&quot;:&quot;MIT&quot;,</span><br><span class="line">	&quot;engines&quot;: &#123;&quot;node&quot;: &quot;0.10.x&quot;&#125;,</span><br><span class="line">	&quot;bugs&quot;:&#123;&quot;url&quot;:&quot;http://path/to/bug&quot;,&quot;email&quot;:&quot;bug@example.com&quot;&#125;,</span><br><span class="line">	&quot;contributors&quot;:[&#123;&quot;name&quot;:&quot;李四&quot;,&quot;email&quot;:&quot;lisi@example.com&quot;&#125;],</span><br><span class="line">	&quot;scripts&quot;: &#123;</span><br><span class="line">		&quot;start&quot;: &quot;node index.js&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;dependencies&quot;: &#123;</span><br><span class="line">		&quot;express&quot;: &quot;latest&quot;,</span><br><span class="line">		&quot;mongoose&quot;: &quot;~3.8.3&quot;,</span><br><span class="line">		&quot;handlebars-runtime&quot;: &quot;~1.0.12&quot;,</span><br><span class="line">		&quot;express3-handlebars&quot;: &quot;~0.5.0&quot;,</span><br><span class="line">		&quot;MD5&quot;: &quot;~1.2.0&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;devDependencies&quot;: &#123;</span><br><span class="line">		&quot;bower&quot;: &quot;~1.2.8&quot;,</span><br><span class="line">		&quot;grunt&quot;: &quot;~0.4.1&quot;,</span><br><span class="line">		&quot;grunt-contrib-concat&quot;: &quot;~0.3.0&quot;,</span><br><span class="line">		&quot;grunt-contrib-jshint&quot;: &quot;~0.7.2&quot;,</span><br><span class="line">		&quot;grunt-contrib-uglify&quot;: &quot;~0.2.7&quot;,</span><br><span class="line">		&quot;grunt-contrib-clean&quot;: &quot;~0.5.0&quot;,</span><br><span class="line">		&quot;browserify&quot;: &quot;2.36.1&quot;,</span><br><span class="line">		&quot;grunt-browserify&quot;: &quot;~1.3.0&quot;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面详细解释package.json文件的各个字段。</p>
-<h3 id="2-scripts字段"><a href="#2-scripts字段" class="headerlink" title="2. scripts字段"></a>2. scripts字段</h3><p>scripts指定了运行脚本命令的npm命令行缩写，比如start指定了运行npm run start时，所要执行的命令。</p>
-<p>下面的设置指定了npm run preinstall、npm run postinstall、npm run start、npm run test时，所要执行的命令。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;preinstall&quot;: &quot;echo here it comes!&quot;,</span><br><span class="line">    &quot;postinstall&quot;: &quot;echo there it goes!&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;node index.js&quot;,</span><br><span class="line">    &quot;test&quot;: &quot;tap test/*.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-dependencies字段，devDependencies字段"><a href="#3-dependencies字段，devDependencies字段" class="headerlink" title="3. dependencies字段，devDependencies字段"></a>3. dependencies字段，devDependencies字段</h3><p>dependencies字段指定了项目运行所依赖的模块，devDependencies指定项目开发所需要的模块。</p>
-<p>它们都指向一个对象。该对象的各个成员，分别由模块名和对应的版本要求组成，表示依赖的模块及其版本范围。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;browserify&quot;: &quot;~13.0.0&quot;,</span><br><span class="line">    &quot;karma-browserify&quot;: &quot;~5.0.1&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对应的版本可以加上各种限定，主要有以下几种</p>
-<blockquote>
-<p>指定版本：比如1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。<br>波浪号（tilde）+指定版本：比如~1.2.2，表示安装1.2.x的最新版本（不低于1.2.2），但是不安装1.3.x，也就是说安装时不改变大版本号和次要版本号。<br>插入号（caret）+指定版本：比如ˆ1.2.2，表示安装1.x.x的最新版本（不低于1.2.2），但是不安装2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。<br>latest：安装最新版本。</p>
-</blockquote>
-<p>package.json文件可以手工编写，也可以使用npm init命令自动生成。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure>
-<p>这个命令采用互动方式，要求用户回答一些问题，然后在当前目录生成一个基本的package.json文件。所有问题之中，只有项目名称（name）和项目版本（version）是必填的，其他都是选填的。</p>
-<p>有了package.json文件，直接使用npm install命令，就会在当前目录中安装所需要的模块。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<p>如果一个模块不在package.json文件之中，可以单独安装这个模块，并使用相应的参数，将其写入package.json文件之中。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install express --save</span><br><span class="line">$ npm install express --save-dev</span><br></pre></td></tr></table></figure>
-<p>上面代码表示单独安装express模块，–save参数表示将该模块写入dependencies属性，–save-dev表示将该模块写入devDependencies属性。</p>
-<h3 id="4-peerDependencies"><a href="#4-peerDependencies" class="headerlink" title="4. peerDependencies"></a>4. peerDependencies</h3><p>有时，你的项目和所依赖的模块，都会同时依赖另一个模块，但是所依赖的版本不一样。比如，你的项目依赖A模块和B模块的1.0版，而A模块本身又依赖B模块的2.0版。</p>
-<p>大多数情况下，这不构成问题，B模块的两个版本可以并存，同时运行。但是，有一种情况，会出现问题，就是这种依赖关系将暴露给用户。</p>
-<p>最典型的场景就是插件，比如A模块是B模块的插件。用户安装的B模块是1.0版本，但是A插件只能和2.0版本的B模块一起使用。这时，用户要是将1.0版本的B的实例传给A，就会出现问题。因此，需要一种机制，在模板安装的时候提醒用户，如果A和B一起安装，那么B必须是2.0模块。</p>
-<p>peerDependencies字段，就是用来供插件指定其所需要的主工具的版本。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;chai-as-promised&quot;,</span><br><span class="line">  &quot;peerDependencies&quot;: &#123;</span><br><span class="line">    &quot;chai&quot;: &quot;1.x&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码指定，安装chai-as-promised模块时，主程序chai必须一起安装，而且chai的版本必须是1.x。如果你的项目指定的依赖是chai的2.0版本，就会报错。</p>
-<p>注意，从npm 3.0版开始，peerDependencies不再会默认安装了。</p>
-<h3 id="5-bin字段"><a href="#5-bin字段" class="headerlink" title="5. bin字段"></a>5. bin字段</h3><p>bin项用来指定各个内部命令对应的可执行文件的位置。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">  &quot;someTool&quot;: &quot;./bin/someTool.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码指定，someTool 命令对应的可执行文件为 bin 子目录下的 someTool.js。Npm会寻找这个文件，在node_modules/.bin/目录下建立符号链接。在上面的例子中，someTool.js会建立符号链接npm_modules/.bin/someTool。由于node_modules/.bin/目录会在运行时加入系统的PATH变量，因此在运行npm时，就可以不带路径，直接通过命令来调用这些脚本。</p>
-<p>因此，像下面这样的写法可以采用简写。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scripts: &#123;  </span><br><span class="line">  start: &apos;./node_modules/someTool/someTool.js build&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 简写为</span><br><span class="line"></span><br><span class="line">scripts: &#123;  </span><br><span class="line">  start: &apos;someTool build&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>所有node_modules/.bin/目录下的命令，都可以用npm run [命令]的格式运行。在命令行下，键入npm run，然后按tab键，就会显示所有可以使用的命令。</p>
-<h3 id="6-main字段"><a href="#6-main字段" class="headerlink" title="6. main字段"></a>6. main字段</h3><p>main字段指定了加载的入口文件，require(‘moduleName’)就会加载这个文件。这个字段的默认值是模块根目录下面的index.js。</p>
-<h3 id="7-config-字段"><a href="#7-config-字段" class="headerlink" title="7. config 字段"></a>7. config 字段</h3><p>config字段用于添加命令行的环境变量。</p>
-<p>下面是一个package.json文件。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;foo&quot;,</span><br><span class="line">  &quot;config&quot; : &#123; &quot;port&quot; : &quot;8080&quot; &#125;,</span><br><span class="line">  &quot;scripts&quot; : &#123; &quot;start&quot; : &quot;node server.js&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后，在server.js脚本就可以引用config字段的值。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">  .createServer(...)</span><br><span class="line">  .listen(process.env.npm_package_config_port)</span><br></pre></td></tr></table></figure>
-<p>用户执行npm run start命令时，这个脚本就可以得到值。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run start</span><br></pre></td></tr></table></figure>
-<p>用户可以改变这个值。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm config set foo:port 80</span><br></pre></td></tr></table></figure>
-<h3 id="8-其他"><a href="#8-其他" class="headerlink" title="8. 其他"></a>8. 其他</h3><h4 id="8-1-browser字段"><a href="#8-1-browser字段" class="headerlink" title="8.1 browser字段"></a>8.1 browser字段</h4><p>browser指定该模板供浏览器使用的版本。Browserify这样的浏览器打包工具，通过它就知道该打包那个文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;browser&quot;: &#123;</span><br><span class="line">  &quot;tipso&quot;: &quot;./node_modules/tipso/src/tipso.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
-<h4 id="8-1-engines-字段"><a href="#8-1-engines-字段" class="headerlink" title="8.1 engines 字段"></a>8.1 engines 字段</h4><p>engines字段指明了该模块运行的平台，比如 Node 的某个版本或者浏览器。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;engines&quot; : &#123; &quot;node&quot; : &quot;&gt;=0.10.3 &lt;0.12&quot; &#125; &#125;</span><br></pre></td></tr></table></figure>
-<p>该字段也可以指定适用的npm版本。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;engines&quot; : &#123; &quot;npm&quot; : &quot;~1.0.20&quot; &#125; &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="8-3-man字段"><a href="#8-3-man字段" class="headerlink" title="8.3 man字段"></a>8.3 man字段</h4><p>man用来指定当前模块的man文档的位置。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;man&quot; :[ &quot;./doc/calc.1&quot; ]</span><br></pre></td></tr></table></figure>
-<h4 id="8-4-preferGlobal字段"><a href="#8-4-preferGlobal字段" class="headerlink" title="8.4 preferGlobal字段"></a>8.4 preferGlobal字段</h4><p>preferGlobal的值是布尔值，表示当用户不将该模块安装为全局模块时（即不用–global参数），要不要显示警告，表示该模块的本意就是安装为全局模块。</p>
-<h4 id="8-5-style字段"><a href="#8-5-style字段" class="headerlink" title="8.5 style字段"></a>8.5 style字段</h4><p>style指定供浏览器使用时，样式文件所在的位置。样式文件打包工具parcelify，通过它知道样式文件的打包位置。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;style&quot;: [</span><br><span class="line">  &quot;./node_modules/tipso/src/tipso.css&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><img src="/2019/07/13/node/application/directory.png" title="目录结构">
+<p>注：指定不同的模式创建的项目目录机构可能有细微的差别，但总体是类似的</p>
+<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><p>nginx 的配置文件，建议线上使用 nginx 做反向代理。</p>
+<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>源代码目录，使用 –es6 参数创建项目才有该目录。项目启动时会自动将 src 目录下的文件编译到 app 目录下。</p>
+<p>如果没有使用 ES6 特性创建项目，则直接有 app/ 目录。</p>
+<h3 id="src-common"><a href="#src-common" class="headerlink" title="src/common"></a>src/common</h3><p>通用模块目录，项目目录都是按模块来划分的，common 模块下存放一些通用的处理逻辑。</p>
+<h3 id="src-common-bootstrap"><a href="#src-common-bootstrap" class="headerlink" title="src/common/bootstrap"></a>src/common/bootstrap</h3><p>项目启动目录，该目录下的文件会自动加载，无需手动 require 。</p>
+<p>可以在这个目录下文件里定义一些全局函数、注册中间件等常用的功能。</p>
+<p>定义全局函数<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/fn.js global.formatDate = obj =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个全局函数 formatDate，那么项目里任何地方都可以直接使用该函数。</p>
+<p>注册中间件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/middleware.js think.middleware(&quot;replace_image&quot;, http =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个中间件 replace_image，那么就可以在配置文件 hook.js 里将该中间件注册进去了。</p>
+<p>注：bootstrap 只能放在 common 模块里。</p>
+<h3 id="src-common-config"><a href="#src-common-config" class="headerlink" title="src/common/config"></a>src/common/config</h3><p>配置文件，这里放一些通用的配置。</p>
+<p>其中：路由配置、hook 配置、本地化配置等必须放在这里。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * config</span><br><span class="line"> */ export default &#123; //key: value &#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-common-controller"><a href="#src-common-controller" class="headerlink" title="src/common/controller"></a>src/common/controller</h3><p>控制器，放一些通用的控制器。其中 error.js 里错误处理的不同行为，项目里可以根据需要进行修改。</p>
+<h3 id="src-common-runtime"><a href="#src-common-runtime" class="headerlink" title="src/common/runtime"></a>src/common/runtime</h3><p>项目运行时生成的一些目录，如：缓存文件目录，用户上传的文件临时存放的目录。</p>
+<h3 id="src-home"><a href="#src-home" class="headerlink" title="src/home"></a>src/home</h3><p>home 模块，项目默认模块。可以在 src/common/config/config.js 中修改配置 default_module 来重新定义默认模块。</p>
+<h3 id="src-home-logic"><a href="#src-home-logic" class="headerlink" title="src/home/logic"></a>src/home/logic</h3><p>逻辑处理。每个操作执行前可以先进行逻辑校验，可以包含：参数是否合法、提交的数据是否正常、当前用户是否已经登录、当前用户是否有权限等。这样可以降低 controller 里的 action 的复杂度。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * logic</span><br><span class="line"> * @param  &#123;&#125; []</span><br><span class="line"> * @return &#123;&#125;     []</span><br><span class="line"> */ export default class extends think.logic.base &#123; /**</span><br><span class="line">   * index action logic</span><br><span class="line">   * @return &#123;&#125; []</span><br><span class="line">   */ indexAction()&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-home-controller"><a href="#src-home-controller" class="headerlink" title="src/home/controller"></a>src/home/controller</h3><p>控制器。一个 url 对应一个 controller 下的 action。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; import Base from &quot;./base.js&quot;; export default class extends Base &#123; /**</span><br><span class="line">   * index action</span><br><span class="line">   * @return &#123;Promise&#125; []</span><br><span class="line">   */ indexAction()&#123; //auto render template file index_index.html return this.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-home-model"><a href="#src-home-model" class="headerlink" title="src/home/model"></a>src/home/model</h3><p>模型。数据库相关操作。</p>
+<h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>视图目录，存放对应的模版文件。如果支持国际化和多主题，那么视图目录下需要有对应的子目录。</p>
+<h3 id="www"><a href="#www" class="headerlink" title="www"></a>www</h3><p>项目的可访问根目录，nginx 里的根目录会配置到此目录下。</p>
+<h3 id="www-development-js"><a href="#www-development-js" class="headerlink" title="www/development.js"></a>www/development.js</h3><p>开发模式下项目的入口文件，可以根据项目需要进行修改。www/production.js 为线上的入口文件。</p>
+<p>入口文件的代码类似如下，可以根据项目需要进行修改。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var thinkjs = require(&quot;thinkjs&quot;); var path = require(&quot;path&quot;); var rootPath = path.dirname(__dirname); var instance = new thinkjs(&#123;</span><br><span class="line">  APP_PATH: rootPath + &quot;/app&quot;,</span><br><span class="line">  ROOT_PATH: rootPath,</span><br><span class="line">  RESOURCE_PATH: __dirname,</span><br><span class="line">  env: &quot;development&quot; &#125;);</span><br><span class="line"></span><br><span class="line">instance.compile(&#123;retainLines: true, log: true&#125;);</span><br><span class="line"></span><br><span class="line">instance.run();</span><br></pre></td></tr></table></figure></p>
+<h3 id="www-static"><a href="#www-static" class="headerlink" title="www/static"></a>www/static</h3><p>存放一些静态资源文件。</p>
 
         </div>
         
@@ -371,6 +338,90 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 分钟 读完 (大约 2323 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/cache/">浏览器缓存</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="浏览器缓存的分类"><a href="#浏览器缓存的分类" class="headerlink" title="浏览器缓存的分类"></a>浏览器缓存的分类</h2><p>浏览器缓存分为两种类型：</p>
+<p>强缓存：也称为本地缓存，不向服务器发送请求，直接使用客户端本地缓存数据</p>
+<p>协商缓存：也称304缓存，向服务器发送请求，由服务器判断请求文件是否发生改变。如果未发生改变，则返回304状态码，通知客户端直接使用本地缓存；如果发生改变，则直接返回请求文件。</p>
+<p>浏览器缓存机制的过程如下：<br><img src="./flow.png" alt="缓存机制"></p>
+<h2 id="强缓存-本地缓存"><a href="#强缓存-本地缓存" class="headerlink" title="强缓存(本地缓存)"></a>强缓存(本地缓存)</h2><p>强缓存是最彻底的缓存，无需向服务器发送请求，通常用于css、js、图片等静态资源。浏览器发送请求后会先判断本地是否有缓存。如果无缓存，则直接向服务器发送请求；如果有缓存，则判断缓存是否命中强缓存，如果命中则直接使用本地缓存，如果没命中则向服务器发送请求。判断是否命中本地缓存的方法有两种：Expires和Cache-Control。</p>
+<h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>Expires是http1.0的响应头，代表的含义是资源本地缓存的过期时间，由服务器设定。服务器返回给浏览器的响应头中如果包含Expires字段，浏览器发送请求时拿当前时间和Expires字段值进行比较，判断资源缓存是否失效。如下图所示：</p>
+<p><img src="./expires.png" alt="Expires"></p>
+<p>Date代表请求资源的时间，Expires代表资源缓存的过期时间，可以看到服务器设置资源的缓存时间为5分钟。2017-02-10 07:53:19之前，请求这个资源就是命中本地缓存。超过这个时间再去请求则不命中。</p>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>Cache-Control是http1.0中新增的字段。由于Expires设置的是资源的具体过期时间，如果服务器时间和客户端时间不一样，就会造成缓存错乱，比如认为调节了客户端的时间，所以设置资源有效期的时长更合理。http1.1添加了Cache-Control的max-age字段。max-age代表的含义是资源有效期的时长，是一个相对时长，单位为s。</p>
+<p><img src="./cache-Control.png" alt="Cache-Control"></p>
+<p>Cache-Control: max-age = 300设置资源的过期时间为5分钟。浏览器再次发送请求时，会把第一次请求的时间和max-age字段值相加和当前时间比较，以此判断是否命中本地缓存。max-age使用的都是客户端时间，比Expires更可靠。如果max-age和Expires同时出现，max-age的优先级更高。Cache-Control提供了更多的字段来控制缓存：</p>
+<ul>
+<li>no-store,不判断强缓存和协商缓存，服务器直接返回完整资源</li>
+<li>no-cache,不判断强缓存，每次都需要向浏览器发送请求，进行协商缓存判断</li>
+<li>public,指示响应可被任何缓存区缓存</li>
+<li>private,通常只为单个用户缓存，不允许任何共享缓存对其进行缓存,通常用于用户个人信息</li>
+</ul>
+<h2 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h2><p>协商缓存的判断在服务器端进行，判断是否命中的依据就是这次请求和上次请求之间资源是否发生改变。未发生改变命中，发生改变则未命中。判断文件是否发生改变的方法有两个：Last-Modified、If-Modified-Since和Etag、If-None-Match。</p>
+<h3 id="Last-Modified、If-Modified-Since"><a href="#Last-Modified、If-Modified-Since" class="headerlink" title="Last-Modified、If-Modified-Since"></a>Last-Modified、If-Modified-Since</h3><p>Last-Modified是http1.0中的响应头字段，代表请求的资源最后一次的改变时间。If-Modified-Since是http1.0的请求头，If-Modified-Since的值是上次请求服务器返回的Last-Modified的值。浏览器第一次请求资源时，服务器返回Last-Modified,浏览器缓存该值。浏览器第二次请求资源时，用于缓存的Last-Modified赋值给If-Modified-Since，发送给服务器。服务器判断If-Modified-Since和服务器本地的Last-Modified是否相等。如果相等，说明资源未发生改变，命中协商缓存；如果不相等，说明资源发生改变，未命中协商缓存。</p>
+<p><img src="./last.png" alt="Last-Modified"></p>
+<p>可以看到该请求返回的是304状态码，说明资源的Last-Modified未改变，所以这次请求的Last-Modified和If-Modified-Since是一致的。</p>
+<h3 id="Etag、If-None-Match"><a href="#Etag、If-None-Match" class="headerlink" title="Etag、If-None-Match"></a>Etag、If-None-Match</h3><p>Last-Modified、If-Modified-Since使用的都是服务器提供的时间，所以相对来说还是很可靠的。但是由于修改时间的精确级别或者定期生成文件这种情况，会造成一定的错误。所以http1.1添加Etag、If-None-Match字段，完善协商缓存的判断。Etag是根据资源文件内容生成的资源唯一标识符，一旦资源内容发生改变，Etag就会发生改变。基于内容的标识符比基于修改时间的更可靠。If-None-Match的值是上次请求服务器返回的Etag的值。Etag、If-None-Match的判断过程和Last-Modified、If-Modified-Since一致，Etag、If-None-Match的优先级更高。</p>
+<h2 id="工程中遇到的问题"><a href="#工程中遇到的问题" class="headerlink" title="工程中遇到的问题"></a>工程中遇到的问题</h2><p>强缓存的优势很明显，无需向服务器发送请求，节省了大量的时间和带宽。但是有一个问题，缓存有效期内想更新资源怎么办？我在工程中还遇到另外一个问题，一个项目有四个环境，测试环境、开发环境、在线确认环境、在线环境，四个环境的域名相同，这样就会造成四个环境的缓存共用问题。比如先访问了测试环境，index.js被换成到浏览器中，再切换到在线环境，在线环境会请求index.js,此时浏览器就会使用本地缓存中测试环境的index.js,造成代码错乱。</p>
+<p>如何使强缓存失效，是问题的关键。通常的解决方法是更新文件名，文件名不一样的话，浏览器就会重新请求资源。我们要保证新发布版本和不同环境中的文件名是不一样的。其中一种方法在文件名后加版本号：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index.js?version=1</span><br><span class="line">index.css?version=1</span><br></pre></td></tr></table></figure>
+<p>webpack提供了很简单的方法可以配置缓存。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &quot;main.js&quot;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &quot;/build&quot;,</span><br><span class="line">    filename: &quot;main.[hash].js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>通过hash占位符，在每次生成打包文件时，都会通过文件内容生成唯一的hash，并添加到输出的文件名中。如果有多个入口文件，可以使用name占位符设置输出：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">      main:&quot;main.js&quot;,</span><br><span class="line">      sub:&quot;sub.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &quot;/dist&quot;,</span><br><span class="line">    filename: &quot;[name].[hash].js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这时候有一个问题是，此时的hash是根据两个文件的内容来生成的，两个文件名使用的hash是一致的。如果main.js和sub.js只有一个改变，两个文件名都会改变，两个文件都会重新请求，造成资源浪费。webpack提供了chunkhash来代替hash在多入口情况下使用。chunkhash是根据每个入口文件单独生成的哈希值，避免上述情况。</p>
+<p>webpack打包动态生成文件名，我们需要动态地把文件引用插入到html启动文件中。html-webpack-plugin可以帮我很好地解决这个问题。html-webpack-plugin可以动态地生成一个html文件，并在html文件中动态插入webpack打包生成的资源文件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">var webpackConfig = &#123;</span><br><span class="line">  entry: &apos;main.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &apos;/dist&apos;,</span><br><span class="line">    publicPath: &apos;/dist&apos;,</span><br><span class="line">    filename: &apos;main.[hash].js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [new HtmlWebpackPlugin()]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>默认在webpackConfig.output.path路径下生成index.html,生成的html文件如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Webpack App&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script src=&quot;main.2a6c1fee4b5b0d2c9285.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>通常html启动文件都有自定义的内容，所以html-webpack-plugin提供了模板功能，template字段设置模板的路径，html-webpack-plugin以template为模板，动态添加webpack打包生成的资源路径。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">var webpackConfig = &#123;</span><br><span class="line">  entry: &apos;main.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &apos;/dist&apos;,</span><br><span class="line">    publicPath: &apos;/dist&apos;,</span><br><span class="line">    filename: &apos;main.[hash].js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [new HtmlWebpackPlugin(</span><br><span class="line">      &#123;</span><br><span class="line">          template:&apos;index.html&apos;</span><br><span class="line">      &#125;</span><br><span class="line">  )]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>生成的index.html内容（\dist\index.html）:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;stat-front&lt;/title&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;//at.alicdn.com/t/font_ejl5slgdvtg74x6r.css&quot;&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot; class=&quot;app-root&quot;&gt;</span><br><span class="line">        &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;!-- built files will be auto injected --&gt;</span><br><span class="line">    &lt;script src=&quot;main.2a6c1fee4b5b0d2c9285.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>最开始的时候静态的index.html在根目录下，webpack-dev-server设置的启动路径就是根目录下的index.html,如果要启动生成的index.html，还需要设置webpackConfig.output.publicPath：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">var webpackConfig = &#123;</span><br><span class="line">  entry: &apos;main.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: &apos;/dist&apos;,</span><br><span class="line">    publicPath: &apos;/&apos;,</span><br><span class="line">    filename: &apos;main.[hash].js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [new HtmlWebpackPlugin(</span><br><span class="line">      &#123;</span><br><span class="line">          template:&apos;index.html&apos;</span><br><span class="line">      &#125;</span><br><span class="line">  )]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样webpack-dev-server在内存中生成的资源都存放在根目录下，生成的index.html会代替原index.html启动。</p>
+<h3 id="进阶内容："><a href="#进阶内容：" class="headerlink" title="进阶内容："></a>进阶内容：</h3><p><a href="https://doc.webpack-china.org/guides/caching/" target="_blank" rel="noopener">webpack缓存</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                 </div>
                 
@@ -479,125 +530,6 @@
 <p>提示： 由于asycn和await是ES7里面的内容，现阶段不建议使用。为了顺利运行上面的代码，建议用webpack进行编译。</p>
 <h3 id="transform-exponentiation-operator"><a href="#transform-exponentiation-operator" class="headerlink" title="transform-exponentiation-operator"></a>transform-exponentiation-operator</h3><p>transform-exponentiation-operator这个插件算是一个语法糖，可以通过**这个符号来进行幂操作，想当于Math.pow(a,b)。如下面的样例</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// x ** y</span><br><span class="line"></span><br><span class="line">let squared = 2 ** 2;</span><br><span class="line">// 相当于: 2 * 2</span><br><span class="line"></span><br><span class="line">let cubed = 2 ** 3;</span><br><span class="line">// 相当于: 2 * 2 * 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// x **= y</span><br><span class="line"></span><br><span class="line">let a = 2;</span><br><span class="line">a **= 2;</span><br><span class="line">// 相当于: a = a * a;</span><br><span class="line"></span><br><span class="line">let b = 3;</span><br><span class="line">b **= 3;</span><br><span class="line">// 相当于: b = b * b * b;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/react/">react</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    7 分钟 读完 (大约 1095 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/React/lifecyce/">React生命周期</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="React生命周期"><a href="#React生命周期" class="headerlink" title="React生命周期"></a>React生命周期</h1><h3 id="用一个表格表示生命周期"><a href="#用一个表格表示生命周期" class="headerlink" title="用一个表格表示生命周期"></a>用一个表格表示生命周期</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>getDefaultProps</td>
-<td style="text-align:center">作用于组件类，只调用一次，返回对象用于设置默认的props，对于引用值，会在实例中共享</td>
-</tr>
-<tr>
-<td>getInitialState</td>
-<td style="text-align:center">作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的state，此时可以访问this.props</td>
-</tr>
-<tr>
-<td>componentWillMount</td>
-<td style="text-align:center">在完成首次渲染之前调用，此时仍可以修改组件的state</td>
-</tr>
-<tr>
-<td>render</td>
-<td style="text-align:center">必选的方法，创建虚拟DOM，该方法具有特殊的规则： 1.只能通过this.props和this.state访问数据  2.可以返回null、false或任何React组件  3.只能出现一个顶级组件（不能返回数组） 4.不能改变组件的状态   5.不能修改DOM的输出</td>
-</tr>
-<tr>
-<td>componentDidMount</td>
-<td style="text-align:center">真实的DOM被渲染出来后调用，在该方法中可通过this.getDOMNode()访问到真实的DOM元素。此时已可以使用其他类库来操作这个DOM。在服务端中，该方法不会被调用</td>
-</tr>
-<tr>
-<td>componentWillReceiveProps</td>
-<td style="text-align:center">组件接收到新的props时调用，并将其作为参数nextProps使用，此时可以更改组件props及state</td>
-</tr>
-<tr>
-<td>shouldComponentUpdate</td>
-<td style="text-align:center">组件是否应当渲染新的props或state，返回false表示跳过后续的生命周期方法，通常不需要使用以避免出现bug。在出现应用的瓶颈时，可通过该方法进行适当的优化</td>
-</tr>
-<tr>
-<td>componentWillUpdate</td>
-<td style="text-align:center">接收到新的props或者state后，进行渲染之前调用，此时不允许更新props或state</td>
-</tr>
-<tr>
-<td>componentDidUpdate</td>
-<td style="text-align:center">完成渲染新的props或者state后调用，此时可以访问到新的DOM元素</td>
-</tr>
-<tr>
-<td>componentWillUnmount</td>
-<td style="text-align:center">组件被移除之前被调用，可以用于做一些清理工作，在componentDidMount方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器</td>
-</tr>
-</tbody>
-</table>
-<h2 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h2><h5 id="首次实例化"><a href="#首次实例化" class="headerlink" title="首次实例化"></a>首次实例化</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getDefaultProps</span><br><span class="line">getInitialState</span><br><span class="line">componentWillMount</span><br><span class="line">render</span><br><span class="line">componentDidMount</span><br></pre></td></tr></table></figure>
-<h5 id="实例化完成后的更新"><a href="#实例化完成后的更新" class="headerlink" title="实例化完成后的更新"></a>实例化完成后的更新</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getInitialState</span><br><span class="line">componentWillMount</span><br><span class="line">render</span><br><span class="line">componentDidMount</span><br></pre></td></tr></table></figure>
-<h5 id="存在期"><a href="#存在期" class="headerlink" title="存在期"></a>存在期</h5><p>组件已存在时的状态改变<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps</span><br><span class="line">shouldComponentUpdate</span><br><span class="line">componentWillUpdate</span><br><span class="line">render</span><br><span class="line">componentDidUpdate</span><br></pre></td></tr></table></figure></p>
-<h5 id="销毁-amp-清理期"><a href="#销毁-amp-清理期" class="headerlink" title="销毁&amp;清理期"></a>销毁&amp;清理期</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount</span><br></pre></td></tr></table></figure>
-<p>说明<br>生命周期共提供了10个不同的API。</p>
-<h5 id="1-getDefaultProps"><a href="#1-getDefaultProps" class="headerlink" title="1.getDefaultProps"></a>1.getDefaultProps</h5><p>作用于组件类，只调用一次，返回对象用于设置默认的props，对于引用值，会在实例中共享。</p>
-<h5 id="2-getInitialState"><a href="#2-getInitialState" class="headerlink" title="2.getInitialState"></a>2.getInitialState</h5><p>作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的state，此时可以访问this.props。</p>
-<h5 id="3-componentWillMount"><a href="#3-componentWillMount" class="headerlink" title="3.componentWillMount"></a>3.componentWillMount</h5><p>在完成首次渲染之前调用，此时仍可以修改组件的state。</p>
-<h5 id="4-render"><a href="#4-render" class="headerlink" title="4.render"></a>4.render</h5><p>必选的方法，创建虚拟DOM，该方法具有特殊的规则：</p>
-<p>只能通过this.props和this.state访问数据<br>可以返回null、false或任何React组件<br>只能出现一个顶级组件（不能返回数组）<br>不能改变组件的状态<br>不能修改DOM的输出</p>
-<h5 id="5-componentDidMount"><a href="#5-componentDidMount" class="headerlink" title="5.componentDidMount"></a>5.componentDidMount</h5><p>真实的DOM被渲染出来后调用，在该方法中可通过this.getDOMNode()访问到真实的DOM元素。此时已可以使用其他类库来操作这个DOM。</p>
-<p>在服务端中，该方法不会被调用。</p>
-<h5 id="6-componentWillReceiveProps"><a href="#6-componentWillReceiveProps" class="headerlink" title="6.componentWillReceiveProps"></a>6.componentWillReceiveProps</h5><p>组件接收到新的props时调用，并将其作为参数nextProps使用，此时可以更改组件props及state。</p>
-<pre><code>componentWillReceiveProps: function(nextProps) {
-    if (nextProps.bool) {
-        this.setState({
-            bool: true
-        });
-    }
-}
-</code></pre><h5 id="7-shouldComponentUpdate"><a href="#7-shouldComponentUpdate" class="headerlink" title="7.shouldComponentUpdate"></a>7.shouldComponentUpdate</h5><p>组件是否应当渲染新的props或state，返回false表示跳过后续的生命周期方法，通常不需要使用以避免出现bug。在出现应用的瓶颈时，可通过该方法进行适当的优化。</p>
-<p>在首次渲染期间或者调用了forceUpdate方法后，该方法不会被调用</p>
-<h5 id="8-componentWillUpdate"><a href="#8-componentWillUpdate" class="headerlink" title="8.componentWillUpdate"></a>8.componentWillUpdate</h5><p>接收到新的props或者state后，进行渲染之前调用，此时不允许更新props或state。</p>
-<h5 id="9-componentDidUpdate"><a href="#9-componentDidUpdate" class="headerlink" title="9.componentDidUpdate"></a>9.componentDidUpdate</h5><p>完成渲染新的props或者state后调用，此时可以访问到新的DOM元素。</p>
-<h5 id="10-componentWillUnmount"><a href="#10-componentWillUnmount" class="headerlink" title="10.componentWillUnmount"></a>10.componentWillUnmount</h5><p>组件被移除之前被调用，可以用于做一些清理工作，在componentDidMount方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器。</p>
 
         </div>
         
@@ -815,6 +747,125 @@
                 <span class="level-item has-text-grey">
                     
                     
+                    7 分钟 读完 (大约 1095 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/React/lifecyce/">React生命周期</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="React生命周期"><a href="#React生命周期" class="headerlink" title="React生命周期"></a>React生命周期</h1><h3 id="用一个表格表示生命周期"><a href="#用一个表格表示生命周期" class="headerlink" title="用一个表格表示生命周期"></a>用一个表格表示生命周期</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getDefaultProps</td>
+<td style="text-align:center">作用于组件类，只调用一次，返回对象用于设置默认的props，对于引用值，会在实例中共享</td>
+</tr>
+<tr>
+<td>getInitialState</td>
+<td style="text-align:center">作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的state，此时可以访问this.props</td>
+</tr>
+<tr>
+<td>componentWillMount</td>
+<td style="text-align:center">在完成首次渲染之前调用，此时仍可以修改组件的state</td>
+</tr>
+<tr>
+<td>render</td>
+<td style="text-align:center">必选的方法，创建虚拟DOM，该方法具有特殊的规则： 1.只能通过this.props和this.state访问数据  2.可以返回null、false或任何React组件  3.只能出现一个顶级组件（不能返回数组） 4.不能改变组件的状态   5.不能修改DOM的输出</td>
+</tr>
+<tr>
+<td>componentDidMount</td>
+<td style="text-align:center">真实的DOM被渲染出来后调用，在该方法中可通过this.getDOMNode()访问到真实的DOM元素。此时已可以使用其他类库来操作这个DOM。在服务端中，该方法不会被调用</td>
+</tr>
+<tr>
+<td>componentWillReceiveProps</td>
+<td style="text-align:center">组件接收到新的props时调用，并将其作为参数nextProps使用，此时可以更改组件props及state</td>
+</tr>
+<tr>
+<td>shouldComponentUpdate</td>
+<td style="text-align:center">组件是否应当渲染新的props或state，返回false表示跳过后续的生命周期方法，通常不需要使用以避免出现bug。在出现应用的瓶颈时，可通过该方法进行适当的优化</td>
+</tr>
+<tr>
+<td>componentWillUpdate</td>
+<td style="text-align:center">接收到新的props或者state后，进行渲染之前调用，此时不允许更新props或state</td>
+</tr>
+<tr>
+<td>componentDidUpdate</td>
+<td style="text-align:center">完成渲染新的props或者state后调用，此时可以访问到新的DOM元素</td>
+</tr>
+<tr>
+<td>componentWillUnmount</td>
+<td style="text-align:center">组件被移除之前被调用，可以用于做一些清理工作，在componentDidMount方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h2><h5 id="首次实例化"><a href="#首次实例化" class="headerlink" title="首次实例化"></a>首次实例化</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getDefaultProps</span><br><span class="line">getInitialState</span><br><span class="line">componentWillMount</span><br><span class="line">render</span><br><span class="line">componentDidMount</span><br></pre></td></tr></table></figure>
+<h5 id="实例化完成后的更新"><a href="#实例化完成后的更新" class="headerlink" title="实例化完成后的更新"></a>实例化完成后的更新</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getInitialState</span><br><span class="line">componentWillMount</span><br><span class="line">render</span><br><span class="line">componentDidMount</span><br></pre></td></tr></table></figure>
+<h5 id="存在期"><a href="#存在期" class="headerlink" title="存在期"></a>存在期</h5><p>组件已存在时的状态改变<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps</span><br><span class="line">shouldComponentUpdate</span><br><span class="line">componentWillUpdate</span><br><span class="line">render</span><br><span class="line">componentDidUpdate</span><br></pre></td></tr></table></figure></p>
+<h5 id="销毁-amp-清理期"><a href="#销毁-amp-清理期" class="headerlink" title="销毁&amp;清理期"></a>销毁&amp;清理期</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount</span><br></pre></td></tr></table></figure>
+<p>说明<br>生命周期共提供了10个不同的API。</p>
+<h5 id="1-getDefaultProps"><a href="#1-getDefaultProps" class="headerlink" title="1.getDefaultProps"></a>1.getDefaultProps</h5><p>作用于组件类，只调用一次，返回对象用于设置默认的props，对于引用值，会在实例中共享。</p>
+<h5 id="2-getInitialState"><a href="#2-getInitialState" class="headerlink" title="2.getInitialState"></a>2.getInitialState</h5><p>作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的state，此时可以访问this.props。</p>
+<h5 id="3-componentWillMount"><a href="#3-componentWillMount" class="headerlink" title="3.componentWillMount"></a>3.componentWillMount</h5><p>在完成首次渲染之前调用，此时仍可以修改组件的state。</p>
+<h5 id="4-render"><a href="#4-render" class="headerlink" title="4.render"></a>4.render</h5><p>必选的方法，创建虚拟DOM，该方法具有特殊的规则：</p>
+<p>只能通过this.props和this.state访问数据<br>可以返回null、false或任何React组件<br>只能出现一个顶级组件（不能返回数组）<br>不能改变组件的状态<br>不能修改DOM的输出</p>
+<h5 id="5-componentDidMount"><a href="#5-componentDidMount" class="headerlink" title="5.componentDidMount"></a>5.componentDidMount</h5><p>真实的DOM被渲染出来后调用，在该方法中可通过this.getDOMNode()访问到真实的DOM元素。此时已可以使用其他类库来操作这个DOM。</p>
+<p>在服务端中，该方法不会被调用。</p>
+<h5 id="6-componentWillReceiveProps"><a href="#6-componentWillReceiveProps" class="headerlink" title="6.componentWillReceiveProps"></a>6.componentWillReceiveProps</h5><p>组件接收到新的props时调用，并将其作为参数nextProps使用，此时可以更改组件props及state。</p>
+<pre><code>componentWillReceiveProps: function(nextProps) {
+    if (nextProps.bool) {
+        this.setState({
+            bool: true
+        });
+    }
+}
+</code></pre><h5 id="7-shouldComponentUpdate"><a href="#7-shouldComponentUpdate" class="headerlink" title="7.shouldComponentUpdate"></a>7.shouldComponentUpdate</h5><p>组件是否应当渲染新的props或state，返回false表示跳过后续的生命周期方法，通常不需要使用以避免出现bug。在出现应用的瓶颈时，可通过该方法进行适当的优化。</p>
+<p>在首次渲染期间或者调用了forceUpdate方法后，该方法不会被调用</p>
+<h5 id="8-componentWillUpdate"><a href="#8-componentWillUpdate" class="headerlink" title="8.componentWillUpdate"></a>8.componentWillUpdate</h5><p>接收到新的props或者state后，进行渲染之前调用，此时不允许更新props或state。</p>
+<h5 id="9-componentDidUpdate"><a href="#9-componentDidUpdate" class="headerlink" title="9.componentDidUpdate"></a>9.componentDidUpdate</h5><p>完成渲染新的props或者state后调用，此时可以访问到新的DOM元素。</p>
+<h5 id="10-componentWillUnmount"><a href="#10-componentWillUnmount" class="headerlink" title="10.componentWillUnmount"></a>10.componentWillUnmount</h5><p>组件被移除之前被调用，可以用于做一些清理工作，在componentDidMount方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/react/">react</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
                     6 分钟 读完 (大约 890 个字)
                 </span>
                 
@@ -948,54 +999,6 @@
 <h2 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h2><p> 通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径），如下图所示。忽略规则在文件e:/gitignore.txt中（当然该文件名可以任意取）。在config的[remote “origin”]上一行添加 excludesfile = e:/gitignore.text即可<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> [core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = false</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	symlinks = false</span><br><span class="line">	ignorecase = true</span><br><span class="line">    excludesfile = e:/gitignore.text</span><br><span class="line">[remote &quot;origin&quot;]</span><br></pre></td></tr></table></figure></p>
 <p> 该方式的作用域是也全局的。</p>
 <h2 id="【方式三】"><a href="#【方式三】" class="headerlink" title="【方式三】"></a>【方式三】</h2><p> 在项目根目录下创建.gitignore文件如果已经创建则不用创建然后在该文件中添加忽略语法<br> .gitignore文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，以共享同一套忽略规则。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 130 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
-<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>stage 不再是配置项，以 presets 的形式添加。</p>
-<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
 
         </div>
         
@@ -1399,16 +1402,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1428,6 +1431,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1468,25 +1490,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -2124,16 +2127,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -2153,6 +2156,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -2193,25 +2215,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

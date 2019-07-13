@@ -165,7 +165,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 571 个字)
+                    4 分钟 读完 (大约 576 个字)
                 </span>
                 
                 
@@ -178,7 +178,7 @@
             
         </h1>
         <div class="content">
-            <h2 id="Nuxt-js-是什么？"><a href="#Nuxt-js-是什么？" class="headerlink" title="Nuxt.js 是什么？"></a>Nuxt.js 是什么？</h2><p>Nuxt.js 是一个基于 Vue.js 的通用应用框架。</p>
+            <p>Nuxt.js 是一个基于 Vue.js 的通用应用框架。</p>
 <p>通过对客户端/服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI渲染。</p>
 <p>我们的目标是创建一个灵活的应用框架，你可以基于它初始化新项目的基础结构代码，或者在已有 Node.js 项目中使用 Nuxt.js。</p>
 <p>Nuxt.js 预设了利用Vue.js开发服务端渲染的应用所需要的各种配置。</p>
@@ -190,16 +190,18 @@
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global vue-cli</span><br></pre></td></tr></table></figure>
 <h3 id="2-用vue-cil搭建项目"><a href="#2-用vue-cil搭建项目" class="headerlink" title="2. 用vue-cil搭建项目"></a>2. 用vue-cil搭建项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ vue init nuxt-community/starter-template nuxt </span><br><span class="line">//(你要构建的项目名称我的项目叫做nuxt)</span><br><span class="line">$ cd nuxt</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
 <h3 id="3-接着通过以下命令启动项目"><a href="#3-接着通过以下命令启动项目" class="headerlink" title="3. 接着通过以下命令启动项目"></a>3. 接着通过以下命令启动项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>访问 <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br><img src="./init.png" alt="启动页"></p>
+<p>访问 <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br><img src="/2019/07/13/nuxt/init/init.png" title="启动页"></p>
 <h3 id="集成-iview-UI框架"><a href="#集成-iview-UI框架" class="headerlink" title="集成 iview UI框架"></a>集成 iview UI框架</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装 iview</span><br><span class="line">$ npm install iview --save</span><br></pre></td></tr></table></figure>
 <h3 id="在根目录的-plugins-中新建-iview-js"><a href="#在根目录的-plugins-中新建-iview-js" class="headerlink" title="在根目录的 plugins 中新建 iview.js"></a>在根目录的 plugins 中新建 iview.js</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import iView from &apos;iview&apos;</span><br><span class="line">Vue.use(iView)</span><br></pre></td></tr></table></figure>
-<p>这里有个大坑因为Nuxt语法检测机制在Vue.use(iView)的后面要加一个回车要不会报一下错误，这个问题当时让我很郁闷<br><img src="./error.png" alt="报错"></p>
+<p>这里有个大坑因为Nuxt语法检测机制在Vue.use(iView)的后面要加一个回车要不会报一下错误，这个问题当时让我很郁闷</p>
+<img src="/2019/07/13/nuxt/init/error.png" title="启动页">
 <h3 id="修改-nuxt-config-js"><a href="#修改-nuxt-config-js" class="headerlink" title="修改 nuxt.config.js"></a>修改 nuxt.config.js</h3><p>在module.exports最后添加如下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugins: [ &#123; src: &apos;~plugins/iview&apos;, ssr: false &#125; ],</span><br><span class="line">css: [&apos;iview/dist/styles/iview.css&apos;],</span><br></pre></td></tr></table></figure></p>
-<p><img src="./add.png" alt="添加"></p>
+<img src="/2019/07/13/nuxt/init/add.png" title="添加">
 <h3 id="在pages-index-vue-加入-Button-标签"><a href="#在pages-index-vue-加入-Button-标签" class="headerlink" title="在pages/index.vue,加入 Button 标签"></a>在pages/index.vue,加入 Button 标签</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button type=&quot;primary&quot;&gt;Primary&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="./button.png" alt="按钮"></p>
+<img src="/2019/07/13/nuxt/init/add.png" title="按钮">
 <h3 id="再次启动页面"><a href="#再次启动页面" class="headerlink" title="再次启动页面"></a>再次启动页面</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>效果页面如下：<br><img src="./end.png" alt="最后的效果"></p>
+<p>效果页面如下：</p>
+<img src="/2019/07/13/nuxt/init/end.png" title="最后的效果">
 <h3 id="大功告成-后续会添加nuxt的相关内容"><a href="#大功告成-后续会添加nuxt的相关内容" class="headerlink" title="大功告成 后续会添加nuxt的相关内容"></a>大功告成 后续会添加nuxt的相关内容</h3>
         </div>
         
@@ -580,16 +582,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -609,6 +611,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -649,25 +670,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1305,16 +1307,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/packagejson/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="packagejson文件详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/packagejson/" class="has-link-black-ter is-size-6">packagejson文件详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1334,6 +1336,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
                     <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1374,25 +1395,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

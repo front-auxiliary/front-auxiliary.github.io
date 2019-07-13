@@ -154,6 +154,51 @@
                 <span class="level-item has-text-grey">
                     
                     
+                    1 分钟 读完 (大约 197 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
                     1 分钟 读完 (大约 180 个字)
                 </span>
                 
@@ -205,7 +250,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 474 个字)
+                    6 分钟 读完 (大约 902 个字)
                 </span>
                 
                 
@@ -214,20 +259,220 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/error/">javaScript各种错误类型</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/number/">Number深入解析</a>
             
         </h1>
         <div class="content">
-            <h4 id="1-SyntaxError（语法错误）"><a href="#1-SyntaxError（语法错误）" class="headerlink" title="1.SyntaxError（语法错误）"></a>1.SyntaxError（语法错误）</h4><p>解析代码时发生的语法错误<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:var 1a;</span><br><span class="line"></span><br><span class="line">　　Uncaught SyntaxError: Unexpected number</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-ReferenceError（引用错误）"><a href="#2-ReferenceError（引用错误）" class="headerlink" title="2.ReferenceError（引用错误）"></a>2.ReferenceError（引用错误）</h4><p>a.引用了一个不存在的变量<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg: console.log(a);</span><br><span class="line"></span><br><span class="line">　　Uncaught ReferenceError: a is not defined</span><br></pre></td></tr></table></figure></p>
-<p>b.将变量赋值给一个无法被赋值的对象<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:console.log()= 1;</span><br><span class="line"></span><br><span class="line">　　Uncaught ReferenceError: Invalid left-hand side in assignment</span><br></pre></td></tr></table></figure></p>
-<h4 id="3-RangeError（范围错误）"><a href="#3-RangeError（范围错误）" class="headerlink" title="3.RangeError（范围错误）"></a>3.RangeError（范围错误）</h4><p>超出有效范围<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:var a= new Array(-1);</span><br><span class="line"></span><br><span class="line">　　Uncaught RangeError: Invalid array length</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-TypeError（类型错误）"><a href="#4-TypeError（类型错误）" class="headerlink" title="4.TypeError（类型错误）"></a>4.TypeError（类型错误）</h4><p>a.变量或参数不是预期类型，比如，对字符串、布尔值、数值等原始类型的值使用new命令，就会抛出这种错误，因为new命令的参数应该是一个构造函数。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg: var a= new 123;</span><br><span class="line"></span><br><span class="line">　　Uncaught TypeError: 123 is not a function</span><br></pre></td></tr></table></figure></p>
-<p>b.调用对象不存在的方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:var a;a.aa();</span><br><span class="line"></span><br><span class="line">　　Uncaught TypeError: Cannot read property &apos;aa&apos; of undefined</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-URLError（URL错误）"><a href="#5-URLError（URL错误）" class="headerlink" title="5.URLError（URL错误）"></a>5.URLError（URL错误）</h4><p>与url相关函数参数不正确，主要是encodeURI()、decodeURI()、encodeURIComponent()、decodeURIComponent()、escape()和unescape()这六个函数。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg: decodeURI(&apos;%2&apos;)</span><br><span class="line"></span><br><span class="line">　　Uncaught URIError: URI malformed</span><br></pre></td></tr></table></figure></p>
-<h5 id="6-EvalError（eval错误）"><a href="#6-EvalError（eval错误）" class="headerlink" title="6.EvalError（eval错误）"></a>6.EvalError（eval错误）</h5><p>eval函数没有被正确执行时，会抛出EvalError错误。该错误类型已经不再在ES5中出现了，只是为了保证与以前代码兼容，才继续保留。</p>
-<p>以上这6种派生错误，连同原始的Error对象，都是构造函数。开发者可以使用它们，人为生成错误对象的实例。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Error(&quot;出错了！&quot;);</span><br><span class="line">new RangeError(&quot;出错了，变量超出有效范围！&quot;);</span><br><span class="line">new TypeError(&quot;出错了，变量类型无效！&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>上面代码表示新建错误对象的实例，实质就是手动抛出错误。可以看到，错误对象的构造函数接受一个参数，代表错误提示信息（message）。</p>
+            <h3 id="Number简介"><a href="#Number简介" class="headerlink" title="Number简介"></a>Number简介</h3><blockquote>
+<p>javaScript不区分整数值和浮点数值。javaScript中所有的数字均用浮点数值表示。javaScript应用的是IEEE754标准定义64位浮点格式表示的数字。它表示的最大值是+/-1.7976931348623157<em>10<sup>308</sup>,最小值是+/-5 </em>10<sup>-324</sup>。javaScript能够表示的正数范围是-2<sup>53</sup>~2<sup>53</sup>,包含界限。如果使用了超出此范围的整数，则无法保证低位数字的精度。还需要注意的是javaScript中实际的操作（比如数组索引）则是基于32位整数。在javaScript中直接出现的数值称之为数字直接量（numneric lieral）。</p>
+</blockquote>
+<h3 id="整型直接量"><a href="#整型直接量" class="headerlink" title="整型直接量"></a>整型直接量</h3><p>javaScript中识别十进制整数以及八进制（严格模式中是禁止使用八进制的）和十六进制</p>
+<h3 id="浮点型直接量"><a href="#浮点型直接量" class="headerlink" title="浮点型直接量"></a>浮点型直接量</h3><p>浮点型直接量可以包含有小数点。下面是浮点型的书写方案：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3.14</span><br><span class="line">033.56</span><br><span class="line">.777</span><br><span class="line">6.7e33</span><br><span class="line">6.7E33</span><br><span class="line">6.7e-33</span><br><span class="line">6.7e3.3 //会报错 Uncaught SyntaxError: Unexpected number</span><br></pre></td></tr></table></figure></p>
+<p>书写语法表示为：<br>[digits][.digits][(E|e)[+|-]digits]</p>
+<h3 id="算数运算"><a href="#算数运算" class="headerlink" title="算数运算"></a>算数运算</h3><p>算数运算的运算符有：加法运算符（+）、减法运算符（-）、乘法运算符（*）、除法运算符（/）、求余运算符（%）。以及Math的属性和方法。</p>
+<ol>
+<li>Math对象的属性：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">E</td>
+<td style="text-align:left">返回算术常量 e，即自然对数的底数（约等于2.718）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LN2</td>
+<td style="text-align:left">返回 2 的自然对数（约等于0.693）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LN10</td>
+<td style="text-align:left">返回 10 的自然对数（约等于2.302）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LOG2E</td>
+<td style="text-align:left">返回以 2 为底的 e 的对数（约等于 1.414）。</td>
+</tr>
+<tr>
+<td style="text-align:left">PI</td>
+<td style="text-align:left">返回圆周率（约等于3.14159）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LOG10E</td>
+<td style="text-align:left">返回以 10 为底的 e 的对数（约等于0.434）。</td>
+</tr>
+<tr>
+<td style="text-align:left">SQRT1_2</td>
+<td style="text-align:left">返回返回 2 的平方根的倒数（约等于 0.707）。</td>
+</tr>
+<tr>
+<td style="text-align:left">SQRT2</td>
+<td style="text-align:left">返回 2 的平方根（约等于 1.414）。</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>Math 对象方法</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">abs(x)</td>
+<td style="text-align:left">返回数的绝对值。</td>
+</tr>
+<tr>
+<td style="text-align:left">acos(x)</td>
+<td style="text-align:left">返回数的反余弦值。</td>
+</tr>
+<tr>
+<td style="text-align:left">asin(x)</td>
+<td style="text-align:left">返回数的反正弦值。</td>
+</tr>
+<tr>
+<td style="text-align:left">atan(x)</td>
+<td style="text-align:left">以介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值。</td>
+</tr>
+<tr>
+<td style="text-align:left">atan2(y,x)</td>
+<td style="text-align:left">返回从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）。</td>
+</tr>
+<tr>
+<td style="text-align:left">ceil(x)</td>
+<td style="text-align:left">对数进行上舍入。</td>
+</tr>
+<tr>
+<td style="text-align:left">cos(x)</td>
+<td style="text-align:left">返回数的余弦</td>
+</tr>
+<tr>
+<td style="text-align:left">exp(x)</td>
+<td style="text-align:left">返回 e 的指数</td>
+</tr>
+<tr>
+<td style="text-align:left">floor(x)</td>
+<td style="text-align:left">对数进行下舍入</td>
+</tr>
+<tr>
+<td style="text-align:left">log(x)</td>
+<td style="text-align:left">返回数的自然对数（底为e）</td>
+</tr>
+<tr>
+<td style="text-align:left">max(x,y)</td>
+<td style="text-align:left">返回 x 和 y 中的最高值</td>
+</tr>
+<tr>
+<td style="text-align:left">min(x,y)</td>
+<td style="text-align:left">返回 x 和 y 中的最低值</td>
+</tr>
+<tr>
+<td style="text-align:left">pow(x,y)</td>
+<td style="text-align:left">返回 x 的 y 次幂</td>
+</tr>
+<tr>
+<td style="text-align:left">random()</td>
+<td style="text-align:left">返回 0 ~ 1 之间的随机数</td>
+</tr>
+<tr>
+<td style="text-align:left">round(x)</td>
+<td style="text-align:left">把数四舍五入为最接近的整数</td>
+</tr>
+<tr>
+<td style="text-align:left">sin(x)</td>
+<td style="text-align:left">返回数的正弦。</td>
+</tr>
+<tr>
+<td style="text-align:left">sqrt(x)</td>
+<td style="text-align:left">返回数的平方根</td>
+</tr>
+<tr>
+<td style="text-align:left">tan(x)</td>
+<td style="text-align:left">返回角的正切</td>
+</tr>
+<tr>
+<td style="text-align:left">toSource()</td>
+<td style="text-align:left">返回该对象的源代码</td>
+</tr>
+<tr>
+<td style="text-align:left">valueOf()</td>
+<td style="text-align:left">返回 Math 对象的原始值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Infinity与NAN"><a href="#Infinity与NAN" class="headerlink" title="Infinity与NAN"></a>Infinity与NAN</h3><p>在JavaScript的算术运算在溢出(overflow)、下益(underflow)或被零整除时不会报错。<br><strong>溢出</strong><br>当数字超出数字的上限结果用Infinity表示超出下线用-Infinity表示。关于无穷大的行为特性为：基于它们的加、减、乘、除运算的结果还是无穷大。<br><strong>下益</strong><br>当运算结果无限接近零并比JavaScript能表示的最小值还小的时候发生的一种情形。这种情况下JavaScript将会返回0，当负数发生下益时，JavaScript会返回一个特殊的值“负零”。</p>
+<p>寄语：生活想让我们缴械，但是从这一刻起我们要做的是反击 。:)</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 744 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/mouse/">获取鼠标的位置</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="获取鼠标的位置"><a href="#获取鼠标的位置" class="headerlink" title="获取鼠标的位置"></a>获取鼠标的位置</h3><h4 id="获取鼠标的位置可以分为多个情况"><a href="#获取鼠标的位置可以分为多个情况" class="headerlink" title="获取鼠标的位置可以分为多个情况"></a>获取鼠标的位置可以分为多个情况</h4><ol>
+<li><p>获取鼠标相对于浏览器窗口的位置</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.clientX;</span><br><span class="line">let y = event.clientY;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取鼠标相对于整个页面的位置</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.pageX;</span><br><span class="line">let y = event.pageY;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取鼠标相对点击元素的位置</p>
+<p>这一个获取有点难度，因为在JavaScript原生方法中没有这个方法，那么需要分析如何获取，突破点一获取点击元素的相对其父本元素的偏移量这个属性在event的target属性下边绑定可以循环的方法获取点击元素相对于页面的位置方法如下</p>
+</li>
+</ol>
+  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  /*</span><br><span class="line">  *该方法是获取点击元素相对于页面的距离</span><br><span class="line">  *传入的参数为event.target</span><br><span class="line">  */</span><br><span class="line">  function getOffset(obj)&#123;</span><br><span class="line">   var tmp=&#123;</span><br><span class="line">      val:obj.offsetParent, //获取点击元素的父本</span><br><span class="line">      x:obj.offsetLeft, //获取点击元素的相对于父本的水平偏移</span><br><span class="line">      y:obj.offsetTop, //获取点击元素的相对于父本的垂直偏移</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   while(tmp.val != null)&#123; //当父级不存在是停止循环</span><br><span class="line">    tmp.x += tmp.val.offsetLeft; //水平偏移量累计</span><br><span class="line">    tmp.y += tmp.val.offsetTop; //垂直偏移量累计</span><br><span class="line">    tmp.val = tmp.val.offsetParent; //获取父本</span><br><span class="line">   &#125;</span><br><span class="line">   return tmp; //返回点击元素相对于页面的偏移值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上函数是获取了点击元素相对于页面的水平和垂直偏移，依赖以上获得的值，只需要鼠标相对于页面的偏移减去点击元素相对于页面的偏移方法如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">*该方法是获取鼠标相对于点击元素的位移</span><br><span class="line">*传入的参数为event</span><br><span class="line">*/</span><br><span class="line">function getCurrent(elem)&#123;</span><br><span class="line">  let off = getOffset(elem.target); //获取元素相对于页面的位置</span><br><span class="line">  let tmp = &#123;&#125;;</span><br><span class="line">  return tmp = &#123;</span><br><span class="line">    x:elem.pageX - off.x,</span><br><span class="line">    y:elem.pageY - off.y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.getBoundingClientRect用于获取某个html元素相对于页面的位置集合<br>执行 object.getBoundingClientRect();会得到元素的top、right、bottom、left、width、height属性，这些属性以一个对象的方式返回。</p>
+<p>主要是left和bottom要解释一下，left是指右边到页面最左边的距离，bottom是指底边到页面顶边的距离。</p>
+<h6 id="ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。"><a href="#ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。" class="headerlink" title="(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)"></a>(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)</h6><p><img src="http://www.51xuediannao.com/uploads/allimg/160811/2340295W5-0.jpg?_=6179964" alt="图解"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;test&quot; style=&quot;width: 100px; height: 100px; background: #ddd;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function getObjXy(obj)&#123;</span><br><span class="line">        var xy = obj.getBoundingClientRect();</span><br><span class="line">        var top = xy.top-document.documentElement.clientTop+document.documentElement.scrollTop,//document.documentElement.clientTop 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            bottom = xy.bottom,</span><br><span class="line">            left = xy.left-document.documentElement.clientLeft+document.documentElement.scrollLeft,//document.documentElement.clientLeft 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            right = xy.right,</span><br><span class="line">            width = xy.width||right - left, //IE67不存在width 使用right - left获得</span><br><span class="line">            height = xy.height||bottom - top;</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            top:top,</span><br><span class="line">            right:right,</span><br><span class="line">            bottom:bottom,</span><br><span class="line">            left:left,</span><br><span class="line">            width:width,</span><br><span class="line">            height:height</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var test = getObjXy(document.getElementById(&apos;test&apos;));</span><br><span class="line">    alert(&quot;top:&quot; + test.top + &quot;, right:&quot; + test.right + &quot;, bottom:&quot; + test.bottom + &quot;, left:&quot; + test.left);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>以上就是常用的获取鼠标位置的方法</p>
 
         </div>
         
@@ -259,7 +504,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 197 个字)
+                    14 分钟 读完 (大约 2114 个字)
                 </span>
                 
                 
@@ -268,221 +513,35 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/router/">路由实现原理解析</a>
             
         </h1>
         <div class="content">
-            <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 分钟 读完 (大约 947 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/context/">执行上下文</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>在《JavaScript深入之执行上下文栈》中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。</p>
-</blockquote>
-<p>对于每个执行上下文，都有三个重要属性：</p>
-<ul>
-<li>变量对象(Variable object，VO)</li>
-<li>作用域链(Scope chain)</li>
-<li>this</li>
-</ul>
-<p>然后分别在《JavaScript深入之变量对象》、《JavaScript深入之作用域链》、《JavaScript深入之从ECMAScript规范解读this》中讲解了这三个属性。</p>
-<p>阅读本文前，如果对以上的概念不是很清楚，希望先阅读这些文章。</p>
-<p>因为，这一篇，我们会结合着所有内容，讲讲执行上下文的具体处理过程。</p>
-<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><p>在《JavaScript深入之词法作用域和动态作用域》中，提出这样一道思考题：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f;</span><br><span class="line">&#125;</span><br><span class="line">checkscope()();</span><br></pre></td></tr></table></figure></p>
-<p>两段代码都会打印’local scope’。虽然两段代码执行的结果一样，但是两段代码究竟有哪些不同呢？</p>
-<blockquote>
-<p>紧接着就在下一篇《JavaScript深入之执行上下文栈》中，讲到了两者的区别在于执行上下文栈的变化不一样，然而，如果是这样笼统的回答，依然显得不够详细，本篇就会详细的解析执行上下文栈和执行上下文的具体变化过程。</p>
-</blockquote>
-<p>具体执行分析<br>我们分析第一段代码：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br></pre></td></tr></table></figure></p>
-<p>执行过程如下：</p>
-<p>1.执行全局代码，创建全局执行上下文，全局上下文被压入执行上下文栈</p>
-<pre><code>ECStack = [
-    globalContext
-];
-</code></pre><p>2.全局上下文初始化</p>
-<pre><code>globalContext = {
-    VO: [global, scope, checkscope],
-    Scope: [globalContext.VO],
-    this: globalContext.VO
-}
-</code></pre><p>2.初始化的同时，checkscope 函数被创建，保存作用域链到函数的内部属性[[scope]]</p>
-<pre><code>checkscope.[[scope]] = [
-  globalContext.VO
-];
-</code></pre><p>3.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</p>
-<pre><code>ECStack = [
-    checkscopeContext,
-    globalContext
-];
-</code></pre><p>4.checkscope 函数执行上下文初始化：</p>
-<p>复制函数 [[scope]] 属性创建作用域链，<br>用 arguments 创建活动对象，<br>初始化活动对象，即加入形参、函数声明、变量声明，<br>将活动对象压入 checkscope 作用域链顶端。<br>同时 f 函数被创建，保存作用域链到 f 函数的内部属性[[scope]]<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        scope: undefined,</span><br><span class="line">        f: reference to function f()&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, globalContext.VO],</span><br><span class="line">    this: undefined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>5.执行 f 函数，创建 f 函数执行上下文，f 函数执行上下文被压入执行上下文栈<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    fContext,</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
-<p>6.f 函数执行上下文初始化, 以下跟第 4 步相同：</p>
-<p>复制函数 [[scope]] 属性创建作用域链<br>用 arguments 创建活动对象<br>初始化活动对象，即加入形参、函数声明、变量声明<br>将活动对象压入 f 作用域链顶端<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, checkscopeContext.AO, globalContext.VO],</span><br><span class="line">    this: undefined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>7.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值</p>
-<p>8.f 函数执行完毕，f 函数上下文从执行上下文栈中弹出<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
-<p>9.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
-<p>第二段代码就留给大家去尝试模拟它的执行过程。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f;</span><br><span class="line">&#125;</span><br><span class="line">checkscope()();</span><br></pre></td></tr></table></figure></p>
-<p>不过，在下一篇《JavaScript深入之闭包》中也会提及这段代码的执行过程。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/html5/">html5</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 334 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
-<!-- ![目录](./images/webSocket/directory.png) -->
-<h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="pom-xml里边的代码"><a href="#pom-xml里边的代码" class="headerlink" title="pom.xml里边的代码"></a>pom.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;groupId&gt;com.moven&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;moven_im&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;source&gt;1.7&lt;/source&gt;</span><br><span class="line">					&lt;target&gt;1.7&lt;/target&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;javax&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;javaee-api&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;7.0&lt;/version&gt;</span><br><span class="line">			&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1741 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/slice/">Array.prototype.slice应用和原理探析</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
-<h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
-<h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
-<p>有必要探究一番其使用方式和内部原理。</p>
-<h3 id="问题拆解"><a href="#问题拆解" class="headerlink" title="问题拆解"></a>问题拆解</h3><p>Array.prototype.slice作为Array.prototype对象的一个方法，对其调用在API中有详细说明，并不费解，对Array.prototype.slice的疑问可拆解为两个方面：一是该函数究竟返回什么对象？二是该函数可应用于什么对象？即非数组对象需要满足什么条件才能借用(复用)该函数？</p>
-<h3 id="该函数究竟返回什么对象"><a href="#该函数究竟返回什么对象" class="headerlink" title="该函数究竟返回什么对象"></a>该函数究竟返回什么对象</h3><p>为了探究返回对象的类型信息，写一个简单的对象工具集合：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objs = &#123;  </span><br><span class="line">    &quot;descType&quot;:function(o)&#123;  </span><br><span class="line">        console.info(o);  </span><br><span class="line">        console.info(&quot;typeof o:&quot; + (typeof o));  </span><br><span class="line">        console.info(&quot;o.constructor:&quot; + (o.constructor));  </span><br><span class="line">        console.info(&quot;o instanceof Object:&quot; + (o instanceof Object));  </span><br><span class="line">        console.info(&quot;o instanceof Array:&quot; + (o instanceof Array));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>然后测试几个简单的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var v = [&apos;a&apos;,true,9].slice(0);  </span><br><span class="line">objs.descType(v);</span><br><span class="line">// typeof o:object</span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;</span><br><span class="line">// o instanceof Object:true</span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
-<p>数组对象自身上调用slice方法当然不必再使用“var v = Array.prototype.slice.call([‘a’,true,9]);”这种方法，虽然是可以这样用的，结果表明返回的对象的确是Array类型的对象。</p>
-<h3 id="该函数可应用于什么对象"><a href="#该函数可应用于什么对象" class="headerlink" title="该函数可应用于什么对象"></a>该函数可应用于什么对象</h3><p>1 既然该方法是作为Array.prototype的方法，那么数组对象本身当然可以调用该方法。</p>
-<p>2 Arguments类型的对象可正确调用该函数。</p>
-<p>同样用一个简单的例子测试下arguments对象借用该函数后的对象类型。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;  </span><br><span class="line">    objs.descType(arguments);  </span><br><span class="line">    var newArg = Array.prototype.slice.call(arguments, 0);  </span><br><span class="line">    objs.descType(newArg);  </span><br><span class="line">&#125;  </span><br><span class="line">f(&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;);</span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">/// o.constructor:function Object() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:false  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
-<p>可以看到arguments对象本身并不是Array类型的–o instanceof Array:false，进一步展开该对象细节，可以看到其属性列表如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">callee:function f()  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
-<p>有length属性，有’0’,’1’,’2’属性，有’callee’属性，是一个Arguments类型的一个对象实例。而经过Array.prototype.slice.call调用后返回的对象就是一个真真正正的Array对象：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
-<p>这说明arguments对象和转换后的array对象非常类似–不仅属性类似，连用法也类似，比如arguments对象也支持[]运算符调用其属性值(其实本质是对象元素访问的通用语法，只不过属性名刚好为转换为字符串的整数而已)。所以结论是在js语言中，对arguments对象调用Array.prototype.slice.call(arguments, 0)纯属“闲的蛋疼”的做法(除非设计的函数用法非常的动态，比如需要对参数做shift等之类的数组操作)。</p>
-<p>那么除了arguments对象之外，其他类型的对象可以借用Array.prototype.slice函数么？继续简单的测试几个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(true,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&apos;abc&apos;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(256,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&#123;&#125;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(undefined,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(null,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(NaN,0));</span><br></pre></td></tr></table></figure></p>
-<p>对undefined和null调用slice抛出异常，这是预期的行为，对NaN/true/256/{}返回一个空数组对象，对字符串’abc’返回一个数组：[“a”, “b”, “c”]，现在的重点是对对象调用的探究，传入一个初始化为空的对象直接量返回的是一个空数组对象，而上面测试在arguments对象上调用slice返回一个正常的数组–两者有何区别？</p>
-<p>一个很容易联想的点子是该调用对象应该具备length属性才可以被slice正确处理，测试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5&#125;,0));</span><br></pre></td></tr></table></figure></p>
-<p>结果果然是一个length值为5的数组对象，但其中5个元素值都为undefined。那么更进一步的想法应该是：调用对象除了有length属性之外，是不是也应该有索引属性名？即自动转换为字符类型的整数数字属性名？再试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5,&apos;0&apos;:&apos;gebilaowang&apos;,&apos;1&apos;:&apos;ximenqin&apos;&#125;,0));</span><br></pre></td></tr></table></figure></p>
-<p>ok，大功告成，结果果然是预期数组：[“gebilaowang”,”ximenqin”,undefined,undefined,undefined]。因此结论是：只有具备”可转换为数值型的length属性”并且同时具备”索引属性”的对象才可以正确被slice函数处理(返回或者说转换为预期数组)，这种类型的对象经过查阅果然有一种专属称谓–Array-like Object。</p>
-<h3 id="3-Array-like对象可正确调用该函数。"><a href="#3-Array-like对象可正确调用该函数。" class="headerlink" title="3 Array-like对象可正确调用该函数。"></a>3 Array-like对象可正确调用该函数。</h3><p>现在来探究jQuery中对Array.prototype.slice方法的使用场景，jQuery对各种原型方法的应用当然是非常牛逼的甚至达到炉火纯青的境界，其实jQuery对象本身就是一个Array-like对象，因为其有length属性，也有索引属性，分析其初始化构造函数(1.6.1版本)即可明白(特别注意对this.length和this[index]属性的设置)：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype.init: function( selector, context, rootjQuery ) &#123;  </span><br><span class="line">            var match, elem, ret, doc;  </span><br><span class="line"></span><br><span class="line">            // Handle $(&quot;&quot;), $(null), or $(undefined)  </span><br><span class="line">            if ( !selector ) &#123;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle $(DOMElement)  </span><br><span class="line">            if ( selector.nodeType ) &#123;  </span><br><span class="line">                this.context = this[0] = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // The body element only exists once, optimize finding it  </span><br><span class="line">            if ( selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body ) &#123;  </span><br><span class="line">                this.context = document;  </span><br><span class="line">                this[0] = document.body;  </span><br><span class="line">                this.selector = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle HTML strings  </span><br><span class="line">            if ( typeof selector === &quot;string&quot; ) &#123;  </span><br><span class="line">              // Are we dealing with HTML string or an ID?  </span><br><span class="line">               if ( selector.charAt(0) === &quot;&lt;&quot; &amp;&amp; selector.charAt( selector.length - 1 ) === &quot;&gt;&quot; &amp;&amp; selector.length &gt;= 3 ) &#123;  </span><br><span class="line">                   // Assume that strings that start and end with &lt;&gt; are HTML and skip the regex check  </span><br><span class="line">                   match = [ null, selector, null ];  </span><br><span class="line"></span><br><span class="line">               &#125; else &#123;  </span><br><span class="line">                   match = quickExpr.exec( selector );  </span><br><span class="line">               &#125;  </span><br><span class="line"></span><br><span class="line">               // Verify a match, and that no context was specified for #id  </span><br><span class="line">               if ( match &amp;&amp; (match[1] || !context) ) &#123;  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(html) -&gt; $(array)  </span><br><span class="line">                   if ( match[1] ) &#123;  </span><br><span class="line">                       context = context instanceof jQuery ? context[0] : context;  </span><br><span class="line">                       doc = (context ? context.ownerDocument || context : document);  </span><br><span class="line"></span><br><span class="line">                       // If a single string is passed in and it&apos;s a single tag  </span><br><span class="line">                       // just do a createElement and skip the rest  </span><br><span class="line">                       ret = rsingleTag.exec( selector );  </span><br><span class="line"></span><br><span class="line">                       if ( ret ) &#123;  </span><br><span class="line">                           if ( jQuery.isPlainObject( context ) ) &#123;  </span><br><span class="line">                               selector = [ document.createElement( ret[1] ) ];  </span><br><span class="line">                               jQuery.fn.attr.call( selector, context, true );  </span><br><span class="line"></span><br><span class="line">                           &#125; else &#123;  </span><br><span class="line">                               selector = [ doc.createElement( ret[1] ) ];  </span><br><span class="line">                           &#125;  </span><br><span class="line"></span><br><span class="line">                       &#125; else &#123;  </span><br><span class="line">                           ret = jQuery.buildFragment( [ match[1] ], [ doc ] );  </span><br><span class="line">                           selector = (ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment).childNodes;  </span><br><span class="line">                       &#125;  </span><br><span class="line"></span><br><span class="line">                       return jQuery.merge( this, selector );  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(&quot;#id&quot;)  </span><br><span class="line">                   &#125; else &#123;  </span><br><span class="line">                        elem = document.getElementById( match[2] );  </span><br><span class="line"></span><br><span class="line">                        // Check parentNode to catch when Blackberry 4.6 returns  </span><br><span class="line">                        // nodes that are no longer in the document #6963  </span><br><span class="line">                        if ( elem &amp;&amp; elem.parentNode ) &#123;  </span><br><span class="line">                            // Handle the case where IE and Opera return items  </span><br><span class="line">                            // by name instead of ID  </span><br><span class="line">                            if ( elem.id !== match[2] ) &#123;  </span><br><span class="line">                                return rootjQuery.find( selector );  </span><br><span class="line">                            &#125;  </span><br><span class="line"></span><br><span class="line">                            // Otherwise, we inject the element directly into the jQuery object  </span><br><span class="line">                            this.length = 1;  </span><br><span class="line">                            this[0] = elem;  </span><br><span class="line">                        &#125;  </span><br><span class="line"></span><br><span class="line">                        this.context = document;  </span><br><span class="line">                        this.selector = selector;  </span><br><span class="line">                        return this;  </span><br><span class="line">                    &#125;  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, $(...))  </span><br><span class="line">                &#125; else if ( !context || context.jquery ) &#123;  </span><br><span class="line">                    return (context || rootjQuery).find( selector );  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, context)  </span><br><span class="line">                // (which is just equivalent to: $(context).find(expr)  </span><br><span class="line">                &#125; else &#123;  </span><br><span class="line">                    return this.constructor( context ).find( selector );  </span><br><span class="line">                &#125;  </span><br><span class="line"></span><br><span class="line">            // HANDLE: $(function)  </span><br><span class="line">            // Shortcut for document ready  </span><br><span class="line">            &#125; else if ( jQuery.isFunction( selector ) ) &#123;  </span><br><span class="line">               return rootjQuery.ready( selector );  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           if (selector.selector !== undefined) &#123;  </span><br><span class="line">               this.selector = selector.selector;  </span><br><span class="line">               this.context = selector.context;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           return jQuery.makeArray( selector, this );  </span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure></p>
-<p>这是分析并理解jQuery背后原理的最基础最前提的一步。</p>
-<h3 id="原理探析"><a href="#原理探析" class="headerlink" title="原理探析"></a>原理探析</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function slice(start, end) &#123;   </span><br><span class="line">    var startToUse = start || 0,   </span><br><span class="line">        endToUse = end || ToUint32(this.length),   </span><br><span class="line">        result = [];   </span><br><span class="line">    for(var i = startToUse; i &lt; endToUse; i++) &#123;   </span><br><span class="line">        result.push(this[i]);   </span><br><span class="line">    &#125;  </span><br><span class="line">    return result;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p><a href="https://github.com/joeyguo/blog/issues/2" target="_blank" rel="noopener">原文地址</a></p>
+<p>在单页应用上，前端路由并不陌生。很多前端框架也会有独立开发或推荐配套使用的路由系统。那么，当我们在谈前端路由的时候，还可以谈些什么？本文将简要分析并实现一个的前端路由，并对 react-router 进行分析。</p>
+<h3 id="一个极简前端路由实现"><a href="#一个极简前端路由实现" class="headerlink" title="一个极简前端路由实现"></a>一个极简前端路由实现</h3><p>说一下前端路由实现的简要原理，以 hash 形式（也可以使用 History API 来处理）为例，当 url 的 hash 发生变化时，触发 hashchange 注册的回调，回调中去进行不同的操作，进行不同的内容的展示。直接看代码或许更直观。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Router() &#123;</span><br><span class="line">    this.routes = &#123;&#125;;</span><br><span class="line">    this.currentUrl = &apos;&apos;;</span><br><span class="line">&#125;</span><br><span class="line">Router.prototype.route = function(path, callback) &#123;</span><br><span class="line">    this.routes[path] = callback || function()&#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">Router.prototype.refresh = function() &#123;</span><br><span class="line">    this.currentUrl = location.hash.slice(1) || &apos;/&apos;;</span><br><span class="line">    this.routes[this.currentUrl]();</span><br><span class="line">&#125;;</span><br><span class="line">Router.prototype.init = function() &#123;</span><br><span class="line">    window.addEventListener(&apos;load&apos;, this.refresh.bind(this), false);</span><br><span class="line">    window.addEventListener(&apos;hashchange&apos;, this.refresh.bind(this), false);</span><br><span class="line">&#125;</span><br><span class="line">window.Router = new Router();</span><br><span class="line">window.Router.init();</span><br></pre></td></tr></table></figure></p>
+<p>上面路由系统 Router 对象实现，主要提供三个方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">init 监听浏览器 url hash 更新事件</span><br><span class="line">route 存储路由更新时的回调到回调数组routes中，回调函数将负责对页面的更新</span><br><span class="line">refresh 执行当前url对应的回调函数，更新页面</span><br><span class="line">Router 调用方式以及呈现效果如下：点击触发 url 的 hash 改变，并对应地更新内容（这里为 body 背景色）</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/&quot;&gt;turn white&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/blue&quot;&gt;turn blue&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#/green&quot;&gt;turn green&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">var content = document.querySelector(&apos;body&apos;);</span><br><span class="line">// change Page anything</span><br><span class="line">function changeBgColor(color) &#123;</span><br><span class="line">    content.style.backgroundColor = color;</span><br><span class="line">&#125;</span><br><span class="line">Router.route(&apos;/&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;white&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(&apos;/blue&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;blue&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(&apos;/green&apos;, function() &#123;</span><br><span class="line">    changeBgColor(&apos;green&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>以上为一个前端路由的简单实现，点击查看完整代码，虽然简单，但实际上很多路由系统的根基都立于此，其他路由系统主要是对自身使用的框架机制的进行配套及优化，如与 react 配套的 react-router。</p>
+<h3 id="react-router-分析"><a href="#react-router-分析" class="headerlink" title="react-router 分析"></a>react-router 分析</h3><p>react-router 与 history 结合形式</p>
+<p>react-router 是基于 history 模块提供的 api 进行开发的，结合的形式本文记为 包装方式。所以在开始对其分析之前，先举一个简单的例子来说明如何进行对象的包装。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// 原对象</span><br><span class="line">var historyModule = &#123;</span><br><span class="line">    listener: [],</span><br><span class="line">    listen: function (listener) &#123;</span><br><span class="line">        this.listener.push(listener);</span><br><span class="line">        console.log(&apos;historyModule listen..&apos;)</span><br><span class="line">    &#125;,</span><br><span class="line">    updateLocation: function()&#123;</span><br><span class="line">        this.listener.forEach(function(listener)&#123;</span><br><span class="line">            listener(&apos;new localtion&apos;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Router 将使用 historyModule 对象，并对其包装</span><br><span class="line">var Router = &#123;</span><br><span class="line">    source: &#123;&#125;,</span><br><span class="line">    init: function(source)&#123;</span><br><span class="line">        this.source = source;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 对 historyModule的listen进行了一层包装</span><br><span class="line">    listen: function(listener) &#123;</span><br><span class="line">        return this.source.listen(function(location)&#123;</span><br><span class="line">            console.log(&apos;Router listen tirgger.&apos;);</span><br><span class="line">            listener(location);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 将 historyModule 注入进 Router 中</span><br><span class="line">Router.init(historyModule);</span><br><span class="line">// Router 注册监听</span><br><span class="line">Router.listen(function(location)&#123;</span><br><span class="line">    console.log(location + &apos;-&gt; Router setState.&apos;);</span><br><span class="line">&#125;)</span><br><span class="line">// historyModule 触发回调</span><br><span class="line">historyModule.updateLocation();</span><br><span class="line"></span><br><span class="line">返回：</span><br><span class="line">22</span><br></pre></td></tr></table></figure></p>
+<p>可看到 historyModule 中含有机制：historyModule.updateLocation() -&gt; listener( )，Router 通过对其进行包装开发，针对 historyModule 的机制对 Router 也起到了作用，即historyModule.updateLocation() 将触发 Router.listen 中的回调函数 。点击查看完整代码<br>这种包装形式能够充分利用原对象（historyModule ）的内部机制，减少开发成本，也更好的分离包装函数（Router）的逻辑，减少对原对象的影响。</p>
+<h3 id="react-router-使用方式"><a href="#react-router-使用方式" class="headerlink" title="react-router 使用方式"></a>react-router 使用方式</h3><p>react-router 以 react component 的组件方式提供 API， 包含 Router，Route，Redirect，Link 等等，这样能够充分利用 react component 提供的生命周期特性，同时也让定义路由跟写 react component 达到统一，如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">render((</span><br><span class="line">  &lt;Router history=&#123;browserHistory&#125;&gt;</span><br><span class="line">    &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">      &lt;Route path=&quot;about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">      &lt;Route path=&quot;users&quot; component=&#123;Users&#125;&gt;</span><br><span class="line">        &lt;Route path=&quot;/user/:userId&quot; component=&#123;User&#125;/&gt;</span><br><span class="line">      &lt;/Route&gt;</span><br><span class="line">      &lt;Route path=&quot;*&quot; component=&#123;NoMatch&#125;/&gt;</span><br><span class="line">    &lt;/Route&gt;</span><br><span class="line">  &lt;/Router&gt;</span><br><span class="line">), document.body)</span><br></pre></td></tr></table></figure></p>
+<p>就这样，声明了一份含有 path to component 的各个映射的路由表。<br>react-router 还提供的 Link 组件（如下），作为提供更新 url 的途径，触发 Link 后最终将通过如上面定义的路由表进行匹配，并拿到对应的 component 及 state 进行 render 渲染页面。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=&#123;`/user/89757`&#125;&gt;&apos;joey&apos;&lt;/Link&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里不细讲 react-router 的使用，详情可见：<a href="https://github.com/reactjs/react-router" target="_blank" rel="noopener">https://github.com/reactjs/react-router</a></p>
+<p>从点击 Link 到 render 对应 component ，路由中发生了什么</p>
+<p>为何能够触发 render component ？</p>
+<p>主要是因为触发了 react setState 的方法从而能够触发 render component。<br>从顶层组件 Router 出发（下面代码从 react-router/Router 中摘取），可看到 Router 在 react component 生命周期之组件被挂载前 componentWillMount 中使用 this.history.listen 去注册了 url 更新的回调函数。回调函数将在 url 更新时触发，回调中的 setState 起到 render 了新的 component 的作用。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.componentWillMount = function componentWillMount() &#123;</span><br><span class="line">    // .. 省略其他</span><br><span class="line">    var createHistory = this.props.history;</span><br><span class="line"></span><br><span class="line">    this.history = _useRoutes2[&apos;default&apos;](createHistory)(&#123;</span><br><span class="line">      routes: _RouteUtils.createRoutes(routes || children),</span><br><span class="line">      parseQueryString: parseQueryString,</span><br><span class="line">      stringifyQuery: stringifyQuery</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    this._unlisten = this.history.listen(function (error, state) &#123;</span><br><span class="line">        _this.setState(state, _this.props.onUpdate);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面的 _useRoutes2 对 history 操作便是对其做一层包装，所以调用的 this.history 实际为包装以后的对象，该对象含有 _useRoutes2 中的 listen 方法，如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function listen(listener) &#123;</span><br><span class="line">      return history.listen(function (location) &#123;</span><br><span class="line">          // .. 省略其他</span><br><span class="line">          match(location, function (error, redirectLocation, nextState) &#123;</span><br><span class="line">            listener(null, nextState);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可看到，上面代码中，主要分为两部分</p>
+<p>使用了 history 模块的 listen 注册了一个含有 setState 的回调函数（这样就能使用 history 模块中的机制）<br>回调中的 match 方法为 react-router 所特有，match 函数根据当前 location 以及前面写的 Route 路由表匹配出对应的路由子集得到新的路由状态值 state，具体实现可见 react-router/matchRoutes ，再根据 state 得到对应的 component ，最终执行了 match 中的回调 listener(null, nextState) ，即执行了 Router 中的监听回调（setState），从而更新了展示。<br>以上，为起始注册的监听，及回调的作用。</p>
+<p>如何触发监听的回调函数的执行？</p>
+<p>这里还得从如何更新 url 说起。一般来说，url 更新主要有两种方式：简单的 hash 更新或使用 history api 进行地址更新。在 react-router 中，其提供了 Link 组件，该组件能在 render 中使用，最终会表现为 a 标签，并将 Link 中的各个参数组合放它的 href 属性中。可以从 react-router/ Link 中看到，对该组件的点击事件进行了阻止了浏览器的默认跳转行为，而改用 history 模块的 pushState 方法去触发 url 更新。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Link.prototype.render = function render() &#123;</span><br><span class="line">    // .. 省略其他</span><br><span class="line">    props.onClick = function (e) &#123;</span><br><span class="line">      return _this.handleClick(e);</span><br><span class="line">    &#125;;</span><br><span class="line">    if (history) &#123;</span><br><span class="line">     // .. 省略其他</span><br><span class="line">      props.href = history.createHref(to, query);</span><br><span class="line">    &#125;</span><br><span class="line">    return _react2[&apos;default&apos;].createElement(&apos;a&apos;, props);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Link.prototype.handleClick = function handleClick(event) &#123;</span><br><span class="line">    // .. 省略其他</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    this.context.history.pushState(this.props.state, this.props.to, this.props.query);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>对 history 模块的 pushState 方法对 url 的更新形式，同样分为两种，分别在 history/createBrowserHistory 及 history/createHashHistory 各自的 finishTransition 中，如 history/createBrowserHistory 中使用的是 window.history.replaceState(historyState, null, path); 而 history/createHashHistory 则使用 window.location.hash = url，调用哪个是根据我们一开始创建 history 的方式。</p>
+<p>更新 url 的显示是一部分，另一部分是根据 url 去更新展示，也就是触发前面的监听。这是在前面 finishTransition 更新 url 之后实现的，调用的是 history/createHistory 中的 updateLocation 方法，changeListeners 中为 history/createHistory 中的 listen 中所添加的，如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function updateLocation(newLocation) &#123;</span><br><span class="line">   // 示意代码</span><br><span class="line">    location = newLocation;</span><br><span class="line">    changeListeners.forEach(function (listener) &#123;</span><br><span class="line">      listener(location);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">function listen(listener) &#123;</span><br><span class="line">     // 示意代码</span><br><span class="line">    changeListeners.push(listener);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###总结</p>
+<p>可以将以上 react-router 的整个包装闭环总结为</p>
+<p>回调函数：含有能够更新 react UI 的 react setState 方法。<br>注册回调：在 Router componentWillMount 中使用 history.listen 注册的回调函数，最终放在 history 模块的 回调函数数组 changeListeners 中。<br>触发回调：Link 点击触发 history 中回调函数数组 changeListeners 的执行，从而触发原来 listen 中的 setState 方法，更新了页面<br>至于前进与后退的实现，是通过监听 popstate 以及 hashchange 的事件，当前进或后退 url 更新时，触发这两个事件的回调函数，回调的执行方式 Link 大致相同，最终同样更新了 UI ，这里就不再说明。</p>
+<p>react-router 主要是利用底层 history 模块的机制，通过结合 react 的架构机制做一层包装，实际自身的内容并不多，但其包装的思想笔者认为很值得学习，有兴趣的建议阅读下源码，相信会有其他收获。</p>
 
         </div>
         
@@ -630,14 +689,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 310 个字)
+                    12 分钟 读完 (大约 1741 个字)
                 </span>
                 
                 
@@ -646,14 +705,127 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/call/">javaScript的call,apply,bind</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/slice/">Array.prototype.slice应用和原理探析</a>
             
         </h1>
         <div class="content">
-            <p>1、方法定义<br>call方法:<br>语法：call([thisObj[,arg1[, arg2[,   [,.argN]]]]])<br>定义：调用一个对象的一个方法，以另一个对象替换当前对象。<br>说明：<br>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。<br>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。</p>
-<p>apply方法：<br>语法：apply([thisObj[,argArray]])<br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：<br>如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。<br>如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数</p>
-<p>bind方法：<br>语法：bind([thisObj[,arg1[,arg2[,[,.argN]]]]])<br>bind()方法会创建一个新的函数，称为绑定函数,fun方法在this环境下调用</p>
-<p>该方法可传入两个参数，第一个参数作为this，第二个及以后的参数则作为函数的参数调用</p>
+            <h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
+<h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
+<h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
+<p>有必要探究一番其使用方式和内部原理。</p>
+<h3 id="问题拆解"><a href="#问题拆解" class="headerlink" title="问题拆解"></a>问题拆解</h3><p>Array.prototype.slice作为Array.prototype对象的一个方法，对其调用在API中有详细说明，并不费解，对Array.prototype.slice的疑问可拆解为两个方面：一是该函数究竟返回什么对象？二是该函数可应用于什么对象？即非数组对象需要满足什么条件才能借用(复用)该函数？</p>
+<h3 id="该函数究竟返回什么对象"><a href="#该函数究竟返回什么对象" class="headerlink" title="该函数究竟返回什么对象"></a>该函数究竟返回什么对象</h3><p>为了探究返回对象的类型信息，写一个简单的对象工具集合：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objs = &#123;  </span><br><span class="line">    &quot;descType&quot;:function(o)&#123;  </span><br><span class="line">        console.info(o);  </span><br><span class="line">        console.info(&quot;typeof o:&quot; + (typeof o));  </span><br><span class="line">        console.info(&quot;o.constructor:&quot; + (o.constructor));  </span><br><span class="line">        console.info(&quot;o instanceof Object:&quot; + (o instanceof Object));  </span><br><span class="line">        console.info(&quot;o instanceof Array:&quot; + (o instanceof Array));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后测试几个简单的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var v = [&apos;a&apos;,true,9].slice(0);  </span><br><span class="line">objs.descType(v);</span><br><span class="line">// typeof o:object</span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;</span><br><span class="line">// o instanceof Object:true</span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
+<p>数组对象自身上调用slice方法当然不必再使用“var v = Array.prototype.slice.call([‘a’,true,9]);”这种方法，虽然是可以这样用的，结果表明返回的对象的确是Array类型的对象。</p>
+<h3 id="该函数可应用于什么对象"><a href="#该函数可应用于什么对象" class="headerlink" title="该函数可应用于什么对象"></a>该函数可应用于什么对象</h3><p>1 既然该方法是作为Array.prototype的方法，那么数组对象本身当然可以调用该方法。</p>
+<p>2 Arguments类型的对象可正确调用该函数。</p>
+<p>同样用一个简单的例子测试下arguments对象借用该函数后的对象类型。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;  </span><br><span class="line">    objs.descType(arguments);  </span><br><span class="line">    var newArg = Array.prototype.slice.call(arguments, 0);  </span><br><span class="line">    objs.descType(newArg);  </span><br><span class="line">&#125;  </span><br><span class="line">f(&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;);</span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">/// o.constructor:function Object() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:false  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
+<p>可以看到arguments对象本身并不是Array类型的–o instanceof Array:false，进一步展开该对象细节，可以看到其属性列表如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">callee:function f()  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
+<p>有length属性，有’0’,’1’,’2’属性，有’callee’属性，是一个Arguments类型的一个对象实例。而经过Array.prototype.slice.call调用后返回的对象就是一个真真正正的Array对象：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
+<p>这说明arguments对象和转换后的array对象非常类似–不仅属性类似，连用法也类似，比如arguments对象也支持[]运算符调用其属性值(其实本质是对象元素访问的通用语法，只不过属性名刚好为转换为字符串的整数而已)。所以结论是在js语言中，对arguments对象调用Array.prototype.slice.call(arguments, 0)纯属“闲的蛋疼”的做法(除非设计的函数用法非常的动态，比如需要对参数做shift等之类的数组操作)。</p>
+<p>那么除了arguments对象之外，其他类型的对象可以借用Array.prototype.slice函数么？继续简单的测试几个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(true,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&apos;abc&apos;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(256,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&#123;&#125;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(undefined,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(null,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(NaN,0));</span><br></pre></td></tr></table></figure></p>
+<p>对undefined和null调用slice抛出异常，这是预期的行为，对NaN/true/256/{}返回一个空数组对象，对字符串’abc’返回一个数组：[“a”, “b”, “c”]，现在的重点是对对象调用的探究，传入一个初始化为空的对象直接量返回的是一个空数组对象，而上面测试在arguments对象上调用slice返回一个正常的数组–两者有何区别？</p>
+<p>一个很容易联想的点子是该调用对象应该具备length属性才可以被slice正确处理，测试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5&#125;,0));</span><br></pre></td></tr></table></figure></p>
+<p>结果果然是一个length值为5的数组对象，但其中5个元素值都为undefined。那么更进一步的想法应该是：调用对象除了有length属性之外，是不是也应该有索引属性名？即自动转换为字符类型的整数数字属性名？再试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5,&apos;0&apos;:&apos;gebilaowang&apos;,&apos;1&apos;:&apos;ximenqin&apos;&#125;,0));</span><br></pre></td></tr></table></figure></p>
+<p>ok，大功告成，结果果然是预期数组：[“gebilaowang”,”ximenqin”,undefined,undefined,undefined]。因此结论是：只有具备”可转换为数值型的length属性”并且同时具备”索引属性”的对象才可以正确被slice函数处理(返回或者说转换为预期数组)，这种类型的对象经过查阅果然有一种专属称谓–Array-like Object。</p>
+<h3 id="3-Array-like对象可正确调用该函数。"><a href="#3-Array-like对象可正确调用该函数。" class="headerlink" title="3 Array-like对象可正确调用该函数。"></a>3 Array-like对象可正确调用该函数。</h3><p>现在来探究jQuery中对Array.prototype.slice方法的使用场景，jQuery对各种原型方法的应用当然是非常牛逼的甚至达到炉火纯青的境界，其实jQuery对象本身就是一个Array-like对象，因为其有length属性，也有索引属性，分析其初始化构造函数(1.6.1版本)即可明白(特别注意对this.length和this[index]属性的设置)：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype.init: function( selector, context, rootjQuery ) &#123;  </span><br><span class="line">            var match, elem, ret, doc;  </span><br><span class="line"></span><br><span class="line">            // Handle $(&quot;&quot;), $(null), or $(undefined)  </span><br><span class="line">            if ( !selector ) &#123;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle $(DOMElement)  </span><br><span class="line">            if ( selector.nodeType ) &#123;  </span><br><span class="line">                this.context = this[0] = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // The body element only exists once, optimize finding it  </span><br><span class="line">            if ( selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body ) &#123;  </span><br><span class="line">                this.context = document;  </span><br><span class="line">                this[0] = document.body;  </span><br><span class="line">                this.selector = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle HTML strings  </span><br><span class="line">            if ( typeof selector === &quot;string&quot; ) &#123;  </span><br><span class="line">              // Are we dealing with HTML string or an ID?  </span><br><span class="line">               if ( selector.charAt(0) === &quot;&lt;&quot; &amp;&amp; selector.charAt( selector.length - 1 ) === &quot;&gt;&quot; &amp;&amp; selector.length &gt;= 3 ) &#123;  </span><br><span class="line">                   // Assume that strings that start and end with &lt;&gt; are HTML and skip the regex check  </span><br><span class="line">                   match = [ null, selector, null ];  </span><br><span class="line"></span><br><span class="line">               &#125; else &#123;  </span><br><span class="line">                   match = quickExpr.exec( selector );  </span><br><span class="line">               &#125;  </span><br><span class="line"></span><br><span class="line">               // Verify a match, and that no context was specified for #id  </span><br><span class="line">               if ( match &amp;&amp; (match[1] || !context) ) &#123;  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(html) -&gt; $(array)  </span><br><span class="line">                   if ( match[1] ) &#123;  </span><br><span class="line">                       context = context instanceof jQuery ? context[0] : context;  </span><br><span class="line">                       doc = (context ? context.ownerDocument || context : document);  </span><br><span class="line"></span><br><span class="line">                       // If a single string is passed in and it&apos;s a single tag  </span><br><span class="line">                       // just do a createElement and skip the rest  </span><br><span class="line">                       ret = rsingleTag.exec( selector );  </span><br><span class="line"></span><br><span class="line">                       if ( ret ) &#123;  </span><br><span class="line">                           if ( jQuery.isPlainObject( context ) ) &#123;  </span><br><span class="line">                               selector = [ document.createElement( ret[1] ) ];  </span><br><span class="line">                               jQuery.fn.attr.call( selector, context, true );  </span><br><span class="line"></span><br><span class="line">                           &#125; else &#123;  </span><br><span class="line">                               selector = [ doc.createElement( ret[1] ) ];  </span><br><span class="line">                           &#125;  </span><br><span class="line"></span><br><span class="line">                       &#125; else &#123;  </span><br><span class="line">                           ret = jQuery.buildFragment( [ match[1] ], [ doc ] );  </span><br><span class="line">                           selector = (ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment).childNodes;  </span><br><span class="line">                       &#125;  </span><br><span class="line"></span><br><span class="line">                       return jQuery.merge( this, selector );  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(&quot;#id&quot;)  </span><br><span class="line">                   &#125; else &#123;  </span><br><span class="line">                        elem = document.getElementById( match[2] );  </span><br><span class="line"></span><br><span class="line">                        // Check parentNode to catch when Blackberry 4.6 returns  </span><br><span class="line">                        // nodes that are no longer in the document #6963  </span><br><span class="line">                        if ( elem &amp;&amp; elem.parentNode ) &#123;  </span><br><span class="line">                            // Handle the case where IE and Opera return items  </span><br><span class="line">                            // by name instead of ID  </span><br><span class="line">                            if ( elem.id !== match[2] ) &#123;  </span><br><span class="line">                                return rootjQuery.find( selector );  </span><br><span class="line">                            &#125;  </span><br><span class="line"></span><br><span class="line">                            // Otherwise, we inject the element directly into the jQuery object  </span><br><span class="line">                            this.length = 1;  </span><br><span class="line">                            this[0] = elem;  </span><br><span class="line">                        &#125;  </span><br><span class="line"></span><br><span class="line">                        this.context = document;  </span><br><span class="line">                        this.selector = selector;  </span><br><span class="line">                        return this;  </span><br><span class="line">                    &#125;  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, $(...))  </span><br><span class="line">                &#125; else if ( !context || context.jquery ) &#123;  </span><br><span class="line">                    return (context || rootjQuery).find( selector );  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, context)  </span><br><span class="line">                // (which is just equivalent to: $(context).find(expr)  </span><br><span class="line">                &#125; else &#123;  </span><br><span class="line">                    return this.constructor( context ).find( selector );  </span><br><span class="line">                &#125;  </span><br><span class="line"></span><br><span class="line">            // HANDLE: $(function)  </span><br><span class="line">            // Shortcut for document ready  </span><br><span class="line">            &#125; else if ( jQuery.isFunction( selector ) ) &#123;  </span><br><span class="line">               return rootjQuery.ready( selector );  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           if (selector.selector !== undefined) &#123;  </span><br><span class="line">               this.selector = selector.selector;  </span><br><span class="line">               this.context = selector.context;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           return jQuery.makeArray( selector, this );  </span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>这是分析并理解jQuery背后原理的最基础最前提的一步。</p>
+<h3 id="原理探析"><a href="#原理探析" class="headerlink" title="原理探析"></a>原理探析</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function slice(start, end) &#123;   </span><br><span class="line">    var startToUse = start || 0,   </span><br><span class="line">        endToUse = end || ToUint32(this.length),   </span><br><span class="line">        result = [];   </span><br><span class="line">    for(var i = startToUse; i &lt; endToUse; i++) &#123;   </span><br><span class="line">        result.push(this[i]);   </span><br><span class="line">    &#125;  </span><br><span class="line">    return result;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 分钟 读完 (大约 1637 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/prototype/">原型到原型链</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h3><p>我们先使用构造函数创建一个对象：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &apos;Kevin&apos;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<p>很简单吧，接下来进入正题：</p>
+<ul>
+<li>prototype</li>
+</ul>
+<p>每个函数都有一个 prototype 属性，就是我们经常在各种例子中看到的那个 prototype ，比如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 虽然写在注释里，但是你要注意：</span><br><span class="line">// prototype是函数才会有的属性</span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // Kevin</span><br><span class="line">console.log(person2.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>那这个函数的 prototype 属性到底指向的是什么呢？是这个函数的原型吗？</p>
+<p>其实，函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型，也就是这个例子中的 person1 和 person2 的原型。</p>
+<p>那什么是原型呢？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p>
+<p>让我们用一张图表示构造函数和实例原型之间的关系：<br><img src="/2016/08/25/javaScript/prototype/prototype.png" title="让我们用一张图表示构造函数和实例原型之间的关系"></p>
+<p>在这张图中我们用 Object.prototype 表示实例原型。</p>
+<p>那么我们该怎么表示实例与实例原型，也就是 person 和 Person.prototype 之间的关系呢，这时候我们就要讲到第二个属性：</p>
+<ul>
+<li><strong>proto</strong></li>
+</ul>
+<p>这是每一个JavaScript对象(除了 null )都具有的一个属性，叫<strong>proto</strong>，这个属性会指向该对象的原型。</p>
+<p>为了证明这一点,我们可以在火狐或者谷歌中输入：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure></p>
+<p>于是我们更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/proto.png" title="于是我们更新下关系图"></p>
+<p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
+<ul>
+<li>constructor</li>
+</ul>
+<p>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor﻿，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<p>为了验证这一点，我们可以尝试：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure></p>
+<p>所以再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/constructor.png" title="于是我们更新下关系图"></p>
+<p>综上我们已经得出：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure></p>
+<p>了解了构造函数、实例原型、和实例之间的关系，接下来我们讲讲实例和原型的关系：</p>
+<p>实例与原型<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。</p>
+<p>举个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">person.name = &apos;Daisy&apos;;</span><br><span class="line">console.log(person.name) // Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) // Kevin</span><br><span class="line">在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</span><br><span class="line"></span><br><span class="line">但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.__proto__ ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</span><br></pre></td></tr></table></figure></p>
+<p>但是万一还没有找到呢？原型的原型又是什么呢？</p>
+<p>原型的原型<br>在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object();</span><br><span class="line">obj.name = &apos;Kevin&apos;</span><br><span class="line">console.log(obj.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+<p>所以原型对象是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/obj.png" title="于是我们更新下关系图"></p>
+<p>原型链<br>那 Object.prototype 的原型呢？</p>
+<p>null，不信我们可以打印：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure></p>
+<p>所以查到属性的时候查到 Object.prototype 就可以停止查找了。</p>
+<p>所以最后一张关系图就是<br><img src="/2016/08/25/javaScript/prototype/objEnd.png" title="于是我们更新下关系图"></p>
+<p>顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+<p>补充<br>最后，补充三点大家可能不会注意的地方：</p>
+<p>constructor</p>
+<p>首先是 constructor 属性，我们看个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.constructor === Person); // true</span><br></pre></td></tr></table></figure></p>
+<p>当获取 person.constructor 时，其实 person 中并没有 constructor 属性,当不能读取到constructor 属性时，会从 person 的原型也就是 Person.prototype 中读取，正好原型中有该属性，所以：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person.constructor === Person.prototype.constructor</span><br></pre></td></tr></table></figure></p>
+<p><strong>proto</strong></p>
+<p>其次是 <strong>proto</strong> ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.<strong>proto</strong> 时，可以理解成返回了<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(obj)。</span><br></pre></td></tr></table></figure></p>
+<p>真的是继承吗？<br>最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》中的话，就是：</p>
+<blockquote>
+<p>继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。</p>
+</blockquote>
 
         </div>
         
@@ -1405,18 +1577,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
                     </p>
                 </div>
             </div>
@@ -1443,18 +1615,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1462,37 +1634,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+            <a href="/2019/07/13/React/react/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -2130,18 +2302,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
                     </p>
                 </div>
             </div>
@@ -2168,18 +2340,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -2187,37 +2359,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+            <a href="/2019/07/13/React/react/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>

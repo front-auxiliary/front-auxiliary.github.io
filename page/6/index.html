@@ -147,14 +147,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 314 个字)
+                    5 分钟 读完 (大约 810 个字)
                 </span>
                 
                 
@@ -163,81 +163,127 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/ascension/">js变量提升</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/promise/">promise原理解析</a>
+            
+        </h1>
+        <div class="content">
+            <h5 id="promise模式"><a href="#promise模式" class="headerlink" title="promise模式"></a>promise模式</h5><p>这几种方式的可维护性逐级递增，理解难度也逐级递增。这篇总结也是针对promise模式的。</p>
+<p>promise模式那么多中异步编程的方式，为什么选择promise, 因为前面几种方式不够灵活，用起来不够痛快，不优雅。为了降低异步编程的复杂性，所以promise。</p>
+<p>promise的核心是有一个promise对象，这个对象有一个重要的then()方法, 它用于指定回调函数，如：<br>f1().then(f2);</p>
+<p>promise模式在任何时刻都有三种状态：已完成（resolved），未完成（unfulfilled），那么then()方法就是为状态变化指定不同的回调函数，并总是返回一个promise对象，方便链式调用。</p>
+<p>那promise模式下，返回的数据如何在各个回调函数之间传播呢，通过resolve方法，你可以将一个函数的返回值作为参数传递给另一个函数，并且将另一个函数的返回值作为参数再传递给下一个函数……像一条“链”一样无限的这么做下去。</p>
+<h5 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//constructor</span><br><span class="line">var promise = function() &#123;</span><br><span class="line">	this.callbacks = [];</span><br><span class="line">&#125;</span><br><span class="line">promise.prototype = &#123;</span><br><span class="line">  construct: promise,</span><br><span class="line">	//成功的操作</span><br><span class="line">	resolve: function(result) &#123;</span><br><span class="line">		this.complete(&apos;resolve&apos;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//失败</span><br><span class="line">	reject: function(result) &#123;</span><br><span class="line">		this.complete(&quot;reject&quot;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//执行回调</span><br><span class="line">	complete: function(type, result) &#123;</span><br><span class="line">		while(this.callbacks[0]) &#123;</span><br><span class="line">			this.callbacks.shift()[type](result);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	then: function(successHandler, failedHandler) &#123;</span><br><span class="line">		this.callbacks.push(&#123;</span><br><span class="line">			resolve: successHandler,</span><br><span class="line">			reject: failedHandler</span><br><span class="line">		&#125;);</span><br><span class="line">		return this;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//运行下边是方法的调用</span><br><span class="line">var pro = new promise();</span><br><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		pro.resolve(&apos;数据1&apos;);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return pro;</span><br><span class="line">&#125;;</span><br><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delay1().then(callback1)</span><br><span class="line">console.log(&quot;我是最后吗&quot;);</span><br><span class="line"> /*</span><br><span class="line"> *以上方法输出的结果分别是</span><br><span class="line"> *我是最后吗</span><br><span class="line"> *数据1</span><br><span class="line"> *数据2</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>#####代码分析<br>我们可看到一个简单的promise对象的构造函数的结构：</p>
+<pre><code>callbacks: 用于管理回调函数
+resolve: 请求成功时执行的方法
+reject:请求失败时执行的方法
+complete: 执行回调
+then：绑定回调函数
+</code></pre><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		promise.resolve(‘数据1’);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return promise;</span><br><span class="line">&#125;;</span><br><span class="line">//这个函数通过setTimeout方法， 异步传递一个数据1， 并返回一个promise对象(必须)。</span><br></pre></td></tr></table></figure>
+<p>#####第二步<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">	promise.resolve(re);</span><br><span class="line">&#125;;</span><br><span class="line">//callback1和callback2都是要通过then方法注册的回调函数， 其中callback1通过resolve方法把数据往下传递。</span><br></pre></td></tr></table></figure></p>
+<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delay1().then(callback1).then(callback2);</span><br><span class="line">//delay1() 方法执行完， 因为返回了一个promise对象， 所以可以再调用then() 方法为delay1() 的setTimeout异步执行操作指定回调函数, 又因为then() 方法也返回的是promise对象， 所以还可以再调用then方法</span><br></pre></td></tr></table></figure>
+<h5 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">	promise.resolve(&apos;数据1&apos;);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">//一秒之后， 当其他代码执行完成， 开始执行异步代码promise.resolve(‘数据1’);，</span><br><span class="line">//这里调用promise的resolve() 方法， 指定了一个成功状态， 并把数据1作为参数。</span><br></pre></td></tr></table></figure>
+<h5 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resolve: function(result) &#123;</span><br><span class="line">  this.complete(&quot;resolve&quot;, result);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"><a href="#第六步：循环执行回调，将上一个回调的结果传递给下一个回调" class="headerlink" title="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"></a>第六步：循环执行回调，将上一个回调的结果传递给下一个回调</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">complete: function(type, result) &#123;</span><br><span class="line">	while(this.callbacks[0]) &#123;</span><br><span class="line">		this.callbacks.shift()[type](result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 22 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/regular-expression/">正则表达式 - 语法</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="正则表达式-语法"><a href="#正则表达式-语法" class="headerlink" title="正则表达式 - 语法"></a>正则表达式 - 语法</h3><p><a href="http://www.runoob.com/regexp/regexp-syntax.html" target="_blank" rel="noopener">正则表达式 - 语法</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 331 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/to-bottom/">滚到底部加载</a>
             
         </h1>
         <div class="content">
             <blockquote>
-<p>在JavaScript中存在提升的情况，这种提升有两种提升分别是变量提升与函数提升，而且是函数会首先被提升，然后才是变量。</p>
+<p>其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码</p>
 </blockquote>
-<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>看下面的例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log( a ); //undefined。</span><br><span class="line">var a = 2;</span><br></pre></td></tr></table></figure>
-<p>上面代码可以写成下面的形式</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">console.log( a ); //undefined</span><br><span class="line">a=2;</span><br></pre></td></tr></table></figure>
-<p>再看下面的例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a=2;</span><br><span class="line">console.log(a); //2</span><br></pre></td></tr></table></figure>
-<p>上面的代码可以写成下面的形式：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">a=2;</span><br><span class="line">console.log(a) //2</span><br></pre></td></tr></table></figure>
-<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><p>看下面的例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的例子可以转化成下面的形式</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
-<p>再看下面的例子：</p>
-<h4 id="函数声明会被提升，但是函数表达式却不会被提升"><a href="#函数声明会被提升，但是函数表达式却不会被提升" class="headerlink" title="函数声明会被提升，但是函数表达式却不会被提升"></a>函数声明会被提升，但是函数表达式却不会被提升</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = foo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>或者是转化成下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = ...self...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>再看下面的例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foo(); // 3</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
-<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); // 3</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
-<h5 id="非常有意思的现象"><a href="#非常有意思的现象" class="headerlink" title="非常有意思的现象"></a>非常有意思的现象</h5>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 391 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
-<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
-<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
+<p>浏览器视口的高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">getWindowHeight = () =&gt; &#123;</span><br><span class="line">　　var windowHeight = 0;</span><br><span class="line">　　if(document.compatMode == &quot;CSS1Compat&quot;)&#123;</span><br><span class="line">　　　　windowHeight = document.documentElement.clientHeight;</span><br><span class="line">　　&#125;else&#123;</span><br><span class="line">　　　　windowHeight = document.body.clientHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　return windowHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>文档的总高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getScrollHeight = () =&gt; &#123;</span><br><span class="line">　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;</span><br><span class="line">　　if(document.body)&#123;</span><br><span class="line">　　　　bodyScrollHeight = document.body.scrollHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　if(document.documentElement)&#123;</span><br><span class="line">　　　　documentScrollHeight = document.documentElement.scrollHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　scrollHeight = (bodyScrollHeight - documentScrollHeight &gt; 0) ? bodyScrollHeight : documentScrollHeight;</span><br><span class="line">　　return scrollHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>滚动条在Y轴上的滚动距离<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getScrollTop = () =&gt; &#123;</span><br><span class="line">　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;</span><br><span class="line">　　if(document.body)&#123;</span><br><span class="line">　　　　bodyScrollTop = document.body.scrollTop;</span><br><span class="line">　　&#125;</span><br><span class="line">　　if(document.documentElement)&#123;</span><br><span class="line">　　　　documentScrollTop = document.documentElement.scrollTop;</span><br><span class="line">　　&#125;</span><br><span class="line">　　scrollTop = (bodyScrollTop - documentScrollTop &gt; 0) ? bodyScrollTop : documentScrollTop;</span><br><span class="line">　　return scrollTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么剩下的就是在js里边进行判断这里主要说在react里的用法<br>这里把所有的操作写在一个方法里<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">onScrollListener = () =&gt;&#123;</span><br><span class="line">  if(getScrollTop() + getWindowHeight() == getScrollHeight())&#123;</span><br><span class="line">    alert(&quot;滚动条已经滚动到了底部&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在react的componentDidMount生命周期里写一下代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount()&#123;</span><br><span class="line">		//滚轮监听</span><br><span class="line">		addEventListener(&quot;scroll&quot;,this.onscrollListener,false)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在react的componentWillUnmount生命周期里写一下代码(注册事件要在组件销毁以后注销这样可以提高性能)</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount()&#123;</span><br><span class="line">		window.removeEventListener(&quot;scroll&quot;,this.onscrollListener)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -262,14 +308,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1016 个字)
+                    3 分钟 读完 (大约 497 个字)
                 </span>
                 
                 
@@ -278,34 +324,22 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/Currying/">柯里化函数</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/atom/">atom快捷键总结</a>
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>在计算机科学中，柯里化（英语：Currying），又译为卡瑞化或加里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家哈斯凯尔·加里命名的，尽管它是 Moses Schönfinkel 和 Gottlob Frege 发明的。</p>
-</blockquote>
-<h5 id="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"><a href="#这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。" class="headerlink" title="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"></a>这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。</h5><p>看一下通用实现：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function currying(fn) &#123;</span><br><span class="line">    var slice = Array.prototype.slice,</span><br><span class="line">    __args = slice.call(arguments, 1);</span><br><span class="line">    return function () &#123;</span><br><span class="line">        var __inargs = slice.call(arguments);</span><br><span class="line">        return fn.apply(null, __args.concat(__inargs));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="柯里化的实用性体现在很多方面："><a href="#柯里化的实用性体现在很多方面：" class="headerlink" title="柯里化的实用性体现在很多方面："></a>柯里化的实用性体现在很多方面：</h3><h5 id="1-提高适用性。"><a href="#1-提高适用性。" class="headerlink" title="1 提高适用性。"></a>1 提高适用性。</h5><blockquote>
-<p>【通用函数】解决了兼容性问题，但同时也会再来，使用的不便利性，不同的应用场景往，要传递很多参数，以达到解决特定问题的目的。有时候应用中，同一种规则可能会反复使用，这就可能会造成代码的重复性。</p>
-</blockquote>
-<p>看下面一个例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 数组的每一项平方</span><br><span class="line">map(square, [1, 2, 3, 4, 5]);</span><br><span class="line">map(square, [6, 7, 8, 9, 10]);</span><br><span class="line">map(square, [10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">// 数组的每一项加倍</span><br><span class="line">map(dubble, [1, 2, 3, 4, 5]);</span><br><span class="line">map(dubble, [6, 7, 8, 9, 10]);</span><br><span class="line">map(dubble, [10, 20, 30, 40, 50]);</span><br></pre></td></tr></table></figure>
-<p>例子中，创建了一个map通用函数，用于适应不同的应用场景。显然，通用性不用怀疑。同时，例子中重复传入了相同的处理函数：square和dubble。</p>
-<p>应用中这种可能会更多。当然，通用性的增强必然带来适用性的减弱。但是，我们依然可以在中间找到一种平衡。</p>
-<p>看下面，我们利用柯里化改造一下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var mapSQ = currying(map, square);</span><br><span class="line">mapSQ([1, 2, 3, 4, 5]);</span><br><span class="line">mapSQ([6, 7, 8, 9, 10]);</span><br><span class="line">mapSQ([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">var mapDB = currying(map, dubble);</span><br><span class="line">mapDB([1, 2, 3, 4, 5]);</span><br><span class="line">mapDB([6, 7, 8, 9, 10]);</span><br><span class="line">mapDB([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br></pre></td></tr></table></figure>
-<p>我们缩小了函数的适用范围，但同时提高函数的适性。当然，也有扩展函数适用范围的方法–反柯里化，留到下一篇再讨论。</p>
-<p>由此，可知柯里化不仅仅是提高了代码的合理性，更重的它突出一种思想—降低适用范围，提高适用性。</p>
-<p>下面再看一个例子，一个应用范围更广泛更熟悉的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function Ajax() &#123;</span><br><span class="line">    this.xhr = new XMLHttpRequest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ajax.prototype.open = function(type, url, data, callback) &#123;</span><br><span class="line">    this.onload = function() &#123;</span><br><span class="line">        callback(this.xhr.responseText, this.xhr.status, this.xhr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.xhr.open(type, url, data.async);</span><br><span class="line">    this.xhr.send(data.paras);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&apos;get post&apos;.split(&apos; &apos;).forEach(function(mt) &#123;</span><br><span class="line">    Ajax.prototype[mt] = currying(Ajax.prototype.open, mt);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr = new Ajax();</span><br><span class="line">xhr.get(&apos;/articles/list.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr1 = new Ajax();</span><br><span class="line">xhr1.post(&apos;/articles/add.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-延迟执行。"><a href="#2-延迟执行。" class="headerlink" title="2 延迟执行。"></a>2 延迟执行。</h5><p> 柯里化的另一个应用场景是延迟执行。不断的柯里化，累积传入的参数，最后执行。</p>
-<p>看下面：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var add = function() &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = arguments</span><br><span class="line">    return function() &#123;</span><br><span class="line">        if (!arguments.length) &#123;</span><br><span class="line">            var sum = 0;</span><br><span class="line">            for (var i = 0,</span><br><span class="line">            c; c = _args[i++];) sum += c</span><br><span class="line">            return sum</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Array.prototype.push.apply(_args, arguments) return arguments.callee</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">add(1)(2)(3)(4)();//10</span><br></pre></td></tr></table></figure></p>
-<p>通用的写法：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var curry = function(fn) &#123;</span><br><span class="line">    var _args = []</span><br><span class="line">    return function cb() &#123;</span><br><span class="line">        if (arguments.length == 0) &#123;</span><br><span class="line">            return fn.apply(this, _args)</span><br><span class="line">        &#125;</span><br><span class="line">        Array.prototype.push.apply(_args, arguments);</span><br><span class="line">        return cb;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面累加的例子，可以实验一下怎么写？</p>
-<h5 id="3-固定易变因素。"><a href="#3-固定易变因素。" class="headerlink" title="3 固定易变因素。"></a>3 固定易变因素。</h5><p>柯里化特性决定了它这应用场景。提前把易变因素，传参固定下来，生成一个更明确的应用函数。最典型的代表应用，是bind函数用以固定this这个易变对象。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.bind = function(context) &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return _this.apply(context, _args.concat(Array.prototype.slice.call(arguments)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="atom"><a href="#atom" class="headerlink" title="atom"></a>atom</h3><h3 id="一、快捷键部分"><a href="#一、快捷键部分" class="headerlink" title="一、快捷键部分"></a>一、快捷键部分</h3><h4 id="A-光标及选取部分"><a href="#A-光标及选取部分" class="headerlink" title="A:光标及选取部分"></a>A:光标及选取部分</h4><h5 id="行部分："><a href="#行部分：" class="headerlink" title="行部分："></a>行部分：</h5><p> cmd+up          光标移动至文件开始处<br> cmd+down        光标移动至文件结束处<br> cmd+click       多行同时输入<br> cmd+l           选取此行<br> ctrl+shift+n    选取下一行<br> ctrl+shift+p    选取下一行<br> cmd+shift+left  选取至此行开始处<br> cmd+shift+right 选取至此行结束处<br> cmd+shift+up    选取至文件开始<br> cmd+shift+down  选取至文件结尾   </p>
+<h5 id="单词-字符-部分："><a href="#单词-字符-部分：" class="headerlink" title="单词(字符)部分："></a>单词(字符)部分：</h5><p> cmd+shift+w     选中此单词<br> alt+shift+left  选取至此单词开始处<br> alt+shift+right 选取至此单词结束处<br> cmd+d           选取文件中和当前单词相同的下一处并增加光标<br> ctrl+cmd+g      选取文档中所有和当前光标单词相同的位置并增加光标   </p>
+<h5 id="括号部分："><a href="#括号部分：" class="headerlink" title="括号部分："></a>括号部分：</h5><p> ctrl-m 相应括号之间，html tag之间等跳转<br> ctrl-cmd-m 括号(tag)之间文本选取   </p>
+<h4 id="B-编辑操作"><a href="#B-编辑操作" class="headerlink" title="B:编辑操作"></a>B:编辑操作</h4><h5 id="行部分：-1"><a href="#行部分：-1" class="headerlink" title="行部分："></a>行部分：</h5><p>cmd-J 将下一行与当前行合并<br>ctrl-cmd-up, ctrl-cmd-down 使当前行向上或者向下移动<br>cmd-shift-D 复制当前行到下一行<br>ctrl-K 剪切到当前行结束<br>ctrl-shift-K 删除当前行<br>cmd-backspace 删除到当前行开始<br>cmd-fn-backspace 删除到当前行结束   </p>
+<h5 id="字符-单词-部分："><a href="#字符-单词-部分：" class="headerlink" title="字符(单词)部分："></a>字符(单词)部分：</h5><p> ctrl-T 使光标前后字符交换<br> alt-backspace 或 alt-H 删除到当前单词开始<br> alt-delete 或 alt-D 删除到当前单词结束<br> cmd-K+cmd-U 使当前字符大写<br> cmd-K+cmd-L 使当前字符小写   </p>
+<h4 id="C-功能部分"><a href="#C-功能部分" class="headerlink" title="C:功能部分"></a>C:功能部分</h4><p> cmd+,      打开setting<br> control+tab 切换标签页<br> control+数字 切换标签页<br> 忽略文件显示更改：<br> setting=&gt;open config Folder=&gt;config.cson=&gt;最后那个h开头的改为false   </p>
+<h3 id="二、atom实用插件"><a href="#二、atom实用插件" class="headerlink" title="二、atom实用插件"></a>二、atom实用插件</h3><h4 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1 Emmet"></a>1 Emmet</h4><p> 用法：Ctrl+Alt+Enter   </p>
+<h4 id="2-Atom-Beautify"><a href="#2-Atom-Beautify" class="headerlink" title="2 Atom Beautify"></a>2 Atom Beautify</h4><p>  代码优化   </p>
+<h4 id="3-Minimap"><a href="#3-Minimap" class="headerlink" title="3 Minimap"></a>3 Minimap</h4><p>  sublime右上角代码缩略图   </p>
+<h4 id="4-file-icons"><a href="#4-file-icons" class="headerlink" title="4 file-icons"></a>4 file-icons</h4><p>  文件图标   </p>
+<h4 id="5-atom-ternjs"><a href="#5-atom-ternjs" class="headerlink" title="5 atom-ternjs"></a>5 atom-ternjs</h4><p>  js代码提示   </p>
+<h4 id="6-atom-react-autocomplete"><a href="#6-atom-react-autocomplete" class="headerlink" title="6 atom-react-autocomplete"></a>6 atom-react-autocomplete</h4><p>  jsx代码提示   </p>
 
         </div>
         
@@ -330,14 +364,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                <a class="has-link-grey -link" href="/categories/html5/">html5</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1346 个字)
+                    2 分钟 读完 (大约 334 个字)
                 </span>
                 
                 
@@ -346,162 +380,17 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/git/git/">git命令总结</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
             
         </h1>
         <div class="content">
-            <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="查看、添加、提交、删除、找回，重置修改文件"><a href="#查看、添加、提交、删除、找回，重置修改文件" class="headerlink" title="查看、添加、提交、删除、找回，重置修改文件"></a>查看、添加、提交、删除、找回，重置修改文件</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">git help &lt;command&gt; # 显示command的help</span><br><span class="line"></span><br><span class="line">git show # 显示某次提交的内容 git show $id</span><br><span class="line"></span><br><span class="line">#git checkout-- &lt;file&gt; # 抛弃工作区修改</span><br><span class="line"></span><br><span class="line">#git checkout. # 抛弃工作区修改</span><br><span class="line"></span><br><span class="line">git add &lt;file&gt; # 将工作文件修改提交到本地暂存区</span><br><span class="line"></span><br><span class="line">git add . # 将所有修改过的工作文件提交暂存区</span><br><span class="line"></span><br><span class="line">git rm &lt;file&gt; # 从版本库中删除文件</span><br><span class="line"></span><br><span class="line">git rm &lt;file&gt; --cached # 从版本库中删除文件，但不删除文件</span><br><span class="line"></span><br><span class="line">git reset &lt;file&gt; # 从暂存区恢复到工作文件</span><br><span class="line"></span><br><span class="line">git reset -- . # 从暂存区恢复到工作文件</span><br><span class="line"></span><br><span class="line">git reset --hard # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改</span><br><span class="line"></span><br><span class="line">git commit &lt;file&gt; git commit . git commit -a # 将git add, git rm和git commit等操作都合并在一起做　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　git commit -am &quot;some comments&quot;</span><br><span class="line"></span><br><span class="line">git commit --amend # 修改最后一次提交记录</span><br><span class="line"></span><br><span class="line">git revert &lt;$id&gt; # 恢复某次提交的状态，恢复动作本身也创建次提交对象</span><br><span class="line"></span><br><span class="line">git revert HEAD # 恢复最后一次提交的状态</span><br></pre></td></tr></table></figure>
-<h3 id="查看文件diff"><a href="#查看文件diff" class="headerlink" title="查看文件diff"></a>查看文件diff</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;file&gt; # 比较当前文件和暂存区文件差异 git diff</span><br><span class="line"></span><br><span class="line">git diff &lt;id1&gt;&lt;id1&gt;&lt;id2&gt; # 比较两次提交之间的差异</span><br><span class="line"></span><br><span class="line">git diff &lt;branch1&gt;..&lt;branch2&gt; # 在两个分支之间比较</span><br><span class="line"></span><br><span class="line">git diff --staged # 比较暂存区和版本库差异</span><br><span class="line"></span><br><span class="line">git diff --cached # 比较暂存区和版本库差异</span><br><span class="line"></span><br><span class="line">git diff --stat # 仅仅比较统计信息</span><br></pre></td></tr></table></figure>
-<h3 id="查看提交记录"><a href="#查看提交记录" class="headerlink" title="查看提交记录"></a>查看提交记录</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git log git log &lt;file&gt; # 查看该文件每次提交记录</span><br><span class="line"></span><br><span class="line">git log -p &lt;file&gt; # 查看每次详细修改内容的diff</span><br><span class="line"></span><br><span class="line">git log -p -2 # 查看最近两次详细修改内容的diff</span><br><span class="line"></span><br><span class="line">git log --stat #查看提交统计信息</span><br><span class="line"></span><br><span class="line">tig</span><br><span class="line"></span><br><span class="line">Mac上可以使用tig代替diff和log，brew install tig</span><br></pre></td></tr></table></figure>
-<h3 id="Git-本地分支管理"><a href="#Git-本地分支管理" class="headerlink" title="Git 本地分支管理"></a>Git 本地分支管理</h3><p>查看、切换、创建和删除分支<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">git branch -r # 查看远程分支</span><br><span class="line"></span><br><span class="line">git branch &lt;new_branch&gt; # 创建新的分支</span><br><span class="line"></span><br><span class="line">git branch -v # 查看各个分支最后提交信息</span><br><span class="line"></span><br><span class="line">git branch --merged # 查看已经被合并到当前分支的分支</span><br><span class="line"></span><br><span class="line">git branch --no-merged # 查看尚未被合并到当前分支的分支</span><br><span class="line"></span><br><span class="line">git checkout&lt;branch&gt; # 切换到某个分支</span><br><span class="line"></span><br><span class="line">git checkout-b &lt;new_branch&gt; # </span><br><span class="line"></span><br><span class="line">git checkout-b &lt;new_branch&gt; &lt;branch&gt; # 基于branch创建新的new_branch</span><br><span class="line"></span><br><span class="line">git checkout$id # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除</span><br><span class="line"></span><br><span class="line">git checkout$id -b &lt;new_branch&gt; # 把某次历史提交记录checkout出来，创建成一个分支</span><br><span class="line"></span><br><span class="line">git branch -d &lt;branch&gt; # 删除某个分支</span><br><span class="line"></span><br><span class="line">git branch -D &lt;branch&gt; # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)</span><br></pre></td></tr></table></figure></p>
-<h3 id="分支合并和rebase"><a href="#分支合并和rebase" class="headerlink" title="分支合并和rebase"></a>分支合并和rebase</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;branch&gt; # 将branch分支合并到当前分支</span><br><span class="line"></span><br><span class="line">git merge origin/master --no-ff # 不要Fast-Foward合并，这样可以生成merge提交</span><br><span class="line"></span><br><span class="line">git rebase master &lt;branch&gt; # 将master rebase到branch，相当于： git checkout&lt;branch&gt; &amp;&amp; git rebase master &amp;&amp; git checkoutmaster &amp;&amp; git merge &lt;branch&gt;</span><br><span class="line"></span><br><span class="line"> Git补丁管理(方便在多台机器上开发同步时用)</span><br><span class="line"></span><br><span class="line"># git diff &gt; ../sync.patch # 生成补丁</span><br><span class="line"></span><br><span class="line"># git apply ../sync.patch # 打补丁</span><br><span class="line"></span><br><span class="line"># git apply --check ../sync.patch #测试补丁能否成功</span><br></pre></td></tr></table></figure>
-<h3 id="Git暂存管理"><a href="#Git暂存管理" class="headerlink" title="Git暂存管理"></a>Git暂存管理</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git stash # 暂存</span><br><span class="line"></span><br><span class="line">git stash list # 列所有stash</span><br><span class="line"></span><br><span class="line">git stash apply # 恢复暂存创建新的分支，并且切换过去的内容</span><br><span class="line"></span><br><span class="line">git stash drop # 删除暂存区</span><br></pre></td></tr></table></figure>
-<h3 id="Git远程分支管理"><a href="#Git远程分支管理" class="headerlink" title="Git远程分支管理"></a>Git远程分支管理</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">git pull # 抓取远程仓库所有分支更新并合并到本地</span><br><span class="line"></span><br><span class="line">error：git pull --no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并</span><br><span class="line"></span><br><span class="line">git fetch origin # 抓取远程仓库更新</span><br><span class="line"></span><br><span class="line">git merge origin/master # 将远程主分支合并到本地当前分支</span><br><span class="line"></span><br><span class="line"># git checkout--track origin/branch # 跟踪某个远程分支创建相应的本地分支</span><br><span class="line"></span><br><span class="line">git checkout-b &lt;local_branch&gt; origin/&lt;remote_branch&gt; # 基于远程分支创建本地分支，功能同上</span><br><span class="line"></span><br><span class="line">git push # push所有分支</span><br><span class="line"></span><br><span class="line">git push origin master # 将本地主分支推到远程主分支</span><br><span class="line"></span><br><span class="line">git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)</span><br><span class="line"></span><br><span class="line">git push origin &lt;local_branch&gt; # 创建远程分支， origin是远程仓库名</span><br><span class="line"></span><br><span class="line">git push origin &lt;local_branch&gt;:&lt;remote_branch&gt; # 创建远程分支</span><br><span class="line"></span><br><span class="line">git push origin :&lt;remote_branch&gt; #先删除本地分支(git branch -d &lt;branch&gt;)，然后再push删除远程分支</span><br></pre></td></tr></table></figure>
-<h3 id="Git远程仓库管理"><a href="#Git远程仓库管理" class="headerlink" title="Git远程仓库管理"></a>Git远程仓库管理</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GitHub</span><br><span class="line"></span><br><span class="line">git remote -v # 查看远程服务器地址和仓库名称</span><br><span class="line"></span><br><span class="line">git remote show origin # 查看远程服务器仓库状态</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github:robbin/robbin_site.git # 添加远程仓库地址</span><br><span class="line"></span><br><span class="line">git remote set-url origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm &lt;repository&gt; # 删除远程仓库</span><br></pre></td></tr></table></figure>
-<h3 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare robbin_site robbin_site.git # 用带版本的项目创建纯版本仓库</span><br><span class="line"></span><br><span class="line">scp -r my_project.git git@ git.csdn.net:~ # 将纯仓库上传到服务器上</span><br><span class="line"></span><br><span class="line">mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git --bare init # 在服务器创建纯仓库</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址</span><br><span class="line"></span><br><span class="line">git push -u origin master # 客户端首次提交</span><br><span class="line"></span><br><span class="line">git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track</span><br><span class="line"></span><br><span class="line">git remote set-head origin master # 设置远程仓库的HEAD指向master分支</span><br></pre></td></tr></table></figure>
-<h3 id="也可以命令设置跟踪远程库和本地库"><a href="#也可以命令设置跟踪远程库和本地库" class="headerlink" title="也可以命令设置跟踪远程库和本地库"></a>也可以命令设置跟踪远程库和本地库</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream master origin/master</span><br><span class="line"></span><br><span class="line">git branch --set-upstream develop origin/develop</span><br></pre></td></tr></table></figure>
+            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
+<!-- ![目录](./images/webSocket/directory.png) -->
+<h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="pom-xml里边的代码"><a href="#pom-xml里边的代码" class="headerlink" title="pom.xml里边的代码"></a>pom.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;groupId&gt;com.moven&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;moven_im&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;source&gt;1.7&lt;/source&gt;</span><br><span class="line">					&lt;target&gt;1.7&lt;/target&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;javax&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;javaee-api&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;7.0&lt;/version&gt;</span><br><span class="line">			&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
 
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    11 分钟 读完 (大约 1677 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/vim/">vim命令总结</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="vim-的基本概念"><a href="#vim-的基本概念" class="headerlink" title="vim 的基本概念"></a>vim 的基本概念</h4><p>vim大致分可为这么几种状态，分别是命令模式、插入模式、视图模式、和底行模式，各模式的功能区分如下：</p>
-<h4 id="1-命令行模式"><a href="#1-命令行模式" class="headerlink" title="1) 命令行模式"></a>1) 命令行模式</h4><p>控制屏幕光标的移动，字符、字或行的删除，移动复制某区段</p>
-<h4 id="2-插入模式"><a href="#2-插入模式" class="headerlink" title="2) 插入模式"></a>2) 插入模式</h4><p>按 i 进入插入模式,对文件的内容进行编辑操作，按 ESC 键可回到命令行模式</p>
-<h4 id="3-视图模式"><a href="#3-视图模式" class="headerlink" title="3) 视图模式"></a>3) 视图模式</h4><p>按 v 或者 V 进入视图模式，对文字区段进行选择,然后进行相应的操作（比如复制一段文字，删除一段文字等等）</p>
-<h4 id="4-底行模式"><a href="#4-底行模式" class="headerlink" title="4) 底行模式"></a>4) 底行模式</h4><p>按 : 或者 / 进入底行模式,其实底行模式也是命令模式的一种等</p>
-<p>常使用底行模式对文件文件保存或退出vim，也可以设置编辑环境，如寻找字符串、列出行号……等</p>
-<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><h4 id="1-命令行模式-1"><a href="#1-命令行模式-1" class="headerlink" title="1) 命令行模式"></a>1) 命令行模式</h4><p>h 向左移动光标</p>
-<p>j 向下移动光标</p>
-<p>k 向上移动光标</p>
-<p>l 向右移动光标</p>
-<p>0 移到文件的开头</p>
-<p>G 移动到文件的最后</p>
-<p>$ 移动到光标所在行的“行尾”</p>
-<p>^ 移动到光标所在行的“行首”</p>
-<p>w 光标跳到下个字的开头</p>
-<p>e 光标跳到下个字的字尾</p>
-<p>b 光标回到上个字的开头</p>
-<p>nl 光标移到该行的第n的位置，其中n是数字 如：5l 将光标移动到当前行的第5个字符处</p>
-<p>x 每按一次，删除光标所在位置的“后面”一个字符</p>
-<p>nx 删除光标所在位置的“后面”n个字符,n是数字,比如 5x</p>
-<p>X 删除光标所在位置的“前面”一个字符</p>
-<p>nX 删除光标所在位置的“前面”n个字符,n是数字,比如 5X</p>
-<p>dd 删除光标所在行</p>
-<p>ndd 从光标所在行开始删除n行</p>
-<p>yw 将光标所在之处到字尾的字符复制到缓冲区中</p>
-<p>nyw 复制n个字到缓冲区</p>
-<p>yy 复制光标所在行到缓冲区</p>
-<p>nyy 例如，6yy表示拷贝从光标所在的该行“往下数”6行文字</p>
-<p>p 将缓冲区内的字符贴到光标所在位置注意：所有与“y”有关的复制命令都必须与“p”配合才能完成复制与粘贴功能</p>
-<p>r 替换光标所在处的字符</p>
-<p>R 替换光标所到之处的字符，直到按下「ESC」键为止</p>
-<p>u 如果您误执行一个命令，可以马上按下「u」，回到上一个操作按多次“u”可以执行多次回复</p>
-<p>cw 更改光标所在处的字到字尾处</p>
-<p>cnw 例如，c3w表示更改3个字,其中n是数字</p>
-<p>nG(或者ngg)例如，15G表示移动光标至文件的第15行的行首,其中n是数字</p>
-<p>ctrl+g 列出光标所在行的行号</p>
-<p>ci”清除引号内容</p>
-<p>ci&gt; 清除尖括号内容</p>
-<p>cit 清除标签内的内容</p>
-<p>zc 折叠</p>
-<p>zC 对所在范围内所有嵌套的折叠点进行折叠</p>
-<p>zo 展开折叠</p>
-<p>zO 对所在范围内所有嵌套的折叠点展开</p>
-<p>[z 到当前打开的折叠的开始处</p>
-<p>]z 到当前打开的折叠的末尾处</p>
-<p>zj 向下移动,到达下一个折叠的开始处,关闭的折叠也被计入</p>
-<p>zk 向上移动到前一折叠的结束处,关闭的折叠也被计入</p>
-<p>xp 交换两个字符的位置</p>
-<p>ddp 上下两行调换</p>
-<h4 id="移动屏幕"><a href="#移动屏幕" class="headerlink" title="移动屏幕"></a>移动屏幕</h4><p>ctrl+g 列出光标所在行的行</p>
-<p>ctrl+b 屏幕往“后”移动一页</p>
-<p>ctrl+f 屏幕往“前”移动一页</p>
-<p>ctrl+u 屏幕往“后”移动半页</p>
-<p>ctrl+d 屏幕往“前”移动半页</p>
-<p>shift +3 选中并查找该词组</p>
-<h4 id="跳转位置"><a href="#跳转位置" class="headerlink" title="跳转位置"></a>跳转位置</h4><p>ctrl+o 回到更老的跳转位置</p>
-<p>ctrl+i 向前跳转位置(两个命令前面可以加数字来表示倍数)</p>
-<h4 id="改变大小写"><a href="#改变大小写" class="headerlink" title="改变大小写"></a>改变大小写</h4><p>~ 将光标下的字母改变大小写</p>
-<p>3~ 将光标位置开始的3个字母改变其大小写</p>
-<p>g~~ 改变当前行字母的大小写</p>
-<p>U 将可视模式下选择的字母全改成大写字母</p>
-<p>u 将可视模式下选择的字母全改成小写</p>
-<p>gUU 将当前行的字母改成大写</p>
-<p>3gUU 将从光标开始到下面3行字母改成大写</p>
-<p>guu 将当前行的字母全改成小写</p>
-<p>gUw 将光标下的单词改成大写。</p>
-<p>guw 将光标下的单词改成小写。</p>
-<h4 id="2-插入模式-1"><a href="#2-插入模式-1" class="headerlink" title="2) 插入模式"></a>2) 插入模式</h4><p>i 在光标的前面插入字符</p>
-<p>I 在当前行的第一个字符前插入字符</p>
-<p>o 在当前行的下一行插入新的一行,并在新的一行的第一个字符处插入字符</p>
-<p>O 在当前行的上一行插入新的一行,并在新的一行的第一个字符处插入字符</p>
-<p>a 在光标的后面插入字符</p>
-<p>A 在当前行的最后面插入字符</p>
-<p>按[Esc]回到命令模式</p>
-<h4 id="3-视图模式-1"><a href="#3-视图模式-1" class="headerlink" title="3) 视图模式"></a>3) 视图模式</h4><p>vi” 选择引号内容</p>
-<p>vi&gt; 选择尖括号内容</p>
-<p>vit 选择标签内的内容</p>
-<p>va” 选择包括引号在内的内容</p>
-<p>va&gt; 选择包括尖括号在内的内容</p>
-<p>vat 选择整个标签</p>
-<p>4) 底行模式</p>
-<p>:w filename 将文件以指定的文件名filename保存</p>
-<p>:wq 存盘并退出vim</p>
-<p>:q! 不存盘强制退出vim</p>
-<p>:set nu 显示行号</p>
-<p>:15 回车，跳到文件第15行</p>
-<p>/关键字, 先按「/」键，再输入您想寻找的字符，如果第一次找的关键字不是您想要的，可以一直按「n」会往后寻找到您要的关键字为止</p>
-<p>?关键字, 先按「?」键，再输入您想寻找的字符，如果第一次找的关键字ä¡</p>
-<p>:-n,+n d ‘-‘表示当前行的上n行，’+’表示当前行的下n行,比如命令’:-2,+2 d’的意思，就是说删除但前行的上2行到当前行的下2行</p>
-<p>:n pu 将剪切板中的内容粘贴到n行</p>
-<p>:e filename 在当前编辑的窗口中打开指定的“filename”的文件进行编辑操作</p>
-<p>:p 文件操作，前一个文件</p>
-<p>:n 文件操作，下一个文件</p>
-<p>:last 文件操作，最后一个文件</p>
-<p>:!cmd 执行shell命令</p>
-<p>:sh 进入shell</p>
-<p>:exit 退出shell</p>
-<h4 id="按-Esc-回到命令模式"><a href="#按-Esc-回到命令模式" class="headerlink" title="按[Esc]回到命令模式"></a>按[Esc]回到命令模式</h4>
         </div>
         
         
@@ -659,14 +548,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
+                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 42 个字)
+                    11 分钟 读完 (大约 1677 个字)
                 </span>
                 
                 
@@ -675,12 +564,108 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/vim/">vim命令总结</a>
             
         </h1>
         <div class="content">
-            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
-
+            <h4 id="vim-的基本概念"><a href="#vim-的基本概念" class="headerlink" title="vim 的基本概念"></a>vim 的基本概念</h4><p>vim大致分可为这么几种状态，分别是命令模式、插入模式、视图模式、和底行模式，各模式的功能区分如下：</p>
+<h4 id="1-命令行模式"><a href="#1-命令行模式" class="headerlink" title="1) 命令行模式"></a>1) 命令行模式</h4><p>控制屏幕光标的移动，字符、字或行的删除，移动复制某区段</p>
+<h4 id="2-插入模式"><a href="#2-插入模式" class="headerlink" title="2) 插入模式"></a>2) 插入模式</h4><p>按 i 进入插入模式,对文件的内容进行编辑操作，按 ESC 键可回到命令行模式</p>
+<h4 id="3-视图模式"><a href="#3-视图模式" class="headerlink" title="3) 视图模式"></a>3) 视图模式</h4><p>按 v 或者 V 进入视图模式，对文字区段进行选择,然后进行相应的操作（比如复制一段文字，删除一段文字等等）</p>
+<h4 id="4-底行模式"><a href="#4-底行模式" class="headerlink" title="4) 底行模式"></a>4) 底行模式</h4><p>按 : 或者 / 进入底行模式,其实底行模式也是命令模式的一种等</p>
+<p>常使用底行模式对文件文件保存或退出vim，也可以设置编辑环境，如寻找字符串、列出行号……等</p>
+<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><h4 id="1-命令行模式-1"><a href="#1-命令行模式-1" class="headerlink" title="1) 命令行模式"></a>1) 命令行模式</h4><p>h 向左移动光标</p>
+<p>j 向下移动光标</p>
+<p>k 向上移动光标</p>
+<p>l 向右移动光标</p>
+<p>0 移到文件的开头</p>
+<p>G 移动到文件的最后</p>
+<p>$ 移动到光标所在行的“行尾”</p>
+<p>^ 移动到光标所在行的“行首”</p>
+<p>w 光标跳到下个字的开头</p>
+<p>e 光标跳到下个字的字尾</p>
+<p>b 光标回到上个字的开头</p>
+<p>nl 光标移到该行的第n的位置，其中n是数字 如：5l 将光标移动到当前行的第5个字符处</p>
+<p>x 每按一次，删除光标所在位置的“后面”一个字符</p>
+<p>nx 删除光标所在位置的“后面”n个字符,n是数字,比如 5x</p>
+<p>X 删除光标所在位置的“前面”一个字符</p>
+<p>nX 删除光标所在位置的“前面”n个字符,n是数字,比如 5X</p>
+<p>dd 删除光标所在行</p>
+<p>ndd 从光标所在行开始删除n行</p>
+<p>yw 将光标所在之处到字尾的字符复制到缓冲区中</p>
+<p>nyw 复制n个字到缓冲区</p>
+<p>yy 复制光标所在行到缓冲区</p>
+<p>nyy 例如，6yy表示拷贝从光标所在的该行“往下数”6行文字</p>
+<p>p 将缓冲区内的字符贴到光标所在位置注意：所有与“y”有关的复制命令都必须与“p”配合才能完成复制与粘贴功能</p>
+<p>r 替换光标所在处的字符</p>
+<p>R 替换光标所到之处的字符，直到按下「ESC」键为止</p>
+<p>u 如果您误执行一个命令，可以马上按下「u」，回到上一个操作按多次“u”可以执行多次回复</p>
+<p>cw 更改光标所在处的字到字尾处</p>
+<p>cnw 例如，c3w表示更改3个字,其中n是数字</p>
+<p>nG(或者ngg)例如，15G表示移动光标至文件的第15行的行首,其中n是数字</p>
+<p>ctrl+g 列出光标所在行的行号</p>
+<p>ci”清除引号内容</p>
+<p>ci&gt; 清除尖括号内容</p>
+<p>cit 清除标签内的内容</p>
+<p>zc 折叠</p>
+<p>zC 对所在范围内所有嵌套的折叠点进行折叠</p>
+<p>zo 展开折叠</p>
+<p>zO 对所在范围内所有嵌套的折叠点展开</p>
+<p>[z 到当前打开的折叠的开始处</p>
+<p>]z 到当前打开的折叠的末尾处</p>
+<p>zj 向下移动,到达下一个折叠的开始处,关闭的折叠也被计入</p>
+<p>zk 向上移动到前一折叠的结束处,关闭的折叠也被计入</p>
+<p>xp 交换两个字符的位置</p>
+<p>ddp 上下两行调换</p>
+<h4 id="移动屏幕"><a href="#移动屏幕" class="headerlink" title="移动屏幕"></a>移动屏幕</h4><p>ctrl+g 列出光标所在行的行</p>
+<p>ctrl+b 屏幕往“后”移动一页</p>
+<p>ctrl+f 屏幕往“前”移动一页</p>
+<p>ctrl+u 屏幕往“后”移动半页</p>
+<p>ctrl+d 屏幕往“前”移动半页</p>
+<p>shift +3 选中并查找该词组</p>
+<h4 id="跳转位置"><a href="#跳转位置" class="headerlink" title="跳转位置"></a>跳转位置</h4><p>ctrl+o 回到更老的跳转位置</p>
+<p>ctrl+i 向前跳转位置(两个命令前面可以加数字来表示倍数)</p>
+<h4 id="改变大小写"><a href="#改变大小写" class="headerlink" title="改变大小写"></a>改变大小写</h4><p>~ 将光标下的字母改变大小写</p>
+<p>3~ 将光标位置开始的3个字母改变其大小写</p>
+<p>g~~ 改变当前行字母的大小写</p>
+<p>U 将可视模式下选择的字母全改成大写字母</p>
+<p>u 将可视模式下选择的字母全改成小写</p>
+<p>gUU 将当前行的字母改成大写</p>
+<p>3gUU 将从光标开始到下面3行字母改成大写</p>
+<p>guu 将当前行的字母全改成小写</p>
+<p>gUw 将光标下的单词改成大写。</p>
+<p>guw 将光标下的单词改成小写。</p>
+<h4 id="2-插入模式-1"><a href="#2-插入模式-1" class="headerlink" title="2) 插入模式"></a>2) 插入模式</h4><p>i 在光标的前面插入字符</p>
+<p>I 在当前行的第一个字符前插入字符</p>
+<p>o 在当前行的下一行插入新的一行,并在新的一行的第一个字符处插入字符</p>
+<p>O 在当前行的上一行插入新的一行,并在新的一行的第一个字符处插入字符</p>
+<p>a 在光标的后面插入字符</p>
+<p>A 在当前行的最后面插入字符</p>
+<p>按[Esc]回到命令模式</p>
+<h4 id="3-视图模式-1"><a href="#3-视图模式-1" class="headerlink" title="3) 视图模式"></a>3) 视图模式</h4><p>vi” 选择引号内容</p>
+<p>vi&gt; 选择尖括号内容</p>
+<p>vit 选择标签内的内容</p>
+<p>va” 选择包括引号在内的内容</p>
+<p>va&gt; 选择包括尖括号在内的内容</p>
+<p>vat 选择整个标签</p>
+<p>4) 底行模式</p>
+<p>:w filename 将文件以指定的文件名filename保存</p>
+<p>:wq 存盘并退出vim</p>
+<p>:q! 不存盘强制退出vim</p>
+<p>:set nu 显示行号</p>
+<p>:15 回车，跳到文件第15行</p>
+<p>/关键字, 先按「/」键，再输入您想寻找的字符，如果第一次找的关键字不是您想要的，可以一直按「n」会往后寻找到您要的关键字为止</p>
+<p>?关键字, 先按「?」键，再输入您想寻找的字符，如果第一次找的关键字ä¡</p>
+<p>:-n,+n d ‘-‘表示当前行的上n行，’+’表示当前行的下n行,比如命令’:-2,+2 d’的意思，就是说删除但前行的上2行到当前行的下2行</p>
+<p>:n pu 将剪切板中的内容粘贴到n行</p>
+<p>:e filename 在当前编辑的窗口中打开指定的“filename”的文件进行编辑操作</p>
+<p>:p 文件操作，前一个文件</p>
+<p>:n 文件操作，下一个文件</p>
+<p>:last 文件操作，最后一个文件</p>
+<p>:!cmd 执行shell命令</p>
+<p>:sh 进入shell</p>
+<p>:exit 退出shell</p>
+<h4 id="按-Esc-回到命令模式"><a href="#按-Esc-回到命令模式" class="headerlink" title="按[Esc]回到命令模式"></a>按[Esc]回到命令模式</h4>
         </div>
         
         
@@ -883,7 +868,7 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/css应用/">css应用</a>
+                <a class="has-link-grey -link" href="/categories/javaScript阅读/">javaScript阅读</a>
                 </div>
                 
                 
@@ -899,18 +884,27 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/CSS/ellipsis/">CSS省略号实现</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/you-dont-know-js/">你不知道的js（上）</a>
             
         </h1>
         <div class="content">
-            <h1 id="CSS实现单行多行添加省略号"><a href="#CSS实现单行多行添加省略号" class="headerlink" title="CSS实现单行多行添加省略号"></a>CSS实现单行多行添加省略号</h1><p>先介绍一下单行文本添加省略号的css代码</p>
-<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">overflow: hidden;</span><br><span class="line">text-overflow:ellipsis;</span><br><span class="line">white-space: nowrap;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/ellipsis/ellipsis1.png" title="单行省略">
-<p>先介绍一下多行文本添加省略号的css代码</p>
-<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span><br><span class="line">-webkit-box-orient: vertical;</span><br><span class="line">-webkit-line-clamp: 3;</span><br><span class="line">overflow: hidden;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/ellipsis/ellipsis2.png" title="多行省略">
-<p>先介绍一下多行文本添加省略号的css代码的优化</p>
-<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div&#123;position: relative; line-height: 20px; max-height: 40px;overflow: hidden;&#125;</span><br><span class="line">div::after&#123;content: &quot;...&quot;; position: absolute; bottom: 0; right: 0; padding-left: 40px;</span><br><span class="line">background: -webkit-linear-gradient(left, transparent, #fff 55%);</span><br><span class="line">background: -o-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: -moz-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: linear-gradient(to right, transparent, #fff 55%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <h3 id="LHS与RHS"><a href="#LHS与RHS" class="headerlink" title="LHS与RHS"></a>LHS与RHS</h3><blockquote>
+<p>LHS可以理解为某变量被赋值，RHS可以理解为被调用</p>
+</blockquote>
+<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo(a)&#123;</span><br><span class="line">  console.log(a); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(2)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>foo进行RHS  foo的形参相当于a=2  所以a进行LHS  console是RHS  console里的a是RHS</p>
+</blockquote>
+<h3 id="理解作用于"><a href="#理解作用于" class="headerlink" title="理解作用于"></a>理解作用于</h3><h5 id="作用于嵌套"><a href="#作用于嵌套" class="headerlink" title="作用于嵌套"></a>作用于嵌套</h5><blockquote>
+<p>现在当前作用于找某变量，找不到时引擎会向外层嵌套的作用于中继续寻找，直到找到该变量，或抵达最外层的作用域（也就是全局作用于）为止。</p>
+</blockquote>
+<h5 id="注意一下代码"><a href="#注意一下代码" class="headerlink" title="注意一下代码"></a>注意一下代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //4</span><br><span class="line">&#125;</span><br><span class="line">var b = 2;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //NaN</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br><span class="line">var b = 2;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //NaN</span><br><span class="line">  var b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //ReferenceError: b is not defined</span><br><span class="line">  b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -1314,18 +1308,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
                     </p>
                 </div>
             </div>
@@ -1352,18 +1346,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1371,37 +1365,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+            <a href="/2019/07/13/React/react/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -2039,18 +2033,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
                     </p>
                 </div>
             </div>
@@ -2077,18 +2071,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -2096,37 +2090,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/IDE/mac-path/" class="media-left">
+            <a href="/2019/07/13/React/react/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/mac-path/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>

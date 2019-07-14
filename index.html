@@ -144,17 +144,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                <time class="level-item has-text-grey" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 577 个字)
+                    12 分钟 读完 (大约 1861 个字)
                 </span>
                 
                 
@@ -163,22 +163,65 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/other/chrome/">chrome扩展开发</a>
+                <a class="has-link-black-ter" href="/2019/07/14/knowledge/color/">颜色转换</a>
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>在平时的前端开发中chrome的扩展应用是非常常见的我平常应用的chrome扩展程序用Postman、React Developer Tools、Redux DevTools 等使用了这么长时间了扩展就想开发一款属于自己的chrome扩展，下面来介绍一下一个简单的扩展开发。</p>
+            <h3 id="常用的颜色模式"><a href="#常用的颜色模式" class="headerlink" title="常用的颜色模式"></a>常用的颜色模式</h3><blockquote>
+<p>目前常用的颜色模式有 RGB，HSV，HLS，CMYK，CMY这几种颜色分别在不同的领域使用，也有特定的应用场景。</p>
 </blockquote>
-<h2 id="chrome扩展与chrome应用的区别"><a href="#chrome扩展与chrome应用的区别" class="headerlink" title="chrome扩展与chrome应用的区别"></a>chrome扩展与chrome应用的区别</h2><p>Chrome应用更强调是独立的程序，你可以不打开Chrome浏览器而运行这些程序。同时这些程序可以调用更加底层的系统接口，比如串口、USB、本地文件读写等等。同时Chrome应用可以拥有样式更加自由的独立窗口，而Chrome扩展的界面只能限定在浏览器窗口中。</p>
-<p>Chrome扩展是一系列文件的集合，这些文件包括HTML文件、CSS样式文件、JavaScript脚本文件、图片等静态文件以及manifest.json。个别扩展还会包含二进制文件，如DLL动态库和so动态库等，但这需要调用NPAPI，而Google出于安全性考虑已经决定逐渐淘汰NPAPI</p>
-<h2 id="一个简单的chrome扩展"><a href="#一个简单的chrome扩展" class="headerlink" title="一个简单的chrome扩展"></a>一个简单的chrome扩展</h2><p>新建文件夹 my_chrome 为项目目录<br>开发目录<br>——   images<br>——   js<br>——   css<br>——   index.html<br>——   manifest.json</p>
-<p>项目目录搭建完毕</p>
-<h2 id="manifest-json-文件"><a href="#manifest-json-文件" class="headerlink" title="manifest.json 文件"></a>manifest.json 文件</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;manifest_version&quot;: 2,</span><br><span class="line">    &quot;name&quot;: &quot;my_chrome&quot;,//扩展名称</span><br><span class="line">    &quot;version&quot;: &quot;1.0&quot;,//版本号</span><br><span class="line">    &quot;description&quot;: &quot;我的第一个Chrome扩展&quot;,//项目描述</span><br><span class="line">    &quot;icons&quot;: &#123;  //icons定义了扩展相关图标文件的位置</span><br><span class="line">        &quot;16&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;48&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;128&quot;: &quot;images/icon.png&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;browser_action&quot;: &#123;</span><br><span class="line">        &quot;default_icon&quot;: &#123; //定义了相应图标文件的位置</span><br><span class="line">            &quot;19&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">            &quot;38&quot;: &quot;images/icon.png&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;default_title&quot;: &quot;我的时钟&quot;,//当用户鼠标悬停于扩展图标上所显示的文字</span><br><span class="line">        &quot;default_popup&quot;: &quot;index.html&quot; //当用户单击扩展图标时所显示页面的文件位置。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="html的代码"><a href="#html的代码" class="headerlink" title="html的代码"></a>html的代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;style&gt;</span><br><span class="line">            * &#123;</span><br><span class="line">                margin: 0;</span><br><span class="line">                padding: 0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            body &#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            div &#123;</span><br><span class="line">                line-height: 100px;</span><br><span class="line">                font-size: 42px;</span><br><span class="line">                text-align: center;</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/style&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;div id=&quot;clock_div&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;script src=&quot;js/my_clock.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="js-代码"><a href="#js-代码" class="headerlink" title="js 代码"></a>js 代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function my_clock(el)&#123;</span><br><span class="line">    var today=new Date();</span><br><span class="line">    var h=today.getHours();</span><br><span class="line">    var m=today.getMinutes();</span><br><span class="line">    var s=today.getSeconds();</span><br><span class="line">    m=m&gt;=10?m:(&apos;0&apos;+m);</span><br><span class="line">    s=s&gt;=10?s:(&apos;0&apos;+s);</span><br><span class="line">    el.innerHTML = h+&quot;:&quot;+m+&quot;:&quot;+s;</span><br><span class="line">    setTimeout(function()&#123;my_clock(el)&#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var clock_div = document.getElementById(&apos;clock_div&apos;);</span><br><span class="line">my_clock(clock_div);</span><br></pre></td></tr></table></figure>
-<h2 id="扩展导入"><a href="#扩展导入" class="headerlink" title="扩展导入"></a>扩展导入</h2><img src="/2019/07/13/other/chrome/play.png" title="扩展导入">
-<h2 id="到这了一个简单的chrome扩展就完成了"><a href="#到这了一个简单的chrome扩展就完成了" class="headerlink" title="到这了一个简单的chrome扩展就完成了"></a>到这了一个简单的chrome扩展就完成了</h2>
+<p><strong>RGB</strong></p>
+<blockquote>
+<p>RGB(Red)色彩模式是工业界的一种颜色标准，是通过对红(R)、绿(G)、蓝(B)<br>三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，RGB即是代表红、绿、蓝三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是目前运用最广的颜色系统之一。RGB模式又称加色模式。<br><img src="/2019/07/14/knowledge/color/rgb.jpg" title="RGB示意图"><br><strong>取值范围：</strong><br>R(red:0~255),<br>G(green:0~255),<br>B(blue:0~255)。</p>
+</blockquote>
+<p><strong> HSV </strong></p>
+<blockquote>
+<p>HSV(Hue, Saturation, Value)是根据颜色的直观特性由A. R. Smith在1978年创建的一种颜色空间, 也称六角锥体模型(Hexcone Model)。这个模型中颜色的参数分别是：色调（H），饱和度（S），明度（V）。<br><img src="/2019/07/14/knowledge/color/hsv.jpg" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>H(Hue:0~360),<br>S(Saturation:0~100),<br>V(Value:0~100)。</p>
+</blockquote>
+<p><strong>HSL</strong></p>
+<blockquote>
+<p>HSL(Hue, Saturation, Lightness)色彩模式是工业界的一种颜色标准，是通过对色相(H)、饱和度(S)、亮度(L)三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，HSL即是代表色相，饱和度，亮度三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是迄今运用最广的颜色系统之一。<br><img src="/2019/07/14/knowledge/color/hsl.png" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>H(Hue:0~360),<br>S(Saturation:0~100),<br>L(Lightness:0~100)。</p>
+</blockquote>
+<p><strong>CMYK/CMY</strong></p>
+<blockquote>
+<p>印刷四色模式是彩色印刷时采用的一种套色模式，利用色料的三原色混色原理，加上黑色油墨，共计四种颜色混合叠加，形成所谓“全彩印刷”。四种标准颜色是：C：Cyan = 青色，又称为‘天蓝色’或是‘湛蓝’M：Magenta = 品红色，又称为‘洋红色’；Y：Yellow = 黄色；K：blacK=黑色，虽然有文献解释说这里的K应该是Key Color（定位套版色），但其实是和制版时所用的定位套版观念混淆而有此一说。此处缩写使用最后一个字母K而非开头的B，是因为在整体色彩学中已经将B给了RGB的Blue蓝色。CMYK模式又称减色模式。<br><img src="/2019/07/14/knowledge/color/cmyk.jpeg" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>C(Cyan:0~100),<br>M(Magenta:0~100),<br>Y(Yellow:0~100),<br>K(blacK:0~100),</p>
+</blockquote>
+<p><strong>HEX 格式</strong></p>
+<blockquote>
+<p>HEX(十六进制颜色码)就是在软件中设定颜色值的代码。在很多软件中，都会遇到设定颜色值的问题，发展来源 人的眼睛看到的颜色有两种： 一种是发光体发出的颜色，比如计算机显示器屏幕显示的颜色； 另一种是物体本身不发光，而是反射的光产生 十六进制颜色。所有的颜色都可转换为HEX格式</p>
+</blockquote>
+<h3 id="颜色的互相转换"><a href="#颜色的互相转换" class="headerlink" title="颜色的互相转换"></a>颜色的互相转换</h3><p><strong>RGB 转换 HEX</strong></p>
+<blockquote>
+<p>RGB转HEX实际机会RGB的每一个参数转16进制然后组合，举个例子：RGB(92,184,232);92 / 16 = 5余12 -&gt; 5C;84 / 16 = 11余8 -&gt; B8;232 / 16 = 14余8 -&gt; E8;</p>
+</blockquote>
+<p>最简单代码实现代码实现</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function rgbToHex(r,g,b)&#123;</span><br><span class="line">    let hex = &apos;#&apos;;</span><br><span class="line">    hex+=r.toString(16);</span><br><span class="line">    hex+=g.toString(16);</span><br><span class="line">    hex+=b.toString(16);</span><br><span class="line">    return hex; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而在网页中获取到的颜色大多是RGB(0,0,0),或者rgb(0,0,0)，#000;为应对不同浏览器的不同表现我们对代码进行健壮处理，代码如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function colorToHex (color)&#123;</span><br><span class="line">    let that = color;</span><br><span class="line">    //十六进制颜色值的正则表达式</span><br><span class="line">    let reg = /^#([0-9a-fA-f]&#123;3&#125;|[0-9a-fA-f]&#123;6&#125;)$/;</span><br><span class="line">    // 如果是rgb颜色表示</span><br><span class="line">    if (/^(rgb|RGB)/.test(that)) &#123;</span><br><span class="line">        let aColor = that.replace(/(?:\(|\)|rgb|RGB)*/g, &quot;&quot;).split(&quot;,&quot;);</span><br><span class="line">        let strHex = &quot;#&quot;;</span><br><span class="line">        for (let i=0; i&lt;aColor.length; i++) &#123;</span><br><span class="line">            let hex = Number(aColor[i]).toString(16);</span><br><span class="line">            if (hex.length &lt; 2) &#123;</span><br><span class="line">                hex = &apos;0&apos; + hex;    </span><br><span class="line">            &#125;</span><br><span class="line">            strHex += hex;</span><br><span class="line">        &#125;</span><br><span class="line">        if (strHex.length !== 7) &#123;</span><br><span class="line">            strHex = that;    </span><br><span class="line">        &#125;</span><br><span class="line">        return strHex;</span><br><span class="line">    &#125; else if (reg.test(that)) &#123;</span><br><span class="line">        let aNum = that.replace(/#/,&quot;&quot;).split(&quot;&quot;);</span><br><span class="line">        if (aNum.length === 6) &#123;</span><br><span class="line">            return that;    </span><br><span class="line">        &#125; else if(aNum.length === 3) &#123;</span><br><span class="line">            let numHex = &quot;#&quot;;</span><br><span class="line">            for (let i=0; i&lt;aNum.length; i+=1) &#123;</span><br><span class="line">                numHex += (aNum[i] + aNum[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            return numHex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return that;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在网上我看到一个大神的写法很简洁但是不太明白他的算法原理我就先把代码放这<br><a href="https://www.cnblogs.com/gossip/p/6058158.html" target="_blank" rel="noopener">原文地址</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function colorRGB2Hex(color) &#123;</span><br><span class="line">    let rgb = color.split(&apos;,&apos;);</span><br><span class="line">    let r = parseInt(rgb[0].split(&apos;(&apos;)[1]);</span><br><span class="line">    let g = parseInt(rgb[1]);</span><br><span class="line">    let b = parseInt(rgb[2].split(&apos;)&apos;)[0]);</span><br><span class="line"> </span><br><span class="line">    let hex = &quot;#&quot; + ((1 &lt;&lt; 24) + (r &lt;&lt; 16) + (g &lt;&lt; 8) + b).toString(16).slice(1);</span><br><span class="line">    return hex;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HEX 转换 RGB</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function hexToRgb(sColor)&#123;</span><br><span class="line">    sColor = sColor.toLowerCase();</span><br><span class="line">    //十六进制颜色值的正则表达式</span><br><span class="line">    let reg = /^#([0-9a-fA-f]&#123;3&#125;|[0-9a-fA-f]&#123;6&#125;)$/;</span><br><span class="line">    // 如果是16进制颜色</span><br><span class="line">    if (sColor &amp;&amp; reg.test(sColor)) &#123;</span><br><span class="line">        if (sColor.length === 4) &#123;</span><br><span class="line">            let sColorNew = &quot;#&quot;;</span><br><span class="line">            for (let i=1; i&lt;4; i+=1) &#123;</span><br><span class="line">                sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));    </span><br><span class="line">            &#125;</span><br><span class="line">            sColor = sColorNew;</span><br><span class="line">        &#125;</span><br><span class="line">        //处理六位的颜色值</span><br><span class="line">        let sColorChange = [];</span><br><span class="line">        for (let i=1; i&lt;7; i+=2) &#123;</span><br><span class="line">            sColorChange.push(parseInt(&quot;0x&quot;+sColor.slice(i, i+2)));    </span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;RGB(&quot; + sColorChange.join(&quot;,&quot;) + &quot;)&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return sColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>HSL 转换 RGB</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function hslToRgb(h, s, l) &#123;</span><br><span class="line">    let r, g, b;</span><br><span class="line"></span><br><span class="line">    if(s == 0) &#123;</span><br><span class="line">        r = g = b = l; // achromatic</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let hue2rgb = function hue2rgb(p, q, t) &#123;</span><br><span class="line">            if(t &lt; 0) t += 1;</span><br><span class="line">            if(t &gt; 1) t -= 1;</span><br><span class="line">            if(t &lt; 1/6) return p + (q - p) * 6 * t;</span><br><span class="line">            if(t &lt; 1/2) return q;</span><br><span class="line">            if(t &lt; 2/3) return p + (q - p) * (2/3 - t) * 6;</span><br><span class="line">            return p;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let q = l &lt; 0.5 ? l * (1 + s) : l + s - l * s;</span><br><span class="line">        let p = 2 * l - q;</span><br><span class="line">        r = hue2rgb(p, q, h + 1/3);</span><br><span class="line">        g = hue2rgb(p, q, h);</span><br><span class="line">        b = hue2rgb(p, q, h - 1/3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>RGB 转换 HSL</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function rgbToHsl(r, g, b) &#123;</span><br><span class="line">    r /= 255, g /= 255, b /= 255;</span><br><span class="line">    let max = Math.max(r, g, b), min = Math.min(r, g, b);</span><br><span class="line">    let h, s, l = (max + min) / 2;</span><br><span class="line"></span><br><span class="line">    if (max == min)&#123; </span><br><span class="line">        h = s = 0; // achromatic</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let d = max - min;</span><br><span class="line">        s = l &gt; 0.5 ? d / (2 - max - min) : d / (max + min);</span><br><span class="line">        switch(max) &#123;</span><br><span class="line">            case r: h = (g - b) / d + (g &lt; b ? 6 : 0); break;</span><br><span class="line">            case g: h = (b - r) / d + 2; break;</span><br><span class="line">            case b: h = (r - g) / d + 4; break;</span><br><span class="line">        &#125;</span><br><span class="line">        h /= 6;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [h, s, l];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>RGB 转换 HSV</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function rgbToHsv(r, g, b) &#123;</span><br><span class="line">    r = r / 255;</span><br><span class="line">    g = g / 255;</span><br><span class="line">    b = b / 255;</span><br><span class="line">    let h, s, v;</span><br><span class="line">    let min = Math.min(r, g, b);</span><br><span class="line">    let max = v = Math.max(r, g, b);</span><br><span class="line">    let l = (min + max) / 2;</span><br><span class="line">    let difference = max - min;</span><br><span class="line"></span><br><span class="line">    if (max == min) &#123;</span><br><span class="line">        h = 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        switch (max) &#123;</span><br><span class="line">        case r:</span><br><span class="line">            h = (g - b) / difference + (g &lt; b ? 6 : 0);</span><br><span class="line">            break;</span><br><span class="line">        case g:</span><br><span class="line">            h = 2.0 + (b - r) / difference;</span><br><span class="line">            break;</span><br><span class="line">        case b:</span><br><span class="line">            h = 4.0 + (r - g) / difference;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        h = Math.round(h * 60);</span><br><span class="line">    &#125;</span><br><span class="line">    if (max == 0) &#123;</span><br><span class="line">        s = 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        s = 1 - min / max;</span><br><span class="line">    &#125;</span><br><span class="line">    s = Math.round(s * 100);</span><br><span class="line">    v = Math.round(v * 100);</span><br><span class="line">    return &#123;s,h,v&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HSV 转换 RGB</strong></p>
+<p><strong>RGB 转换 CMYK</strong></p>
+<blockquote>
+<p>RGB 转 CMYK 实际的实现方案是先由 RGB 转 CMY 在由 CMY 修正为 CMYK<br>RGB 转 CMY 的转换公式<br>c = 255 - r;<br>m = 255 - g;<br>y = 255 - b;</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function rgbToCmyk (params)&#123;</span><br><span class="line">    let &#123; r, g, b &#125; = params;</span><br><span class="line">    const saturation = 2.55</span><br><span class="line">    for(let key in params)&#123;</span><br><span class="line">        if(!params[key])&#123;</span><br><span class="line">            throw new Error(`$&#123;key&#125;是必填项`);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    let c = 0; </span><br><span class="line">    let m = 255 - g;</span><br><span class="line">    let y = 255 - b;</span><br><span class="line">    let k = Math.min(Math.min(255-r,255-g),255-b)/saturation</span><br><span class="line">    let div = 100-k ? 100-k : 1;</span><br><span class="line">    r = r/saturation;</span><br><span class="line">    g = g/saturation;</span><br><span class="line">    b = b/saturation;</span><br><span class="line">    c = ((100 - r - k) / div)*100;</span><br><span class="line">    m = ((100 - g - k) / div)*100;</span><br><span class="line">    y = ((100 - b - k) / div)*100;</span><br><span class="line">    return &#123;c,m,y,k&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong> CMYK 转换 RGB </strong></p>
+<blockquote>
+<p>CMYK 转 RGB 转换的公式<br>R = 255<em>(100-C)</em>(100-K)/10000；<br>G = 255<em>(100-M)</em>(100-K)/10000；<br>B = 255<em>(100-Y)</em>(100-K)/10000；</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function cmykToRgb(params)&#123;</span><br><span class="line">    const &#123;c,m,y,k&#125; = params;</span><br><span class="line">    for(let key in params)&#123;</span><br><span class="line">        if(!params[key])&#123;</span><br><span class="line">            throw new Error(`$&#123;key&#125;是必填项`);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;</span><br><span class="line">        r:255*(100-c)*(100-k)/10000,</span><br><span class="line">        g:255*(100-m)*(100-k)/10000,</span><br><span class="line">        b:255*(100-y)*(100-k)/10000</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="颜色选择器的实现思路"><a href="#颜色选择器的实现思路" class="headerlink" title="颜色选择器的实现思路"></a>颜色选择器的实现思路</h3><blockquote>
+<p>颜色选择的选择和使用，原本 input 有 color 类型 来调用系统的颜色选择，但是这个方案有系统兼容问题，而且在mac 和window 两个系统的表现形式不一样所以只能放弃，自己实现一个颜色选择器。<br>既然这样我们来利用我们前面学习的知识来分析一下这样的需求，首先我们要看常用的颜色选择器，都是两个选择色板如下是mac的颜色选择器：<br><img src="/2019/07/14/knowledge/color/input-color.png" title="HSV/HSL示意图"><br>我们不难看出上边的圆是有两个参数控制下边的滑条是由一个参数控制也就是说三个参数控制的交互界面是比较友好的所以 CMYK 模式的方案被排除剩下 RGB SHV SHL CMY 这四个方案，由于RGB 和 CMY 模式是你必须选择三个颜色后才知道最终颜色所以这个方案不合适，最终只剩下 SHV 和 SHL 对比 mac 的颜色选择我们可以发现其实就是使用了这个模式<br>最终定的是SHV模式如下图滑条是 H(色调)选择取值范围是0~360 , 下面的矩形是由 S (饱和度) 和 V (明度) 分别表示 水平轴和垂直轴，最会在使用上面的色彩转换方法将 SHV 转为 RGB 设置到元素上。<br><img src="/2019/07/14/knowledge/color/my-color.png" title="HSV/HSL示意图"><br>具体实现这里就不展开了有了显现原理，具体实现就很简单了。</p>
+</blockquote>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/f03e9ac9c9ef" target="_blank" rel="noopener">深入理解color model(颜色模型)</a></p>
+
         </div>
         
         
@@ -202,14 +245,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                <a class="has-link-grey -link" href="/categories/node/">node</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    19 分钟 读完 (大约 2814 个字)
+                    9 分钟 读完 (大约 1297 个字)
                 </span>
                 
                 
@@ -218,87 +261,55 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/webpack2/">webpack1  到 webpack2的变化</a>
+                <a class="has-link-black-ter" href="/2019/07/13/node/try-catch/">node异常处理机制详解</a>
             
         </h1>
         <div class="content">
-            <h1 id="webpack1-到-webpack2的变化"><a href="#webpack1-到-webpack2的变化" class="headerlink" title="webpack1  到 webpack2的变化"></a>webpack1  到 webpack2的变化</h1><h2 id="resolve-root-resolve-fallback-resolve-modulesDirectories"><a href="#resolve-root-resolve-fallback-resolve-modulesDirectories" class="headerlink" title="resolve.root, resolve.fallback, resolve.modulesDirectories"></a>resolve.root, resolve.fallback, resolve.modulesDirectories</h2><p>上述配置项被一个单独的配置项 resolve.modules 取代。详见 resolving。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  resolve: &#123;</span><br><span class="line">-   root: path.join(__dirname, &quot;src&quot;)</span><br><span class="line">+   modules: [</span><br><span class="line">+     path.join(__dirname, &quot;src&quot;),</span><br><span class="line">+     &quot;node_modules&quot;</span><br><span class="line">+   ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="resolve-extensions"><a href="#resolve-extensions" class="headerlink" title="resolve.extensions"></a>resolve.extensions</h2><p>此配置项不再需要传一个空字符串。此行为被迁移到 resolve.enforceExtension。详见 resolving。</p>
-<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve.*"></a>resolve.*</h2><p>变化较大在我的webpack中resolve模块节查看</p>
-<h2 id="module-loaders-改成了-module-rules"><a href="#module-loaders-改成了-module-rules" class="headerlink" title="module.loaders 改成了 module.rules"></a>module.loaders 改成了 module.rules</h2><p>旧的 loader 配置被更强大的 rules 系统取代，后者允许配置 loader 以及其他更多项。为了兼容旧版，module.loaders 语法被保留，旧的属性名依然可以被解析。新的命名约定更易于理解并且是升级配置使用 module.rules 的好理由。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> module: &#123;</span><br><span class="line">-   loaders: [</span><br><span class="line">+   rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">-       loaders: [</span><br><span class="line">+       use: [</span><br><span class="line">          &#123;</span><br><span class="line">            loader: &quot;style-loader&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            loader: &quot;css-loader&quot;,</span><br><span class="line">-           query: &#123;</span><br><span class="line">+           options: &#123;</span><br><span class="line">              modules: true</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.jsx$/,</span><br><span class="line">        loader: &quot;babel-loader&quot;, // Do not use &quot;use&quot; here</span><br><span class="line">        options: &#123;</span><br><span class="line">          // ...</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="链式-loaders"><a href="#链式-loaders" class="headerlink" title="链式 loaders"></a>链式 loaders</h2><p>与 v1 版本相同，loaders 可以链式调用，上一个 loader 的输出被作为输入传给下一个 loader。使用 rule.use 配置项，use 可以设置为一个 loaders 的列表。在 v1 版本中，loaders 通常被用 ! 连写。这一写法在新版中只在使用旧的 module.loaders 时有效。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  module: &#123;</span><br><span class="line">-   loaders: &#123;</span><br><span class="line">+   rules: [&#123;</span><br><span class="line">      test: /\.less$/,</span><br><span class="line">-     loader: &quot;style-loader!css-loader!less-loader&quot;</span><br><span class="line">+     use: [</span><br><span class="line">+       &quot;style-loader&quot;,</span><br><span class="line">+       &quot;css-loader&quot;,</span><br><span class="line">+       &quot;less-loader&quot;</span><br><span class="line">+     ]</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="取消了在模块名中自动添加-loader-后缀"><a href="#取消了在模块名中自动添加-loader-后缀" class="headerlink" title="取消了在模块名中自动添加 -loader 后缀"></a>取消了在模块名中自动添加 -loader 后缀</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        use: [</span><br><span class="line">-         &quot;style&quot;,</span><br><span class="line">+         &quot;style-loader&quot;,</span><br><span class="line">-         &quot;css&quot;,</span><br><span class="line">+         &quot;css-loader&quot;,</span><br><span class="line">-         &quot;less&quot;,</span><br><span class="line">+         &quot;less-loader&quot;,</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="json-loader-不再需要手动添加"><a href="#json-loader-不再需要手动添加" class="headerlink" title="json-loader 不再需要手动添加"></a>json-loader 不再需要手动添加</h2><p>如果没有为 JSON 文件配置 loader，webpack 将自动尝试通过 加载 json-loader JSON 文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">-     &#123;</span><br><span class="line">-       test: /\.json/,</span><br><span class="line">-       loader: &quot;json-loader&quot;</span><br><span class="line">-     &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="loader-默认的-resolve-配置是相对于-context-的"><a href="#loader-默认的-resolve-配置是相对于-context-的" class="headerlink" title="loader 默认的 resolve 配置是相对于 context 的"></a>loader 默认的 resolve 配置是相对于 context 的</h2><p>在 webpack 1 中，loader 默认配置下 resolve 相对于被匹配的文件。而在 webpack 2 中默认配置的 resolve 相对于 context 配置项。</p>
-<p>这解决了一些问题，比如使用 npm link 或引用 context 之外的模块时导致重复载入。</p>
-<p>你可以不再需要使用一些变通方案了：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        // ...</span><br><span class="line">-       loader: require.resolve(&quot;my-loader&quot;)</span><br><span class="line">+       loader: &quot;my-loader&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  resolveLoader: &#123;</span><br><span class="line">-   root: path.resolve(__dirname, &quot;node_modules&quot;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="取消了-module-preLoaders-以及-module-postLoaders"><a href="#取消了-module-preLoaders-以及-module-postLoaders" class="headerlink" title="取消了 module.preLoaders 以及 module.postLoaders"></a>取消了 module.preLoaders 以及 module.postLoaders</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> module: &#123;</span><br><span class="line">-   preLoaders: [</span><br><span class="line">+   rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.js$/,</span><br><span class="line">+       enforce: &quot;pre&quot;,</span><br><span class="line">        loader: &quot;eslint-loader&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="UglifyJsPlugin-sourceMap"><a href="#UglifyJsPlugin-sourceMap" class="headerlink" title="UglifyJsPlugin sourceMap"></a>UglifyJsPlugin sourceMap</h2><p>UglifyJsPlugin 的 sourceMap 配置项现在默认为 false 而不是 true。 这意味着如果你在压缩代码时启用了 source map，或者想要让 uglifyjs 的警告能够对应到正确的代码行，你需要将 UglifyJsPlugin 的 sourceMap 设为 true。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">devtool: &quot;source-map&quot;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new UglifyJsPlugin(&#123;</span><br><span class="line">+     sourceMap: true</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="UglifyJsPlugin-warnings"><a href="#UglifyJsPlugin-warnings" class="headerlink" title="UglifyJsPlugin warnings"></a>UglifyJsPlugin warnings</h2><p>UglifyJsPlugin 的 compress.warnings 配置项现在默认为 false 而不是 true。 这意味着如果你想要看到 uglifyjs 的警告信息，你需要将 compress.warnings 设为 true。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  devtool: &quot;source-map&quot;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new UglifyJsPlugin(&#123;</span><br><span class="line">+     compress: &#123;</span><br><span class="line">+       warnings: true</span><br><span class="line">+     &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="UglifyJsPlugin-压缩-loaders"><a href="#UglifyJsPlugin-压缩-loaders" class="headerlink" title="UglifyJsPlugin 压缩 loaders"></a>UglifyJsPlugin 压缩 loaders</h2><p>UglifyJsPlugin 不再压缩 loaders。在未来很长一段时间里，需要通过设置 minimize:true 来压缩 loaders。参考 loader 文档里的相关配置项。</p>
-<p>loaders 的压缩模式将在 webpack 3 或更高的版本中被取消。</p>
-<p>为了兼容旧的 loaders，loaders 可以通过插件来切换到压缩模式<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  plugins: [</span><br><span class="line">+   new webpack.LoaderOptionsPlugin(&#123;</span><br><span class="line">+     minimize: true</span><br><span class="line">+   &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="DedupePlugin-被移除"><a href="#DedupePlugin-被移除" class="headerlink" title="DedupePlugin 被移除"></a>DedupePlugin 被移除</h2><p>不再需要 webpack.optimize.DedupePlugin。请从配置中移除。</p>
-<h2 id="BannerPlugin-破坏性改动"><a href="#BannerPlugin-破坏性改动" class="headerlink" title="BannerPlugin - 破坏性改动"></a>BannerPlugin - 破坏性改动</h2><p>BannerPlugin 不在接受两个参数而是只接受单独的 options 对象。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> plugins: [</span><br><span class="line">-    new webpack.BannerPlugin(&apos;Banner&apos;, &#123;raw: true, entryOnly: true&#125;);</span><br><span class="line">+    new webpack.BannerPlugin(&#123;banner: &apos;Banner&apos;, raw: true, entryOnly: true&#125;);</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="OccurrenceOrderPlugin-被默认加载"><a href="#OccurrenceOrderPlugin-被默认加载" class="headerlink" title="OccurrenceOrderPlugin 被默认加载"></a>OccurrenceOrderPlugin 被默认加载</h2><p>我们不再需要在配置里指定它：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> plugins: [</span><br><span class="line">-   new webpack.optimize.OccurrenceOrderPlugin()</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="ExtractTextWebpackPlugin-大改变"><a href="#ExtractTextWebpackPlugin-大改变" class="headerlink" title="ExtractTextWebpackPlugin - 大改变"></a>ExtractTextWebpackPlugin - 大改变</h2><p>ExtractTextPlugin 1.0.0 不能在 webpack v2 下工作。 你需要明确地安装 ExtractTextPlugin v2。</p>
-<p>npm install –save-dev extract-text-webpack-plugin@beta</p>
-<p>这一插件的配置变化主要体现在语法上。<br>ExtractTextPlugin.extract<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: /.css$/,</span><br><span class="line">-      loader: ExtractTextPlugin.extract(&quot;style-loader&quot;, &quot;css-loader&quot;, &#123; publicPath: &quot;/dist&quot; &#125;)</span><br><span class="line">+      use: ExtractTextPlugin.extract(&#123;</span><br><span class="line">+        fallback: &quot;style-loader&quot;,</span><br><span class="line">+        use: &quot;css-loader&quot;,</span><br><span class="line">+        publicPath: &quot;/dist&quot;</span><br><span class="line">+      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>new ExtractTextPlugin({options})<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">-  new ExtractTextPlugin(&quot;bundle.css&quot;, &#123; allChunks: true, disable: false &#125;)</span><br><span class="line">+  new ExtractTextPlugin(&#123;</span><br><span class="line">+    filename: &quot;bundle.css&quot;,</span><br><span class="line">+    disable: false,</span><br><span class="line">+    allChunks: true</span><br><span class="line">+  &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<h2 id="全动态-requires-现在默认会失败"><a href="#全动态-requires-现在默认会失败" class="headerlink" title="全动态 requires 现在默认会失败"></a>全动态 requires 现在默认会失败</h2><p>只有一个表达式的依赖（例如 require(expr)）将创建一个空的 context 而不是一个完整目录的 context。</p>
-<p>如果有上面那样的代码，最好把它重构了，因为在 ES2015 模块下它不可以用。如果你确定不会有 ES2015 模块，你可以使用 ContextReplacementPlugin 来提示编译器进行正确的处理。</p>
-<h2 id="在-CLI-和配置中使用自定义参数"><a href="#在-CLI-和配置中使用自定义参数" class="headerlink" title="在 CLI 和配置中使用自定义参数"></a>在 CLI 和配置中使用自定义参数</h2><p>如果你之前滥用 CLI 来传自定义参数到配置中，比如：</p>
-<p>webpack –custom-stuff</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// webpack.config.js</span><br><span class="line">var customStuff = process.argv.indexOf(&quot;--custom-stuff&quot;) &gt;= 0;</span><br><span class="line">/* ... */</span><br><span class="line">module.exports = config;</span><br></pre></td></tr></table></figure>
-<p>你将会发现新版中不再允许这么做。CLI 现在更加严格了。</p>
-<p>替代地，现在提供了一个接口来传递参数给配置。我们应该采用这种新方式，在未来许多工具将可能依赖它。</p>
-<p>webpack –env.customStuff<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">module.exports = function(env) &#123;</span><br><span class="line">  var customStuff = env.customStuff;</span><br><span class="line">  /* ... */</span><br><span class="line">  return config;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="require-ensure-以及-AMD-require-的异步"><a href="#require-ensure-以及-AMD-require-的异步" class="headerlink" title="require.ensure 以及 AMD require 的异步"></a>require.ensure 以及 AMD require 的异步</h2><p>现在这些函数总是异步的，而不是当 chunk 已经加载过的时候同步调用它们的 callback。</p>
-<p>注意 require.ensure 现在依赖于原生的 Promise。如果在不支持 Promise 的环境里使用 require.ensure，你需要添加 polyfill。</p>
-<h2 id="通过-options-配置-loader"><a href="#通过-options-配置-loader" class="headerlink" title="通过 options 配置 loader"></a>通过 options 配置 loader</h2><p>你不能再通过 webpack.config.js 的自定义属性来配置 loader。只能通过 options 来配置。下面配置的 ts 属性在 webpack 2 下不再有效：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  ...</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      test: /\.tsx?$/,</span><br><span class="line">      loader: &apos;ts-loader&apos;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  // does not work with webpack 2</span><br><span class="line">  ts: &#123; transpileOnly: false &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>什么是 options?</p>
-<p>好问题。严格来说，有两种办法，都可以用来配置 webpack 的 loader。典型的 options 被称为 query，是一个可以被添加到 loader 名之后的字符串。它比较像一个 query string，但是实际上有更强大的能力：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  ...</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      test: /\.tsx?$/,</span><br><span class="line">      loader: &apos;ts-loader?&apos; + JSON.stringify(&#123; transpileOnly: false &#125;)</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>不过它也可以分开来，写成一个单独的对象，紧跟在 loader 属性后面：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  ...</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      test: /\.tsx?$/,</span><br><span class="line">      loader: &apos;ts-loader&apos;,</span><br><span class="line">      options:  &#123; transpileOnly: false &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="LoaderOptionsPlugin-context"><a href="#LoaderOptionsPlugin-context" class="headerlink" title="LoaderOptionsPlugin context"></a>LoaderOptionsPlugin context</h2><p>有的 loader 需要从配置中读取一些 context 信息。在未来很长一段时间里，这将需要通过 loader options 传入。详见 loader 文档的相关选项。</p>
-<p>为了保持对旧 loaders 的兼容，这些信息可以通过插件传进来：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  plugins: [</span><br><span class="line">+   new webpack.LoaderOptionsPlugin(&#123;</span><br><span class="line">+     options: &#123;</span><br><span class="line">+       context: __dirname</span><br><span class="line">+     &#125;</span><br><span class="line">+   &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p>在 webpack 1 中 debug 配置项切换 loaders 到 debug 模式。在未来很长一段时间里，这将需要通过 loader 配置项传递。详见 loader 文档的相关选项。</p>
-<p>loaders 的 debug 模式将在 webpack 3 或后续版本中取消。</p>
-<p>为了保持对旧 loaders 的兼容，loader 可以通过插件来切换到 debug 模式：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- debug: true,</span><br><span class="line">  plugins: [</span><br><span class="line">+   new webpack.LoaderOptionsPlugin(&#123;</span><br><span class="line">+     debug: true</span><br><span class="line">+   &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<h2 id="ES2015-的代码分割"><a href="#ES2015-的代码分割" class="headerlink" title="ES2015 的代码分割"></a>ES2015 的代码分割</h2><p>在 webpack v1 中，你能使用 require.ensure 作为方法来懒加载 chunks 到你的应用中：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require.ensure([], function(require) &#123;</span><br><span class="line">  var foo = require(&quot;./module&quot;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>ES2015 模块加载规范定义了 import() 方法来运行时动态地加载 ES2015 模块。</p>
-<p>webpack 将 import() 作为分割点并将被请求的模块放到一个单独的 chunk 中。</p>
-<p>import() 接收模块名作为参数，并返回一个 Promise。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function onClick() &#123;</span><br><span class="line">  import(&quot;./module&quot;).then(module =&gt; &#123;</span><br><span class="line">    return module.default;</span><br><span class="line">  &#125;).catch(err =&gt; &#123;</span><br><span class="line">    console.log(&quot;Chunk loading failed&quot;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>好消息是：如果加载 chunk 失败，我们可以进行处理，因为现在它基于 Promise。</p>
-<p>警告：require.ensure 允许用可选的第三个参数为 chunk 简单命名，但是 import API 还未提供这个能力。如果你想要保留这个功能，你可以继续使用 require.ensure。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require.ensure([], function(require) &#123;</span><br><span class="line">  var foo = require(&quot;./module&quot;);</span><br><span class="line">&#125;, &quot;custom-chunk-name&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>（注意废弃的 System.import：webpack 对 System.import 的使用不符合新提出的标准，所以它在 v2.1.0-beta.28 版本中被废弃，转向支持 import()）</p>
-<p>由于这个建议还在 Stage 3，如果你想要同时使用 import 和 Babel，你需要安装/添加 dynamic-import 语法插件来绕过解析错误。当建议被添加到规范之后，就不再需要这个语法插件了。</p>
-<h2 id="动态表达式"><a href="#动态表达式" class="headerlink" title="动态表达式"></a>动态表达式</h2><p>可以传递部分表达式给 import()。这与 CommonJS 对表达式的处理方式一致（webpack 为所有可能匹配的文件创建 context）。</p>
-<p>import() 为每一个可能的模块创建独立的 chunk。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function route(path, query) &#123;</span><br><span class="line">  return import(`./routes/$&#123;path&#125;/route`)</span><br><span class="line">    .then(route =&gt; new route.Route(query));</span><br><span class="line">&#125;</span><br><span class="line">// 上面代码为每个可能的路由创建独立的 chunk</span><br></pre></td></tr></table></figure></p>
-<h2 id="混合使用-ES2015、AMD-和-CommonJS"><a href="#混合使用-ES2015、AMD-和-CommonJS" class="headerlink" title="混合使用 ES2015、AMD 和 CommonJS"></a>混合使用 ES2015、AMD 和 CommonJS</h2><p>你可以自由混合使用三种模块类型（甚至在同一个文件中）。在这个情况中 webpack 的行为和 babel 以及 node-eps 一致：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// CommonJS consuming ES2015 Module</span><br><span class="line">var book = require(&quot;./book&quot;);</span><br><span class="line"></span><br><span class="line">book.currentPage;</span><br><span class="line">book.readPage();</span><br><span class="line">book.default === &quot;This is a book&quot;;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// ES2015 Module consuming CommonJS</span><br><span class="line">import fs from &quot;fs&quot;; // module.exports map to default</span><br><span class="line">import &#123; readFileSync &#125; from &quot;fs&quot;; // named exports are read from returned object+</span><br><span class="line"></span><br><span class="line">typeof fs.readFileSync === &quot;function&quot;;</span><br><span class="line">typeof readFileSync === &quot;function&quot;;</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，您需要告诉Babel不要解析这些模块符号，这样webpack就可以使用它们。您可以通过在您的程序中设置以下内容来实现这一点。babelrc或babel-loader选项。</p>
-<h3 id="babelrc"><a href="#babelrc" class="headerlink" title=".babelrc"></a>.babelrc</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [</span><br><span class="line">    [&quot;es2015&quot;, &#123; &quot;modules&quot;: false &#125;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><p>webpack 现在支持表达式中的模板字符串了。这意味着你可以在 webpack 构建中使用它们：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- require(&quot;./templates/&quot; + name);</span><br><span class="line">+ require(`./templates/$&#123;name&#125;`);</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置中使用-Promise"><a href="#配置中使用-Promise" class="headerlink" title="配置中使用 Promise"></a>配置中使用 Promise</h2><p>webpack 现在支持在配置文件中返回 Promise 了。这让你能在配置文件中做异步处理。</p>
-<p>webpack.config.js<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module.exports = function() &#123;</span><br><span class="line">  return fetchLangs().then(lang =&gt; (&#123;</span><br><span class="line">    entry: &quot;...&quot;,</span><br><span class="line">    // ...</span><br><span class="line">    plugins: [</span><br><span class="line">      new DefinePlugin(&#123; LANGUAGE: lang &#125;)</span><br><span class="line">    ]</span><br><span class="line">  &#125;));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="高级-loader-匹配"><a href="#高级-loader-匹配" class="headerlink" title="高级 loader 匹配"></a>高级 loader 匹配</h2><p>webpack 现在支持对 loader 进行更多方式的匹配。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      resource: /filename/, // matches &quot;/path/filename.js&quot;</span><br><span class="line">      resourceQuery: /querystring/, // matches &quot;/filename.js?querystring&quot;</span><br><span class="line">      issuer: /filename/, // matches &quot;/path/something.js&quot; if requested from &quot;/path/filename.js&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="更多的-CLI-参数项"><a href="#更多的-CLI-参数项" class="headerlink" title="更多的 CLI 参数项"></a>更多的 CLI 参数项</h2><p>你可以使用一些新的 CLI 参数项：</p>
-<p>–define process.env.NODE_ENV=”production” 见 DefinePlugin。</p>
-<p>–display-depth 显示每个模块到入口的距离。</p>
-<p>–display-used-exports 显示一个模块中被使用的 exports 信息。</p>
-<p>–display-max-modules 设置输出时显示的模块数量（默认是 15）。</p>
-<p>-p 能够定义 process.env.NODE_ENV 为 “production”。</p>
-<h2 id="Cacheable"><a href="#Cacheable" class="headerlink" title="Cacheable"></a>Cacheable</h2><p>Loaders 现在默认可被缓存。Loaders 如果不想被缓存，需要选择不被缓存。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> // Cacheable loader</span><br><span class="line">  module.exports = function(source) &#123;</span><br><span class="line">-   this.cacheable();</span><br><span class="line">    return source;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> // Not cacheable loader</span><br><span class="line">  module.exports = function(source) &#123;</span><br><span class="line">+   this.cacheable(false);</span><br><span class="line">    return source;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="复合-options"><a href="#复合-options" class="headerlink" title="复合 options"></a>复合 options</h2><p>webpack 1 只支持能够 JSON.stringify 的对象作为配置项。webpack 2 现在支持任意 JS 对象作为 loader 配置项。</p>
-<p>使用复合 options 只有一个附加条件。你需要在 options 对象上添加一个 ident，让它能够被其他 loader 引用。</p>
-<p>options 对象上有了 ident ，内联的 loader 就可以引用这个 options 对象。下面是个例子：</p>
-<p>require(“some-loader??by-ident!resource”)<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  test: /.../,</span><br><span class="line">  loader: &quot;...&quot;,</span><br><span class="line">  options: &#123;</span><br><span class="line">    ident: &quot;by-ident&quot;,</span><br><span class="line">    magic: () =&gt; return Math.random()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这种内联风格在常规的代码里一般用不着，但是在 loader 生成的代码里比较常见。比如，style-loader 生成一个模块，通过 require 加载其余的请求（它们输出 CSS）。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// style-loader generated code (simplified)</span><br><span class="line">var addStyle = require(&quot;./add-style&quot;);</span><br><span class="line">var css = require(&quot;-!css-loader?&#123;&quot;modules&quot;:true&#125;!postcss-loader??postcss-ident&quot;);</span><br><span class="line"></span><br><span class="line">addStyle(css);</span><br></pre></td></tr></table></figure></p>
-<p>所以如果你使用复合 options，告诉你的用户你使用的 ident。</p>
+            <hr>
+<ol>
+<li>assert()</li>
+<li>assert.ok()</li>
+<li>assert.equal()</li>
+<li>assert.notEqual()</li>
+<li>assert.deepEqual()</li>
+<li>assert.notDeepEqual()</li>
+<li>assert.strictEqual()</li>
+<li>assert.notStrictEqual()</li>
+<li>assert.throws()</li>
+<li>assert.ifError()</li>
+<li>assert.fail()</li>
+</ol>
+<hr>
+<p>assert模块是Node的内置模块，主要用于断言。如果表达式不符合预期，就抛出一个错误。该模块提供11个方法，但只有少数几个是常用的。</p>
+<h3 id="1-assert"><a href="#1-assert" class="headerlink" title="1. assert()"></a>1. assert()</h3><p>assert方法接受两个参数，当第一个参数对应的布尔值为true时，不会有任何提示，返回undefined。当第一个参数对应的布尔值为false时，会抛出一个错误，该错误的提示信息就是第二个参数设定的字符串。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert(value, message)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line">assert( expected === 3, &apos;预期1加2等于3&apos;);</span><br></pre></td></tr></table></figure>
+<p>上面代码不会有任何输出，因为assert方法的第一个参数是true。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert( expected === 4, &apos;预期1加2等于3&apos;)</span><br><span class="line">// AssertionError: 预期1加2等于3</span><br></pre></td></tr></table></figure>
+<p>上面代码会抛出一个错误，因为assert方法的第一个参数是false。</p>
+<h3 id="2-assert-ok"><a href="#2-assert-ok" class="headerlink" title="2. assert.ok()"></a>2. assert.ok()</h3><p>ok是assert方法的另一个名字，与assert方法完全一样。</p>
+<h3 id="3-assert-equal"><a href="#3-assert-equal" class="headerlink" title="3. assert.equal()"></a>3. assert.equal()</h3><p>equal方法接受三个参数，第一个参数是实际值，第二个是预期值，第三个是错误的提示信息。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.equal(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">assert.equal(true, value, message);</span><br><span class="line">// 等同于</span><br><span class="line">assert(value, message);</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三句效果相同</span><br><span class="line">assert(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.ok(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.equal(expected, 3, &apos;预期1+2等于3&apos;);</span><br></pre></td></tr></table></figure>
+<p>equal方法内部使用的是相等运算符（==），而不是严格运算符（===），进行比较运算。</p>
+<h3 id="4-assert-notEqual"><a href="#4-assert-notEqual" class="headerlink" title="4. assert.notEqual()"></a>4. assert.notEqual()</h3><p>notEqual方法的用法与equal方法类似，但只有在实际值等于预期值时，才会抛出错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三种写法效果相同</span><br><span class="line">assert(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.ok(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.notEqual(expected, 4, &apos;预期不等于4&apos;);</span><br></pre></td></tr></table></figure>
+<p>notEqual方法内部使用不相等运算符（!=），而不是严格不相等运算符（!==），进行比较运算。</p>
+<h3 id="5-assert-deepEqual"><a href="#5-assert-deepEqual" class="headerlink" title="5. assert.deepEqual()"></a>5. assert.deepEqual()</h3><p>deepEqual方法用来比较两个对象。只要它们的属性一一对应，且值都相等，就认为两个对象相等，否则抛出一个错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.deepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, 3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.deepEqual(list1, list2, &apos;预期两个数组应该有相同的属性&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line"></span><br><span class="line">assert.deepEqual(person1, person2, &apos;预期两个对象应该有相同的属性&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="6-assert-notDeepEqual"><a href="#6-assert-notDeepEqual" class="headerlink" title="6. assert.notDeepEqual()"></a>6. assert.notDeepEqual()</h3><p>notDeepEqual方法与deepEqual方法正好相反，用来断言两个对象是否不相等。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notDeepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, ,3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.notDeepEqual(list1, list2, &apos;预期两个对象不相等&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;jane&quot;, &quot;age&quot;:&quot;19&quot; &#125;;</span><br><span class="line"></span><br><span class="line">// deepEqual checks the elements in the objects are identical</span><br><span class="line">assert.notDeepEqual(person1, person2, &apos;预期两个对象不相等&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="7-assert-strictEqual"><a href="#7-assert-strictEqual" class="headerlink" title="7. assert.strictEqual()"></a>7. assert.strictEqual()</h3><p>strictEqual方法使用严格相等运算符（===），比较两个表达式。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.strictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.strictEqual(1, &apos;1&apos;, &apos;预期严格相等&apos;);</span><br><span class="line">// AssertionError: 预期严格相等</span><br></pre></td></tr></table></figure>
+<h3 id="8-assert-notStrictEqual"><a href="#8-assert-notStrictEqual" class="headerlink" title="8. assert.notStrictEqual()"></a>8. assert.notStrictEqual()</h3><p>assert.notStrictEqual方法使用严格不相等运算符（!==），比较两个表达式。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notStrictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.notStrictEqual(1, true, &apos;预期严格不相等&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="9-assert-throws"><a href="#9-assert-throws" class="headerlink" title="9. assert.throws()"></a>9. assert.throws()</h3><p>throws方法预期某个代码块会抛出一个错误，且抛出的错误符合指定的条件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.throws(block, [error], [message])</span><br><span class="line"></span><br><span class="line">// 例一，抛出的错误符合某个构造函数</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  Error,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例二、抛出错误的提示信息符合正则表达式</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  /value/,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例三、抛出的错误符合自定义函数的校验</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  function(err) &#123;</span><br><span class="line">    if ( (err instanceof Error) &amp;&amp; /value/.test(err) ) &#123;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="10-assert-doesNotThrow"><a href="#10-assert-doesNotThrow" class="headerlink" title="10. assert.doesNotThrow()"></a>10. assert.doesNotThrow()</h3><p>doesNotThrow方法与throws方法正好相反，预期某个代码块不抛出错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.doesNotThrow(block, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">assert.doesNotThrow(</span><br><span class="line">  function() &#123;</span><br><span class="line">    console.log(&quot;Nothing to see here&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;预期不抛出错误&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="11-assert-ifError"><a href="#11-assert-ifError" class="headerlink" title="11. assert.ifError()"></a>11. assert.ifError()</h3><p>ifError方法断言某个表达式是否false，如果该表达式对应的布尔值等于true，就抛出一个错误。它对于验证回调函数的第一个参数十分有用，如果该参数为true，就表示有错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.ifError(value)</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">function sayHello(name, callback) &#123;</span><br><span class="line">  var error = false;</span><br><span class="line">  var str   = &quot;Hello &quot;+name;</span><br><span class="line">  callback(error, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// use the function</span><br><span class="line">sayHello(&apos;World&apos;, function(err, value)&#123;</span><br><span class="line">  assert.ifError(err);</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="12-assert-fail"><a href="#12-assert-fail" class="headerlink" title="12. assert.fail()"></a>12. assert.fail()</h3><p>fail方法用于抛出一个错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.fail(actual, expected, message, operator)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.fail(21, 42, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 21, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 42, undefined, &apos;###&apos;)</span><br><span class="line">// AssertionError: 21 ### 42</span><br></pre></td></tr></table></figure>
+<p>该方法共有四个参数，但是不管参数是什么值，它总是抛出一个错误。如果message参数对应的布尔值不为false，抛出的错误信息就是message，否则错误信息就是“实际值 + 分隔符 + 预期值”。</p>
 
         </div>
         
@@ -485,14 +496,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1609 个字)
+                    3 分钟 读完 (大约 481 个字)
                 </span>
                 
                 
@@ -501,152 +512,87 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/resolve/">webpack中resolve模块</a>
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/parcel/parcelDev/">parcel使用</a>
             
         </h1>
         <div class="content">
-            <h1 id="Resolve"><a href="#Resolve" class="headerlink" title="Resolve"></a>Resolve</h1><blockquote>
-<p>这些选项能设置模块如何被解析。webpack 提供合理的默认值，但是还是可能会修改一些解析的细节。</p>
+            <h3 id="什么是pracel"><a href="#什么是pracel" class="headerlink" title="什么是pracel"></a>什么是pracel</h3><p>parcel是一个前端项目打包器，现在我们已有的打包器与webpack和gulp。</p>
+<h3 id="为什么要把pracel拿出来说一说"><a href="#为什么要把pracel拿出来说一说" class="headerlink" title="为什么要把pracel拿出来说一说"></a>为什么要把pracel拿出来说一说</h3><p>最近许多的网站推送pracel的相关消息，说什么零配置，打包速度快。</p>
+<h3 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h3><ol>
+<li>我们现在使用的打包工具有哪些？</li>
+<li>我们为什么要是用这些打包工具，使用这些打包工具为我们解决了什么问题？</li>
+<li>现在已用到的打包工具给我们造成了什么困扰？</li>
+</ol>
+<h3 id="用parcel建一个简单的项目"><a href="#用parcel建一个简单的项目" class="headerlink" title="用parcel建一个简单的项目"></a>用parcel建一个简单的项目</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Yarn:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<p>npm:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建package-json"><a href="#创建package-json" class="headerlink" title="创建package.json"></a>创建package.json</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y</span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建一个-index-html-和-index-js-文件。"><a href="#创建一个-index-html-和-index-js-文件。" class="headerlink" title="创建一个 index.html 和 index.js 文件。"></a>创建一个 index.html 和 index.js 文件。</h4><p>index.html<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>index.js<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;hello world&quot;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="在package-json重配置"><a href="#在package-json重配置" class="headerlink" title="在package.json重配置"></a>在package.json重配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;parcel index.html -p 4000&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="Babel配置"><a href="#Babel配置" class="headerlink" title="Babel配置"></a>Babel配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-preset-env</span><br></pre></td></tr></table></figure>
+<p> .babelrc文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostCSS配置"><a href="#PostCSS配置" class="headerlink" title="PostCSS配置"></a>PostCSS配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-modules autoprefixer</span><br></pre></td></tr></table></figure>
+<p>.postcssrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;modules&quot;: true,</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;autoprefixer&quot;: &#123;</span><br><span class="line">      &quot;grid&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostHTML配置"><a href="#PostHTML配置" class="headerlink" title="PostHTML配置"></a>PostHTML配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add posthtml-img-autosize</span><br></pre></td></tr></table></figure>
+<p>.posthtmlrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;posthtml-img-autosize&quot;: &#123;</span><br><span class="line">      &quot;root&quot;: &quot;./images&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/yihaoliu/parcelReact" target="_blank" rel="noopener">parcelReact项目</a>。</p>
+<p>虽然说parcel是零配置但是在没有配置的情况下明显项目的灵活度降低许多，下载react有create-react-app进行构建，vue有vue-cli进行构架其实在项目配置相对来说已经非常少了，但是parcel没有配置文件还是让项目的开发有点难受，比如文件起别名，还有proxyConfig进行跨域处理在项目的开发时期都是很重有的事情，只能说对于一个初学web的人员来说配置变少了尤其是没有用到三大框架的项目组pracel还是使用很方便的，对于一些h5小网页比如基于canvas的小游戏的开发用pracel来构建还是非常方便的，但对于大型网站来说。。。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 245 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/IDE/macPath/">mac终端配置sublime和vsCode的快捷方式</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="vsCode的终端命令配置"><a href="#vsCode的终端命令配置" class="headerlink" title="vsCode的终端命令配置"></a>vsCode的终端命令配置</h2><h3 id="mac端配置"><a href="#mac端配置" class="headerlink" title="mac端配置"></a>mac端配置</h3><blockquote>
+<p>vsCode的终端命令配置较为简单，运行VS code并打开命令面板（ ⇧⌘P ），然后输入 shell command 找到: Install ‘code’ command in PATH 就行了。</p>
 </blockquote>
-<h3 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h3><p>object</p>
-<blockquote>
-<p>配置模块如何解析。例如，当在 ES2015 中调用 import “lodash”，resolve 选项能够对 webpack 查找 “lodash” 的方式去做修改（查看模块）。</p>
-</blockquote>
-<h3 id="resolve-alias"><a href="#resolve-alias" class="headerlink" title="resolve.alias"></a>resolve.alias</h3><p>object</p>
-<p>创建 import 或 require 的别名，来确保模块引入变得更简单。例如，一些位于 src/ 文件夹下的常用模块：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">  Utilities: path.resolve(__dirname, &apos;src/utilities/&apos;),</span><br><span class="line">  Templates: path.resolve(__dirname, &apos;src/templates/&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>现在，替换「在导入时使用相对路径」这种方式，就像这样：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Utility from &apos;../../utilities/utility&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>你可以这样使用别名：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Utility from &apos;Utilities/utility&apos;;</span><br></pre></td></tr></table></figure></p>
-<p><strong> 也可以在给定对象的键后的末尾添加 $，以表示精准匹配：</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">  xyz$: path.resolve(__dirname, &apos;path/to/file.js&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这将产生以下结果：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Test1 from &apos;xyz&apos;; // 精确匹配，所以 path/to/file.js 被解析和导入</span><br><span class="line">import Test2 from &apos;xyz/file.js&apos;; // 精确匹配，触发普通解析</span><br></pre></td></tr></table></figure></p>
-<p>下面的表格展示了一些其他情况：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">别名:</th>
-<th style="text-align:left">import”xyz”</th>
-<th style="text-align:left">import”xyz/file.js”</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">{}</td>
-<td style="text-align:left">/abc/node_modules/xyz/index.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “/abs/path/to/file.js” }</td>
-<td style="text-align:left">/abs/path/to/file.js</td>
-<td style="text-align:left">error</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz$: “/abs/path/to/file.js” }</td>
-<td style="text-align:left">/abs/path/to/file.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “./dir/file.js” }</td>
-<td style="text-align:left">/abc/dir/file.js</td>
-<td style="text-align:left">error</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz$: “./dir/file.js” }</td>
-<td style="text-align:left">/abc/dir/file.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “/some/dir” }</td>
-<td style="text-align:left">/some/dir/index.js</td>
-<td style="text-align:left">/some/dir/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz$: “/some/dir” }</td>
-<td style="text-align:left">/some/dir/index.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “./dir” }</td>
-<td style="text-align:left">/abc/dir/index.js</td>
-<td style="text-align:left">/abc/dir/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “modu” }</td>
-<td style="text-align:left">/abc/node_modules/modu/index.js</td>
-<td style="text-align:left">/abc/node_modules/modu/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz$: “modu” }</td>
-<td style="text-align:left">/abc/node_modules/modu/index.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “modu/some/file.js” }</td>
-<td style="text-align:left">/abc/node_modules/modu/some/file.js</td>
-<td style="text-align:left">error</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “modu/dir” }</td>
-<td style="text-align:left">/abc/node_modules/modu/dir/index.js</td>
-<td style="text-align:left">/abc/node_modules/dir/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz: “xyz/dir” }</td>
-<td style="text-align:left">/abc/node_modules/xyz/dir/index.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/dir/file.js</td>
-</tr>
-<tr>
-<td style="text-align:left">{ xyz$: “xyz/dir” }</td>
-<td style="text-align:left">/abc/node_modules/xyz/dir/index.js</td>
-<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
-</tr>
-</tbody>
-</table>
-<p>如果在 package.json 中定义，index.js 可能会被解析为另一个文件。</p>
-<p><strong> /abc/node_modules 也可能在 /node_modules 中解析。</strong></p>
-<h3 id="resolve-aliasFields"><a href="#resolve-aliasFields" class="headerlink" title="resolve.aliasFields"></a>resolve.aliasFields</h3><p>string</p>
-<p>指定一个字段，例如 browser，根据此规范进行解析。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aliasFields: [&quot;browser&quot;]</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-cacheWithContext"><a href="#resolve-cacheWithContext" class="headerlink" title="resolve.cacheWithContext"></a>resolve.cacheWithContext</h3><p>boolean ( webpack 3.1.0 以后版本)</p>
-<p>如果启用了不安全的缓存，则包含request.context在缓存中。该enhanced-resolve模块考虑了该选项。因为解析缓存中的webpack 3.1.0上下文在提供解析或解析的插件时被忽略。这解决了性能回归。</p>
-<h3 id="resolve-descriptionFiles"><a href="#resolve-descriptionFiles" class="headerlink" title="resolve.descriptionFiles"></a>resolve.descriptionFiles</h3><p>array</p>
-<p>用于描述的 JSON 文件。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">descriptionFiles: [&quot;package.json&quot;]</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-enforceExtension"><a href="#resolve-enforceExtension" class="headerlink" title="resolve.enforceExtension"></a>resolve.enforceExtension</h3><p>boolean</p>
-<p>如果是 true，将不允许无扩展名(extension-less)文件。默认如果 ./foo 有 .js 扩展，require(‘./foo’) 可以正常运行。但如果启用此选项，只有 require(‘./foo.js’) 能够正常工作。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enforceExtension: false</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-enforceModuleExtension"><a href="#resolve-enforceModuleExtension" class="headerlink" title="resolve.enforceModuleExtension"></a>resolve.enforceModuleExtension</h3><p>boolean</p>
-<p>对模块是否需要使用的扩展（例如 loader）。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enforceModuleExtension: false</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-extensions"><a href="#resolve-extensions" class="headerlink" title="resolve.extensions"></a>resolve.extensions</h3><p>array</p>
-<p>自动解析确定的扩展。默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extensions: [&quot;.js&quot;, &quot;.json&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>能够使用户在引入模块时不带扩展：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import File from &apos;../path/to/file&apos;</span><br></pre></td></tr></table></figure>
-<p>使用此选项，会覆盖默认数组，这就意味着 webpack 将不再尝试使用默认扩展来解析模块。对于使用其扩展导入的模块，例如，import SomeFile from “./somefile.ext”，要想正确的解析，一个包含“*”的字符串必须包含在数组中。</p>
-<h3 id="resolve-mainFields"><a href="#resolve-mainFields" class="headerlink" title="resolve.mainFields"></a>resolve.mainFields</h3><p>array</p>
-<p>当从 npm 包中导入模块时（例如，import * as D3 from “d3”），此选项将决定在 package.json 中使用哪个字段导入模块。根据 webpack 配置中指定的 target 不同，默认值也会有所不同。</p>
-<p>当 target 属性设置为 webworker, web 或者没有指定，默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFields: [&quot;browser&quot;, &quot;module&quot;, &quot;main&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>对于其他任意的 target（包括 node），默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFields: [&quot;module&quot;, &quot;main&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>例如，D3 的 package.json 含有这些字段：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  main: &apos;build/d3.Node.js&apos;,</span><br><span class="line">  browser: &apos;build/d3.js&apos;,</span><br><span class="line">  module: &apos;index&apos;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这意味着当我们 import * as D3 from “d3”，实际从 browser 属性解析文件。在这里 browser 属性是最优先选择的，因为它是 mainFields 的第一项。同时，由 webpack 打包的 Node.js 应用程序默认会从 module 字段中解析文件。</p>
-<h3 id="resolve-mainFiles"><a href="#resolve-mainFiles" class="headerlink" title="resolve.mainFiles"></a>resolve.mainFiles</h3><p>array</p>
-<p>解析目录时要使用的文件名。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFiles: [&quot;index&quot;]</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-modules"><a href="#resolve-modules" class="headerlink" title="resolve.modules"></a>resolve.modules</h3><p>array</p>
-<p>告诉 webpack 解析模块时应该搜索的目录。</p>
-<p>绝对路径和相对路径都能使用，但是要知道它们之间有一点差异。</p>
-<p>通过查看当前目录以及祖先路径（即 ./node_modules, ../node_modules 等等），相对路径将类似于 Node 查找 ‘node_modules’ 的方式进行查找。</p>
-<p>使用绝对路径，将只在给定目录中搜索。</p>
-<p>resolve.modules defaults to:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modules: [&quot;node_modules&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modules: [path.resolve(__dirname, &quot;src&quot;), &quot;node_modules&quot;]</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-unsafeCache"><a href="#resolve-unsafeCache" class="headerlink" title="resolve.unsafeCache"></a>resolve.unsafeCache</h3><p>regex array boolean</p>
-<p>启用，会主动缓存模块，但并不安全。传递 true 将缓存一切。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafeCache: true</span><br></pre></td></tr></table></figure></p>
-<p>正则表达式，或正则表达式数组，可以用于匹配文件路径或只缓存某些模块。例如，只缓存 utilities 模块：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafeCache: /src\/utilities/</span><br></pre></td></tr></table></figure></p>
-<p>修改缓存路径可能在极少数情况下导致失败。</p>
-<h3 id="resolve-plugins"><a href="#resolve-plugins" class="headerlink" title="resolve.plugins"></a>resolve.plugins</h3><p>应该使用的额外的解析插件列表。它允许插件，如 DirectoryNamedWebpackPlugin。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: [new DirectoryNamedWebpackPlugin()]</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-symlinks"><a href="#resolve-symlinks" class="headerlink" title="resolve.symlinks"></a>resolve.symlinks</h3><p>boolean</p>
-<p>是否将符号链接(symlink)解析到它们的符号链接位置(symlink location)。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">symlinks: true</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolve-cachePredicate"><a href="#resolve-cachePredicate" class="headerlink" title="resolve.cachePredicate"></a>resolve.cachePredicate</h3><p>function</p>
-<p>决定请求是否应该被缓存的函数。函数传入一个带有 path 和 request 属性的对象。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cachePredicate: function() &#123; return true &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="resolveLoader"><a href="#resolveLoader" class="headerlink" title="resolveLoader"></a>resolveLoader</h3><p>object</p>
-<p>这组选项与上面的 resolve 对象的属性集合相同，但仅用于解析 webpack 的 loader 包。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    modules: [&quot;node_modules&quot;],</span><br><span class="line">    extensions: [&quot;.js&quot;, &quot;.json&quot;],</span><br><span class="line">    mainFields: [&quot;loader&quot;, &quot;main&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意，这里你可以使用别名，并且其他特性类似于 resolve 对象。例如，{ txt: ‘raw-loader’ } 会使用 raw-loader 去 shim(填充) txt!templates/demo.txt。</p>
-<h3 id="resolveLoader-moduleExtensions"><a href="#resolveLoader-moduleExtensions" class="headerlink" title="resolveLoader.moduleExtensions"></a>resolveLoader.moduleExtensions</h3><p>array</p>
-<p>在解析模块（例如，loader）时尝试使用的扩展。默认是一个空数组。</p>
-<p>如果你想要不带 -loader 后缀使用 loader，你可以使用：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moduleExtensions: [&apos;-loader&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>code命令还支持其他参数，具体看 <a href="http://www.jianshu.com/p/3dda4756eca5" target="_blank" rel="noopener">Visual Studio Code入门</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)</span><br><span class="line">code .</span><br></pre></td></tr></table></figure>
+<h2 id="sublime的终端配置"><a href="#sublime的终端配置" class="headerlink" title="sublime的终端配置"></a>sublime的终端配置</h2><h3 id="mac端配置-1"><a href="#mac端配置-1" class="headerlink" title="mac端配置"></a>mac端配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 1. 打开终端</span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">ls -la</span><br><span class="line">//找打.zshrc文件如果安装过atom 就输入 atom .zshrc 如果有 vim 就输入 vim .zshrc这里我用vim</span><br><span class="line"></span><br><span class="line">vim .zshrc</span><br><span class="line"></span><br><span class="line">//到 atom 中</span><br></pre></td></tr></table></figure>
+<p>//把下面内容粘贴到最后</p>
+<p>alias subl=”‘/Applications/Sublime.app/Contents/SharedSupport/bin/subl’”<br>alias nano=”subl”<br>export EDITOR=”subl”</p>
+<p>上面的第一行里是自己sublime的在、安装路径一般只有 Sublime.app 不一样</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)记得重启终端</span><br><span class="line">subl .</span><br></pre></td></tr></table></figure>
+<p>因为 atom 在这两款中显得较为鸡肋就不做介绍</p>
 
         </div>
         
@@ -790,61 +736,6 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 245 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/IDE/macPath/">mac终端配置sublime和vsCode的快捷方式</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="vsCode的终端命令配置"><a href="#vsCode的终端命令配置" class="headerlink" title="vsCode的终端命令配置"></a>vsCode的终端命令配置</h2><h3 id="mac端配置"><a href="#mac端配置" class="headerlink" title="mac端配置"></a>mac端配置</h3><blockquote>
-<p>vsCode的终端命令配置较为简单，运行VS code并打开命令面板（ ⇧⌘P ），然后输入 shell command 找到: Install ‘code’ command in PATH 就行了。</p>
-</blockquote>
-<p>code命令还支持其他参数，具体看 <a href="http://www.jianshu.com/p/3dda4756eca5" target="_blank" rel="noopener">Visual Studio Code入门</a></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)</span><br><span class="line">code .</span><br></pre></td></tr></table></figure>
-<h2 id="sublime的终端配置"><a href="#sublime的终端配置" class="headerlink" title="sublime的终端配置"></a>sublime的终端配置</h2><h3 id="mac端配置-1"><a href="#mac端配置-1" class="headerlink" title="mac端配置"></a>mac端配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 1. 打开终端</span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">ls -la</span><br><span class="line">//找打.zshrc文件如果安装过atom 就输入 atom .zshrc 如果有 vim 就输入 vim .zshrc这里我用vim</span><br><span class="line"></span><br><span class="line">vim .zshrc</span><br><span class="line"></span><br><span class="line">//到 atom 中</span><br></pre></td></tr></table></figure>
-<p>//把下面内容粘贴到最后</p>
-<p>alias subl=”‘/Applications/Sublime.app/Contents/SharedSupport/bin/subl’”<br>alias nano=”subl”<br>export EDITOR=”subl”</p>
-<p>上面的第一行里是自己sublime的在、安装路径一般只有 Sublime.app 不一样</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)记得重启终端</span><br><span class="line">subl .</span><br></pre></td></tr></table></figure>
-<p>因为 atom 在这两款中显得较为鸡肋就不做介绍</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/react/">react</a>
                 </div>
                 
@@ -912,7 +803,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 168 个字)
+                    3 分钟 读完 (大约 489 个字)
                 </span>
                 
                 
@@ -921,20 +812,16 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/git/git-capitalize/">git区分大小写</a>
+                <a class="has-link-black-ter" href="/2019/07/13/git/git-neglect/">Git设置上传忽略</a>
             
         </h1>
         <div class="content">
-            <p>其实 git 默认对于文件名大小写是不敏感的,所以上面你修改了首字母大写,但是git 并没有发现代码任何改动.</p>
-<p>那么如何才能让 git 识别文件名大小写变化.</p>
-<p>一  配置git 使其对文件名大小写敏感</p>
-<p>git config core.ignorecase false</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git config core.ignorecase false</span><br></pre></td></tr></table></figure>
-<p>二 从git 本地仓库删除此文件,然后添加再提交</p>
-<p>(1) 删除<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git rm readme.md</span><br></pre></td></tr></table></figure></p>
-<p>(2) 重新添加<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git add Readme.md</span><br></pre></td></tr></table></figure></p>
-<p>(3)提交<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git commit -m &apos;Readme.md&apos;</span><br></pre></td></tr></table></figure></p>
-<p>推荐第一种方法,配置好git 对文件名大小写敏感.</p>
+            <h1 id="Git设置上传忽略"><a href="#Git设置上传忽略" class="headerlink" title="Git设置上传忽略"></a>Git设置上传忽略</h1><h2 id="忽略语法规则"><a href="#忽略语法规则" class="headerlink" title="忽略语法规则"></a>忽略语法规则</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 忽略*.o和*.a文件</span><br><span class="line"></span><br><span class="line"> *.[oa]</span><br><span class="line"></span><br><span class="line"># 忽略*.b和*.B文件，my.b除外</span><br><span class="line"></span><br><span class="line">*.[bB]</span><br><span class="line"></span><br><span class="line">!my.b</span><br><span class="line"></span><br><span class="line"># 忽略dbg文件和dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line"># 只忽略dbg目录，不忽略dbg文件</span><br><span class="line"></span><br><span class="line">dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略dbg文件，不忽略dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line">!dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内</span><br><span class="line"></span><br><span class="line">/dbg</span><br><span class="line"></span><br><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"># 但 lib.a 除外</span><br><span class="line">!lib.a </span><br><span class="line"></span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO </span><br><span class="line"></span><br><span class="line"># 忽略 build/ 目录下的所有文件</span><br><span class="line">build/ </span><br><span class="line"></span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/*.txt</span><br></pre></td></tr></table></figure>
+<p>下面介绍3种方法来设置上传忽略配置：</p>
+<h2 id="【方法一】"><a href="#【方法一】" class="headerlink" title="【方法一】"></a>【方法一】</h2><p> 通过配置.git/info/exclude文件来忽略文件。这种方式对仓库全局有效，只能对自己本地仓库有作用，其他人没办法通过这种方式来共享忽略规则，除非他人也修改其本地仓库的该文件。</p>
+<h2 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h2><p> 通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径），如下图所示。忽略规则在文件e:/gitignore.txt中（当然该文件名可以任意取）。在config的[remote “origin”]上一行添加 excludesfile = e:/gitignore.text即可<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> [core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = false</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	symlinks = false</span><br><span class="line">	ignorecase = true</span><br><span class="line">    excludesfile = e:/gitignore.text</span><br><span class="line">[remote &quot;origin&quot;]</span><br></pre></td></tr></table></figure></p>
+<p> 该方式的作用域是也全局的。</p>
+<h2 id="【方式三】"><a href="#【方式三】" class="headerlink" title="【方式三】"></a>【方式三】</h2><p> 在项目根目录下创建.gitignore文件如果已经创建则不用创建然后在该文件中添加忽略语法<br> .gitignore文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，以共享同一套忽略规则。</p>
 
         </div>
         
@@ -966,7 +853,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 489 个字)
+                    1 分钟 读完 (大约 168 个字)
                 </span>
                 
                 
@@ -975,16 +862,20 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/git/git-neglect/">Git设置上传忽略</a>
+                <a class="has-link-black-ter" href="/2019/07/13/git/git-capitalize/">git区分大小写</a>
             
         </h1>
         <div class="content">
-            <h1 id="Git设置上传忽略"><a href="#Git设置上传忽略" class="headerlink" title="Git设置上传忽略"></a>Git设置上传忽略</h1><h2 id="忽略语法规则"><a href="#忽略语法规则" class="headerlink" title="忽略语法规则"></a>忽略语法规则</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 忽略*.o和*.a文件</span><br><span class="line"></span><br><span class="line"> *.[oa]</span><br><span class="line"></span><br><span class="line"># 忽略*.b和*.B文件，my.b除外</span><br><span class="line"></span><br><span class="line">*.[bB]</span><br><span class="line"></span><br><span class="line">!my.b</span><br><span class="line"></span><br><span class="line"># 忽略dbg文件和dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line"># 只忽略dbg目录，不忽略dbg文件</span><br><span class="line"></span><br><span class="line">dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略dbg文件，不忽略dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line">!dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内</span><br><span class="line"></span><br><span class="line">/dbg</span><br><span class="line"></span><br><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"># 但 lib.a 除外</span><br><span class="line">!lib.a </span><br><span class="line"></span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO </span><br><span class="line"></span><br><span class="line"># 忽略 build/ 目录下的所有文件</span><br><span class="line">build/ </span><br><span class="line"></span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/*.txt</span><br></pre></td></tr></table></figure>
-<p>下面介绍3种方法来设置上传忽略配置：</p>
-<h2 id="【方法一】"><a href="#【方法一】" class="headerlink" title="【方法一】"></a>【方法一】</h2><p> 通过配置.git/info/exclude文件来忽略文件。这种方式对仓库全局有效，只能对自己本地仓库有作用，其他人没办法通过这种方式来共享忽略规则，除非他人也修改其本地仓库的该文件。</p>
-<h2 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h2><p> 通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径），如下图所示。忽略规则在文件e:/gitignore.txt中（当然该文件名可以任意取）。在config的[remote “origin”]上一行添加 excludesfile = e:/gitignore.text即可<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> [core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = false</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	symlinks = false</span><br><span class="line">	ignorecase = true</span><br><span class="line">    excludesfile = e:/gitignore.text</span><br><span class="line">[remote &quot;origin&quot;]</span><br></pre></td></tr></table></figure></p>
-<p> 该方式的作用域是也全局的。</p>
-<h2 id="【方式三】"><a href="#【方式三】" class="headerlink" title="【方式三】"></a>【方式三】</h2><p> 在项目根目录下创建.gitignore文件如果已经创建则不用创建然后在该文件中添加忽略语法<br> .gitignore文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，以共享同一套忽略规则。</p>
+            <p>其实 git 默认对于文件名大小写是不敏感的,所以上面你修改了首字母大写,但是git 并没有发现代码任何改动.</p>
+<p>那么如何才能让 git 识别文件名大小写变化.</p>
+<p>一  配置git 使其对文件名大小写敏感</p>
+<p>git config core.ignorecase false</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git config core.ignorecase false</span><br></pre></td></tr></table></figure>
+<p>二 从git 本地仓库删除此文件,然后添加再提交</p>
+<p>(1) 删除<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git rm readme.md</span><br></pre></td></tr></table></figure></p>
+<p>(2) 重新添加<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git add Readme.md</span><br></pre></td></tr></table></figure></p>
+<p>(3)提交<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git commit -m &apos;Readme.md&apos;</span><br></pre></td></tr></table></figure></p>
+<p>推荐第一种方法,配置好git 对文件名大小写敏感.</p>
 
         </div>
         
@@ -1388,18 +1279,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -1407,18 +1298,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -1464,18 +1355,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>
@@ -2113,18 +2004,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -2132,18 +2023,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -2189,18 +2080,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>

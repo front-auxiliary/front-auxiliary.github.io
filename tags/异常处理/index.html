@@ -157,95 +157,6 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/node/">node</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 读完 (大约 1297 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/node/try-catch/">node异常处理机制详解</a>
-            
-        </h1>
-        <div class="content">
-            <hr>
-<ol>
-<li>assert()</li>
-<li>assert.ok()</li>
-<li>assert.equal()</li>
-<li>assert.notEqual()</li>
-<li>assert.deepEqual()</li>
-<li>assert.notDeepEqual()</li>
-<li>assert.strictEqual()</li>
-<li>assert.notStrictEqual()</li>
-<li>assert.throws()</li>
-<li>assert.ifError()</li>
-<li>assert.fail()</li>
-</ol>
-<hr>
-<p>assert模块是Node的内置模块，主要用于断言。如果表达式不符合预期，就抛出一个错误。该模块提供11个方法，但只有少数几个是常用的。</p>
-<h3 id="1-assert"><a href="#1-assert" class="headerlink" title="1. assert()"></a>1. assert()</h3><p>assert方法接受两个参数，当第一个参数对应的布尔值为true时，不会有任何提示，返回undefined。当第一个参数对应的布尔值为false时，会抛出一个错误，该错误的提示信息就是第二个参数设定的字符串。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert(value, message)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line">assert( expected === 3, &apos;预期1加2等于3&apos;);</span><br></pre></td></tr></table></figure>
-<p>上面代码不会有任何输出，因为assert方法的第一个参数是true。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert( expected === 4, &apos;预期1加2等于3&apos;)</span><br><span class="line">// AssertionError: 预期1加2等于3</span><br></pre></td></tr></table></figure>
-<p>上面代码会抛出一个错误，因为assert方法的第一个参数是false。</p>
-<h3 id="2-assert-ok"><a href="#2-assert-ok" class="headerlink" title="2. assert.ok()"></a>2. assert.ok()</h3><p>ok是assert方法的另一个名字，与assert方法完全一样。</p>
-<h3 id="3-assert-equal"><a href="#3-assert-equal" class="headerlink" title="3. assert.equal()"></a>3. assert.equal()</h3><p>equal方法接受三个参数，第一个参数是实际值，第二个是预期值，第三个是错误的提示信息。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.equal(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">assert.equal(true, value, message);</span><br><span class="line">// 等同于</span><br><span class="line">assert(value, message);</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三句效果相同</span><br><span class="line">assert(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.ok(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.equal(expected, 3, &apos;预期1+2等于3&apos;);</span><br></pre></td></tr></table></figure>
-<p>equal方法内部使用的是相等运算符（==），而不是严格运算符（===），进行比较运算。</p>
-<h3 id="4-assert-notEqual"><a href="#4-assert-notEqual" class="headerlink" title="4. assert.notEqual()"></a>4. assert.notEqual()</h3><p>notEqual方法的用法与equal方法类似，但只有在实际值等于预期值时，才会抛出错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三种写法效果相同</span><br><span class="line">assert(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.ok(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.notEqual(expected, 4, &apos;预期不等于4&apos;);</span><br></pre></td></tr></table></figure>
-<p>notEqual方法内部使用不相等运算符（!=），而不是严格不相等运算符（!==），进行比较运算。</p>
-<h3 id="5-assert-deepEqual"><a href="#5-assert-deepEqual" class="headerlink" title="5. assert.deepEqual()"></a>5. assert.deepEqual()</h3><p>deepEqual方法用来比较两个对象。只要它们的属性一一对应，且值都相等，就认为两个对象相等，否则抛出一个错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.deepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, 3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.deepEqual(list1, list2, &apos;预期两个数组应该有相同的属性&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line"></span><br><span class="line">assert.deepEqual(person1, person2, &apos;预期两个对象应该有相同的属性&apos;);</span><br></pre></td></tr></table></figure>
-<h3 id="6-assert-notDeepEqual"><a href="#6-assert-notDeepEqual" class="headerlink" title="6. assert.notDeepEqual()"></a>6. assert.notDeepEqual()</h3><p>notDeepEqual方法与deepEqual方法正好相反，用来断言两个对象是否不相等。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notDeepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, ,3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.notDeepEqual(list1, list2, &apos;预期两个对象不相等&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;jane&quot;, &quot;age&quot;:&quot;19&quot; &#125;;</span><br><span class="line"></span><br><span class="line">// deepEqual checks the elements in the objects are identical</span><br><span class="line">assert.notDeepEqual(person1, person2, &apos;预期两个对象不相等&apos;);</span><br></pre></td></tr></table></figure>
-<h3 id="7-assert-strictEqual"><a href="#7-assert-strictEqual" class="headerlink" title="7. assert.strictEqual()"></a>7. assert.strictEqual()</h3><p>strictEqual方法使用严格相等运算符（===），比较两个表达式。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.strictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.strictEqual(1, &apos;1&apos;, &apos;预期严格相等&apos;);</span><br><span class="line">// AssertionError: 预期严格相等</span><br></pre></td></tr></table></figure>
-<h3 id="8-assert-notStrictEqual"><a href="#8-assert-notStrictEqual" class="headerlink" title="8. assert.notStrictEqual()"></a>8. assert.notStrictEqual()</h3><p>assert.notStrictEqual方法使用严格不相等运算符（!==），比较两个表达式。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notStrictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.notStrictEqual(1, true, &apos;预期严格不相等&apos;);</span><br></pre></td></tr></table></figure>
-<h3 id="9-assert-throws"><a href="#9-assert-throws" class="headerlink" title="9. assert.throws()"></a>9. assert.throws()</h3><p>throws方法预期某个代码块会抛出一个错误，且抛出的错误符合指定的条件。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.throws(block, [error], [message])</span><br><span class="line"></span><br><span class="line">// 例一，抛出的错误符合某个构造函数</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  Error,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例二、抛出错误的提示信息符合正则表达式</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  /value/,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例三、抛出的错误符合自定义函数的校验</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  function(err) &#123;</span><br><span class="line">    if ( (err instanceof Error) &amp;&amp; /value/.test(err) ) &#123;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="10-assert-doesNotThrow"><a href="#10-assert-doesNotThrow" class="headerlink" title="10. assert.doesNotThrow()"></a>10. assert.doesNotThrow()</h3><p>doesNotThrow方法与throws方法正好相反，预期某个代码块不抛出错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.doesNotThrow(block, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">assert.doesNotThrow(</span><br><span class="line">  function() &#123;</span><br><span class="line">    console.log(&quot;Nothing to see here&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;预期不抛出错误&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="11-assert-ifError"><a href="#11-assert-ifError" class="headerlink" title="11. assert.ifError()"></a>11. assert.ifError()</h3><p>ifError方法断言某个表达式是否false，如果该表达式对应的布尔值等于true，就抛出一个错误。它对于验证回调函数的第一个参数十分有用，如果该参数为true，就表示有错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.ifError(value)</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">function sayHello(name, callback) &#123;</span><br><span class="line">  var error = false;</span><br><span class="line">  var str   = &quot;Hello &quot;+name;</span><br><span class="line">  callback(error, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// use the function</span><br><span class="line">sayHello(&apos;World&apos;, function(err, value)&#123;</span><br><span class="line">  assert.ifError(err);</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="12-assert-fail"><a href="#12-assert-fail" class="headerlink" title="12. assert.fail()"></a>12. assert.fail()</h3><p>fail方法用于抛出一个错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.fail(actual, expected, message, operator)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.fail(21, 42, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 21, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 42, undefined, &apos;###&apos;)</span><br><span class="line">// AssertionError: 21 ### 42</span><br></pre></td></tr></table></figure>
-<p>该方法共有四个参数，但是不管参数是什么值，它总是抛出一个错误。如果message参数对应的布尔值不为false，抛出的错误信息就是message，否则错误信息就是“实际值 + 分隔符 + 预期值”。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
                 </div>
                 
@@ -336,6 +247,95 @@
 <p>​ 如果要自定义错误类型，只需要继承任何一个自定义错误类型都可以。一般直接继承Error即可。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    function MyError(message) &#123;</span><br><span class="line">        this.message = &quot;注意：这是自定义的错误&quot;</span><br><span class="line">        this.name = &quot;自定义错误&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    MyError.prototype = new Error();</span><br><span class="line">    try &#123;</span><br><span class="line">        throw new MyError(&quot;注意：这是自定义错误类型&quot;)</span><br><span class="line">    &#125;catch (error)&#123;</span><br><span class="line">        console.log(error.message)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="./images/try-catch/try-catch5.png" alt="控制台："></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/node/">node</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1297 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/node/try-catch/">node异常处理机制详解</a>
+            
+        </h1>
+        <div class="content">
+            <hr>
+<ol>
+<li>assert()</li>
+<li>assert.ok()</li>
+<li>assert.equal()</li>
+<li>assert.notEqual()</li>
+<li>assert.deepEqual()</li>
+<li>assert.notDeepEqual()</li>
+<li>assert.strictEqual()</li>
+<li>assert.notStrictEqual()</li>
+<li>assert.throws()</li>
+<li>assert.ifError()</li>
+<li>assert.fail()</li>
+</ol>
+<hr>
+<p>assert模块是Node的内置模块，主要用于断言。如果表达式不符合预期，就抛出一个错误。该模块提供11个方法，但只有少数几个是常用的。</p>
+<h3 id="1-assert"><a href="#1-assert" class="headerlink" title="1. assert()"></a>1. assert()</h3><p>assert方法接受两个参数，当第一个参数对应的布尔值为true时，不会有任何提示，返回undefined。当第一个参数对应的布尔值为false时，会抛出一个错误，该错误的提示信息就是第二个参数设定的字符串。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert(value, message)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line">assert( expected === 3, &apos;预期1加2等于3&apos;);</span><br></pre></td></tr></table></figure>
+<p>上面代码不会有任何输出，因为assert方法的第一个参数是true。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert( expected === 4, &apos;预期1加2等于3&apos;)</span><br><span class="line">// AssertionError: 预期1加2等于3</span><br></pre></td></tr></table></figure>
+<p>上面代码会抛出一个错误，因为assert方法的第一个参数是false。</p>
+<h3 id="2-assert-ok"><a href="#2-assert-ok" class="headerlink" title="2. assert.ok()"></a>2. assert.ok()</h3><p>ok是assert方法的另一个名字，与assert方法完全一样。</p>
+<h3 id="3-assert-equal"><a href="#3-assert-equal" class="headerlink" title="3. assert.equal()"></a>3. assert.equal()</h3><p>equal方法接受三个参数，第一个参数是实际值，第二个是预期值，第三个是错误的提示信息。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.equal(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">assert.equal(true, value, message);</span><br><span class="line">// 等同于</span><br><span class="line">assert(value, message);</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三句效果相同</span><br><span class="line">assert(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.ok(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.equal(expected, 3, &apos;预期1+2等于3&apos;);</span><br></pre></td></tr></table></figure>
+<p>equal方法内部使用的是相等运算符（==），而不是严格运算符（===），进行比较运算。</p>
+<h3 id="4-assert-notEqual"><a href="#4-assert-notEqual" class="headerlink" title="4. assert.notEqual()"></a>4. assert.notEqual()</h3><p>notEqual方法的用法与equal方法类似，但只有在实际值等于预期值时，才会抛出错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三种写法效果相同</span><br><span class="line">assert(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.ok(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.notEqual(expected, 4, &apos;预期不等于4&apos;);</span><br></pre></td></tr></table></figure>
+<p>notEqual方法内部使用不相等运算符（!=），而不是严格不相等运算符（!==），进行比较运算。</p>
+<h3 id="5-assert-deepEqual"><a href="#5-assert-deepEqual" class="headerlink" title="5. assert.deepEqual()"></a>5. assert.deepEqual()</h3><p>deepEqual方法用来比较两个对象。只要它们的属性一一对应，且值都相等，就认为两个对象相等，否则抛出一个错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.deepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, 3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.deepEqual(list1, list2, &apos;预期两个数组应该有相同的属性&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line"></span><br><span class="line">assert.deepEqual(person1, person2, &apos;预期两个对象应该有相同的属性&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="6-assert-notDeepEqual"><a href="#6-assert-notDeepEqual" class="headerlink" title="6. assert.notDeepEqual()"></a>6. assert.notDeepEqual()</h3><p>notDeepEqual方法与deepEqual方法正好相反，用来断言两个对象是否不相等。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notDeepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, ,3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.notDeepEqual(list1, list2, &apos;预期两个对象不相等&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;jane&quot;, &quot;age&quot;:&quot;19&quot; &#125;;</span><br><span class="line"></span><br><span class="line">// deepEqual checks the elements in the objects are identical</span><br><span class="line">assert.notDeepEqual(person1, person2, &apos;预期两个对象不相等&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="7-assert-strictEqual"><a href="#7-assert-strictEqual" class="headerlink" title="7. assert.strictEqual()"></a>7. assert.strictEqual()</h3><p>strictEqual方法使用严格相等运算符（===），比较两个表达式。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.strictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.strictEqual(1, &apos;1&apos;, &apos;预期严格相等&apos;);</span><br><span class="line">// AssertionError: 预期严格相等</span><br></pre></td></tr></table></figure>
+<h3 id="8-assert-notStrictEqual"><a href="#8-assert-notStrictEqual" class="headerlink" title="8. assert.notStrictEqual()"></a>8. assert.notStrictEqual()</h3><p>assert.notStrictEqual方法使用严格不相等运算符（!==），比较两个表达式。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notStrictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.notStrictEqual(1, true, &apos;预期严格不相等&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="9-assert-throws"><a href="#9-assert-throws" class="headerlink" title="9. assert.throws()"></a>9. assert.throws()</h3><p>throws方法预期某个代码块会抛出一个错误，且抛出的错误符合指定的条件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.throws(block, [error], [message])</span><br><span class="line"></span><br><span class="line">// 例一，抛出的错误符合某个构造函数</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  Error,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例二、抛出错误的提示信息符合正则表达式</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  /value/,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例三、抛出的错误符合自定义函数的校验</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  function(err) &#123;</span><br><span class="line">    if ( (err instanceof Error) &amp;&amp; /value/.test(err) ) &#123;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="10-assert-doesNotThrow"><a href="#10-assert-doesNotThrow" class="headerlink" title="10. assert.doesNotThrow()"></a>10. assert.doesNotThrow()</h3><p>doesNotThrow方法与throws方法正好相反，预期某个代码块不抛出错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.doesNotThrow(block, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">assert.doesNotThrow(</span><br><span class="line">  function() &#123;</span><br><span class="line">    console.log(&quot;Nothing to see here&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;预期不抛出错误&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="11-assert-ifError"><a href="#11-assert-ifError" class="headerlink" title="11. assert.ifError()"></a>11. assert.ifError()</h3><p>ifError方法断言某个表达式是否false，如果该表达式对应的布尔值等于true，就抛出一个错误。它对于验证回调函数的第一个参数十分有用，如果该参数为true，就表示有错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.ifError(value)</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">function sayHello(name, callback) &#123;</span><br><span class="line">  var error = false;</span><br><span class="line">  var str   = &quot;Hello &quot;+name;</span><br><span class="line">  callback(error, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// use the function</span><br><span class="line">sayHello(&apos;World&apos;, function(err, value)&#123;</span><br><span class="line">  assert.ifError(err);</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="12-assert-fail"><a href="#12-assert-fail" class="headerlink" title="12. assert.fail()"></a>12. assert.fail()</h3><p>fail方法用于抛出一个错误。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.fail(actual, expected, message, operator)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.fail(21, 42, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 21, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 42, undefined, &apos;###&apos;)</span><br><span class="line">// AssertionError: 21 ### 42</span><br></pre></td></tr></table></figure>
+<p>该方法共有四个参数，但是不管参数是什么值，它总是抛出一个错误。如果message参数对应的布尔值不为false，抛出的错误信息就是message，否则错误信息就是“实际值 + 分隔符 + 预期值”。</p>
 
         </div>
         
@@ -716,18 +716,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -735,18 +735,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -792,18 +792,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>
@@ -1441,18 +1441,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -1460,18 +1460,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -1517,18 +1517,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>

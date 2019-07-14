@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>颜色转换 - front-auxiliary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="常用的颜色模式 目前常用的颜色模式有 RGB，HSV，HLS，CMYK，CMY这几种颜色分别在不同的领域使用，也有特定的应用场景。  RGB  RGB(Red)色彩模式是工业界的一种颜色标准，是通过对红(R)、绿(G)、蓝(B)三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，RGB即是代表红、绿、蓝三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是目前运用最广的颜色系">
+<meta name="keywords" content="颜色算法,颜色选择器,颜色转换,颜色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="颜色转换">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/knowledge/color/index.html">
+<meta property="og:site_name" content="front-auxiliary">
+<meta property="og:description" content="常用的颜色模式 目前常用的颜色模式有 RGB，HSV，HLS，CMYK，CMY这几种颜色分别在不同的领域使用，也有特定的应用场景。  RGB  RGB(Red)色彩模式是工业界的一种颜色标准，是通过对红(R)、绿(G)、蓝(B)三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，RGB即是代表红、绿、蓝三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是目前运用最广的颜色系">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta property="og:updated_time" content="2019-07-14T11:27:42.432Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="颜色转换">
+<meta name="twitter:description" content="常用的颜色模式 目前常用的颜色模式有 RGB，HSV，HLS，CMYK，CMY这几种颜色分别在不同的领域使用，也有特定的应用场景。  RGB  RGB(Red)色彩模式是工业界的一种颜色标准，是通过对红(R)、绿(G)、蓝(B)三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，RGB即是代表红、绿、蓝三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是目前运用最广的颜色系">
+<meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/other.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/other.png" alt="颜色转换" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">首页</a>
+                
+                <a class="navbar-item" href="/archives">时光轴</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 分钟 读完 (大约 1861 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                颜色转换
+            
+        </h1>
+        <div class="content">
+            <h3 id="常用的颜色模式"><a href="#常用的颜色模式" class="headerlink" title="常用的颜色模式"></a>常用的颜色模式</h3><blockquote>
+<p>目前常用的颜色模式有 RGB，HSV，HLS，CMYK，CMY这几种颜色分别在不同的领域使用，也有特定的应用场景。</p>
+</blockquote>
+<p><strong>RGB</strong></p>
+<blockquote>
+<p>RGB(Red)色彩模式是工业界的一种颜色标准，是通过对红(R)、绿(G)、蓝(B)<br>三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，RGB即是代表红、绿、蓝三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是目前运用最广的颜色系统之一。RGB模式又称加色模式。<br><img src="/2019/07/14/knowledge/color/rgb.jpg" title="RGB示意图"><br><strong>取值范围：</strong><br>R(red:0~255),<br>G(green:0~255),<br>B(blue:0~255)。</p>
+</blockquote>
+<p><strong> HSV </strong></p>
+<blockquote>
+<p>HSV(Hue, Saturation, Value)是根据颜色的直观特性由A. R. Smith在1978年创建的一种颜色空间, 也称六角锥体模型(Hexcone Model)。这个模型中颜色的参数分别是：色调（H），饱和度（S），明度（V）。<br><img src="/2019/07/14/knowledge/color/hsv.jpg" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>H(Hue:0~360),<br>S(Saturation:0~100),<br>V(Value:0~100)。</p>
+</blockquote>
+<p><strong>HSL</strong></p>
+<blockquote>
+<p>HSL(Hue, Saturation, Lightness)色彩模式是工业界的一种颜色标准，是通过对色相(H)、饱和度(S)、亮度(L)三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色的，HSL即是代表色相，饱和度，亮度三个通道的颜色，这个标准几乎包括了人类视力所能感知的所有颜色，是迄今运用最广的颜色系统之一。<br><img src="/2019/07/14/knowledge/color/hsl.png" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>H(Hue:0~360),<br>S(Saturation:0~100),<br>L(Lightness:0~100)。</p>
+</blockquote>
+<p><strong>CMYK/CMY</strong></p>
+<blockquote>
+<p>印刷四色模式是彩色印刷时采用的一种套色模式，利用色料的三原色混色原理，加上黑色油墨，共计四种颜色混合叠加，形成所谓“全彩印刷”。四种标准颜色是：C：Cyan = 青色，又称为‘天蓝色’或是‘湛蓝’M：Magenta = 品红色，又称为‘洋红色’；Y：Yellow = 黄色；K：blacK=黑色，虽然有文献解释说这里的K应该是Key Color（定位套版色），但其实是和制版时所用的定位套版观念混淆而有此一说。此处缩写使用最后一个字母K而非开头的B，是因为在整体色彩学中已经将B给了RGB的Blue蓝色。CMYK模式又称减色模式。<br><img src="/2019/07/14/knowledge/color/cmyk.jpeg" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>C(Cyan:0~100),<br>M(Magenta:0~100),<br>Y(Yellow:0~100),<br>K(blacK:0~100),</p>
+</blockquote>
+<p><strong>HEX 格式</strong></p>
+<blockquote>
+<p>HEX(十六进制颜色码)就是在软件中设定颜色值的代码。在很多软件中，都会遇到设定颜色值的问题，发展来源 人的眼睛看到的颜色有两种： 一种是发光体发出的颜色，比如计算机显示器屏幕显示的颜色； 另一种是物体本身不发光，而是反射的光产生 十六进制颜色。所有的颜色都可转换为HEX格式</p>
+</blockquote>
+<h3 id="颜色的互相转换"><a href="#颜色的互相转换" class="headerlink" title="颜色的互相转换"></a>颜色的互相转换</h3><p><strong>RGB 转换 HEX</strong></p>
+<blockquote>
+<p>RGB转HEX实际机会RGB的每一个参数转16进制然后组合，举个例子：RGB(92,184,232);92 / 16 = 5余12 -&gt; 5C;84 / 16 = 11余8 -&gt; B8;232 / 16 = 14余8 -&gt; E8;</p>
+</blockquote>
+<p>最简单代码实现代码实现</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function rgbToHex(r,g,b)&#123;</span><br><span class="line">    let hex = &apos;#&apos;;</span><br><span class="line">    hex+=r.toString(16);</span><br><span class="line">    hex+=g.toString(16);</span><br><span class="line">    hex+=b.toString(16);</span><br><span class="line">    return hex; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而在网页中获取到的颜色大多是RGB(0,0,0),或者rgb(0,0,0)，#000;为应对不同浏览器的不同表现我们对代码进行健壮处理，代码如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function colorToHex (color)&#123;</span><br><span class="line">    let that = color;</span><br><span class="line">    //十六进制颜色值的正则表达式</span><br><span class="line">    let reg = /^#([0-9a-fA-f]&#123;3&#125;|[0-9a-fA-f]&#123;6&#125;)$/;</span><br><span class="line">    // 如果是rgb颜色表示</span><br><span class="line">    if (/^(rgb|RGB)/.test(that)) &#123;</span><br><span class="line">        let aColor = that.replace(/(?:\(|\)|rgb|RGB)*/g, &quot;&quot;).split(&quot;,&quot;);</span><br><span class="line">        let strHex = &quot;#&quot;;</span><br><span class="line">        for (let i=0; i&lt;aColor.length; i++) &#123;</span><br><span class="line">            let hex = Number(aColor[i]).toString(16);</span><br><span class="line">            if (hex.length &lt; 2) &#123;</span><br><span class="line">                hex = &apos;0&apos; + hex;    </span><br><span class="line">            &#125;</span><br><span class="line">            strHex += hex;</span><br><span class="line">        &#125;</span><br><span class="line">        if (strHex.length !== 7) &#123;</span><br><span class="line">            strHex = that;    </span><br><span class="line">        &#125;</span><br><span class="line">        return strHex;</span><br><span class="line">    &#125; else if (reg.test(that)) &#123;</span><br><span class="line">        let aNum = that.replace(/#/,&quot;&quot;).split(&quot;&quot;);</span><br><span class="line">        if (aNum.length === 6) &#123;</span><br><span class="line">            return that;    </span><br><span class="line">        &#125; else if(aNum.length === 3) &#123;</span><br><span class="line">            let numHex = &quot;#&quot;;</span><br><span class="line">            for (let i=0; i&lt;aNum.length; i+=1) &#123;</span><br><span class="line">                numHex += (aNum[i] + aNum[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            return numHex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return that;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在网上我看到一个大神的写法很简洁但是不太明白他的算法原理我就先把代码放这<br><a href="https://www.cnblogs.com/gossip/p/6058158.html" target="_blank" rel="noopener">原文地址</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function colorRGB2Hex(color) &#123;</span><br><span class="line">    let rgb = color.split(&apos;,&apos;);</span><br><span class="line">    let r = parseInt(rgb[0].split(&apos;(&apos;)[1]);</span><br><span class="line">    let g = parseInt(rgb[1]);</span><br><span class="line">    let b = parseInt(rgb[2].split(&apos;)&apos;)[0]);</span><br><span class="line"> </span><br><span class="line">    let hex = &quot;#&quot; + ((1 &lt;&lt; 24) + (r &lt;&lt; 16) + (g &lt;&lt; 8) + b).toString(16).slice(1);</span><br><span class="line">    return hex;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HEX 转换 RGB</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function hexToRgb(sColor)&#123;</span><br><span class="line">    sColor = sColor.toLowerCase();</span><br><span class="line">    //十六进制颜色值的正则表达式</span><br><span class="line">    let reg = /^#([0-9a-fA-f]&#123;3&#125;|[0-9a-fA-f]&#123;6&#125;)$/;</span><br><span class="line">    // 如果是16进制颜色</span><br><span class="line">    if (sColor &amp;&amp; reg.test(sColor)) &#123;</span><br><span class="line">        if (sColor.length === 4) &#123;</span><br><span class="line">            let sColorNew = &quot;#&quot;;</span><br><span class="line">            for (let i=1; i&lt;4; i+=1) &#123;</span><br><span class="line">                sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));    </span><br><span class="line">            &#125;</span><br><span class="line">            sColor = sColorNew;</span><br><span class="line">        &#125;</span><br><span class="line">        //处理六位的颜色值</span><br><span class="line">        let sColorChange = [];</span><br><span class="line">        for (let i=1; i&lt;7; i+=2) &#123;</span><br><span class="line">            sColorChange.push(parseInt(&quot;0x&quot;+sColor.slice(i, i+2)));    </span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;RGB(&quot; + sColorChange.join(&quot;,&quot;) + &quot;)&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return sColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>HSL 转换 RGB</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function hslToRgb(h, s, l) &#123;</span><br><span class="line">    let r, g, b;</span><br><span class="line"></span><br><span class="line">    if(s == 0) &#123;</span><br><span class="line">        r = g = b = l; // achromatic</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let hue2rgb = function hue2rgb(p, q, t) &#123;</span><br><span class="line">            if(t &lt; 0) t += 1;</span><br><span class="line">            if(t &gt; 1) t -= 1;</span><br><span class="line">            if(t &lt; 1/6) return p + (q - p) * 6 * t;</span><br><span class="line">            if(t &lt; 1/2) return q;</span><br><span class="line">            if(t &lt; 2/3) return p + (q - p) * (2/3 - t) * 6;</span><br><span class="line">            return p;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let q = l &lt; 0.5 ? l * (1 + s) : l + s - l * s;</span><br><span class="line">        let p = 2 * l - q;</span><br><span class="line">        r = hue2rgb(p, q, h + 1/3);</span><br><span class="line">        g = hue2rgb(p, q, h);</span><br><span class="line">        b = hue2rgb(p, q, h - 1/3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>RGB 转换 HSL</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function rgbToHsl(r, g, b) &#123;</span><br><span class="line">    r /= 255, g /= 255, b /= 255;</span><br><span class="line">    let max = Math.max(r, g, b), min = Math.min(r, g, b);</span><br><span class="line">    let h, s, l = (max + min) / 2;</span><br><span class="line"></span><br><span class="line">    if (max == min)&#123; </span><br><span class="line">        h = s = 0; // achromatic</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let d = max - min;</span><br><span class="line">        s = l &gt; 0.5 ? d / (2 - max - min) : d / (max + min);</span><br><span class="line">        switch(max) &#123;</span><br><span class="line">            case r: h = (g - b) / d + (g &lt; b ? 6 : 0); break;</span><br><span class="line">            case g: h = (b - r) / d + 2; break;</span><br><span class="line">            case b: h = (r - g) / d + 4; break;</span><br><span class="line">        &#125;</span><br><span class="line">        h /= 6;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [h, s, l];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>RGB 转换 HSV</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function rgbToHsv(r, g, b) &#123;</span><br><span class="line">    r = r / 255;</span><br><span class="line">    g = g / 255;</span><br><span class="line">    b = b / 255;</span><br><span class="line">    let h, s, v;</span><br><span class="line">    let min = Math.min(r, g, b);</span><br><span class="line">    let max = v = Math.max(r, g, b);</span><br><span class="line">    let l = (min + max) / 2;</span><br><span class="line">    let difference = max - min;</span><br><span class="line"></span><br><span class="line">    if (max == min) &#123;</span><br><span class="line">        h = 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        switch (max) &#123;</span><br><span class="line">        case r:</span><br><span class="line">            h = (g - b) / difference + (g &lt; b ? 6 : 0);</span><br><span class="line">            break;</span><br><span class="line">        case g:</span><br><span class="line">            h = 2.0 + (b - r) / difference;</span><br><span class="line">            break;</span><br><span class="line">        case b:</span><br><span class="line">            h = 4.0 + (r - g) / difference;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        h = Math.round(h * 60);</span><br><span class="line">    &#125;</span><br><span class="line">    if (max == 0) &#123;</span><br><span class="line">        s = 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        s = 1 - min / max;</span><br><span class="line">    &#125;</span><br><span class="line">    s = Math.round(s * 100);</span><br><span class="line">    v = Math.round(v * 100);</span><br><span class="line">    return &#123;s,h,v&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HSV 转换 RGB</strong></p>
+<p><strong>RGB 转换 CMYK</strong></p>
+<blockquote>
+<p>RGB 转 CMYK 实际的实现方案是先由 RGB 转 CMY 在由 CMY 修正为 CMYK<br>RGB 转 CMY 的转换公式<br>c = 255 - r;<br>m = 255 - g;<br>y = 255 - b;</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function rgbToCmyk (params)&#123;</span><br><span class="line">    let &#123; r, g, b &#125; = params;</span><br><span class="line">    const saturation = 2.55</span><br><span class="line">    for(let key in params)&#123;</span><br><span class="line">        if(!params[key])&#123;</span><br><span class="line">            throw new Error(`$&#123;key&#125;是必填项`);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    let c = 0; </span><br><span class="line">    let m = 255 - g;</span><br><span class="line">    let y = 255 - b;</span><br><span class="line">    let k = Math.min(Math.min(255-r,255-g),255-b)/saturation</span><br><span class="line">    let div = 100-k ? 100-k : 1;</span><br><span class="line">    r = r/saturation;</span><br><span class="line">    g = g/saturation;</span><br><span class="line">    b = b/saturation;</span><br><span class="line">    c = ((100 - r - k) / div)*100;</span><br><span class="line">    m = ((100 - g - k) / div)*100;</span><br><span class="line">    y = ((100 - b - k) / div)*100;</span><br><span class="line">    return &#123;c,m,y,k&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong> CMYK 转换 RGB </strong></p>
+<blockquote>
+<p>CMYK 转 RGB 转换的公式<br>R = 255<em>(100-C)</em>(100-K)/10000；<br>G = 255<em>(100-M)</em>(100-K)/10000；<br>B = 255<em>(100-Y)</em>(100-K)/10000；</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function cmykToRgb(params)&#123;</span><br><span class="line">    const &#123;c,m,y,k&#125; = params;</span><br><span class="line">    for(let key in params)&#123;</span><br><span class="line">        if(!params[key])&#123;</span><br><span class="line">            throw new Error(`$&#123;key&#125;是必填项`);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;</span><br><span class="line">        r:255*(100-c)*(100-k)/10000,</span><br><span class="line">        g:255*(100-m)*(100-k)/10000,</span><br><span class="line">        b:255*(100-y)*(100-k)/10000</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="颜色选择器的实现思路"><a href="#颜色选择器的实现思路" class="headerlink" title="颜色选择器的实现思路"></a>颜色选择器的实现思路</h3><blockquote>
+<p>颜色选择的选择和使用，原本 input 有 color 类型 来调用系统的颜色选择，但是这个方案有系统兼容问题，而且在mac 和window 两个系统的表现形式不一样所以只能放弃，自己实现一个颜色选择器。<br>既然这样我们来利用我们前面学习的知识来分析一下这样的需求，首先我们要看常用的颜色选择器，都是两个选择色板如下是mac的颜色选择器：<br><img src="/2019/07/14/knowledge/color/input-color.png" title="HSV/HSL示意图"><br>我们不难看出上边的圆是有两个参数控制下边的滑条是由一个参数控制也就是说三个参数控制的交互界面是比较友好的所以 CMYK 模式的方案被排除剩下 RGB SHV SHL CMY 这四个方案，由于RGB 和 CMY 模式是你必须选择三个颜色后才知道最终颜色所以这个方案不合适，最终只剩下 SHV 和 SHL 对比 mac 的颜色选择我们可以发现其实就是使用了这个模式<br>最终定的是SHV模式如下图滑条是 H(色调)选择取值范围是0~360 , 下面的矩形是由 S (饱和度) 和 V (明度) 分别表示 水平轴和垂直轴，最会在使用上面的色彩转换方法将 SHV 转为 RGB 设置到元素上。<br><img src="/2019/07/14/knowledge/color/my-color.png" title="HSV/HSL示意图"><br>具体实现这里就不展开了有了显现原理，具体实现就很简单了。</p>
+</blockquote>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/f03e9ac9c9ef" target="_blank" rel="noopener">深入理解color model(颜色模型)</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/颜色/">颜色</a>, <a class="has-link-grey -link" href="/tags/颜色算法/">颜色算法</a>, <a class="has-link-grey -link" href="/tags/颜色转换/">颜色转换</a>, <a class="has-link-grey -link" href="/tags/颜色选择器/">颜色选择器</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content" style="display: none">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/13/node/try-catch/">
+                <span class="level-item">node异常处理机制详解</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/other.png" alt="front-auxiliary">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        front-auxiliary
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        离心最近的地方，行程最远
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China BeiJing</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        59
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        22
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        80
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/front-auxiliary" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">front-auxiliary</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ECMAScript/">
+            <span class="level-start">
+                <span class="level-item">ECMAScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/IDE/">
+            <span class="level-start">
+                <span class="level-item">IDE</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/array/">
+            <span class="level-start">
+                <span class="level-item">array</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/chrome/">
+            <span class="level-start">
+                <span class="level-item">chrome</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/css3/">
+            <span class="level-start">
+                <span class="level-item">css3</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/css应用/">
+            <span class="level-start">
+                <span class="level-item">css应用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/html5/">
+            <span class="level-start">
+                <span class="level-item">html5</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript原理/">
+            <span class="level-start">
+                <span class="level-item">javaScript原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript基础/">
+            <span class="level-start">
+                <span class="level-item">javaScript基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript应用/">
+            <span class="level-start">
+                <span class="level-item">javaScript应用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/javaScript阅读/">
+            <span class="level-start">
+                <span class="level-item">javaScript阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/node/">
+            <span class="level-start">
+                <span class="level-item">node</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/nuxt/">
+            <span class="level-start">
+                <span class="level-item">nuxt</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/parcel/">
+            <span class="level-start">
+                <span class="level-item">parcel</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/react/">
+            <span class="level-start">
+                <span class="level-item">react</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vue/">
+            <span class="level-start">
+                <span class="level-item">vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/webpack/">
+            <span class="level-start">
+                <span class="level-item">webpack</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/优化/">
+            <span class="level-start">
+                <span class="level-item">优化</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/命令行/">
+            <span class="level-start">
+                <span class="level-item">命令行</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/方案思路/">
+            <span class="level-start">
+                <span class="level-item">方案思路</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/辅助工具/">
+            <span class="level-start">
+                <span class="level-item">辅助工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/辅助知识/">
+            <span class="level-start">
+                <span class="level-item">辅助知识</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Array-prototype-slice/" style="font-size: 10px;">Array.prototype.slice</a> <a href="/tags/ECMAScript提案/" style="font-size: 10px;">ECMAScript提案</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/IDE/" style="font-size: 13.75px;">IDE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/arguments/" style="font-size: 10px;">arguments</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/babel/" style="font-size: 11.25px;">babel</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/callee/" style="font-size: 10px;">callee</a> <a href="/tags/caller/" style="font-size: 10px;">caller</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clamp/" style="font-size: 10px;">clamp</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/css/" style="font-size: 11.25px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/flex/" style="font-size: 10px;">flex</a> <a href="/tags/forEach/" style="font-size: 10px;">forEach</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javasript/" style="font-size: 10px;">javasript</a> <a href="/tags/mac/" style="font-size: 11.25px;">mac</a> <a href="/tags/mobx/" style="font-size: 10px;">mobx</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/node/" style="font-size: 17.5px;">node</a> <a href="/tags/number/" style="font-size: 10px;">number</a> <a href="/tags/nuxt/" style="font-size: 10px;">nuxt</a> <a href="/tags/package-json/" style="font-size: 10px;">package.json</a> <a href="/tags/packaging/" style="font-size: 16.25px;">packaging</a> <a href="/tags/parcel/" style="font-size: 10px;">parcel</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/resolve/" style="font-size: 10px;">resolve</a> <a href="/tags/router/" style="font-size: 12.5px;">router</a> <a href="/tags/stage/" style="font-size: 10px;">stage</a> <a href="/tags/thinkjs/" style="font-size: 10px;">thinkjs</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/touch/" style="font-size: 10px;">touch</a> <a href="/tags/try-catch/" style="font-size: 10px;">try-catch</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue/" style="font-size: 13.75px;">vue</a> <a href="/tags/webSocket/" style="font-size: 10px;">webSocket</a> <a href="/tags/webpack/" style="font-size: 17.5px;">webpack</a> <a href="/tags/webpack2-x的变化/" style="font-size: 10px;">webpack2.x的变化</a> <a href="/tags/webpack路径简写/" style="font-size: 10px;">webpack路径简写</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/上拉加载/" style="font-size: 10px;">上拉加载</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/布局/" style="font-size: 11.25px;">布局</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/异常处理/" style="font-size: 11.25px;">异常处理</a> <a href="/tags/执行上下文/" style="font-size: 10px;">执行上下文</a> <a href="/tags/数据层/" style="font-size: 11.25px;">数据层</a> <a href="/tags/服务端项目集成/" style="font-size: 10px;">服务端项目集成</a> <a href="/tags/柯里化函数/" style="font-size: 10px;">柯里化函数</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/生命周期/" style="font-size: 11.25px;">生命周期</a> <a href="/tags/目录结构/" style="font-size: 10px;">目录结构</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a> <a href="/tags/辅助工具/" style="font-size: 18.75px;">辅助工具</a> <a href="/tags/辅助知识/" style="font-size: 10px;">辅助知识</a> <a href="/tags/配置/" style="font-size: 11.25px;">配置</a> <a href="/tags/错误类型/" style="font-size: 10px;">错误类型</a> <a href="/tags/项目打包/" style="font-size: 10px;">项目打包</a> <a href="/tags/项目搭建/" style="font-size: 12.5px;">项目搭建</a> <a href="/tags/颜色/" style="font-size: 10px;">颜色</a> <a href="/tags/颜色算法/" style="font-size: 10px;">颜色算法</a> <a href="/tags/颜色转换/" style="font-size: 10px;">颜色转换</a> <a href="/tags/颜色选择器/" style="font-size: 10px;">颜色选择器</a> <a href="/tags/鼠标相关/" style="font-size: 10px;">鼠标相关</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array-prototype-slice/">
+                        <span class="tag">Array.prototype.slice</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ECMAScript提案/">
+                        <span class="tag">ECMAScript提案</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IDE/">
+                        <span class="tag">IDE</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Javascript/">
+                        <span class="tag">Javascript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/apply/">
+                        <span class="tag">apply</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arguments/">
+                        <span class="tag">arguments</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/array/">
+                        <span class="tag">array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/babel/">
+                        <span class="tag">babel</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bind/">
+                        <span class="tag">bind</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cache/">
+                        <span class="tag">cache</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/call/">
+                        <span class="tag">call</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/callee/">
+                        <span class="tag">callee</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/caller/">
+                        <span class="tag">caller</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/clamp/">
+                        <span class="tag">clamp</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cmd/">
+                        <span class="tag">cmd</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css3/">
+                        <span class="tag">css3</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/flex/">
+                        <span class="tag">flex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/forEach/">
+                        <span class="tag">forEach</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/html5/">
+                        <span class="tag">html5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javascript/">
+                        <span class="tag">javascript</span>
+                        <span class="tag is-grey">22</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javasript/">
+                        <span class="tag">javasript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mac/">
+                        <span class="tag">mac</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mobx/">
+                        <span class="tag">mobx</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/new/">
+                        <span class="tag">new</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node/">
+                        <span class="tag">node</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/number/">
+                        <span class="tag">number</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nuxt/">
+                        <span class="tag">nuxt</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/package-json/">
+                        <span class="tag">package.json</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/packaging/">
+                        <span class="tag">packaging</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/parcel/">
+                        <span class="tag">parcel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/promise/">
+                        <span class="tag">promise</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/prototype/">
+                        <span class="tag">prototype</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/resolve/">
+                        <span class="tag">resolve</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/router/">
+                        <span class="tag">router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stage/">
+                        <span class="tag">stage</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/thinkjs/">
+                        <span class="tag">thinkjs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/this/">
+                        <span class="tag">this</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/touch/">
+                        <span class="tag">touch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/try-catch/">
+                        <span class="tag">try-catch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vim/">
+                        <span class="tag">vim</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webSocket/">
+                        <span class="tag">webSocket</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack2-x的变化/">
+                        <span class="tag">webpack2.x的变化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack路径简写/">
+                        <span class="tag">webpack路径简写</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/window/">
+                        <span class="tag">window</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/上拉加载/">
+                        <span class="tag">上拉加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/优化/">
+                        <span class="tag">优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/原型链/">
+                        <span class="tag">原型链</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/变量提升/">
+                        <span class="tag">变量提升</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/布局/">
+                        <span class="tag">布局</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发经验/">
+                        <span class="tag">开发经验</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异常处理/">
+                        <span class="tag">异常处理</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/执行上下文/">
+                        <span class="tag">执行上下文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据层/">
+                        <span class="tag">数据层</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/服务端项目集成/">
+                        <span class="tag">服务端项目集成</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/柯里化函数/">
+                        <span class="tag">柯里化函数</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/框架/">
+                        <span class="tag">框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则/">
+                        <span class="tag">正则</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/生命周期/">
+                        <span class="tag">生命周期</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/目录结构/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/路由/">
+                        <span class="tag">路由</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助工具/">
+                        <span class="tag">辅助工具</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助知识/">
+                        <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/配置/">
+                        <span class="tag">配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/错误类型/">
+                        <span class="tag">错误类型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目打包/">
+                        <span class="tag">项目打包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目搭建/">
+                        <span class="tag">项目搭建</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色/">
+                        <span class="tag">颜色</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色算法/">
+                        <span class="tag">颜色算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色转换/">
+                        <span class="tag">颜色转换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色选择器/">
+                        <span class="tag">颜色选择器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/鼠标相关/">
+                        <span class="tag">鼠标相关</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array-prototype-slice/">
+                        <span class="tag">Array.prototype.slice</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ECMAScript提案/">
+                        <span class="tag">ECMAScript提案</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IDE/">
+                        <span class="tag">IDE</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Javascript/">
+                        <span class="tag">Javascript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/apply/">
+                        <span class="tag">apply</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arguments/">
+                        <span class="tag">arguments</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/array/">
+                        <span class="tag">array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/babel/">
+                        <span class="tag">babel</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bind/">
+                        <span class="tag">bind</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cache/">
+                        <span class="tag">cache</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/call/">
+                        <span class="tag">call</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/callee/">
+                        <span class="tag">callee</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/caller/">
+                        <span class="tag">caller</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/clamp/">
+                        <span class="tag">clamp</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/cmd/">
+                        <span class="tag">cmd</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css3/">
+                        <span class="tag">css3</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/es6/">
+                        <span class="tag">es6</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/flex/">
+                        <span class="tag">flex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/forEach/">
+                        <span class="tag">forEach</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/html5/">
+                        <span class="tag">html5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javascript/">
+                        <span class="tag">javascript</span>
+                        <span class="tag is-grey">22</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javasript/">
+                        <span class="tag">javasript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mac/">
+                        <span class="tag">mac</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mobx/">
+                        <span class="tag">mobx</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/new/">
+                        <span class="tag">new</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node/">
+                        <span class="tag">node</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/number/">
+                        <span class="tag">number</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nuxt/">
+                        <span class="tag">nuxt</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/package-json/">
+                        <span class="tag">package.json</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/packaging/">
+                        <span class="tag">packaging</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/parcel/">
+                        <span class="tag">parcel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/promise/">
+                        <span class="tag">promise</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/prototype/">
+                        <span class="tag">prototype</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/resolve/">
+                        <span class="tag">resolve</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/router/">
+                        <span class="tag">router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stage/">
+                        <span class="tag">stage</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/thinkjs/">
+                        <span class="tag">thinkjs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/this/">
+                        <span class="tag">this</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/touch/">
+                        <span class="tag">touch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/try-catch/">
+                        <span class="tag">try-catch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vim/">
+                        <span class="tag">vim</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webSocket/">
+                        <span class="tag">webSocket</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack2-x的变化/">
+                        <span class="tag">webpack2.x的变化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack路径简写/">
+                        <span class="tag">webpack路径简写</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/window/">
+                        <span class="tag">window</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/上拉加载/">
+                        <span class="tag">上拉加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/优化/">
+                        <span class="tag">优化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/原型链/">
+                        <span class="tag">原型链</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/变量提升/">
+                        <span class="tag">变量提升</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/布局/">
+                        <span class="tag">布局</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发经验/">
+                        <span class="tag">开发经验</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异常处理/">
+                        <span class="tag">异常处理</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/执行上下文/">
+                        <span class="tag">执行上下文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据层/">
+                        <span class="tag">数据层</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/服务端项目集成/">
+                        <span class="tag">服务端项目集成</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/柯里化函数/">
+                        <span class="tag">柯里化函数</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/框架/">
+                        <span class="tag">框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则/">
+                        <span class="tag">正则</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/生命周期/">
+                        <span class="tag">生命周期</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/目录结构/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/路由/">
+                        <span class="tag">路由</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助工具/">
+                        <span class="tag">辅助工具</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/辅助知识/">
+                        <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/配置/">
+                        <span class="tag">配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/错误类型/">
+                        <span class="tag">错误类型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目打包/">
+                        <span class="tag">项目打包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/项目搭建/">
+                        <span class="tag">项目搭建</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色/">
+                        <span class="tag">颜色</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色算法/">
+                        <span class="tag">颜色算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色转换/">
+                        <span class="tag">颜色转换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/颜色选择器/">
+                        <span class="tag">颜色选择器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/鼠标相关/">
+                        <span class="tag">鼠标相关</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/other.png" alt="颜色转换" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 front-auxiliary&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

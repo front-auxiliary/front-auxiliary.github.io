@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 168 个字)
+                    3 分钟 读完 (大约 489 个字)
                 </span>
                 
                 
@@ -173,20 +173,16 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/git/git-capitalize/">git区分大小写</a>
+                <a class="has-link-black-ter" href="/2019/07/13/git/git-neglect/">Git设置上传忽略</a>
             
         </h1>
         <div class="content">
-            <p>其实 git 默认对于文件名大小写是不敏感的,所以上面你修改了首字母大写,但是git 并没有发现代码任何改动.</p>
-<p>那么如何才能让 git 识别文件名大小写变化.</p>
-<p>一  配置git 使其对文件名大小写敏感</p>
-<p>git config core.ignorecase false</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git config core.ignorecase false</span><br></pre></td></tr></table></figure>
-<p>二 从git 本地仓库删除此文件,然后添加再提交</p>
-<p>(1) 删除<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git rm readme.md</span><br></pre></td></tr></table></figure></p>
-<p>(2) 重新添加<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git add Readme.md</span><br></pre></td></tr></table></figure></p>
-<p>(3)提交<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git commit -m &apos;Readme.md&apos;</span><br></pre></td></tr></table></figure></p>
-<p>推荐第一种方法,配置好git 对文件名大小写敏感.</p>
+            <h1 id="Git设置上传忽略"><a href="#Git设置上传忽略" class="headerlink" title="Git设置上传忽略"></a>Git设置上传忽略</h1><h2 id="忽略语法规则"><a href="#忽略语法规则" class="headerlink" title="忽略语法规则"></a>忽略语法规则</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 忽略*.o和*.a文件</span><br><span class="line"></span><br><span class="line"> *.[oa]</span><br><span class="line"></span><br><span class="line"># 忽略*.b和*.B文件，my.b除外</span><br><span class="line"></span><br><span class="line">*.[bB]</span><br><span class="line"></span><br><span class="line">!my.b</span><br><span class="line"></span><br><span class="line"># 忽略dbg文件和dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line"># 只忽略dbg目录，不忽略dbg文件</span><br><span class="line"></span><br><span class="line">dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略dbg文件，不忽略dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line">!dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内</span><br><span class="line"></span><br><span class="line">/dbg</span><br><span class="line"></span><br><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"># 但 lib.a 除外</span><br><span class="line">!lib.a </span><br><span class="line"></span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO </span><br><span class="line"></span><br><span class="line"># 忽略 build/ 目录下的所有文件</span><br><span class="line">build/ </span><br><span class="line"></span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/*.txt</span><br></pre></td></tr></table></figure>
+<p>下面介绍3种方法来设置上传忽略配置：</p>
+<h2 id="【方法一】"><a href="#【方法一】" class="headerlink" title="【方法一】"></a>【方法一】</h2><p> 通过配置.git/info/exclude文件来忽略文件。这种方式对仓库全局有效，只能对自己本地仓库有作用，其他人没办法通过这种方式来共享忽略规则，除非他人也修改其本地仓库的该文件。</p>
+<h2 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h2><p> 通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径），如下图所示。忽略规则在文件e:/gitignore.txt中（当然该文件名可以任意取）。在config的[remote “origin”]上一行添加 excludesfile = e:/gitignore.text即可<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> [core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = false</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	symlinks = false</span><br><span class="line">	ignorecase = true</span><br><span class="line">    excludesfile = e:/gitignore.text</span><br><span class="line">[remote &quot;origin&quot;]</span><br></pre></td></tr></table></figure></p>
+<p> 该方式的作用域是也全局的。</p>
+<h2 id="【方式三】"><a href="#【方式三】" class="headerlink" title="【方式三】"></a>【方式三】</h2><p> 在项目根目录下创建.gitignore文件如果已经创建则不用创建然后在该文件中添加忽略语法<br> .gitignore文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，以共享同一套忽略规则。</p>
 
         </div>
         
@@ -218,7 +214,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 489 个字)
+                    1 分钟 读完 (大约 168 个字)
                 </span>
                 
                 
@@ -227,16 +223,20 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/git/git-neglect/">Git设置上传忽略</a>
+                <a class="has-link-black-ter" href="/2019/07/13/git/git-capitalize/">git区分大小写</a>
             
         </h1>
         <div class="content">
-            <h1 id="Git设置上传忽略"><a href="#Git设置上传忽略" class="headerlink" title="Git设置上传忽略"></a>Git设置上传忽略</h1><h2 id="忽略语法规则"><a href="#忽略语法规则" class="headerlink" title="忽略语法规则"></a>忽略语法规则</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 忽略*.o和*.a文件</span><br><span class="line"></span><br><span class="line"> *.[oa]</span><br><span class="line"></span><br><span class="line"># 忽略*.b和*.B文件，my.b除外</span><br><span class="line"></span><br><span class="line">*.[bB]</span><br><span class="line"></span><br><span class="line">!my.b</span><br><span class="line"></span><br><span class="line"># 忽略dbg文件和dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line"># 只忽略dbg目录，不忽略dbg文件</span><br><span class="line"></span><br><span class="line">dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略dbg文件，不忽略dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line">!dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内</span><br><span class="line"></span><br><span class="line">/dbg</span><br><span class="line"></span><br><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"># 但 lib.a 除外</span><br><span class="line">!lib.a </span><br><span class="line"></span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO </span><br><span class="line"></span><br><span class="line"># 忽略 build/ 目录下的所有文件</span><br><span class="line">build/ </span><br><span class="line"></span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/*.txt</span><br></pre></td></tr></table></figure>
-<p>下面介绍3种方法来设置上传忽略配置：</p>
-<h2 id="【方法一】"><a href="#【方法一】" class="headerlink" title="【方法一】"></a>【方法一】</h2><p> 通过配置.git/info/exclude文件来忽略文件。这种方式对仓库全局有效，只能对自己本地仓库有作用，其他人没办法通过这种方式来共享忽略规则，除非他人也修改其本地仓库的该文件。</p>
-<h2 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h2><p> 通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径），如下图所示。忽略规则在文件e:/gitignore.txt中（当然该文件名可以任意取）。在config的[remote “origin”]上一行添加 excludesfile = e:/gitignore.text即可<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> [core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = false</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	symlinks = false</span><br><span class="line">	ignorecase = true</span><br><span class="line">    excludesfile = e:/gitignore.text</span><br><span class="line">[remote &quot;origin&quot;]</span><br></pre></td></tr></table></figure></p>
-<p> 该方式的作用域是也全局的。</p>
-<h2 id="【方式三】"><a href="#【方式三】" class="headerlink" title="【方式三】"></a>【方式三】</h2><p> 在项目根目录下创建.gitignore文件如果已经创建则不用创建然后在该文件中添加忽略语法<br> .gitignore文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，以共享同一套忽略规则。</p>
+            <p>其实 git 默认对于文件名大小写是不敏感的,所以上面你修改了首字母大写,但是git 并没有发现代码任何改动.</p>
+<p>那么如何才能让 git 识别文件名大小写变化.</p>
+<p>一  配置git 使其对文件名大小写敏感</p>
+<p>git config core.ignorecase false</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git config core.ignorecase false</span><br></pre></td></tr></table></figure>
+<p>二 从git 本地仓库删除此文件,然后添加再提交</p>
+<p>(1) 删除<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git rm readme.md</span><br></pre></td></tr></table></figure></p>
+<p>(2) 重新添加<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git add Readme.md</span><br></pre></td></tr></table></figure></p>
+<p>(3)提交<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git commit -m &apos;Readme.md&apos;</span><br></pre></td></tr></table></figure></p>
+<p>推荐第一种方法,配置好git 对文件名大小写敏感.</p>
 
         </div>
         
@@ -671,18 +671,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -690,18 +690,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -747,18 +747,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>
@@ -1396,18 +1396,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -1415,18 +1415,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -1472,18 +1472,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>

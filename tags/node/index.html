@@ -164,76 +164,6 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 868 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/node/application/">thinkjs项目目录解析</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><img src="/2019/07/13/node/application/directory.png" title="目录结构">
-<p>注：指定不同的模式创建的项目目录机构可能有细微的差别，但总体是类似的</p>
-<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><p>nginx 的配置文件，建议线上使用 nginx 做反向代理。</p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>源代码目录，使用 –es6 参数创建项目才有该目录。项目启动时会自动将 src 目录下的文件编译到 app 目录下。</p>
-<p>如果没有使用 ES6 特性创建项目，则直接有 app/ 目录。</p>
-<h3 id="src-common"><a href="#src-common" class="headerlink" title="src/common"></a>src/common</h3><p>通用模块目录，项目目录都是按模块来划分的，common 模块下存放一些通用的处理逻辑。</p>
-<h3 id="src-common-bootstrap"><a href="#src-common-bootstrap" class="headerlink" title="src/common/bootstrap"></a>src/common/bootstrap</h3><p>项目启动目录，该目录下的文件会自动加载，无需手动 require 。</p>
-<p>可以在这个目录下文件里定义一些全局函数、注册中间件等常用的功能。</p>
-<p>定义全局函数<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/fn.js global.formatDate = obj =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里定义了一个全局函数 formatDate，那么项目里任何地方都可以直接使用该函数。</p>
-<p>注册中间件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/middleware.js think.middleware(&quot;replace_image&quot;, http =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>这里定义了一个中间件 replace_image，那么就可以在配置文件 hook.js 里将该中间件注册进去了。</p>
-<p>注：bootstrap 只能放在 common 模块里。</p>
-<h3 id="src-common-config"><a href="#src-common-config" class="headerlink" title="src/common/config"></a>src/common/config</h3><p>配置文件，这里放一些通用的配置。</p>
-<p>其中：路由配置、hook 配置、本地化配置等必须放在这里。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * config</span><br><span class="line"> */ export default &#123; //key: value &#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="src-common-controller"><a href="#src-common-controller" class="headerlink" title="src/common/controller"></a>src/common/controller</h3><p>控制器，放一些通用的控制器。其中 error.js 里错误处理的不同行为，项目里可以根据需要进行修改。</p>
-<h3 id="src-common-runtime"><a href="#src-common-runtime" class="headerlink" title="src/common/runtime"></a>src/common/runtime</h3><p>项目运行时生成的一些目录，如：缓存文件目录，用户上传的文件临时存放的目录。</p>
-<h3 id="src-home"><a href="#src-home" class="headerlink" title="src/home"></a>src/home</h3><p>home 模块，项目默认模块。可以在 src/common/config/config.js 中修改配置 default_module 来重新定义默认模块。</p>
-<h3 id="src-home-logic"><a href="#src-home-logic" class="headerlink" title="src/home/logic"></a>src/home/logic</h3><p>逻辑处理。每个操作执行前可以先进行逻辑校验，可以包含：参数是否合法、提交的数据是否正常、当前用户是否已经登录、当前用户是否有权限等。这样可以降低 controller 里的 action 的复杂度。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * logic</span><br><span class="line"> * @param  &#123;&#125; []</span><br><span class="line"> * @return &#123;&#125;     []</span><br><span class="line"> */ export default class extends think.logic.base &#123; /**</span><br><span class="line">   * index action logic</span><br><span class="line">   * @return &#123;&#125; []</span><br><span class="line">   */ indexAction()&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="src-home-controller"><a href="#src-home-controller" class="headerlink" title="src/home/controller"></a>src/home/controller</h3><p>控制器。一个 url 对应一个 controller 下的 action。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; import Base from &quot;./base.js&quot;; export default class extends Base &#123; /**</span><br><span class="line">   * index action</span><br><span class="line">   * @return &#123;Promise&#125; []</span><br><span class="line">   */ indexAction()&#123; //auto render template file index_index.html return this.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="src-home-model"><a href="#src-home-model" class="headerlink" title="src/home/model"></a>src/home/model</h3><p>模型。数据库相关操作。</p>
-<h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>视图目录，存放对应的模版文件。如果支持国际化和多主题，那么视图目录下需要有对应的子目录。</p>
-<h3 id="www"><a href="#www" class="headerlink" title="www"></a>www</h3><p>项目的可访问根目录，nginx 里的根目录会配置到此目录下。</p>
-<h3 id="www-development-js"><a href="#www-development-js" class="headerlink" title="www/development.js"></a>www/development.js</h3><p>开发模式下项目的入口文件，可以根据项目需要进行修改。www/production.js 为线上的入口文件。</p>
-<p>入口文件的代码类似如下，可以根据项目需要进行修改。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var thinkjs = require(&quot;thinkjs&quot;); var path = require(&quot;path&quot;); var rootPath = path.dirname(__dirname); var instance = new thinkjs(&#123;</span><br><span class="line">  APP_PATH: rootPath + &quot;/app&quot;,</span><br><span class="line">  ROOT_PATH: rootPath,</span><br><span class="line">  RESOURCE_PATH: __dirname,</span><br><span class="line">  env: &quot;development&quot; &#125;);</span><br><span class="line"></span><br><span class="line">instance.compile(&#123;retainLines: true, log: true&#125;);</span><br><span class="line"></span><br><span class="line">instance.run();</span><br></pre></td></tr></table></figure></p>
-<h3 id="www-static"><a href="#www-static" class="headerlink" title="www/static"></a>www/static</h3><p>存放一些静态资源文件。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/node/">node</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
                     9 分钟 读完 (大约 1297 个字)
                 </span>
                 
@@ -292,6 +222,76 @@
 <h3 id="12-assert-fail"><a href="#12-assert-fail" class="headerlink" title="12. assert.fail()"></a>12. assert.fail()</h3><p>fail方法用于抛出一个错误。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.fail(actual, expected, message, operator)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.fail(21, 42, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 21, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 42, undefined, &apos;###&apos;)</span><br><span class="line">// AssertionError: 21 ### 42</span><br></pre></td></tr></table></figure>
 <p>该方法共有四个参数，但是不管参数是什么值，它总是抛出一个错误。如果message参数对应的布尔值不为false，抛出的错误信息就是message，否则错误信息就是“实际值 + 分隔符 + 预期值”。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/node/">node</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 868 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/node/application/">thinkjs项目目录解析</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><img src="/2019/07/13/node/application/directory.png" title="目录结构">
+<p>注：指定不同的模式创建的项目目录机构可能有细微的差别，但总体是类似的</p>
+<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><p>nginx 的配置文件，建议线上使用 nginx 做反向代理。</p>
+<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>源代码目录，使用 –es6 参数创建项目才有该目录。项目启动时会自动将 src 目录下的文件编译到 app 目录下。</p>
+<p>如果没有使用 ES6 特性创建项目，则直接有 app/ 目录。</p>
+<h3 id="src-common"><a href="#src-common" class="headerlink" title="src/common"></a>src/common</h3><p>通用模块目录，项目目录都是按模块来划分的，common 模块下存放一些通用的处理逻辑。</p>
+<h3 id="src-common-bootstrap"><a href="#src-common-bootstrap" class="headerlink" title="src/common/bootstrap"></a>src/common/bootstrap</h3><p>项目启动目录，该目录下的文件会自动加载，无需手动 require 。</p>
+<p>可以在这个目录下文件里定义一些全局函数、注册中间件等常用的功能。</p>
+<p>定义全局函数<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/fn.js global.formatDate = obj =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个全局函数 formatDate，那么项目里任何地方都可以直接使用该函数。</p>
+<p>注册中间件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/middleware.js think.middleware(&quot;replace_image&quot;, http =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个中间件 replace_image，那么就可以在配置文件 hook.js 里将该中间件注册进去了。</p>
+<p>注：bootstrap 只能放在 common 模块里。</p>
+<h3 id="src-common-config"><a href="#src-common-config" class="headerlink" title="src/common/config"></a>src/common/config</h3><p>配置文件，这里放一些通用的配置。</p>
+<p>其中：路由配置、hook 配置、本地化配置等必须放在这里。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * config</span><br><span class="line"> */ export default &#123; //key: value &#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-common-controller"><a href="#src-common-controller" class="headerlink" title="src/common/controller"></a>src/common/controller</h3><p>控制器，放一些通用的控制器。其中 error.js 里错误处理的不同行为，项目里可以根据需要进行修改。</p>
+<h3 id="src-common-runtime"><a href="#src-common-runtime" class="headerlink" title="src/common/runtime"></a>src/common/runtime</h3><p>项目运行时生成的一些目录，如：缓存文件目录，用户上传的文件临时存放的目录。</p>
+<h3 id="src-home"><a href="#src-home" class="headerlink" title="src/home"></a>src/home</h3><p>home 模块，项目默认模块。可以在 src/common/config/config.js 中修改配置 default_module 来重新定义默认模块。</p>
+<h3 id="src-home-logic"><a href="#src-home-logic" class="headerlink" title="src/home/logic"></a>src/home/logic</h3><p>逻辑处理。每个操作执行前可以先进行逻辑校验，可以包含：参数是否合法、提交的数据是否正常、当前用户是否已经登录、当前用户是否有权限等。这样可以降低 controller 里的 action 的复杂度。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * logic</span><br><span class="line"> * @param  &#123;&#125; []</span><br><span class="line"> * @return &#123;&#125;     []</span><br><span class="line"> */ export default class extends think.logic.base &#123; /**</span><br><span class="line">   * index action logic</span><br><span class="line">   * @return &#123;&#125; []</span><br><span class="line">   */ indexAction()&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-home-controller"><a href="#src-home-controller" class="headerlink" title="src/home/controller"></a>src/home/controller</h3><p>控制器。一个 url 对应一个 controller 下的 action。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; import Base from &quot;./base.js&quot;; export default class extends Base &#123; /**</span><br><span class="line">   * index action</span><br><span class="line">   * @return &#123;Promise&#125; []</span><br><span class="line">   */ indexAction()&#123; //auto render template file index_index.html return this.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-home-model"><a href="#src-home-model" class="headerlink" title="src/home/model"></a>src/home/model</h3><p>模型。数据库相关操作。</p>
+<h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>视图目录，存放对应的模版文件。如果支持国际化和多主题，那么视图目录下需要有对应的子目录。</p>
+<h3 id="www"><a href="#www" class="headerlink" title="www"></a>www</h3><p>项目的可访问根目录，nginx 里的根目录会配置到此目录下。</p>
+<h3 id="www-development-js"><a href="#www-development-js" class="headerlink" title="www/development.js"></a>www/development.js</h3><p>开发模式下项目的入口文件，可以根据项目需要进行修改。www/production.js 为线上的入口文件。</p>
+<p>入口文件的代码类似如下，可以根据项目需要进行修改。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var thinkjs = require(&quot;thinkjs&quot;); var path = require(&quot;path&quot;); var rootPath = path.dirname(__dirname); var instance = new thinkjs(&#123;</span><br><span class="line">  APP_PATH: rootPath + &quot;/app&quot;,</span><br><span class="line">  ROOT_PATH: rootPath,</span><br><span class="line">  RESOURCE_PATH: __dirname,</span><br><span class="line">  env: &quot;development&quot; &#125;);</span><br><span class="line"></span><br><span class="line">instance.compile(&#123;retainLines: true, log: true&#125;);</span><br><span class="line"></span><br><span class="line">instance.run();</span><br></pre></td></tr></table></figure></p>
+<h3 id="www-static"><a href="#www-static" class="headerlink" title="www/static"></a>www/static</h3><p>存放一些静态资源文件。</p>
 
         </div>
         
@@ -1208,18 +1208,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -1227,18 +1227,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -1284,18 +1284,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>
@@ -1933,18 +1933,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/other/chrome/" class="media-left">
+            <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/color/" class="has-link-black-ter is-size-6">颜色转换</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                        <a class="has-link-grey -link" href="/categories/方案思路/">方案思路</a>
                     </p>
                 </div>
             </div>
@@ -1952,18 +1952,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
                 </div>
             </div>
@@ -2009,18 +2009,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
+            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
+                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>

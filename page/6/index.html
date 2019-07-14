@@ -147,14 +147,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 810 个字)
+                    6 分钟 读完 (大约 915 个字)
                 </span>
                 
                 
@@ -163,28 +163,116 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/promise/">promise原理解析</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/sublime/sublimeKey/">sublime快捷键总结</a>
             
         </h1>
         <div class="content">
-            <h5 id="promise模式"><a href="#promise模式" class="headerlink" title="promise模式"></a>promise模式</h5><p>这几种方式的可维护性逐级递增，理解难度也逐级递增。这篇总结也是针对promise模式的。</p>
-<p>promise模式那么多中异步编程的方式，为什么选择promise, 因为前面几种方式不够灵活，用起来不够痛快，不优雅。为了降低异步编程的复杂性，所以promise。</p>
-<p>promise的核心是有一个promise对象，这个对象有一个重要的then()方法, 它用于指定回调函数，如：<br>f1().then(f2);</p>
-<p>promise模式在任何时刻都有三种状态：已完成（resolved），未完成（unfulfilled），那么then()方法就是为状态变化指定不同的回调函数，并总是返回一个promise对象，方便链式调用。</p>
-<p>那promise模式下，返回的数据如何在各个回调函数之间传播呢，通过resolve方法，你可以将一个函数的返回值作为参数传递给另一个函数，并且将另一个函数的返回值作为参数再传递给下一个函数……像一条“链”一样无限的这么做下去。</p>
-<h5 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//constructor</span><br><span class="line">var promise = function() &#123;</span><br><span class="line">	this.callbacks = [];</span><br><span class="line">&#125;</span><br><span class="line">promise.prototype = &#123;</span><br><span class="line">  construct: promise,</span><br><span class="line">	//成功的操作</span><br><span class="line">	resolve: function(result) &#123;</span><br><span class="line">		this.complete(&apos;resolve&apos;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//失败</span><br><span class="line">	reject: function(result) &#123;</span><br><span class="line">		this.complete(&quot;reject&quot;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//执行回调</span><br><span class="line">	complete: function(type, result) &#123;</span><br><span class="line">		while(this.callbacks[0]) &#123;</span><br><span class="line">			this.callbacks.shift()[type](result);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	then: function(successHandler, failedHandler) &#123;</span><br><span class="line">		this.callbacks.push(&#123;</span><br><span class="line">			resolve: successHandler,</span><br><span class="line">			reject: failedHandler</span><br><span class="line">		&#125;);</span><br><span class="line">		return this;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//运行下边是方法的调用</span><br><span class="line">var pro = new promise();</span><br><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		pro.resolve(&apos;数据1&apos;);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return pro;</span><br><span class="line">&#125;;</span><br><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delay1().then(callback1)</span><br><span class="line">console.log(&quot;我是最后吗&quot;);</span><br><span class="line"> /*</span><br><span class="line"> *以上方法输出的结果分别是</span><br><span class="line"> *我是最后吗</span><br><span class="line"> *数据1</span><br><span class="line"> *数据2</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
-<p>#####代码分析<br>我们可看到一个简单的promise对象的构造函数的结构：</p>
-<pre><code>callbacks: 用于管理回调函数
-resolve: 请求成功时执行的方法
-reject:请求失败时执行的方法
-complete: 执行回调
-then：绑定回调函数
-</code></pre><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		promise.resolve(‘数据1’);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return promise;</span><br><span class="line">&#125;;</span><br><span class="line">//这个函数通过setTimeout方法， 异步传递一个数据1， 并返回一个promise对象(必须)。</span><br></pre></td></tr></table></figure>
-<p>#####第二步<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">	promise.resolve(re);</span><br><span class="line">&#125;;</span><br><span class="line">//callback1和callback2都是要通过then方法注册的回调函数， 其中callback1通过resolve方法把数据往下传递。</span><br></pre></td></tr></table></figure></p>
-<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delay1().then(callback1).then(callback2);</span><br><span class="line">//delay1() 方法执行完， 因为返回了一个promise对象， 所以可以再调用then() 方法为delay1() 的setTimeout异步执行操作指定回调函数, 又因为then() 方法也返回的是promise对象， 所以还可以再调用then方法</span><br></pre></td></tr></table></figure>
-<h5 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">	promise.resolve(&apos;数据1&apos;);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">//一秒之后， 当其他代码执行完成， 开始执行异步代码promise.resolve(‘数据1’);，</span><br><span class="line">//这里调用promise的resolve() 方法， 指定了一个成功状态， 并把数据1作为参数。</span><br></pre></td></tr></table></figure>
-<h5 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resolve: function(result) &#123;</span><br><span class="line">  this.complete(&quot;resolve&quot;, result);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<h5 id="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"><a href="#第六步：循环执行回调，将上一个回调的结果传递给下一个回调" class="headerlink" title="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"></a>第六步：循环执行回调，将上一个回调的结果传递给下一个回调</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">complete: function(type, result) &#123;</span><br><span class="line">	while(this.callbacks[0]) &#123;</span><br><span class="line">		this.callbacks.shift()[type](result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+            <h1 id="sublime-快捷键"><a href="#sublime-快捷键" class="headerlink" title="sublime 快捷键"></a>sublime 快捷键</h1><h6 id="大致比较全的快捷键网址：http-jinguoxing-github-io-sublime-mac-2015-07-02-sublime-mac-keys-有一些我认为用不到，在此我将常用的几个快捷键单独整理一下："><a href="#大致比较全的快捷键网址：http-jinguoxing-github-io-sublime-mac-2015-07-02-sublime-mac-keys-有一些我认为用不到，在此我将常用的几个快捷键单独整理一下：" class="headerlink" title="大致比较全的快捷键网址：http://jinguoxing.github.io/sublime/mac/2015/07/02/sublime-mac-keys/有一些我认为用不到，在此我将常用的几个快捷键单独整理一下："></a>大致比较全的快捷键网址：<a href="http://jinguoxing.github.io/sublime/mac/2015/07/02/sublime-mac-keys/有一些我认为用不到，在此我将常用的几个快捷键单独整理一下：" target="_blank" rel="noopener">http://jinguoxing.github.io/sublime/mac/2015/07/02/sublime-mac-keys/有一些我认为用不到，在此我将常用的几个快捷键单独整理一下：</a></h6><p><strong>1.)⌘（command）+d</strong></p>
+<p>  选词（反复按快捷键，即可继续向下同时选中下一个相同的文本进行同时编辑）</p>
+<p><strong>2.)⌘（command）+P</strong></p>
+<p>  搜索项目中的文件   </p>
+<ol>
+<li>输入当前项目中的文件名，快速搜索文件，</li>
+<li>输入@和关键字，查找文件中函数名，</li>
+<li>输入：和数字，跳转到文件中该行代码，</li>
+<li>输入#和关键字，查找变量名。</li>
+<li>(⌘（command）+t)与 ⌘（command）+P 作用一样</li>
+</ol>
+<p><strong>3.) ⌘（command）+ W</strong></p>
+<p>  关闭当前打开文件</p>
+<p><strong>4.)  ⌘（command）+X</strong></p>
+<p>  剪切</p>
+<p><strong>5.)  ⌘（command）+L</strong></p>
+<p>  选择行，重复可依次增加选择下一行<br>  效果和 Shift+↓ 效果一样</p>
+<p><strong>6.) ⌘（command）+O</strong></p>
+<p>  打开文件</p>
+<p><strong>7.)⌘（command) +F</strong></p>
+<p>  查找内容</p>
+<p><strong>8.)⌘（command) +Shift+F</strong></p>
+<p>  查找并替换</p>
+<p><strong>9.)⌘（command) +N</strong></p>
+<p>  新建窗口</p>
+<p><strong>10.)⌘（command) +数字</strong></p>
+<p>  窗口切换</p>
+<p><strong>11.)⌘（command) +K+B</strong></p>
+<p>  开关侧栏</p>
+<p><strong>12.)⌘（command) + /</strong></p>
+<p>  注释当前行 (单行注释)</p>
+<p><strong>13.)alt+ ⌘（command)+/</strong></p>
+<p>  当前位置插入注释(多行注释)</p>
+<p><strong>14.)按 ⌘（command)键 </strong></p>
+<p>  依次点击或选取，可需要编辑的多个位置</p>
+<p><strong>15.)⌘（command）+M</strong></p>
+<p>  最小化窗口</p>
+<p><strong>16.)</strong></p>
+<pre><code>1. ⌘（command) + option +2  分成两屏  
+2. ⌘（command) + option +1  1屏
+3. ⌘（command) + option +5  等分四屏  
+</code></pre><p><strong>17.)⌘（command) + delelte</strong></p>
+<p>  删除光标前所有字符  </p>
+<p><strong>18.)cmd + [或 cmd + ]</strong></p>
+<p>  智能行缩进</p>
+<p><strong>19.) CMD+CTRL+↓或CMD+CTRL+↑</strong></p>
+<p>  上下移动当前行。(换位置)</p>
+<p><strong>20.) Ctrl+Shift+K</strong></p>
+<p>  删除整行</p>
+<p><strong>21.)command+ k + u</strong></p>
+<p>  转换大写(将这个词的所有字母转换)</p>
+<p><strong>22.)command+ k + l</strong></p>
+<p>  转换小写。</p>
+<p><strong>23.)command+Shift+L </strong></p>
+<p>  先选中多行，再按下快捷键，会在每行行尾插入光标，即可同时编辑这些行。</p>
+<p><strong>24.)command+Enter </strong></p>
+<p>  在下一行插入新行。举个例子：即使光标不在行尾，也能快速向下插入一行。</p>
+<p><strong>25.)command+Shift+Enter</strong></p>
+<p>  在上一行插入新行。举个例子：即使光标不在行首，也能快速向上插入一行.</p>
+<p><strong>26.)command+K+0  </strong></p>
+<p>  展开所有折叠代码。</p>
+<p><strong>27.)</strong></p>
+<ol>
+<li>command+← 向左单位性地移动光标，快速移动光标。</li>
+<li>command+→ 向右单位性地移动光标，快速移动光标。</li>
+</ol>
+<p><strong>28.)</strong></p>
+<ol>
+<li>shift+↑ 向上选中多行。</li>
+<li>shift+↓ 向下选中多行。</li>
+<li>Shift+← 向左选中文本。 (一个字符一个字符的增加选中，按住 shift键不放，一直点方向键)</li>
+<li>Shift+→ 向右选中文本。</li>
+</ol>
+<p><strong>29.)</strong></p>
+<ol>
+<li>command+Shift+← 向左单位性地选中文本。 (单位性的我尝试后就是按一行选中，很方便)</li>
+<li>command+Shift+→ 向右单位性地选中文本。</li>
+</ol>
+<p><strong>30.)选中多行：</strong></p>
+<p>  光标开始处按住shift键不放，到要结束处放下光标</p>
+<p><strong>31.)command+J</strong></p>
+<p>  合并选中的多行代码为一行。举个例子：将多行格式的CSS属性合并为一行。</p>
+<p><strong>32.)command+Shift+D</strong></p>
+<p>  复制光标所在整行，插入到下一行。</p>
+<p><strong>33.)</strong></p>
+<ol>
+<li>Tab 向右缩进。</li>
+<li>Shift+Tab 向左缩进。</li>
+</ol>
+<p><strong>34.)command+K+K </strong></p>
+<p>   从光标处开始删除代码至行尾。</p>
+<p><strong>35.)</strong></p>
+<ol>
+<li>command+Z 撤销。</li>
+<li>command+Y 恢复撤销。</li>
+</ol>
+<p><strong>36.)Esc</strong></p>
+<p>   退出光标多行选择，退出搜索框，命令框等。</p>
+<p><strong>37.)ctrl+`</strong></p>
+<p>   打开控制台</p>
+<p><strong>38.)command + o</strong></p>
+<p>   弹出当前文件所在的文件夹位置</p>
+<p><strong>39.)Ctrl＋Cmd＋G</strong></p>
+<p>   选中所有同类名称，并可编辑</p>
+<p><strong>40.)Cmd+D</strong></p>
+<p>   只是单纯选中同类名称，不可编辑</p>
 
         </div>
         
@@ -254,6 +342,99 @@ then：绑定回调函数
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 分钟 读完 (大约 1637 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/prototype/">原型到原型链</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h3><p>我们先使用构造函数创建一个对象：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &apos;Kevin&apos;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<p>很简单吧，接下来进入正题：</p>
+<ul>
+<li>prototype</li>
+</ul>
+<p>每个函数都有一个 prototype 属性，就是我们经常在各种例子中看到的那个 prototype ，比如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 虽然写在注释里，但是你要注意：</span><br><span class="line">// prototype是函数才会有的属性</span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // Kevin</span><br><span class="line">console.log(person2.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>那这个函数的 prototype 属性到底指向的是什么呢？是这个函数的原型吗？</p>
+<p>其实，函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型，也就是这个例子中的 person1 和 person2 的原型。</p>
+<p>那什么是原型呢？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p>
+<p>让我们用一张图表示构造函数和实例原型之间的关系：<br><img src="/2016/08/25/javaScript/prototype/prototype.png" title="让我们用一张图表示构造函数和实例原型之间的关系"></p>
+<p>在这张图中我们用 Object.prototype 表示实例原型。</p>
+<p>那么我们该怎么表示实例与实例原型，也就是 person 和 Person.prototype 之间的关系呢，这时候我们就要讲到第二个属性：</p>
+<ul>
+<li><strong>proto</strong></li>
+</ul>
+<p>这是每一个JavaScript对象(除了 null )都具有的一个属性，叫<strong>proto</strong>，这个属性会指向该对象的原型。</p>
+<p>为了证明这一点,我们可以在火狐或者谷歌中输入：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure></p>
+<p>于是我们更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/proto.png" title="于是我们更新下关系图"></p>
+<p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
+<ul>
+<li>constructor</li>
+</ul>
+<p>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor﻿，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<p>为了验证这一点，我们可以尝试：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure></p>
+<p>所以再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/constructor.png" title="于是我们更新下关系图"></p>
+<p>综上我们已经得出：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure></p>
+<p>了解了构造函数、实例原型、和实例之间的关系，接下来我们讲讲实例和原型的关系：</p>
+<p>实例与原型<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。</p>
+<p>举个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">person.name = &apos;Daisy&apos;;</span><br><span class="line">console.log(person.name) // Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) // Kevin</span><br><span class="line">在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</span><br><span class="line"></span><br><span class="line">但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.__proto__ ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</span><br></pre></td></tr></table></figure></p>
+<p>但是万一还没有找到呢？原型的原型又是什么呢？</p>
+<p>原型的原型<br>在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object();</span><br><span class="line">obj.name = &apos;Kevin&apos;</span><br><span class="line">console.log(obj.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+<p>所以原型对象是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/obj.png" title="于是我们更新下关系图"></p>
+<p>原型链<br>那 Object.prototype 的原型呢？</p>
+<p>null，不信我们可以打印：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure></p>
+<p>所以查到属性的时候查到 Object.prototype 就可以停止查找了。</p>
+<p>所以最后一张关系图就是<br><img src="/2016/08/25/javaScript/prototype/objEnd.png" title="于是我们更新下关系图"></p>
+<p>顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+<p>补充<br>最后，补充三点大家可能不会注意的地方：</p>
+<p>constructor</p>
+<p>首先是 constructor 属性，我们看个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.constructor === Person); // true</span><br></pre></td></tr></table></figure></p>
+<p>当获取 person.constructor 时，其实 person 中并没有 constructor 属性,当不能读取到constructor 属性时，会从 person 的原型也就是 Person.prototype 中读取，正好原型中有该属性，所以：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person.constructor === Person.prototype.constructor</span><br></pre></td></tr></table></figure></p>
+<p><strong>proto</strong></p>
+<p>其次是 <strong>proto</strong> ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.<strong>proto</strong> 时，可以理解成返回了<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(obj)。</span><br></pre></td></tr></table></figure></p>
+<p>真的是继承吗？<br>最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》中的话，就是：</p>
+<blockquote>
+<p>继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。</p>
+</blockquote>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
                 </div>
                 
@@ -284,246 +465,6 @@ then：绑定回调函数
 <p>在react的componentDidMount生命周期里写一下代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount()&#123;</span><br><span class="line">		//滚轮监听</span><br><span class="line">		addEventListener(&quot;scroll&quot;,this.onscrollListener,false)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在react的componentWillUnmount生命周期里写一下代码(注册事件要在组件销毁以后注销这样可以提高性能)</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount()&#123;</span><br><span class="line">		window.removeEventListener(&quot;scroll&quot;,this.onscrollListener)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 497 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/atom/">atom快捷键总结</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="atom"><a href="#atom" class="headerlink" title="atom"></a>atom</h3><h3 id="一、快捷键部分"><a href="#一、快捷键部分" class="headerlink" title="一、快捷键部分"></a>一、快捷键部分</h3><h4 id="A-光标及选取部分"><a href="#A-光标及选取部分" class="headerlink" title="A:光标及选取部分"></a>A:光标及选取部分</h4><h5 id="行部分："><a href="#行部分：" class="headerlink" title="行部分："></a>行部分：</h5><p> cmd+up          光标移动至文件开始处<br> cmd+down        光标移动至文件结束处<br> cmd+click       多行同时输入<br> cmd+l           选取此行<br> ctrl+shift+n    选取下一行<br> ctrl+shift+p    选取下一行<br> cmd+shift+left  选取至此行开始处<br> cmd+shift+right 选取至此行结束处<br> cmd+shift+up    选取至文件开始<br> cmd+shift+down  选取至文件结尾   </p>
-<h5 id="单词-字符-部分："><a href="#单词-字符-部分：" class="headerlink" title="单词(字符)部分："></a>单词(字符)部分：</h5><p> cmd+shift+w     选中此单词<br> alt+shift+left  选取至此单词开始处<br> alt+shift+right 选取至此单词结束处<br> cmd+d           选取文件中和当前单词相同的下一处并增加光标<br> ctrl+cmd+g      选取文档中所有和当前光标单词相同的位置并增加光标   </p>
-<h5 id="括号部分："><a href="#括号部分：" class="headerlink" title="括号部分："></a>括号部分：</h5><p> ctrl-m 相应括号之间，html tag之间等跳转<br> ctrl-cmd-m 括号(tag)之间文本选取   </p>
-<h4 id="B-编辑操作"><a href="#B-编辑操作" class="headerlink" title="B:编辑操作"></a>B:编辑操作</h4><h5 id="行部分：-1"><a href="#行部分：-1" class="headerlink" title="行部分："></a>行部分：</h5><p>cmd-J 将下一行与当前行合并<br>ctrl-cmd-up, ctrl-cmd-down 使当前行向上或者向下移动<br>cmd-shift-D 复制当前行到下一行<br>ctrl-K 剪切到当前行结束<br>ctrl-shift-K 删除当前行<br>cmd-backspace 删除到当前行开始<br>cmd-fn-backspace 删除到当前行结束   </p>
-<h5 id="字符-单词-部分："><a href="#字符-单词-部分：" class="headerlink" title="字符(单词)部分："></a>字符(单词)部分：</h5><p> ctrl-T 使光标前后字符交换<br> alt-backspace 或 alt-H 删除到当前单词开始<br> alt-delete 或 alt-D 删除到当前单词结束<br> cmd-K+cmd-U 使当前字符大写<br> cmd-K+cmd-L 使当前字符小写   </p>
-<h4 id="C-功能部分"><a href="#C-功能部分" class="headerlink" title="C:功能部分"></a>C:功能部分</h4><p> cmd+,      打开setting<br> control+tab 切换标签页<br> control+数字 切换标签页<br> 忽略文件显示更改：<br> setting=&gt;open config Folder=&gt;config.cson=&gt;最后那个h开头的改为false   </p>
-<h3 id="二、atom实用插件"><a href="#二、atom实用插件" class="headerlink" title="二、atom实用插件"></a>二、atom实用插件</h3><h4 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1 Emmet"></a>1 Emmet</h4><p> 用法：Ctrl+Alt+Enter   </p>
-<h4 id="2-Atom-Beautify"><a href="#2-Atom-Beautify" class="headerlink" title="2 Atom Beautify"></a>2 Atom Beautify</h4><p>  代码优化   </p>
-<h4 id="3-Minimap"><a href="#3-Minimap" class="headerlink" title="3 Minimap"></a>3 Minimap</h4><p>  sublime右上角代码缩略图   </p>
-<h4 id="4-file-icons"><a href="#4-file-icons" class="headerlink" title="4 file-icons"></a>4 file-icons</h4><p>  文件图标   </p>
-<h4 id="5-atom-ternjs"><a href="#5-atom-ternjs" class="headerlink" title="5 atom-ternjs"></a>5 atom-ternjs</h4><p>  js代码提示   </p>
-<h4 id="6-atom-react-autocomplete"><a href="#6-atom-react-autocomplete" class="headerlink" title="6 atom-react-autocomplete"></a>6 atom-react-autocomplete</h4><p>  jsx代码提示   </p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/html5/">html5</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 334 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
-<!-- ![目录](./images/webSocket/directory.png) -->
-<h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="pom-xml里边的代码"><a href="#pom-xml里边的代码" class="headerlink" title="pom.xml里边的代码"></a>pom.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;groupId&gt;com.moven&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;moven_im&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;source&gt;1.7&lt;/source&gt;</span><br><span class="line">					&lt;target&gt;1.7&lt;/target&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;javax&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;javaee-api&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;7.0&lt;/version&gt;</span><br><span class="line">			&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1777 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/sublime/sublimePlug/">sublime插件总结</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="sublime-插件"><a href="#sublime-插件" class="headerlink" title="sublime 插件"></a>sublime 插件</h1><h3 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h3><p>   <a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">https://www.sublimetext.com/3</a>  //下载网址，可以选择版本 sublime Text3    以dmp结尾的</p>
-<h3 id="删除插件："><a href="#删除插件：" class="headerlink" title="删除插件："></a>删除插件：</h3><ol>
-<li>command+shift+P,输入package</li>
-<li>查找remove package</li>
-<li>输入你要删除的package</li>
-<li>回车，OK</li>
-</ol>
-<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件:"></a>安装插件:</h3><pre><code>1. 安装 Package Control   http://www.jianshu.com/p/5baa47642375 (利用Package Control来安装其他插件)
-
-2. 上面的 Package Control 安装完以后, 就可以通过快捷键 command + shift + p 并输入 install package, 来选择需要安装的插件.
-
-3. 插件有时默认的快捷键会和其他的软件的快捷键冲突，所以可以自己设置插件的快捷键
- 点击菜单 Preferences -&gt; KeyBindings - User, 加入如下内容
- [{ &quot;keys&quot;: [&quot;ctrl+1&quot;], &quot;command&quot;: &quot;alignment&quot; }]
- 将快捷键修改成自己要改的。
-</code></pre><h3 id="Sublime-Text常用插件总结"><a href="#Sublime-Text常用插件总结" class="headerlink" title="Sublime Text常用插件总结:"></a>Sublime Text常用插件总结:</h3><pre><code>我认为插件比较官方了解可以参考此链接：https://packagecontrol.io/packages/Babel
-后面换上不同的插件名称即可，不过可能只是大致介绍一些基础重要的。
-</code></pre><p><strong>1.) Emmet</strong></p>
-<pre><code>Emmet使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度。 具体使用链接：http://www.iteye.com/news/27580  (桌面有两个我写的文件,不过对js和less没有作用)
-</code></pre><p><strong>2.)Alignment</strong></p>
-<p> 这插件用于对齐代码赋值语句，如<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title = &quot;sublime text</span><br></pre></td></tr></table></figure></p>
-<p> 按下快捷键后, 会变成:<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name    = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title   = &quot;sublime text”</span><br></pre></td></tr></table></figure></p>
-<p><strong>3.)Trimmer</strong></p>
-<p>   你知道当你编写代码时，由于错误或别的某些原因，会产生一些不必要的空格。需要注意的是多余的空格有时也会造成错误。这个插件会自动删除这些不必要的空格，也可以删除空行，可以达到压缩css和js的效果。</p>
-<p><strong>4.)autoprefixer</strong></p>
-<p>  自动在代码前面添加兼容性前缀</p>
-<p>  例子：<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">使用前：</span><br><span class="line">.wsl&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">    -webkit-border-radius:20px;</span><br><span class="line">     border-radius:20px;</span><br><span class="line">  &#125;</span><br><span class="line">使用后：</span><br><span class="line">.wsl&#123;</span><br><span class="line">   display:-webkit-box;</span><br><span class="line">   display:-ms-flexbox;</span><br><span class="line">   display:flex;</span><br><span class="line">   border-radius:20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注释：效果明显，多于的 CSS/less 会自动删掉，border-radius 早就已经不需要前缀了，只有 Firefox 3.6，Chrome 4，Safari 4 和 Android 2.1 需要前缀；</p>
-<p>快捷键设置方式还是如上第三步所示：</p>
-<p>  <img src="images/11.jpg" width="350px" height="100px"></p>
-<p><strong>5.)Less</strong></p>
-<pre><code>功能：LESS高亮插件
-简介：用LESS的同学都知道，sublime没有支持less的语法高亮，所以这个插件可以帮上我们
-使用：打开.less文件或者设置为less格式
-//在没安装这个插件之前less文件中的代码是白色的，看着很不舒服，安装了这个插件则会让代码加上颜色
-</code></pre><p><strong>6.)Babel</strong></p>
-<pre><code>这个插件支持ES6， React.js, jsx代码高亮，对 JavaScript, jQuery 也有很好的扩展。
-按照上述步骤安装后，在view-&gt;Syntax(语法)-&gt;这个时候安装了babel就会有一项选择Babel-&gt;Babel(javascript)这一项，代码就会变高亮。 （默认是Syntax下面的javascript）。
-</code></pre><p><strong>7.)BracketHighlighter</strong></p>
-<ol>
-<li><p>BracketHighlighter插件能为Sublime Text提供括号，引号这类高亮功能，但安装此插件后，默认没有高亮，只有下划线表示，不是很醒目，跟进一步的修改可以</p>
-<p><a href="http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</a>   (mac)</p>
-<p><a href="http://www.cnblogs.com/willingtolove/p/4657320.html" target="_blank" rel="noopener">http://www.cnblogs.com/willingtolove/p/4657320.html</a>       (windows)</p>
-</li>
-<li><p>可以参考此链接 ,很有用,执行完第二步是白色高亮</p>
-<p><img src="images/12.jpg" width="300px" height="100px"></p>
-</li>
-<li><p>若想彩色高亮则根据步骤继续进行第三步。</p>
-<p><img src="images/13.jpg" width="300px" height="50px">,</p>
-<p><img src="images/14.jpg" width="300px" height="100x"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> Bracket Quote 表示引号     </span><br><span class="line"> Bracket Tag   表示标签</span><br><span class="line"> Bracket Angle 表示角 （这个可以自己试试）</span><br><span class="line"> Bracket Square 表示方括号</span><br><span class="line"> Bracket Round  表示小括号</span><br><span class="line"> Bracket Curly  表示大括号</span><br><span class="line">不过实现彩色的效果还需要安装SublimeLinter</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="主题相关插件8-9"><a href="#主题相关插件8-9" class="headerlink" title="{主题相关插件8-9}"></a>{主题相关插件8-9}</h4><p><strong>8.)Theme-Soda</strong></p>
-<p> Soda主题是sublime上一款很著名的清爽型主题，分两种：</p>
-<p> <code>light:</code></p>
-<p> <img src="images/15.jpg" width="300px" height="50px"></p>
-<p>  <code>dark:</code></p>
-<p> <img src="images/16.jpg" width="300px" height="50px"></p>
-<p> <code>两者之间的切换通过在 （菜单 Preferences -&gt; Settings - User）中加入 &quot;theme&quot;: &quot;Soda Light.sublime-theme&quot; 或 &quot;theme&quot;: &quot;Soda Dark.sublime-theme”</code></p>
-<p> <img src="images/17.jpg" width="300px" height="100px"></p>
-<p> <code>如果想要原来默认的则去掉这句话不写即可，默认：</code></p>
-<p> <img src="images/18.jpg" width="300px" height="50px"></p>
-<p>保存之后发现怎么代码区域还是黑色的背景，菜单栏颜色已经切换了，别急，这里还少了一步，就是配置一下color scheme,就用下面的插件介绍</p>
-<p><strong>9.)ColorSublime</strong><br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">主题可以参考此链接： http://www.jianshu.com/p/13fedee165f1</span><br><span class="line">主要以ColorSublime为插件安装</span><br><span class="line">安装了ColorSublime后，在控制面板里输入安装ColorSublime:install theme</span><br><span class="line">就可以如链接所示，选择你相中的主体安装</span><br></pre></td></tr></table></figure></p>
-<h4 id="文件模版10"><a href="#文件模版10" class="headerlink" title="{文件模版10}"></a>{文件模版10}</h4><p><strong>10.)SublimeTmpl</strong></p>
-<p><a href="http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/" target="_blank" rel="noopener">http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/</a><br>只看使用，安装就行，Sublime Text 新建文件的模版插件</p>
-<h4 id="JS代码格式化11"><a href="#JS代码格式化11" class="headerlink" title="{JS代码格式化11}"></a>{JS代码格式化11}</h4><p><strong>11.)JsFormat</strong></p>
-<p>  这是一款将JS格式化的插件，安装后即可在JS文件中通过鼠标右键-&gt;JsFormat或键盘快捷键Ctrl+Alt+F对JS进行格式化</p>
-<h4 id="右键菜单功能增强插件12"><a href="#右键菜单功能增强插件12" class="headerlink" title="{右键菜单功能增强插件12}"></a>{右键菜单功能增强插件12}</h4><p><strong>12.)SideBarEnhancements</strong></p>
-<p>  这是一款很实用的右键菜单增强功能，安装之前左侧菜单栏右键只有几个功能，安装之后增加了很多实用功能。<br>  可以参考这个链接，有个简单的说明：<a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html</a></p>
-<h4 id="只针对-css的文件代码排序13"><a href="#只针对-css的文件代码排序13" class="headerlink" title="{只针对.css的文件代码排序13}"></a>{只针对.css的文件代码排序13}</h4><p><strong>13.)CSScomb</strong><br> <code>格式化前：</code></p>
-<p> <img src="images/19.jpg" width="250px" height="130px">,</p>
-<p> <code>格式化后：快捷键 ctrl+shift+c</code></p>
-<p> <img src="images/20.jpg" width="250px" height="200px">,</p>
-<p> 但是会产生一些空行，可以解决:<br> 在sublime中下载<code>CSS Format</code>插件，然后执行 edit-&gt;css format-&gt;expanded 即可此   时空行将会消除。</p>
-<p> <img src="images/21.jpg" width="250px" height="200px">,</p>
-<p><code>我认为可以先用css最后可以改成less文件可以参考这个链接：https://segmentfault.com/a/1190000004577644</code></p>
-<h4 id="文件中打开命令行窗口14"><a href="#文件中打开命令行窗口14" class="headerlink" title="{文件中打开命令行窗口14}"></a>{文件中打开命令行窗口14}</h4><p><strong>14.)Terminal</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在编程过程中我们需要经常使用到命令行窗口，此快捷键可以在sublime Text3中打开cmd窗口，默认打开的是终端，如果想要打开iTerm,可以在setting-&gt;user中设置：</span><br><span class="line">快捷键（mac）:cmd+shift+t</span><br><span class="line">可以参考链接：https://packagecontrol.io/packages/Terminal</span><br></pre></td></tr></table></figure></p>
-<h3 id="查看html、css兼容的15"><a href="#查看html、css兼容的15" class="headerlink" title="{查看html、css兼容的15}"></a>{查看html、css兼容的15}</h3><p><strong>15.)Can I Use</strong></p>
-<p>不过只是针对html和css，选中一个词或标签按快捷键：ctrl+alt+f就会跳到<a href="http://caniuse.com/，可以看到兼容到哪些浏览器" target="_blank" rel="noopener">http://caniuse.com/，可以看到兼容到哪些浏览器</a></p>
-<h3 id="代码校验16"><a href="#代码校验16" class="headerlink" title="{代码校验16}"></a>{代码校验16}</h3><p><strong>16.)SublimeLinter</strong></p>
-<p>  SublimeLinter是一个代码校验插件，它可以帮你找出错误或编写不规范的代码<br>  会在页面上产生一些点，点击点会有提示在下方<br>  可以按照这个安装：  </p>
-<p>  <a href="http://www.cnblogs.com/xiaofeixiang/p/4853625.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaofeixiang/p/4853625.html</a></p>
-<p>  可以通过这个研究：</p>
-<p>  <a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html</a></p>
-<p>  <strong>(但是不知道怎么把下面提示区域放大？)</strong></p>
-<p>####{在文件中调用Git命令17}<br><strong>17.)Git</strong></p>
-<p>   可以参考此链接：<a href="https://packagecontrol.io/packages/Git" target="_blank" rel="noopener">https://packagecontrol.io/packages/Git</a><br>   安装完git后可以在mac中用命令打开：cmd+shift+p，输入git就会出现很多git命令。</p>
-<p> <strong>(但是git status可以用，其他的怎么用？)</strong></p>
 
         </div>
         
@@ -666,6 +607,67 @@ then：绑定回调函数
 <p>:sh 进入shell</p>
 <p>:exit 退出shell</p>
 <h4 id="按-Esc-回到命令模式"><a href="#按-Esc-回到命令模式" class="headerlink" title="按[Esc]回到命令模式"></a>按[Esc]回到命令模式</h4>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript阅读/">javaScript阅读</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 190 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/you-dont-know-js/">你不知道的js（上）</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="LHS与RHS"><a href="#LHS与RHS" class="headerlink" title="LHS与RHS"></a>LHS与RHS</h3><blockquote>
+<p>LHS可以理解为某变量被赋值，RHS可以理解为被调用</p>
+</blockquote>
+<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo(a)&#123;</span><br><span class="line">  console.log(a); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(2)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>foo进行RHS  foo的形参相当于a=2  所以a进行LHS  console是RHS  console里的a是RHS</p>
+</blockquote>
+<h3 id="理解作用于"><a href="#理解作用于" class="headerlink" title="理解作用于"></a>理解作用于</h3><h5 id="作用于嵌套"><a href="#作用于嵌套" class="headerlink" title="作用于嵌套"></a>作用于嵌套</h5><blockquote>
+<p>现在当前作用于找某变量，找不到时引擎会向外层嵌套的作用于中继续寻找，直到找到该变量，或抵达最外层的作用域（也就是全局作用于）为止。</p>
+</blockquote>
+<h5 id="注意一下代码"><a href="#注意一下代码" class="headerlink" title="注意一下代码"></a>注意一下代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //4</span><br><span class="line">&#125;</span><br><span class="line">var b = 2;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //NaN</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br><span class="line">var b = 2;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //NaN</span><br><span class="line">  var b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //ReferenceError: b is not defined</span><br><span class="line">  b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+
         </div>
         
         
@@ -868,14 +870,14 @@ then：绑定回调函数
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript阅读/">javaScript阅读</a>
+                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 190 个字)
+                    12 分钟 读完 (大约 1777 个字)
                 </span>
                 
                 
@@ -884,27 +886,150 @@ then：绑定回调函数
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/you-dont-know-js/">你不知道的js（上）</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/sublime/sublimePlug/">sublime插件总结</a>
             
         </h1>
         <div class="content">
-            <h3 id="LHS与RHS"><a href="#LHS与RHS" class="headerlink" title="LHS与RHS"></a>LHS与RHS</h3><blockquote>
-<p>LHS可以理解为某变量被赋值，RHS可以理解为被调用</p>
-</blockquote>
-<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo(a)&#123;</span><br><span class="line">  console.log(a); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(2)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>foo进行RHS  foo的形参相当于a=2  所以a进行LHS  console是RHS  console里的a是RHS</p>
-</blockquote>
-<h3 id="理解作用于"><a href="#理解作用于" class="headerlink" title="理解作用于"></a>理解作用于</h3><h5 id="作用于嵌套"><a href="#作用于嵌套" class="headerlink" title="作用于嵌套"></a>作用于嵌套</h5><blockquote>
-<p>现在当前作用于找某变量，找不到时引擎会向外层嵌套的作用于中继续寻找，直到找到该变量，或抵达最外层的作用域（也就是全局作用于）为止。</p>
-</blockquote>
-<h5 id="注意一下代码"><a href="#注意一下代码" class="headerlink" title="注意一下代码"></a>注意一下代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //4</span><br><span class="line">&#125;</span><br><span class="line">var b = 2;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //NaN</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br><span class="line">var b = 2;</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //NaN</span><br><span class="line">  var b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //ReferenceError: b is not defined</span><br><span class="line">  b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+            <h1 id="sublime-插件"><a href="#sublime-插件" class="headerlink" title="sublime 插件"></a>sublime 插件</h1><h3 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h3><p>   <a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">https://www.sublimetext.com/3</a>  //下载网址，可以选择版本 sublime Text3    以dmp结尾的</p>
+<h3 id="删除插件："><a href="#删除插件：" class="headerlink" title="删除插件："></a>删除插件：</h3><ol>
+<li>command+shift+P,输入package</li>
+<li>查找remove package</li>
+<li>输入你要删除的package</li>
+<li>回车，OK</li>
+</ol>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件:"></a>安装插件:</h3><pre><code>1. 安装 Package Control   http://www.jianshu.com/p/5baa47642375 (利用Package Control来安装其他插件)
+
+2. 上面的 Package Control 安装完以后, 就可以通过快捷键 command + shift + p 并输入 install package, 来选择需要安装的插件.
+
+3. 插件有时默认的快捷键会和其他的软件的快捷键冲突，所以可以自己设置插件的快捷键
+ 点击菜单 Preferences -&gt; KeyBindings - User, 加入如下内容
+ [{ &quot;keys&quot;: [&quot;ctrl+1&quot;], &quot;command&quot;: &quot;alignment&quot; }]
+ 将快捷键修改成自己要改的。
+</code></pre><h3 id="Sublime-Text常用插件总结"><a href="#Sublime-Text常用插件总结" class="headerlink" title="Sublime Text常用插件总结:"></a>Sublime Text常用插件总结:</h3><pre><code>我认为插件比较官方了解可以参考此链接：https://packagecontrol.io/packages/Babel
+后面换上不同的插件名称即可，不过可能只是大致介绍一些基础重要的。
+</code></pre><p><strong>1.) Emmet</strong></p>
+<pre><code>Emmet使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度。 具体使用链接：http://www.iteye.com/news/27580  (桌面有两个我写的文件,不过对js和less没有作用)
+</code></pre><p><strong>2.)Alignment</strong></p>
+<p> 这插件用于对齐代码赋值语句，如<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title = &quot;sublime text</span><br></pre></td></tr></table></figure></p>
+<p> 按下快捷键后, 会变成:<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name    = &quot;sublimt&quot;</span><br><span class="line">var version = &quot;2.0.1&quot;</span><br><span class="line">var title   = &quot;sublime text”</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.)Trimmer</strong></p>
+<p>   你知道当你编写代码时，由于错误或别的某些原因，会产生一些不必要的空格。需要注意的是多余的空格有时也会造成错误。这个插件会自动删除这些不必要的空格，也可以删除空行，可以达到压缩css和js的效果。</p>
+<p><strong>4.)autoprefixer</strong></p>
+<p>  自动在代码前面添加兼容性前缀</p>
+<p>  例子：<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">使用前：</span><br><span class="line">.wsl&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">    -webkit-border-radius:20px;</span><br><span class="line">     border-radius:20px;</span><br><span class="line">  &#125;</span><br><span class="line">使用后：</span><br><span class="line">.wsl&#123;</span><br><span class="line">   display:-webkit-box;</span><br><span class="line">   display:-ms-flexbox;</span><br><span class="line">   display:flex;</span><br><span class="line">   border-radius:20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注释：效果明显，多于的 CSS/less 会自动删掉，border-radius 早就已经不需要前缀了，只有 Firefox 3.6，Chrome 4，Safari 4 和 Android 2.1 需要前缀；</p>
+<p>快捷键设置方式还是如上第三步所示：</p>
+<p>  <img src="images/11.jpg" width="350px" height="100px"></p>
+<p><strong>5.)Less</strong></p>
+<pre><code>功能：LESS高亮插件
+简介：用LESS的同学都知道，sublime没有支持less的语法高亮，所以这个插件可以帮上我们
+使用：打开.less文件或者设置为less格式
+//在没安装这个插件之前less文件中的代码是白色的，看着很不舒服，安装了这个插件则会让代码加上颜色
+</code></pre><p><strong>6.)Babel</strong></p>
+<pre><code>这个插件支持ES6， React.js, jsx代码高亮，对 JavaScript, jQuery 也有很好的扩展。
+按照上述步骤安装后，在view-&gt;Syntax(语法)-&gt;这个时候安装了babel就会有一项选择Babel-&gt;Babel(javascript)这一项，代码就会变高亮。 （默认是Syntax下面的javascript）。
+</code></pre><p><strong>7.)BracketHighlighter</strong></p>
+<ol>
+<li><p>BracketHighlighter插件能为Sublime Text提供括号，引号这类高亮功能，但安装此插件后，默认没有高亮，只有下划线表示，不是很醒目，跟进一步的修改可以</p>
+<p><a href="http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">http://www.wdclab.com/2015/09/10/mac%E7%89%88sublime-text-3%E4%B8%ADbrackethighlighter%E6%8F%92%E4%BB%B6%E9%AB%98%E4%BA%AE%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</a>   (mac)</p>
+<p><a href="http://www.cnblogs.com/willingtolove/p/4657320.html" target="_blank" rel="noopener">http://www.cnblogs.com/willingtolove/p/4657320.html</a>       (windows)</p>
+</li>
+<li><p>可以参考此链接 ,很有用,执行完第二步是白色高亮</p>
+<p><img src="images/12.jpg" width="300px" height="100px"></p>
+</li>
+<li><p>若想彩色高亮则根据步骤继续进行第三步。</p>
+<p><img src="images/13.jpg" width="300px" height="50px">,</p>
+<p><img src="images/14.jpg" width="300px" height="100x"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> Bracket Quote 表示引号     </span><br><span class="line"> Bracket Tag   表示标签</span><br><span class="line"> Bracket Angle 表示角 （这个可以自己试试）</span><br><span class="line"> Bracket Square 表示方括号</span><br><span class="line"> Bracket Round  表示小括号</span><br><span class="line"> Bracket Curly  表示大括号</span><br><span class="line">不过实现彩色的效果还需要安装SublimeLinter</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="主题相关插件8-9"><a href="#主题相关插件8-9" class="headerlink" title="{主题相关插件8-9}"></a>{主题相关插件8-9}</h4><p><strong>8.)Theme-Soda</strong></p>
+<p> Soda主题是sublime上一款很著名的清爽型主题，分两种：</p>
+<p> <code>light:</code></p>
+<p> <img src="images/15.jpg" width="300px" height="50px"></p>
+<p>  <code>dark:</code></p>
+<p> <img src="images/16.jpg" width="300px" height="50px"></p>
+<p> <code>两者之间的切换通过在 （菜单 Preferences -&gt; Settings - User）中加入 &quot;theme&quot;: &quot;Soda Light.sublime-theme&quot; 或 &quot;theme&quot;: &quot;Soda Dark.sublime-theme”</code></p>
+<p> <img src="images/17.jpg" width="300px" height="100px"></p>
+<p> <code>如果想要原来默认的则去掉这句话不写即可，默认：</code></p>
+<p> <img src="images/18.jpg" width="300px" height="50px"></p>
+<p>保存之后发现怎么代码区域还是黑色的背景，菜单栏颜色已经切换了，别急，这里还少了一步，就是配置一下color scheme,就用下面的插件介绍</p>
+<p><strong>9.)ColorSublime</strong><br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">主题可以参考此链接： http://www.jianshu.com/p/13fedee165f1</span><br><span class="line">主要以ColorSublime为插件安装</span><br><span class="line">安装了ColorSublime后，在控制面板里输入安装ColorSublime:install theme</span><br><span class="line">就可以如链接所示，选择你相中的主体安装</span><br></pre></td></tr></table></figure></p>
+<h4 id="文件模版10"><a href="#文件模版10" class="headerlink" title="{文件模版10}"></a>{文件模版10}</h4><p><strong>10.)SublimeTmpl</strong></p>
+<p><a href="http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/" target="_blank" rel="noopener">http://www.fantxi.com/blog/archives/sublime-template-engine-sublimetmpl/</a><br>只看使用，安装就行，Sublime Text 新建文件的模版插件</p>
+<h4 id="JS代码格式化11"><a href="#JS代码格式化11" class="headerlink" title="{JS代码格式化11}"></a>{JS代码格式化11}</h4><p><strong>11.)JsFormat</strong></p>
+<p>  这是一款将JS格式化的插件，安装后即可在JS文件中通过鼠标右键-&gt;JsFormat或键盘快捷键Ctrl+Alt+F对JS进行格式化</p>
+<h4 id="右键菜单功能增强插件12"><a href="#右键菜单功能增强插件12" class="headerlink" title="{右键菜单功能增强插件12}"></a>{右键菜单功能增强插件12}</h4><p><strong>12.)SideBarEnhancements</strong></p>
+<p>  这是一款很实用的右键菜单增强功能，安装之前左侧菜单栏右键只有几个功能，安装之后增加了很多实用功能。<br>  可以参考这个链接，有个简单的说明：<a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sidebarenhancements.html</a></p>
+<h4 id="只针对-css的文件代码排序13"><a href="#只针对-css的文件代码排序13" class="headerlink" title="{只针对.css的文件代码排序13}"></a>{只针对.css的文件代码排序13}</h4><p><strong>13.)CSScomb</strong><br> <code>格式化前：</code></p>
+<p> <img src="images/19.jpg" width="250px" height="130px">,</p>
+<p> <code>格式化后：快捷键 ctrl+shift+c</code></p>
+<p> <img src="images/20.jpg" width="250px" height="200px">,</p>
+<p> 但是会产生一些空行，可以解决:<br> 在sublime中下载<code>CSS Format</code>插件，然后执行 edit-&gt;css format-&gt;expanded 即可此   时空行将会消除。</p>
+<p> <img src="images/21.jpg" width="250px" height="200px">,</p>
+<p><code>我认为可以先用css最后可以改成less文件可以参考这个链接：https://segmentfault.com/a/1190000004577644</code></p>
+<h4 id="文件中打开命令行窗口14"><a href="#文件中打开命令行窗口14" class="headerlink" title="{文件中打开命令行窗口14}"></a>{文件中打开命令行窗口14}</h4><p><strong>14.)Terminal</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在编程过程中我们需要经常使用到命令行窗口，此快捷键可以在sublime Text3中打开cmd窗口，默认打开的是终端，如果想要打开iTerm,可以在setting-&gt;user中设置：</span><br><span class="line">快捷键（mac）:cmd+shift+t</span><br><span class="line">可以参考链接：https://packagecontrol.io/packages/Terminal</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看html、css兼容的15"><a href="#查看html、css兼容的15" class="headerlink" title="{查看html、css兼容的15}"></a>{查看html、css兼容的15}</h3><p><strong>15.)Can I Use</strong></p>
+<p>不过只是针对html和css，选中一个词或标签按快捷键：ctrl+alt+f就会跳到<a href="http://caniuse.com/，可以看到兼容到哪些浏览器" target="_blank" rel="noopener">http://caniuse.com/，可以看到兼容到哪些浏览器</a></p>
+<h3 id="代码校验16"><a href="#代码校验16" class="headerlink" title="{代码校验16}"></a>{代码校验16}</h3><p><strong>16.)SublimeLinter</strong></p>
+<p>  SublimeLinter是一个代码校验插件，它可以帮你找出错误或编写不规范的代码<br>  会在页面上产生一些点，点击点会有提示在下方<br>  可以按照这个安装：  </p>
+<p>  <a href="http://www.cnblogs.com/xiaofeixiang/p/4853625.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaofeixiang/p/4853625.html</a></p>
+<p>  可以通过这个研究：</p>
+<p>  <a href="https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html" target="_blank" rel="noopener">https://nicesu.gitbooks.io/sublime-text-guide/content/plug-in/sublimelinter.html</a></p>
+<p>  <strong>(但是不知道怎么把下面提示区域放大？)</strong></p>
+<p>####{在文件中调用Git命令17}<br><strong>17.)Git</strong></p>
+<p>   可以参考此链接：<a href="https://packagecontrol.io/packages/Git" target="_blank" rel="noopener">https://packagecontrol.io/packages/Git</a><br>   安装完git后可以在mac中用命令打开：cmd+shift+p，输入git就会出现很多git命令。</p>
+<p> <strong>(但是git status可以用，其他的怎么用？)</strong></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/html5/">html5</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 334 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
+<!-- ![目录](./images/webSocket/directory.png) -->
+<h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="pom-xml里边的代码"><a href="#pom-xml里边的代码" class="headerlink" title="pom.xml里边的代码"></a>pom.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;groupId&gt;com.moven&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;moven_im&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;source&gt;1.7&lt;/source&gt;</span><br><span class="line">					&lt;target&gt;1.7&lt;/target&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;javax&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;javaee-api&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;7.0&lt;/version&gt;</span><br><span class="line">			&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
 
         </div>
         

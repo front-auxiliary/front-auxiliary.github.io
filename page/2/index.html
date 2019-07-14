@@ -147,14 +147,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/node/">node</a>
+                <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1297 个字)
+                    3 分钟 读完 (大约 481 个字)
                 </span>
                 
                 
@@ -163,55 +163,147 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/node/try-catch/">node异常处理机制详解</a>
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/parcel/parcelDev/">parcel使用</a>
             
         </h1>
         <div class="content">
-            <hr>
+            <h3 id="什么是pracel"><a href="#什么是pracel" class="headerlink" title="什么是pracel"></a>什么是pracel</h3><p>parcel是一个前端项目打包器，现在我们已有的打包器与webpack和gulp。</p>
+<h3 id="为什么要把pracel拿出来说一说"><a href="#为什么要把pracel拿出来说一说" class="headerlink" title="为什么要把pracel拿出来说一说"></a>为什么要把pracel拿出来说一说</h3><p>最近许多的网站推送pracel的相关消息，说什么零配置，打包速度快。</p>
+<h3 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h3><ol>
+<li>我们现在使用的打包工具有哪些？</li>
+<li>我们为什么要是用这些打包工具，使用这些打包工具为我们解决了什么问题？</li>
+<li>现在已用到的打包工具给我们造成了什么困扰？</li>
+</ol>
+<h3 id="用parcel建一个简单的项目"><a href="#用parcel建一个简单的项目" class="headerlink" title="用parcel建一个简单的项目"></a>用parcel建一个简单的项目</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Yarn:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<p>npm:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建package-json"><a href="#创建package-json" class="headerlink" title="创建package.json"></a>创建package.json</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y</span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建一个-index-html-和-index-js-文件。"><a href="#创建一个-index-html-和-index-js-文件。" class="headerlink" title="创建一个 index.html 和 index.js 文件。"></a>创建一个 index.html 和 index.js 文件。</h4><p>index.html<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>index.js<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;hello world&quot;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="在package-json重配置"><a href="#在package-json重配置" class="headerlink" title="在package.json重配置"></a>在package.json重配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;parcel index.html -p 4000&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="Babel配置"><a href="#Babel配置" class="headerlink" title="Babel配置"></a>Babel配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-preset-env</span><br></pre></td></tr></table></figure>
+<p> .babelrc文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostCSS配置"><a href="#PostCSS配置" class="headerlink" title="PostCSS配置"></a>PostCSS配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-modules autoprefixer</span><br></pre></td></tr></table></figure>
+<p>.postcssrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;modules&quot;: true,</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;autoprefixer&quot;: &#123;</span><br><span class="line">      &quot;grid&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostHTML配置"><a href="#PostHTML配置" class="headerlink" title="PostHTML配置"></a>PostHTML配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add posthtml-img-autosize</span><br></pre></td></tr></table></figure>
+<p>.posthtmlrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;posthtml-img-autosize&quot;: &#123;</span><br><span class="line">      &quot;root&quot;: &quot;./images&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/yihaoliu/parcelReact" target="_blank" rel="noopener">parcelReact项目</a>。</p>
+<p>虽然说parcel是零配置但是在没有配置的情况下明显项目的灵活度降低许多，下载react有create-react-app进行构建，vue有vue-cli进行构架其实在项目配置相对来说已经非常少了，但是parcel没有配置文件还是让项目的开发有点难受，比如文件起别名，还有proxyConfig进行跨域处理在项目的开发时期都是很重有的事情，只能说对于一个初学web的人员来说配置变少了尤其是没有用到三大框架的项目组pracel还是使用很方便的，对于一些h5小网页比如基于canvas的小游戏的开发用pracel来构建还是非常方便的，但对于大型网站来说。。。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 130 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
+<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>stage 不再是配置项，以 presets 的形式添加。</p>
+<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/优化/">优化</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 451 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/other/optimize/web/">web优化</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="作者：sunlei"><a href="#作者：sunlei" class="headerlink" title="作者：sunlei"></a>作者：sunlei</h3><p> <strong>script 标签的优化</strong> </p>
+<ul>
+<li>默认情况HTML解析，然后加载JS，此时HTML解析中断，然后执行JS，最后JS执行完成恢复HTML解析。</li>
+<li>defer情况是HTMl和JS 并驾齐驱，等HTML加载完成再执行JS。</li>
+<li>async 情况则HTMl和JS并驾齐驱,JS执行可能在HTML解析完成之前。 </li>
+<li>module情况和defer情况类似，只是在提取过程中多加载了多个JS文件。</li>
+</ul>
+<blockquote>
+<p>怎么区分 有以下几点 </p>
+</blockquote>
 <ol>
-<li>assert()</li>
-<li>assert.ok()</li>
-<li>assert.equal()</li>
-<li>assert.notEqual()</li>
-<li>assert.deepEqual()</li>
-<li>assert.notDeepEqual()</li>
-<li>assert.strictEqual()</li>
-<li>assert.notStrictEqual()</li>
-<li>assert.throws()</li>
-<li>assert.ifError()</li>
-<li>assert.fail()</li>
+<li>defer翻译过来是延缓的意思，也就是拖拖拉拉了，所以比较懒，也就是说什么都不想做，也就是哪怕你把饭端在我面前，我也懒得动嘴的那种，这么一想，我们不就记住了，哪怕你客户端把JS文件下载好了，我也懒得执行，最后实在是大家都干完事了，我才不情愿的去执行JS文件。</li>
 </ol>
 <hr>
-<p>assert模块是Node的内置模块，主要用于断言。如果表达式不符合预期，就抛出一个错误。该模块提供11个方法，但只有少数几个是常用的。</p>
-<h3 id="1-assert"><a href="#1-assert" class="headerlink" title="1. assert()"></a>1. assert()</h3><p>assert方法接受两个参数，当第一个参数对应的布尔值为true时，不会有任何提示，返回undefined。当第一个参数对应的布尔值为false时，会抛出一个错误，该错误的提示信息就是第二个参数设定的字符串。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert(value, message)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line">assert( expected === 3, &apos;预期1加2等于3&apos;);</span><br></pre></td></tr></table></figure>
-<p>上面代码不会有任何输出，因为assert方法的第一个参数是true。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert( expected === 4, &apos;预期1加2等于3&apos;)</span><br><span class="line">// AssertionError: 预期1加2等于3</span><br></pre></td></tr></table></figure>
-<p>上面代码会抛出一个错误，因为assert方法的第一个参数是false。</p>
-<h3 id="2-assert-ok"><a href="#2-assert-ok" class="headerlink" title="2. assert.ok()"></a>2. assert.ok()</h3><p>ok是assert方法的另一个名字，与assert方法完全一样。</p>
-<h3 id="3-assert-equal"><a href="#3-assert-equal" class="headerlink" title="3. assert.equal()"></a>3. assert.equal()</h3><p>equal方法接受三个参数，第一个参数是实际值，第二个是预期值，第三个是错误的提示信息。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.equal(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">assert.equal(true, value, message);</span><br><span class="line">// 等同于</span><br><span class="line">assert(value, message);</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三句效果相同</span><br><span class="line">assert(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.ok(expected == 3, &apos;预期1+2等于3&apos;);</span><br><span class="line">assert.equal(expected, 3, &apos;预期1+2等于3&apos;);</span><br></pre></td></tr></table></figure>
-<p>equal方法内部使用的是相等运算符（==），而不是严格运算符（===），进行比较运算。</p>
-<h3 id="4-assert-notEqual"><a href="#4-assert-notEqual" class="headerlink" title="4. assert.notEqual()"></a>4. assert.notEqual()</h3><p>notEqual方法的用法与equal方法类似，但只有在实际值等于预期值时，才会抛出错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var expected = add(1,2);</span><br><span class="line"></span><br><span class="line">// 以下三种写法效果相同</span><br><span class="line">assert(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.ok(expected != 4, &apos;预期不等于4&apos;);</span><br><span class="line">assert.notEqual(expected, 4, &apos;预期不等于4&apos;);</span><br></pre></td></tr></table></figure>
-<p>notEqual方法内部使用不相等运算符（!=），而不是严格不相等运算符（!==），进行比较运算。</p>
-<h3 id="5-assert-deepEqual"><a href="#5-assert-deepEqual" class="headerlink" title="5. assert.deepEqual()"></a>5. assert.deepEqual()</h3><p>deepEqual方法用来比较两个对象。只要它们的属性一一对应，且值都相等，就认为两个对象相等，否则抛出一个错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.deepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, 3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.deepEqual(list1, list2, &apos;预期两个数组应该有相同的属性&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line"></span><br><span class="line">assert.deepEqual(person1, person2, &apos;预期两个对象应该有相同的属性&apos;);</span><br></pre></td></tr></table></figure>
-<h3 id="6-assert-notDeepEqual"><a href="#6-assert-notDeepEqual" class="headerlink" title="6. assert.notDeepEqual()"></a>6. assert.notDeepEqual()</h3><p>notDeepEqual方法与deepEqual方法正好相反，用来断言两个对象是否不相等。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notDeepEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">var list1 = [1, 2, ,3, 4, 5];</span><br><span class="line">var list2 = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">assert.notDeepEqual(list1, list2, &apos;预期两个对象不相等&apos;);</span><br><span class="line"></span><br><span class="line">var person1 = &#123; &quot;name&quot;:&quot;john&quot;, &quot;age&quot;:&quot;21&quot; &#125;;</span><br><span class="line">var person2 = &#123; &quot;name&quot;:&quot;jane&quot;, &quot;age&quot;:&quot;19&quot; &#125;;</span><br><span class="line"></span><br><span class="line">// deepEqual checks the elements in the objects are identical</span><br><span class="line">assert.notDeepEqual(person1, person2, &apos;预期两个对象不相等&apos;);</span><br></pre></td></tr></table></figure>
-<h3 id="7-assert-strictEqual"><a href="#7-assert-strictEqual" class="headerlink" title="7. assert.strictEqual()"></a>7. assert.strictEqual()</h3><p>strictEqual方法使用严格相等运算符（===），比较两个表达式。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.strictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.strictEqual(1, &apos;1&apos;, &apos;预期严格相等&apos;);</span><br><span class="line">// AssertionError: 预期严格相等</span><br></pre></td></tr></table></figure>
-<h3 id="8-assert-notStrictEqual"><a href="#8-assert-notStrictEqual" class="headerlink" title="8. assert.notStrictEqual()"></a>8. assert.notStrictEqual()</h3><p>assert.notStrictEqual方法使用严格不相等运算符（!==），比较两个表达式。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.notStrictEqual(actual, expected, [message])</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.notStrictEqual(1, true, &apos;预期严格不相等&apos;);</span><br></pre></td></tr></table></figure>
-<h3 id="9-assert-throws"><a href="#9-assert-throws" class="headerlink" title="9. assert.throws()"></a>9. assert.throws()</h3><p>throws方法预期某个代码块会抛出一个错误，且抛出的错误符合指定的条件。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.throws(block, [error], [message])</span><br><span class="line"></span><br><span class="line">// 例一，抛出的错误符合某个构造函数</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  Error,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例二、抛出错误的提示信息符合正则表达式</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  /value/,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 例三、抛出的错误符合自定义函数的校验</span><br><span class="line">assert.throws(</span><br><span class="line">  function() &#123;</span><br><span class="line">    throw new Error(&quot;Wrong value&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  function(err) &#123;</span><br><span class="line">    if ( (err instanceof Error) &amp;&amp; /value/.test(err) ) &#123;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;不符合预期的错误类型&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="10-assert-doesNotThrow"><a href="#10-assert-doesNotThrow" class="headerlink" title="10. assert.doesNotThrow()"></a>10. assert.doesNotThrow()</h3><p>doesNotThrow方法与throws方法正好相反，预期某个代码块不抛出错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.doesNotThrow(block, [message])</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">assert.doesNotThrow(</span><br><span class="line">  function() &#123;</span><br><span class="line">    console.log(&quot;Nothing to see here&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;预期不抛出错误&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="11-assert-ifError"><a href="#11-assert-ifError" class="headerlink" title="11. assert.ifError()"></a>11. assert.ifError()</h3><p>ifError方法断言某个表达式是否false，如果该表达式对应的布尔值等于true，就抛出一个错误。它对于验证回调函数的第一个参数十分有用，如果该参数为true，就表示有错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.ifError(value)</span><br><span class="line"></span><br><span class="line">// 用法</span><br><span class="line">function sayHello(name, callback) &#123;</span><br><span class="line">  var error = false;</span><br><span class="line">  var str   = &quot;Hello &quot;+name;</span><br><span class="line">  callback(error, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// use the function</span><br><span class="line">sayHello(&apos;World&apos;, function(err, value)&#123;</span><br><span class="line">  assert.ifError(err);</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="12-assert-fail"><a href="#12-assert-fail" class="headerlink" title="12. assert.fail()"></a>12. assert.fail()</h3><p>fail方法用于抛出一个错误。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">assert.fail(actual, expected, message, operator)</span><br><span class="line"></span><br><span class="line">// 例子</span><br><span class="line">var assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.fail(21, 42, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 21, &apos;Test Failed&apos;, &apos;###&apos;)</span><br><span class="line">// AssertionError: Test Failed</span><br><span class="line">assert.fail(21, 42, undefined, &apos;###&apos;)</span><br><span class="line">// AssertionError: 21 ### 42</span><br></pre></td></tr></table></figure>
-<p>该方法共有四个参数，但是不管参数是什么值，它总是抛出一个错误。如果message参数对应的布尔值不为false，抛出的错误信息就是message，否则错误信息就是“实际值 + 分隔符 + 预期值”。</p>
+<ol start="2">
+<li>async翻译过来就是异步的意思，异步异步，不就是一步一步嘛，什么都想一步到位，也就是说，只要下载完我就立马执行，至于其他的想都不想。</li>
+</ol>
+<hr>
+<ol start="3">
+<li>module翻译过来就是模块的意思，es6用过的人基本都了解这个关键字，加载也和defer差不多，只不过可以加载多个JS文件而已。</li>
+</ol>
+<p><strong>从上面我们可以看出，如果你的脚本依赖于DOM构建完成是否完成，则可以使用defer；如果无需DOM的构建，那就可以放心的使用async了</strong></p>
+<h2 id="扩展导入"><a href="#扩展导入" class="headerlink" title="扩展导入"></a>扩展导入</h2><p><img src="./image.png" alt="扩展导入"><br><img src="./async.png" alt="图片详解解析步骤"></p>
 
         </div>
         
@@ -236,14 +328,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                <a class="has-link-grey -link" href="/categories/ECMAScript/">ECMAScript</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 576 个字)
+                    3 分钟 读完 (大约 503 个字)
                 </span>
                 
                 
@@ -252,35 +344,19 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/nuxt/init/">nuxt服务端项目集成引入iView</a>
+                <a class="has-link-black-ter" href="/2019/07/13/javaScript/ECMAScript/">ECMAScript 提案</a>
             
         </h1>
         <div class="content">
-            <p>Nuxt.js 是一个基于 Vue.js 的通用应用框架。</p>
-<p>通过对客户端/服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI渲染。</p>
-<p>我们的目标是创建一个灵活的应用框架，你可以基于它初始化新项目的基础结构代码，或者在已有 Node.js 项目中使用 Nuxt.js。</p>
-<p>Nuxt.js 预设了利用Vue.js开发服务端渲染的应用所需要的各种配置。</p>
-<p>除此之外，我们还提供了一种命令叫：nuxt generate，为基于 Vue.js 的应用提供生成对应的静态站点的功能。</p>
-<p>我们相信这个命令所提供的功能，是向开发集成各种微服务（microservices）的 Web 应用迈开的新一步。</p>
-<p>作为框架，Nuxt.js 为 客户端/服务端 这种典型的应用架构模式提供了许多有用的特性，例如异步数据加载、中间件支持、布局支持等。</p>
-<h2 id="Nuxt-项目–构建"><a href="#Nuxt-项目–构建" class="headerlink" title="Nuxt 项目–构建"></a>Nuxt 项目–构建</h2><p>因为Nuxt是基于vue的通用应用框架所以构建Nuxt项目可以同vue-cil来构建</p>
-<h3 id="1-安装vue-cil"><a href="#1-安装vue-cil" class="headerlink" title="1. 安装vue-cil"></a>1. 安装vue-cil</h3><p>相信有vue使用经验的开发者对这款cil工具是非常熟悉的</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global vue-cli</span><br></pre></td></tr></table></figure>
-<h3 id="2-用vue-cil搭建项目"><a href="#2-用vue-cil搭建项目" class="headerlink" title="2. 用vue-cil搭建项目"></a>2. 用vue-cil搭建项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ vue init nuxt-community/starter-template nuxt </span><br><span class="line">//(你要构建的项目名称我的项目叫做nuxt)</span><br><span class="line">$ cd nuxt</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<h3 id="3-接着通过以下命令启动项目"><a href="#3-接着通过以下命令启动项目" class="headerlink" title="3. 接着通过以下命令启动项目"></a>3. 接着通过以下命令启动项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>访问 <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br><img src="/2019/07/13/nuxt/init/init.png" title="启动页"></p>
-<h3 id="集成-iview-UI框架"><a href="#集成-iview-UI框架" class="headerlink" title="集成 iview UI框架"></a>集成 iview UI框架</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装 iview</span><br><span class="line">$ npm install iview --save</span><br></pre></td></tr></table></figure>
-<h3 id="在根目录的-plugins-中新建-iview-js"><a href="#在根目录的-plugins-中新建-iview-js" class="headerlink" title="在根目录的 plugins 中新建 iview.js"></a>在根目录的 plugins 中新建 iview.js</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import iView from &apos;iview&apos;</span><br><span class="line">Vue.use(iView)</span><br></pre></td></tr></table></figure>
-<p>这里有个大坑因为Nuxt语法检测机制在Vue.use(iView)的后面要加一个回车要不会报一下错误，这个问题当时让我很郁闷</p>
-<img src="/2019/07/13/nuxt/init/error.png" title="启动页">
-<h3 id="修改-nuxt-config-js"><a href="#修改-nuxt-config-js" class="headerlink" title="修改 nuxt.config.js"></a>修改 nuxt.config.js</h3><p>在module.exports最后添加如下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugins: [ &#123; src: &apos;~plugins/iview&apos;, ssr: false &#125; ],</span><br><span class="line">css: [&apos;iview/dist/styles/iview.css&apos;],</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/07/13/nuxt/init/add.png" title="添加">
-<h3 id="在pages-index-vue-加入-Button-标签"><a href="#在pages-index-vue-加入-Button-标签" class="headerlink" title="在pages/index.vue,加入 Button 标签"></a>在pages/index.vue,加入 Button 标签</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button type=&quot;primary&quot;&gt;Primary&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
-<img src="/2019/07/13/nuxt/init/add.png" title="按钮">
-<h3 id="再次启动页面"><a href="#再次启动页面" class="headerlink" title="再次启动页面"></a>再次启动页面</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>效果页面如下：</p>
-<img src="/2019/07/13/nuxt/init/end.png" title="最后的效果">
-<h3 id="大功告成-后续会添加nuxt的相关内容"><a href="#大功告成-后续会添加nuxt的相关内容" class="headerlink" title="大功告成 后续会添加nuxt的相关内容"></a>大功告成 后续会添加nuxt的相关内容</h3>
+            <h2 id="标准的流程包括五个步骤："><a href="#标准的流程包括五个步骤：" class="headerlink" title="标准的流程包括五个步骤："></a>标准的流程包括五个步骤：</h2><h3 id="stage0-strawman"><a href="#stage0-strawman" class="headerlink" title="stage0 strawman"></a>stage0 strawman</h3><p>任何讨论、想法、改变或者还没加到提案的特性都在这个阶段。只有TC39成员可以提交。</p>
+<h3 id="stage1-proposal"><a href="#stage1-proposal" class="headerlink" title="stage1 proposal"></a>stage1 proposal</h3><p>（1）产出一个正式的提案。<br>（2）发现潜在的问题，例如与其他特性的关系，实现难题。<br>（3）提案包括详细的API描述，使用例子，以及关于相关的语义和算法。</p>
+<h3 id="stage2-draft"><a href="#stage2-draft" class="headerlink" title="stage2 draft"></a>stage2 draft</h3><p>（1）提供一个初始的草案规范，与最终标准中包含的特性不会有太大差别。草案之后，原则上只接受增量修改。<br>（2）开始实验如何实现，实现形式包括polyfill, 实现引擎（提供草案执行本地支持），或者编译转换（例如babel）</p>
+<h3 id="stage3-candidate"><a href="#stage3-candidate" class="headerlink" title="stage3 candidate"></a>stage3 candidate</h3><p>（1）候选阶段，获得具体实现和用户的反馈。此后，只有在实现和使用过程中出现了重大问题才会修改。 （2）规范文档必须是完整的，评审人和ECMAScript的编辑要在规范上签字。<br>（3）至少要在一个浏览器中实现，提供polyfill或者babel插件。</p>
+<h3 id="stage4-finished"><a href="#stage4-finished" class="headerlink" title="stage4 finished"></a>stage4 finished</h3><p>（1）已经准备就绪，该特性会出现在下个版本的ECMAScript规范之中。<br>（2）需要通过有2个独立的实现并通过验收测试，以获取使用过程中的重要实践经验。</p>
+<h2 id="TC39什么鬼？什么成分？主要业务是什么？"><a href="#TC39什么鬼？什么成分？主要业务是什么？" class="headerlink" title="TC39什么鬼？什么成分？主要业务是什么？"></a>TC39什么鬼？什么成分？主要业务是什么？</h2><p>一个推动 JavaScript 发展的委员会，由各个主流浏览器厂商的代表构成。制定ECMAScript标准，标准生成的流程，并实现。</p>
+<h2 id="相关-stage0-4的具体内容查看地址"><a href="#相关-stage0-4的具体内容查看地址" class="headerlink" title="相关 stage0-4的具体内容查看地址"></a>相关 stage0-4的具体内容查看地址</h2><p>stage0 的提案 <a href="https://github.com/tc39/proposals/blob/master/stage-0-proposals.md" target="_blank" rel="noopener">https://github.com/tc39/proposals/blob/master/stage-0-proposals.md</a><br>stage1 - 4 的提案 <a href="https://github.com/tc39/proposa" target="_blank" rel="noopener">https://github.com/tc39/proposa</a></p>
+<p>推荐阅读：<br><a href="https://zhuanlan.zhihu.com/p/27762556" target="_blank" rel="noopener">精读 TC39 与 ECMAScript 提案</a></p>
+
         </div>
         
         
@@ -304,14 +380,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                <a class="has-link-grey -link" href="/categories/array/">array</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 577 个字)
+                    2 分钟 读完 (大约 325 个字)
                 </span>
                 
                 
@@ -320,169 +396,81 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/other/chrome/">chrome扩展开发</a>
+                <a class="has-link-black-ter" href="/2019/07/13/javaScript/array/function/">关于数组的使用</a>
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>在平时的前端开发中chrome的扩展应用是非常常见的我平常应用的chrome扩展程序用Postman、React Developer Tools、Redux DevTools 等使用了这么长时间了扩展就想开发一款属于自己的chrome扩展，下面来介绍一下一个简单的扩展开发。</p>
+            <h1 id="Array-方法"><a href="#Array-方法" class="headerlink" title="Array 方法"></a>Array 方法</h1><h2 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h2><blockquote>
+<p>连接两个或者多个数组并返回新的数组，该方法不会影响原数组。</p>
 </blockquote>
-<h2 id="chrome扩展与chrome应用的区别"><a href="#chrome扩展与chrome应用的区别" class="headerlink" title="chrome扩展与chrome应用的区别"></a>chrome扩展与chrome应用的区别</h2><p>Chrome应用更强调是独立的程序，你可以不打开Chrome浏览器而运行这些程序。同时这些程序可以调用更加底层的系统接口，比如串口、USB、本地文件读写等等。同时Chrome应用可以拥有样式更加自由的独立窗口，而Chrome扩展的界面只能限定在浏览器窗口中。</p>
-<p>Chrome扩展是一系列文件的集合，这些文件包括HTML文件、CSS样式文件、JavaScript脚本文件、图片等静态文件以及manifest.json。个别扩展还会包含二进制文件，如DLL动态库和so动态库等，但这需要调用NPAPI，而Google出于安全性考虑已经决定逐渐淘汰NPAPI</p>
-<h2 id="一个简单的chrome扩展"><a href="#一个简单的chrome扩展" class="headerlink" title="一个简单的chrome扩展"></a>一个简单的chrome扩展</h2><p>新建文件夹 my_chrome 为项目目录<br>开发目录<br>——   images<br>——   js<br>——   css<br>——   index.html<br>——   manifest.json</p>
-<p>项目目录搭建完毕</p>
-<h2 id="manifest-json-文件"><a href="#manifest-json-文件" class="headerlink" title="manifest.json 文件"></a>manifest.json 文件</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;manifest_version&quot;: 2,</span><br><span class="line">    &quot;name&quot;: &quot;my_chrome&quot;,//扩展名称</span><br><span class="line">    &quot;version&quot;: &quot;1.0&quot;,//版本号</span><br><span class="line">    &quot;description&quot;: &quot;我的第一个Chrome扩展&quot;,//项目描述</span><br><span class="line">    &quot;icons&quot;: &#123;  //icons定义了扩展相关图标文件的位置</span><br><span class="line">        &quot;16&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;48&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;128&quot;: &quot;images/icon.png&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;browser_action&quot;: &#123;</span><br><span class="line">        &quot;default_icon&quot;: &#123; //定义了相应图标文件的位置</span><br><span class="line">            &quot;19&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">            &quot;38&quot;: &quot;images/icon.png&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;default_title&quot;: &quot;我的时钟&quot;,//当用户鼠标悬停于扩展图标上所显示的文字</span><br><span class="line">        &quot;default_popup&quot;: &quot;index.html&quot; //当用户单击扩展图标时所显示页面的文件位置。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="html的代码"><a href="#html的代码" class="headerlink" title="html的代码"></a>html的代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;style&gt;</span><br><span class="line">            * &#123;</span><br><span class="line">                margin: 0;</span><br><span class="line">                padding: 0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            body &#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            div &#123;</span><br><span class="line">                line-height: 100px;</span><br><span class="line">                font-size: 42px;</span><br><span class="line">                text-align: center;</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/style&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;div id=&quot;clock_div&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;script src=&quot;js/my_clock.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="js-代码"><a href="#js-代码" class="headerlink" title="js 代码"></a>js 代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function my_clock(el)&#123;</span><br><span class="line">    var today=new Date();</span><br><span class="line">    var h=today.getHours();</span><br><span class="line">    var m=today.getMinutes();</span><br><span class="line">    var s=today.getSeconds();</span><br><span class="line">    m=m&gt;=10?m:(&apos;0&apos;+m);</span><br><span class="line">    s=s&gt;=10?s:(&apos;0&apos;+s);</span><br><span class="line">    el.innerHTML = h+&quot;:&quot;+m+&quot;:&quot;+s;</span><br><span class="line">    setTimeout(function()&#123;my_clock(el)&#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var clock_div = document.getElementById(&apos;clock_div&apos;);</span><br><span class="line">my_clock(clock_div);</span><br></pre></td></tr></table></figure>
-<h2 id="扩展导入"><a href="#扩展导入" class="headerlink" title="扩展导入"></a>扩展导入</h2><img src="/2019/07/13/other/chrome/play.png" title="扩展导入">
-<h2 id="到这了一个简单的chrome扩展就完成了"><a href="#到这了一个简单的chrome扩展就完成了" class="headerlink" title="到这了一个简单的chrome扩展就完成了"></a>到这了一个简单的chrome扩展就完成了</h2>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 128 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/other/cmd/">自定义命令行配置</a>
-            
-        </h1>
-        <div class="content">
-            <p>平常在开发的时候因为项目多集合项目之间频繁切换非常浪费时间，因为启动项目是命令行所以想配置一个自定义命令来快速的进行项目切换和编辑器打开以及启动。</p>
-<h3 id="mac下自定义命令的配置"><a href="#mac下自定义命令的配置" class="headerlink" title="mac下自定义命令的配置"></a>mac下自定义命令的配置</h3><p>在命令行里用 VSCode 打开 .zshrc 文件如图：<br><img src="/2019/07/13/other/cmd/zshrc.jpg" title="mac的path路径文件"></p>
-<p>上图是我自定的自定义命令</p>
-<h3 id="window-下自定义命令"><a href="#window-下自定义命令" class="headerlink" title="window 下自定义命令"></a>window 下自定义命令</h3>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/vue/">vue</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 78 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/vue/start/">Vue项目搭建</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="Vue项目搭建"><a href="#Vue项目搭建" class="headerlink" title="Vue项目搭建"></a>Vue项目搭建</h3><p>Vue项目搭建非常简单这里就只说一下命令操作<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ npm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"># 安装依赖，走你</span><br><span class="line">$ cd my-project</span><br><span class="line">$ npm install</span><br><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="noopener">Vue项目搭建原文地址</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 245 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/IDE/macPath/">mac终端配置sublime和vsCode的快捷方式</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="vsCode的终端命令配置"><a href="#vsCode的终端命令配置" class="headerlink" title="vsCode的终端命令配置"></a>vsCode的终端命令配置</h2><h3 id="mac端配置"><a href="#mac端配置" class="headerlink" title="mac端配置"></a>mac端配置</h3><blockquote>
-<p>vsCode的终端命令配置较为简单，运行VS code并打开命令面板（ ⇧⌘P ），然后输入 shell command 找到: Install ‘code’ command in PATH 就行了。</p>
-</blockquote>
-<p>code命令还支持其他参数，具体看 <a href="http://www.jianshu.com/p/3dda4756eca5" target="_blank" rel="noopener">Visual Studio Code入门</a></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)</span><br><span class="line">code .</span><br></pre></td></tr></table></figure>
-<h2 id="sublime的终端配置"><a href="#sublime的终端配置" class="headerlink" title="sublime的终端配置"></a>sublime的终端配置</h2><h3 id="mac端配置-1"><a href="#mac端配置-1" class="headerlink" title="mac端配置"></a>mac端配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 1. 打开终端</span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">ls -la</span><br><span class="line">//找打.zshrc文件如果安装过atom 就输入 atom .zshrc 如果有 vim 就输入 vim .zshrc这里我用vim</span><br><span class="line"></span><br><span class="line">vim .zshrc</span><br><span class="line"></span><br><span class="line">//到 atom 中</span><br></pre></td></tr></table></figure>
-<p>//把下面内容粘贴到最后</p>
-<p>alias subl=”‘/Applications/Sublime.app/Contents/SharedSupport/bin/subl’”<br>alias nano=”subl”<br>export EDITOR=”subl”</p>
-<p>上面的第一行里是自己sublime的在、安装路径一般只有 Sublime.app 不一样</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)记得重启终端</span><br><span class="line">subl .</span><br></pre></td></tr></table></figure>
-<p>因为 atom 在这两款中显得较为鸡肋就不做介绍</p>
+<h3 id="es6-实现concat"><a href="#es6-实现concat" class="headerlink" title="es6 实现concat"></a>es6 实现concat</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr1 = [2,3];</span><br><span class="line">let arr2 = [4,5];</span><br><span class="line">let arr3 = [...arr1,...arr2]</span><br></pre></td></tr></table></figure>
+<h3 id="实现一个concat"><a href="#实现一个concat" class="headerlink" title="实现一个concat"></a>实现一个concat</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.myConcat = function () &#123;</span><br><span class="line">  let arr = this.slice(0);</span><br><span class="line">  arguments.length &amp;&amp; [].forEach.call(arguments,(value) =&gt; &#123;</span><br><span class="line">    if (Array.isArray(value)) &#123;</span><br><span class="line">     value.forEach(val =&gt; &#123;</span><br><span class="line">       arr.push(val);</span><br><span class="line">     &#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      arr.push(value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">concat()</td>
+<td style="text-align:center">连接两个或更多的数组，并返回结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">join()</td>
+<td style="text-align:center">把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。</td>
+</tr>
+<tr>
+<td style="text-align:center">pop()</td>
+<td style="text-align:center">删除并返回数组的最后一个元素</td>
+</tr>
+<tr>
+<td style="text-align:center">push()</td>
+<td style="text-align:center">向数组的末尾添加一个或更多元素，并返回新的长度。</td>
+</tr>
+<tr>
+<td style="text-align:center">reverse()</td>
+<td style="text-align:center">颠倒数组中元素的顺序。</td>
+</tr>
+<tr>
+<td style="text-align:center">shift()</td>
+<td style="text-align:center">删除并返回数组的第一个元素</td>
+</tr>
+<tr>
+<td style="text-align:center">slice()</td>
+<td style="text-align:center">从某个已有的数组返回选定的元素</td>
+</tr>
+<tr>
+<td style="text-align:center">sort()</td>
+<td style="text-align:center">对数组的元素进行排序</td>
+</tr>
+<tr>
+<td style="text-align:center">splice()</td>
+<td style="text-align:center">删除元素，并向数组添加新元素。</td>
+</tr>
+<tr>
+<td style="text-align:center">toSource()</td>
+<td style="text-align:center">返回该对象的源代码。</td>
+</tr>
+<tr>
+<td style="text-align:center">toString()</td>
+<td style="text-align:center">把数组转换为字符串，并返回结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">toLocaleString()</td>
+<td style="text-align:center">把数组转换为本地数组，并返回结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">unshift()</td>
+<td style="text-align:center">向数组的开头添加一个或更多元素，并返回新的长度。</td>
+</tr>
+<tr>
+<td style="text-align:center">valueOf()</td>
+<td style="text-align:center">返回数组对象的原始值</td>
+</tr>
+</tbody>
+</table>
 
         </div>
         
@@ -572,14 +560,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助知识/">辅助知识</a>
+                <a class="has-link-grey -link" href="/categories/vue/">vue</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    17 分钟 读完 (大约 2573 个字)
+                    4 分钟 读完 (大约 589 个字)
                 </span>
                 
                 
@@ -588,111 +576,237 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/IDE/agreement/">github上的协议知识普及</a>
+                <a class="has-link-black-ter" href="/2019/07/13/vue/lifecyce/">vue生命周期</a>
             
         </h1>
         <div class="content">
-            <h1 id="github上的协议知识普及"><a href="#github上的协议知识普及" class="headerlink" title="github上的协议知识普及"></a>github上的协议知识普及</h1><h3 id="选择一分协议的好处"><a href="#选择一分协议的好处" class="headerlink" title="选择一分协议的好处"></a>选择一分协议的好处</h3><blockquote>
-<p>你的作品如果不是定性为全商业性质，可以考虑选择一分流行度比较高的开源协议。具体来说的话，你肯定希望作品能够被多数人分享查阅吧，不但提高自己业界的知名度，同时也方便了需要的人为开源做出了贡献。换句话说，你不分享出来的话你的作品的意义何在呢（当然，自己捣腾的私人东西还是自己保留吧）？可是一旦你把你的代码贴出来，这就表示任何人都可以看到并获取，之后发生的事情你无法控制，有的人或许稍微修改一下放进自己的代码中，有的把你的软件改个名字拿去贩卖，有的甚至会拿去把作者名字改为自己然后拿去找工作什么的，而不会有人知道这个作品的原作者，背后辛勤付出了的人。所以为了公开分享你的代码，同时又让你对代码保留一定权利，在作品中声明一个许可协议是非常有必要的，这是很多新人所忽略的问题，同时很多人在使用别人的劳动成果时也会忽视协议的存在，这样不好。所以你会看到我的博客里面时不时会给出连接指向来源页面，同时文末也会列出所有参考过的文章。我相信我做到了这点，别人在转载我的文章的时候，也可以做到这点，这样营造出来的氛围一定会非常和谐，互相尊重/Show Respect。</p>
-</blockquote>
-<p>多说一句，一个事实让你了解国外开发者在尊重他人劳动成果方面做得是如何的到位，如果A的作品是因为B的作品的启发而来，A甚至都没有使用B任何一句代码，但A会在他的作品里面指明是受到了B的启发”Inspired by XXX link :<a href="http://www.blah.com&quot;。" target="_blank" rel="noopener">http://www.blah.com&quot;。</a></p>
-<p>当然有人会觉得，有了一分协议声明在那里，我就需要鸟你么，我拿来用了把作者名字去掉同时还要加上我的名字，你咬我？！这是后话，只是在利益很小的情况下，或者作者不知情的情况下，作者不会追究什么责任，但如果你的产品做成功了，那就不一定了。另外就是，有协议和没声明协议的裸代码是有非常重要区别的，一般作品当中没声明协议的默认为Copy right的，也就是版权保留。此种情况表明他人没有任何授权，不得复制分发修改使用等等，但一如上面所讨论的，这样的话还何来开源，何来分享呢。有了协议的声明，在未来你的维权上面会方便很多，让你的作品在分享的同时保留了自身的一些权利。</p>
-<h3 id="快速选择"><a href="#快速选择" class="headerlink" title="快速选择"></a>快速选择</h3><blockquote>
-<p>目前流行的开源协议有很多，并且同一款协议有很多变种，比如你或许看到过’ CC Attribution-NoDerivs’,’ CC Attribution-NonCommercial’同属CC协议（后面会有介绍）。如此纷繁的协议该如何选择？协议太宽松会导致作者丧失对作品的很多权利，太严格又不便于使用者使用及作品的传播。所以除了协议多之外，你还要考虑你对作品想保留哪些权利，放开哪些限制。</p>
-</blockquote>
-<p>如果你不想了解太多，只是想要一个简直直接的答案，下面给出的建议或许适合你。下方关于协议的选择及表格来自GitHub choosealicence项目。</p>
-<h4 id="简单宽松的协议"><a href="#简单宽松的协议" class="headerlink" title="简单宽松的协议"></a>简单宽松的协议</h4><blockquote>
-<p>如果你只想要一个简单点的协议不想太麻烦的话。</p>
-</blockquote>
-<p>MIT协议相对宽松但还是抓住了要点的。此协议允许别人以任何方式使用你的代码同时署名原作者，但原作者不承担代码使用后的风险，当然也没有技术支持的义务。jQuery和Rails就是MIT协议。</p>
-<h4 id="代码分享与促进"><a href="#代码分享与促进" class="headerlink" title="代码分享与促进"></a>代码分享与促进</h4><p>如果你在乎作品的传播和别人的修改，希望别人也以相同的协议分享出来。</p>
-<p>GPL（V2或V3）是一种版本自由的协议（可以参照copy right来理解，后者是版本保留，那copyleft便是版权自由，或者无版权，但无版权不代表你可以不遵守软件中声明的协议）。此协议要求代码分发者或者以此代码为基础开发出来的衍生作品需要以同样的协议来发布。此协议的版本3与版本2相近，只是多3中加了条对于不支持修改后代码运行的硬件的限制（没太明白此句话的内涵）。</p>
-<h3 id="各协议授权详情"><a href="#各协议授权详情" class="headerlink" title="各协议授权详情"></a>各协议授权详情</h3><blockquote>
-<p>下面是更多开源协议的一个表格任君选择，总有一款是你的菜。<br>不过先来了解一些下方表格中出现的用词的解释：<br>协议和版权信息(License and copyright notice)：在代码中保留作者提供的协议和版权信息<br>声明变更(State Changes)：在代码中声明对原来代码的重大修改及变更<br>公开源码(Disclose Source)：代码必需公开。如果是基于LGPL协议 下，则只需使用的开源代码公开，不必将整个软件源码公开<br>库引用(Library usage)：该库可以用于商业软件中<br>责任承担(Hold Liable)：代码的作者承担代码使用后的风险及产生的后果<br>商标使用(Use Trademark)：可以使用作者的姓名，作品的Logo，或商标<br>附加协议(Sublicensing)：允许在软件分发传播过程中附加上原来没有的协议条款等</p>
-</blockquote>
-<table>
+            <h1 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h1><h3 id="下面的表格是1-0-版本与2-0-版本的对比"><a href="#下面的表格是1-0-版本与2-0-版本的对比" class="headerlink" title="下面的表格是1.0+版本与2.0+版本的对比"></a>下面的表格是1.0+版本与2.0+版本的对比</h3><table>
 <thead>
 <tr>
-<th style="text-align:left">协议</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">要求</th>
-<th style="text-align:left">允许</th>
-<th style="text-align:left">禁止</th>
+<th>vue1.0+</th>
+<th>vue2.0</th>
+<th style="text-align:center">解释</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Apache</td>
-<td style="text-align:left">一个较宽松且简明地指出了专利授权的协议。</td>
-<td style="text-align:left">○协议和版权信息<br> ○声明变更</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○专利授权<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担（禁止让作者承担责任，可以理解为免责<br>○商标使用</td>
+<td>init</td>
+<td>beforeCreate</td>
+<td style="text-align:center">组件实例刚被创建，组件属性计算之前，如data属性</td>
 </tr>
 <tr>
-<td style="text-align:left">GPL</td>
-<td style="text-align:left">此协议是应用最为广泛的开源协议，拥有较强的版权自由( copyleft )要求。衍生代码的分发需开源并且也要遵守此协议。此协议有许多变种，不同变种的要求略有不同</td>
-<td style="text-align:left">○公开源码<br>○协议和版权信息<br>○声明变更</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○专利授权<br>○私用</td>
-<td style="text-align:left">○责任承担<br>○附加协议</td>
+<td>created</td>
+<td>created</td>
+<td style="text-align:center">组件实例创建完成，属性已绑定，但DOM还没生成,$el属性还不存在</td>
 </tr>
 <tr>
-<td style="text-align:left">MIT</td>
-<td style="text-align:left">宽松简单且精要的一个协议。在适当标明来源及免责的情况下，它允许你对代码进行任何形式的使用</td>
-<td style="text-align:left">○协议和版权信息</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担</td>
+<td>beforeCompile</td>
+<td>beforeMount</td>
+<td style="text-align:center">模板编译/挂载之前</td>
 </tr>
 <tr>
-<td style="text-align:left">Artistic</td>
-<td style="text-align:left">Perl社区尤为钟爱此协议。要求更改后的软件不能影响原软件的使用。</td>
-<td style="text-align:left">○协议和版权信息<br>○声明变更</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担<br>○商标使用</td>
+<td>compiled</td>
+<td>mounted</td>
+<td style="text-align:center">模板编译/挂载之后</td>
 </tr>
 <tr>
-<td style="text-align:left">BSD</td>
-<td style="text-align:left">较为宽松的协议，包含两个变种BSD 2-Clause 和BSD3-Clause，两者都与MIT协议只存在细微差异。</td>
-<td style="text-align:left">○协议和版权信息</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担</td>
+<td>ready</td>
+<td>mounted</td>
+<td style="text-align:center">模板编译/挂载之后</td>
 </tr>
 <tr>
-<td style="text-align:left">Eclipse</td>
-<td style="text-align:left">对商用非常友好的一种协议，可以用于软件的商业授权。包含对专利的优雅授权，并且也可以对相关代码应用商业协议。</td>
-<td style="text-align:left">○公开源码<br>○协议和版权信息</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○专利授权<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担</td>
+<td>-</td>
+<td>beforeUpdate</td>
+<td style="text-align:center">组件更新之前</td>
 </tr>
 <tr>
-<td style="text-align:left">LGPL</td>
-<td style="text-align:left">主要用于一些代码库。衍生代码可以以此协议发布（言下之意你可以用其他协议），但与此协议相关的代码必需遵循此协议</td>
-<td style="text-align:left">○公开源码<br>○库引用<br>○协议和版权信息</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○专利授权<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担</td>
+<td>-</td>
+<td>updated</td>
+<td style="text-align:center">组件更新之后</td>
 </tr>
 <tr>
-<td style="text-align:left">Mozilla</td>
-<td style="text-align:left">Mozilla Public License(MPL 2.0)是由Mozilla基金创建维护的。此协议旨在较为宽松的BSD协议和更加互惠的GPL协议中寻找一个折衷点。</td>
-<td style="text-align:left">○公开源码<br>○协议和版权信息</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○专利授权<br>○私用<br>○附加协议</td>
-<td style="text-align:left">○责任承担<br>○商标使用</td>
+<td>-</td>
+<td>activated</td>
+<td style="text-align:center">for keep-alive，组件被激活时调用</td>
 </tr>
 <tr>
-<td style="text-align:left">No license</td>
-<td style="text-align:left">你保留所有权利，不允许他人分发，复制或者创造衍生物。当你将代码发表在一些网站上时需要遵守该网站的协议，此协议可能包含了一些对你劳动成果的授权许可。比如你将代码发布到GitHub，那么你就必需同意别人可以查看和Fork你的代码。</td>
-<td style="text-align:left">○协议和版权信息</td>
-<td style="text-align:left">○商用<br>○私用</td>
-<td style="text-align:left">○分发<br>○修改<br>○附加协议</td>
+<td>-</td>
+<td>deactivated</td>
+<td style="text-align:center">for keep-alive，组件被移除时调用</td>
 </tr>
 <tr>
-<td style="text-align:left">Public domain dedication</td>
-<td style="text-align:left">在许多国家，默认版权归作者自动拥有，所以Unlicense协议提供了一种通用的模板，此协议表明你放弃版权，将劳动成果无私贡献出来。你将丧失对作品的全部权利，包括在MIT/X11中定义的无担保权利。</td>
-<td style="text-align:left">N/A</td>
-<td style="text-align:left">○商用<br>○分发<br>○修改<br>○私用</td>
-<td style="text-align:left">○责任承担</td>
+<td>activated</td>
+<td>-</td>
+<td style="text-align:center">不做解释</td>
+</tr>
+<tr>
+<td>detached</td>
+<td>-</td>
+<td style="text-align:center">不做解释</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>beforeDestroy</td>
+<td style="text-align:center">组件销毁前调用</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>destroyed</td>
+<td style="text-align:center">组件销毁后调用</td>
 </tr>
 </tbody>
 </table>
+<h3 id="用代码说清这些"><a href="#用代码说清这些" class="headerlink" title="用代码说清这些"></a>用代码说清这些</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.jsdelivr.net/vue/2.1.3/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">     &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">  var app = new Vue(&#123;</span><br><span class="line">      el: &apos;#app&apos;,</span><br><span class="line">      data: &#123;</span><br><span class="line">          message : &quot;xuxiao is boy&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">       beforeCreate: function () &#123;</span><br><span class="line">                console.group(&apos;beforeCreate 创建前状态===============》&apos;);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot; , &quot;el     : &quot; + this.$el); //undefined</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //undefined</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message)  </span><br><span class="line">        &#125;,</span><br><span class="line">        created: function () &#123;</span><br><span class="line">            console.group(&apos;created 创建完毕状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el); //undefined</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //已被初始化</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message); //已被初始化</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeMount: function () &#123;</span><br><span class="line">            console.group(&apos;beforeMount 挂载前状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + (this.$el)); //已被初始化</span><br><span class="line">            console.log(this.$el);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //已被初始化  </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message); //已被初始化  </span><br><span class="line">        &#125;,</span><br><span class="line">        mounted: function () &#123;</span><br><span class="line">            console.group(&apos;mounted 挂载结束状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el); //已被初始化</span><br><span class="line">            console.log(this.$el);    </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data); //已被初始化</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message); //已被初始化</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeUpdate: function () &#123;</span><br><span class="line">            console.group(&apos;beforeUpdate 更新前状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);   </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message);</span><br><span class="line">        &#125;,</span><br><span class="line">        updated: function () &#123;</span><br><span class="line">            console.group(&apos;updated 更新完成状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message);</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeDestroy: function () &#123;</span><br><span class="line">            console.group(&apos;beforeDestroy 销毁前状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);    </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message);</span><br><span class="line">        &#125;,</span><br><span class="line">        destroyed: function () &#123;</span><br><span class="line">            console.group(&apos;destroyed 销毁完成状态===============》&apos;);</span><br><span class="line">            console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;el     : &quot; + this.$el);</span><br><span class="line">            console.log(this.$el);  </span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;data   : &quot; + this.$data);</span><br><span class="line">               console.log(&quot;%c%s&quot;, &quot;color:red&quot;,&quot;message: &quot; + this.message)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="附一张图后面慢慢理解"><a href="#附一张图后面慢慢理解" class="headerlink" title="附一张图后面慢慢理解"></a>附一张图后面慢慢理解</h3><p><img src="./images/lifecyce/lifecyce.png" alt="生命周期"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 78 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/vue/start/">Vue项目搭建</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="Vue项目搭建"><a href="#Vue项目搭建" class="headerlink" title="Vue项目搭建"></a>Vue项目搭建</h3><p>Vue项目搭建非常简单这里就只说一下命令操作<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ npm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"># 安装依赖，走你</span><br><span class="line">$ cd my-project</span><br><span class="line">$ npm install</span><br><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="noopener">Vue项目搭建原文地址</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/node/">node</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 分钟 读完 (大约 2055 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/node/packagejson/">packagejson文件详解</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><hr>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1. 概述</span><br><span class="line">2. scripts字段</span><br><span class="line">3. dependencies字段，devDependencies字段</span><br><span class="line">4. peerDependencies</span><br><span class="line">5. bin字段</span><br><span class="line">6. main字段</span><br><span class="line">7. config 字段</span><br><span class="line">8. 其他</span><br><span class="line">9. browser字段</span><br><span class="line">10. engines 字段</span><br><span class="line">11. man字段</span><br><span class="line">12. preferGlobal字段</span><br><span class="line">13. style字段</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>每个项目的根目录下面，一般都有一个package.json文件，定义了这个项目所需要的各种模块，以及项目的配置信息（比如名称、版本、许可证等元数据）。npm install命令根据这个配置文件，自动下载所需的模块，也就是配置项目所需的运行和开发环境。</p>
+<p>下面是一个最简单的package.json文件，只定义两项元数据：项目名称和项目版本。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;xxx&quot;,</span><br><span class="line">  &quot;version&quot; : &quot;0.0.0&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>package.json文件就是一个JSON对象，该对象的每一个成员就是当前项目的一项设置。比如name就是项目名称，version是版本（遵守“大版本.次要版本.小版本”的格式）。</p>
+<p>下面是一个更完整的package.json文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;Hello World&quot;,</span><br><span class="line">	&quot;version&quot;: &quot;0.0.1&quot;,</span><br><span class="line">	&quot;author&quot;: &quot;张三&quot;,</span><br><span class="line">	&quot;description&quot;: &quot;第一个node.js程序&quot;,</span><br><span class="line">	&quot;keywords&quot;:[&quot;node.js&quot;,&quot;javascript&quot;],</span><br><span class="line">	&quot;repository&quot;: &#123;</span><br><span class="line">		&quot;type&quot;: &quot;git&quot;,</span><br><span class="line">		&quot;url&quot;: &quot;https://path/to/url&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;license&quot;:&quot;MIT&quot;,</span><br><span class="line">	&quot;engines&quot;: &#123;&quot;node&quot;: &quot;0.10.x&quot;&#125;,</span><br><span class="line">	&quot;bugs&quot;:&#123;&quot;url&quot;:&quot;http://path/to/bug&quot;,&quot;email&quot;:&quot;bug@example.com&quot;&#125;,</span><br><span class="line">	&quot;contributors&quot;:[&#123;&quot;name&quot;:&quot;李四&quot;,&quot;email&quot;:&quot;lisi@example.com&quot;&#125;],</span><br><span class="line">	&quot;scripts&quot;: &#123;</span><br><span class="line">		&quot;start&quot;: &quot;node index.js&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;dependencies&quot;: &#123;</span><br><span class="line">		&quot;express&quot;: &quot;latest&quot;,</span><br><span class="line">		&quot;mongoose&quot;: &quot;~3.8.3&quot;,</span><br><span class="line">		&quot;handlebars-runtime&quot;: &quot;~1.0.12&quot;,</span><br><span class="line">		&quot;express3-handlebars&quot;: &quot;~0.5.0&quot;,</span><br><span class="line">		&quot;MD5&quot;: &quot;~1.2.0&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;devDependencies&quot;: &#123;</span><br><span class="line">		&quot;bower&quot;: &quot;~1.2.8&quot;,</span><br><span class="line">		&quot;grunt&quot;: &quot;~0.4.1&quot;,</span><br><span class="line">		&quot;grunt-contrib-concat&quot;: &quot;~0.3.0&quot;,</span><br><span class="line">		&quot;grunt-contrib-jshint&quot;: &quot;~0.7.2&quot;,</span><br><span class="line">		&quot;grunt-contrib-uglify&quot;: &quot;~0.2.7&quot;,</span><br><span class="line">		&quot;grunt-contrib-clean&quot;: &quot;~0.5.0&quot;,</span><br><span class="line">		&quot;browserify&quot;: &quot;2.36.1&quot;,</span><br><span class="line">		&quot;grunt-browserify&quot;: &quot;~1.3.0&quot;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面详细解释package.json文件的各个字段。</p>
+<h3 id="2-scripts字段"><a href="#2-scripts字段" class="headerlink" title="2. scripts字段"></a>2. scripts字段</h3><p>scripts指定了运行脚本命令的npm命令行缩写，比如start指定了运行npm run start时，所要执行的命令。</p>
+<p>下面的设置指定了npm run preinstall、npm run postinstall、npm run start、npm run test时，所要执行的命令。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;preinstall&quot;: &quot;echo here it comes!&quot;,</span><br><span class="line">    &quot;postinstall&quot;: &quot;echo there it goes!&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;node index.js&quot;,</span><br><span class="line">    &quot;test&quot;: &quot;tap test/*.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-dependencies字段，devDependencies字段"><a href="#3-dependencies字段，devDependencies字段" class="headerlink" title="3. dependencies字段，devDependencies字段"></a>3. dependencies字段，devDependencies字段</h3><p>dependencies字段指定了项目运行所依赖的模块，devDependencies指定项目开发所需要的模块。</p>
+<p>它们都指向一个对象。该对象的各个成员，分别由模块名和对应的版本要求组成，表示依赖的模块及其版本范围。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;browserify&quot;: &quot;~13.0.0&quot;,</span><br><span class="line">    &quot;karma-browserify&quot;: &quot;~5.0.1&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的版本可以加上各种限定，主要有以下几种</p>
+<blockquote>
+<p>指定版本：比如1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。<br>波浪号（tilde）+指定版本：比如~1.2.2，表示安装1.2.x的最新版本（不低于1.2.2），但是不安装1.3.x，也就是说安装时不改变大版本号和次要版本号。<br>插入号（caret）+指定版本：比如ˆ1.2.2，表示安装1.x.x的最新版本（不低于1.2.2），但是不安装2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。<br>latest：安装最新版本。</p>
+</blockquote>
+<p>package.json文件可以手工编写，也可以使用npm init命令自动生成。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure>
+<p>这个命令采用互动方式，要求用户回答一些问题，然后在当前目录生成一个基本的package.json文件。所有问题之中，只有项目名称（name）和项目版本（version）是必填的，其他都是选填的。</p>
+<p>有了package.json文件，直接使用npm install命令，就会在当前目录中安装所需要的模块。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>如果一个模块不在package.json文件之中，可以单独安装这个模块，并使用相应的参数，将其写入package.json文件之中。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install express --save</span><br><span class="line">$ npm install express --save-dev</span><br></pre></td></tr></table></figure>
+<p>上面代码表示单独安装express模块，–save参数表示将该模块写入dependencies属性，–save-dev表示将该模块写入devDependencies属性。</p>
+<h3 id="4-peerDependencies"><a href="#4-peerDependencies" class="headerlink" title="4. peerDependencies"></a>4. peerDependencies</h3><p>有时，你的项目和所依赖的模块，都会同时依赖另一个模块，但是所依赖的版本不一样。比如，你的项目依赖A模块和B模块的1.0版，而A模块本身又依赖B模块的2.0版。</p>
+<p>大多数情况下，这不构成问题，B模块的两个版本可以并存，同时运行。但是，有一种情况，会出现问题，就是这种依赖关系将暴露给用户。</p>
+<p>最典型的场景就是插件，比如A模块是B模块的插件。用户安装的B模块是1.0版本，但是A插件只能和2.0版本的B模块一起使用。这时，用户要是将1.0版本的B的实例传给A，就会出现问题。因此，需要一种机制，在模板安装的时候提醒用户，如果A和B一起安装，那么B必须是2.0模块。</p>
+<p>peerDependencies字段，就是用来供插件指定其所需要的主工具的版本。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;chai-as-promised&quot;,</span><br><span class="line">  &quot;peerDependencies&quot;: &#123;</span><br><span class="line">    &quot;chai&quot;: &quot;1.x&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码指定，安装chai-as-promised模块时，主程序chai必须一起安装，而且chai的版本必须是1.x。如果你的项目指定的依赖是chai的2.0版本，就会报错。</p>
+<p>注意，从npm 3.0版开始，peerDependencies不再会默认安装了。</p>
+<h3 id="5-bin字段"><a href="#5-bin字段" class="headerlink" title="5. bin字段"></a>5. bin字段</h3><p>bin项用来指定各个内部命令对应的可执行文件的位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">  &quot;someTool&quot;: &quot;./bin/someTool.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码指定，someTool 命令对应的可执行文件为 bin 子目录下的 someTool.js。Npm会寻找这个文件，在node_modules/.bin/目录下建立符号链接。在上面的例子中，someTool.js会建立符号链接npm_modules/.bin/someTool。由于node_modules/.bin/目录会在运行时加入系统的PATH变量，因此在运行npm时，就可以不带路径，直接通过命令来调用这些脚本。</p>
+<p>因此，像下面这样的写法可以采用简写。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scripts: &#123;  </span><br><span class="line">  start: &apos;./node_modules/someTool/someTool.js build&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 简写为</span><br><span class="line"></span><br><span class="line">scripts: &#123;  </span><br><span class="line">  start: &apos;someTool build&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所有node_modules/.bin/目录下的命令，都可以用npm run [命令]的格式运行。在命令行下，键入npm run，然后按tab键，就会显示所有可以使用的命令。</p>
+<h3 id="6-main字段"><a href="#6-main字段" class="headerlink" title="6. main字段"></a>6. main字段</h3><p>main字段指定了加载的入口文件，require(‘moduleName’)就会加载这个文件。这个字段的默认值是模块根目录下面的index.js。</p>
+<h3 id="7-config-字段"><a href="#7-config-字段" class="headerlink" title="7. config 字段"></a>7. config 字段</h3><p>config字段用于添加命令行的环境变量。</p>
+<p>下面是一个package.json文件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;foo&quot;,</span><br><span class="line">  &quot;config&quot; : &#123; &quot;port&quot; : &quot;8080&quot; &#125;,</span><br><span class="line">  &quot;scripts&quot; : &#123; &quot;start&quot; : &quot;node server.js&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，在server.js脚本就可以引用config字段的值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">  .createServer(...)</span><br><span class="line">  .listen(process.env.npm_package_config_port)</span><br></pre></td></tr></table></figure>
+<p>用户执行npm run start命令时，这个脚本就可以得到值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run start</span><br></pre></td></tr></table></figure>
+<p>用户可以改变这个值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm config set foo:port 80</span><br></pre></td></tr></table></figure>
+<h3 id="8-其他"><a href="#8-其他" class="headerlink" title="8. 其他"></a>8. 其他</h3><h4 id="8-1-browser字段"><a href="#8-1-browser字段" class="headerlink" title="8.1 browser字段"></a>8.1 browser字段</h4><p>browser指定该模板供浏览器使用的版本。Browserify这样的浏览器打包工具，通过它就知道该打包那个文件。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;browser&quot;: &#123;</span><br><span class="line">  &quot;tipso&quot;: &quot;./node_modules/tipso/src/tipso.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h4 id="8-1-engines-字段"><a href="#8-1-engines-字段" class="headerlink" title="8.1 engines 字段"></a>8.1 engines 字段</h4><p>engines字段指明了该模块运行的平台，比如 Node 的某个版本或者浏览器。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;engines&quot; : &#123; &quot;node&quot; : &quot;&gt;=0.10.3 &lt;0.12&quot; &#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>该字段也可以指定适用的npm版本。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;engines&quot; : &#123; &quot;npm&quot; : &quot;~1.0.20&quot; &#125; &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-3-man字段"><a href="#8-3-man字段" class="headerlink" title="8.3 man字段"></a>8.3 man字段</h4><p>man用来指定当前模块的man文档的位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;man&quot; :[ &quot;./doc/calc.1&quot; ]</span><br></pre></td></tr></table></figure>
+<h4 id="8-4-preferGlobal字段"><a href="#8-4-preferGlobal字段" class="headerlink" title="8.4 preferGlobal字段"></a>8.4 preferGlobal字段</h4><p>preferGlobal的值是布尔值，表示当用户不将该模块安装为全局模块时（即不用–global参数），要不要显示警告，表示该模块的本意就是安装为全局模块。</p>
+<h4 id="8-5-style字段"><a href="#8-5-style字段" class="headerlink" title="8.5 style字段"></a>8.5 style字段</h4><p>style指定供浏览器使用时，样式文件所在的位置。样式文件打包工具parcelify，通过它知道样式文件的打包位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;style&quot;: [</span><br><span class="line">  &quot;./node_modules/tipso/src/tipso.css&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -724,7 +838,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    15 分钟 读完 (大约 2179 个字)
+                    16 分钟 读完 (大约 2372 个字)
                 </span>
                 
                 
@@ -733,114 +847,106 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/React/mobx/">MobX入坑</a>
+                <a class="has-link-black-ter" href="/2019/07/13/React/router/">React Router使用教程</a>
             
         </h1>
         <div class="content">
-            <h1 id="MobX入坑"><a href="#MobX入坑" class="headerlink" title="MobX入坑"></a>MobX入坑</h1><p>MobX 是一个简单、方便扩展、久经考验的状态管理解决方案。这个教程旨在十分钟内向你介绍 MobX 的一些重要概念。MobX 是一个独立的苦，不过大多数人都把它和 React 一起使用，所以本教程也就着眼于这个组合展开。</p>
-<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>State 是每一个应用程序的核心部分，而使用一个不合规范的 State 则是让你的应用充满 bug 和失控的不二法门，或者就是局部变量环绕，让你的 state 失去了同步。有很多框架试图解决这个问题，比如使用不可变的 state，但是这样以来又带来了新的问题，比如数据必须规格化，完整性约束失效等等。</p>
-<p>MobX 让整个事情又变简单了：它不允许产生失控的 state。它的理念也很简单：所有可以从 state 中派生的事物，都会自动的派生。</p>
-<p>把 MobX 想象成 Excel 表格。</p>
-<p>首先，有一个 state，它可以是一个object，array，primitives等等任何组成你程序的部分。你可以把这个想象成你应用程序的“单元格”。<br>然后就是 derivations，一般它是指可以从 state 中直接计算的来的结果。比如未完成的任务的数量，这个比较简单，也可以稍复杂一些比如渲染你的任务显示的html。它类似于你的应用程序中的“公式和图表”。<br>Reactions 和 derivations 很像，主要的区别在于 reactions 并不产生数据结果，而是自动完成一些任务，一般是和 I/O 相关的。他们保证了 DOM 和 网络请求会自动适时地出发。<br>最后是 actions。Actions 指的是所有会改变 state 的事情，MobX 保证所有 actions 都会有对应的 derivations 和 reactions 相伴，保证同步。<br>一个简单的 todo 的 state</p>
-<p>理论说的够多的了，看一个例子也许会更明白一些。我们从一个简单的 todo 程序开始。</p>
-<p>下面是一个简单直接的 TodoStore，没有鱼丸，没有粗面，没有 MobX ……</p>
-<p>JavaScript<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class TodoStore &#123;</span><br><span class="line">	todos = [];</span><br><span class="line"></span><br><span class="line">	get completedTodosCount() &#123;</span><br><span class="line">    	return this.todos.filter(</span><br><span class="line">			todo =&gt; todo.completed === true</span><br><span class="line">		).length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	report() &#123;</span><br><span class="line">		if (this.todos.length === 0)</span><br><span class="line">			return &quot;&lt;none&gt;&quot;;</span><br><span class="line">		return `Next todo: &quot;$&#123;this.todos[0].task&#125;&quot;. ` +</span><br><span class="line">			`Progress: $&#123;this.completedTodosCount&#125;/$&#123;this.todos.length&#125;`;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    addTodo(task) &#123;</span><br><span class="line">		this.todos.push(&#123;</span><br><span class="line">			task: task,</span><br><span class="line">			completed: false,</span><br><span class="line">            assignee: null</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const todoStore = new TodoStore();</span><br></pre></td></tr></table></figure></p>
-<p>我们创建了一个 todoStore，它拥有一个 todos 集合。现在我们往这个 todoStore 里添加一些东西，为了明显起见，我们每修改一个地方，就调用todoStore.report。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">todoStore.addTodo(&quot;read MobX tutorial&quot;);</span><br><span class="line">console.log(todoStore.report());</span><br><span class="line">​</span><br><span class="line">todoStore.addTodo(&quot;try MobX&quot;);</span><br><span class="line">console.log(todoStore.report());</span><br><span class="line">​</span><br><span class="line">todoStore.todos[0].completed = true;</span><br><span class="line">console.log(todoStore.report());</span><br><span class="line">​</span><br><span class="line">todoStore.todos[1].task = &quot;try MobX in own project&quot;;</span><br><span class="line">console.log(todoStore.report());</span><br><span class="line">​</span><br><span class="line">todoStore.todos[0].task = &quot;grok MobX tutorial&quot;;</span><br><span class="line">console.log(todoStore.report());</span><br></pre></td></tr></table></figure>
-<p>到现在为止，没有什么特别的。不过如果我们可以不再手动调用 report 方法，事情会不会更美好一些？我们只需要在想要的地方修改这个 state，所有的汇报都自动来做。</p>
-<p>太巧了，这就是 MobX 能为你做的事情。自动执行只在 state 改变的时候触发，就好像 Excel 中的图表只在单元格数据改变时更新一样。为了达到这个目标，TodoStore 必须成为可观测的（observable）才行，让我们来改一些代码。</p>
-<p>同时，completedTodosCount 属性应该被自动派生，使用 @observable 和 @computed 装饰器来做这些事情：</p>
-<p>JavaScript<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">class ObservableTodoStore &#123;</span><br><span class="line">    @observable todos = [];</span><br><span class="line">    @observable pendingRequests = 0;</span><br><span class="line"></span><br><span class="line">    constructor() &#123;</span><br><span class="line">        mobx.autorun(() =&gt; console.log(this.report));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @computed get completedTodosCount() &#123;</span><br><span class="line">    	return this.todos.filter(</span><br><span class="line">			todo =&gt; todo.completed === true</span><br><span class="line">		).length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @computed get report() &#123;</span><br><span class="line">        if (this.todos.length === 0)</span><br><span class="line">            return &quot;&lt;none&gt;&quot;;</span><br><span class="line">	return `Next todo: &quot;$&#123;this.todos[0].task&#125;&quot;. ` +</span><br><span class="line">	    `Progress: $&#123;this.completedTodosCount&#125;/$&#123;this.todos.length&#125;`;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    addTodo(task) &#123;</span><br><span class="line">	this.todos.push(&#123;</span><br><span class="line">	    task: task,</span><br><span class="line">	    completed: false,</span><br><span class="line">	    assignee: null</span><br><span class="line">	&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const observableTodoStore = new ObservableTodoStore();</span><br><span class="line"></span><br><span class="line">class ObservableTodoStore &#123;</span><br><span class="line">    @observable todos = [];</span><br><span class="line">    @observable pendingRequests = 0;</span><br><span class="line"></span><br><span class="line">    constructor() &#123;</span><br><span class="line">        mobx.autorun(() =&gt; console.log(this.report));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @computed get completedTodosCount() &#123;</span><br><span class="line">    	return this.todos.filter(</span><br><span class="line">			todo =&gt; todo.completed === true</span><br><span class="line">		).length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @computed get report() &#123;</span><br><span class="line">        if (this.todos.length === 0)</span><br><span class="line">            return &quot;&lt;none&gt;&quot;;</span><br><span class="line">	return `Next todo: &quot;$&#123;this.todos[0].task&#125;&quot;. ` +</span><br><span class="line">	    `Progress: $&#123;this.completedTodosCount&#125;/$&#123;this.todos.length&#125;`;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    addTodo(task) &#123;</span><br><span class="line">	this.todos.push(&#123;</span><br><span class="line">	    task: task,</span><br><span class="line">	    completed: false,</span><br><span class="line">	    assignee: null</span><br><span class="line">	&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const observableTodoStore = new ObservableTodoStore();</span><br></pre></td></tr></table></figure></p>
-<p>运行它，太棒了，我们每次赋值都能获得输出结果了。</p>
-<p>有个 pendingRequests 暂时没用到，我们后面会用。另外这个教程都用了 ES6 的写法，不过 MobX 也支持 ES5 的写法。</p>
-<p>在这个构造器中，我们使用autorun包裹了一个打出report的小函数。Autorun里的东西首先会运行一次，然后当其中的函数有observable的数据发生变化时，会再次运行。 这里我们使用了todos属性，每次todos变化了我们就打印出新的东西。</p>
-<p>JavaScript<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">observableTodoStore.addTodo(&quot;read MobX tutorial&quot;);</span><br><span class="line">observableTodoStore.addTodo(&quot;try MobX&quot;);</span><br><span class="line">observableTodoStore.todos[0].completed = true;</span><br><span class="line">observableTodoStore.todos[1].task = &quot;try MobX in own project&quot;;</span><br><span class="line">observableTodoStore.todos[0].task = &quot;grok MobX tutorial&quot;;</span><br></pre></td></tr></table></figure></p>
-<p>（可以自己试试结果）</p>
-<p>非常有趣是吧，report确实自己执行了，而且同步又精准。如果你仔细查看运行结果的话，你挥发性我们的第四句语句没有产生输出，因为我们修改了todos[1]的数据，而我们在report中指明的数据，并没有todos[1]的变化而发生变化。而第五句话修改了todos[0]的数据则输出了。这个例子很好的说明了，autorun不是简单的监视了todos，而是精确到了具体的一项。</p>
-<p>让React更美好</p>
-<p>好了，到目前未知，我们使report自动化了，是实话把react拉出来遛遛了。为了是的react 的组件可以识别mobx，我们需要使用mobx-react包来完成，使用autorun，自动的让组件和state同步，这个简直就和上面的让report自动输出一样简单。</p>
-<p>下面是一个react 组件，唯一MobX出场的地方就是一个@observer修饰符，这已经足够了，你再也不用使用setState了，你也不需要指明这个组件需要关注state的哪个部分，也不许手动写什么高阶组件。一般来说，所有的部件都变成人工智能了，即使他被定义成一个木偶（纯展示）组件。</p>
-<p>JavaScript<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">@observer</span><br><span class="line">class TodoList extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    const store = this.props.store;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &#123; store.report &#125;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">          &#123; store.todos.map(</span><br><span class="line">            (todo, idx) =&gt; &lt;TodoView todo=&#123; todo &#125; key=&#123; idx &#125; /&gt;</span><br><span class="line">          ) &#125;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">        &#123; store.pendingRequests &gt; 0 ? &lt;marquee&gt;Loading...&lt;/marquee&gt; : null &#125;</span><br><span class="line">        &lt;button onClick=&#123; this.onNewTodo &#125;&gt;New Todo&lt;/button&gt;</span><br><span class="line">        &lt;small&gt; (double-click a todo to edit)&lt;/small&gt;</span><br><span class="line">      &lt;RenderCounter /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">​</span><br><span class="line">  onNewTodo = () =&gt; &#123;</span><br><span class="line">    this.props.store.addTodo(prompt(&apos;Enter a new todo:&apos;,&apos;coffee plz&apos;));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line">@observer</span><br><span class="line">class TodoView extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    const todo = this.props.todo;</span><br><span class="line">    return (</span><br><span class="line">      &lt;li onDoubleClick=&#123; this.onRename &#125;&gt;</span><br><span class="line">        &lt;input</span><br><span class="line">          type=&apos;checkbox&apos;</span><br><span class="line">          checked=&#123; todo.completed &#125;</span><br><span class="line">          onChange=&#123; this.onToggleCompleted &#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &#123; todo.task &#125;</span><br><span class="line">        &#123; todo.assignee</span><br><span class="line">          ? &lt;small&gt;&#123; todo.assignee.name &#125;&lt;/small&gt;</span><br><span class="line">          : null</span><br><span class="line">        &#125;</span><br><span class="line">      &lt;RenderCounter /&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">​</span><br><span class="line">  onToggleCompleted = () =&gt; &#123;</span><br><span class="line">    const todo = this.props.todo;</span><br><span class="line">    todo.completed = !todo.completed;</span><br><span class="line">  &#125;</span><br><span class="line">​</span><br><span class="line">  onRename = () =&gt; &#123;</span><br><span class="line">    const todo = this.props.todo;</span><br><span class="line">    todo.task = prompt(&apos;Task name&apos;, todo.task) || todo.task;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;TodoList store=&#123; observableTodoStore &#125; /&gt;,</span><br><span class="line">  document.getElementById(&apos;reactjs-app&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
-<p>执行下面的语句，我们会发现MobX帮我们把数据的更改反应到界面上去了。</p>
-<p>JavaScript<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">store.todos[0].completed = !store.todos[0].completed;</span><br><span class="line">store.todos[1].task = &quot;Random todo &quot; + Math.random();</span><br><span class="line">store.todos.push(&#123; task: &quot;Find a fine cheese&quot;, completed: true &#125;);</span><br><span class="line">// etc etc.. add your own statements here...</span><br></pre></td></tr></table></figure></p>
-<p>使用引用（References)</p>
-<p>到现在位置，我们已经使用 observable 创建了个数据类型了。也许你会想，MobX 能不能应付引用呢？在之前的例子里，你可能主意到了又一个 assignee 的属性，我们就在这里放另外的一个 store，然后把它赋值给 tasks。</p>
-<p>JavaScript<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var peopleStore = mobx.observable([</span><br><span class="line">  &#123; name: &quot;Michel&quot; &#125;,</span><br><span class="line">  &#123; name: &quot;Me&quot; &#125;</span><br><span class="line">]);</span><br><span class="line">observableTodoStore.todos[0].assignee = peopleStore[0];</span><br><span class="line">observableTodoStore.todos[1].assignee = peopleStore[1];</span><br><span class="line">peopleStore[0].name = &quot;Michel Weststrate&quot;;</span><br></pre></td></tr></table></figure></p>
-<p>毫无疑问的，MobX 把着一切打理的井井有条。使用 MobX ，不需要规格话数据，不需要指明控件，事实上你的数据在哪里都无所谓。只要 observale 了，什么都好了。</p>
-<p>总结</p>
-<p>好了，仅仅依靠一些简单的修饰器，我们就让 react 程序如此生动有趣。最后总结一些：</p>
-<p>@observale 修饰器或者 observable 函数让对象可以被追踪；<br>@computed 修饰器创造了自动运算的表达式；<br>autorun 函数让依靠 observable 的函数自动执行，这个用来写 log，发请求很不错；<br>@observer 修饰器让 React 组建自动起来，它会自动更新，即便是在一个很大的程序里也会工作的很好；</p>
-<p>最后，MobX 不是一个状态容器</p>
-<p>很多人把 MobX 当作另外一个 Redux，但是它仅仅是一个库，不是一个什么架构。上面的例子还是需要程序员自己去组织逻辑和store或者控制器什么的。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/react/">react</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    13 分钟 读完 (大约 2010 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/React/redux/">Redux使用入门</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Redux使用入门"><a href="#Redux使用入门" class="headerlink" title="Redux使用入门"></a>Redux使用入门</h1><p><a href="http://cn.redux.js.org/" target="_blank" rel="noopener">参考网站</a></p>
-<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>随着WEB应用变得越来越复杂，再加上node前后端分离越来越流行，那么对数据流动的控制就显得越发重要。redux是在flux的基础上产生的，基本思想是保证数据的单向流动，同时便于控制、使用、测试。</p>
-<p>redux不依赖于任意框架(库)，只要subscribe相应框架(库)的内部方法，就可以使用该应用框架保证数据流动的一致性。</p>
-<p>那么如何使用redux呢？下面一步步进行解析，并带有源码说明，不仅做到 知其然 ，还要做到 知其所以然 。</p>
-<h3 id="2-主干逻辑介绍-createStore"><a href="#2-主干逻辑介绍-createStore" class="headerlink" title="2. 主干逻辑介绍(createStore)"></a>2. 主干逻辑介绍(createStore)</h3><h4 id="2-1-简单demo入门"><a href="#2-1-简单demo入门" class="headerlink" title="2.1 简单demo入门"></a>2.1 简单demo入门</h4><p>先来一个直观的认识：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// 首先定义一个改变数据的plain函数，成为reducer</span><br><span class="line">function count (state, action) &#123;</span><br><span class="line">  var defaultState = &#123;</span><br><span class="line">    year: 2015,</span><br><span class="line">  &#125;;</span><br><span class="line">  state = state || defaultState;</span><br><span class="line">  switch (action.type) &#123;</span><br><span class="line">    case &apos;add&apos;:</span><br><span class="line">      return &#123;</span><br><span class="line">        year: state.year + 1</span><br><span class="line">      &#125;;</span><br><span class="line">    case &apos;sub&apos;:</span><br><span class="line">      return &#123;</span><br><span class="line">        year: state.year - 1</span><br><span class="line">      &#125;</span><br><span class="line">    default :</span><br><span class="line">      return state;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">// store的创建</span><br><span class="line">var createStore = require(&apos;redux&apos;).createStore;</span><br><span class="line">var store = createStore(count);</span><br><span class="line"></span><br><span class="line">// store里面的数据发生改变时，触发的回调函数</span><br><span class="line">store.subscribe(function () &#123;</span><br><span class="line">  console.log(&apos;the year is: &apos;, store.getState().year);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// action: 触发state改变的唯一方法(按照redux的设计思路)</span><br><span class="line">var action1 = &#123; type: &apos;add&apos; &#125;;</span><br><span class="line">var action2 = &#123; type: &apos;add&apos; &#125;;</span><br><span class="line">var action3 = &#123; type: &apos;sub&apos; &#125;;</span><br><span class="line"></span><br><span class="line">// 改变store里面的方法</span><br><span class="line">store.dispatch(action1); // &apos;the year is: 2016</span><br><span class="line">store.dispatch(action2); // &apos;the year is: 2017</span><br><span class="line">store.dispatch(action3); // &apos;the year is: 2016</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-2-挖掘createStore实现"><a href="#2-2-挖掘createStore实现" class="headerlink" title="2.2 挖掘createStore实现"></a>2.2 挖掘createStore实现</h4><p>为了说明主要问题，仅列出其中的关键代码，全部代码，可以点击 这里 阅读。</p>
-<p>a首先看createStore到底都返回的内容:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default function createStore(reducer, initialState) &#123;</span><br><span class="line">  ...</span><br><span class="line">  return &#123;</span><br><span class="line">    dispatch,</span><br><span class="line">    subscribe,</span><br><span class="line">    getState,</span><br><span class="line">    replaceReducer</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>每个属性的含义是: - dispatch: 用于action的分发，改变store里面的state - subscribe: 注册listener，store里面state发生改变后，执行该listener - getState: 读取store里面的state - replaceReducer: 替换reducer，改变state修改的逻辑</p>
-<p>b关键代码解析<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">export default function createStore(reducer, initialState) &#123;</span><br><span class="line">  // 这些都是闭包变量</span><br><span class="line">  var currentReducer = reducer</span><br><span class="line">  var currentState = initialState</span><br><span class="line">  var listeners = []</span><br><span class="line">  var isDispatching = false;</span><br><span class="line"></span><br><span class="line">  // 返回当前的state</span><br><span class="line">  function getState() &#123;</span><br><span class="line">    return currentState</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 注册listener，同时返回一个取消事件注册的方法</span><br><span class="line">  function subscribe(listener) &#123;</span><br><span class="line">    listeners.push(listener)</span><br><span class="line">    var isSubscribed = true</span><br><span class="line"></span><br><span class="line">    return function unsubscribe() &#123;</span><br><span class="line">    if (!isSubscribed) &#123;</span><br><span class="line">	   return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isSubscribed = false</span><br><span class="line">    var index = listeners.indexOf(listener)</span><br><span class="line">      listeners.splice(index, 1)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 通过action该改变state，然后执行subscribe注册的方法</span><br><span class="line">  function dispatch(action) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      isDispatching = true</span><br><span class="line">      currentState = currentReducer(currentState, action)</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      isDispatching = false</span><br><span class="line">    &#125;</span><br><span class="line">    listeners.slice().forEach(listener =&gt; listener())</span><br><span class="line">    return action</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 替换reducer，修改state变化的逻辑</span><br><span class="line">  function replaceReducer(nextReducer) &#123;</span><br><span class="line">    currentReducer = nextReducer</span><br><span class="line">    dispatch(&#123; type: ActionTypes.INIT &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  // 初始化时，执行内部一个dispatch，得到初始state</span><br><span class="line">  dispatch(&#123; type: ActionTypes.INIT &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果还按照2.1的方式进行开发，那跟flux没有什么大的区别，需要手动解决很多问题，那redux如何将整个流程模板化(Boilerplate)呢?</p>
-<h3 id="3-保证store的唯一性"><a href="#3-保证store的唯一性" class="headerlink" title="3. 保证store的唯一性"></a>3. 保证store的唯一性</h3><p>随着应用越来越大，一方面，不能把所有的数据都放到一个reducer里面，另一方面，为每个reducer创建一个store，后续store的维护就显得比较麻烦。如何将二者统一起来呢？</p>
-<h4 id="3-1-demo入手"><a href="#3-1-demo入手" class="headerlink" title="3.1 demo入手"></a>3.1 demo入手</h4><p>通过combineReducers将多个reducer合并成一个rootReducer: // 创建两个reducer: count year function count (state, action) { state = state || {count: 1} switch (action.type) { default: return state; } } function year (state, action) { state = state || {year: 2015} switch (action.type) { default: return state; } }<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 将多个reducer合并成一个</span><br><span class="line">var combineReducers = require(&apos;./&apos;).combineReducers;</span><br><span class="line">var rootReducer = combineReducers(&#123;</span><br><span class="line">  count: count,</span><br><span class="line">  year: year,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 创建store，跟2.1没有任何区别</span><br><span class="line">var createStore = require(&apos;./&apos;).createStore;</span><br><span class="line">var store = createStore(rootReducer);</span><br><span class="line"></span><br><span class="line">var util = require(&apos;util&apos;);</span><br><span class="line">console.log(util.inspect(store));</span><br><span class="line">//输出的结果，跟2.1的store在结构上不存在区别</span><br><span class="line">// &#123; dispatch: [Function: dispatch],</span><br><span class="line">//   subscribe: [Function: subscribe],</span><br><span class="line">//   getState: [Function: getState],</span><br><span class="line">//   replaceReducer: [Function: replaceReducer]</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="3-2-源码解析combineReducers"><a href="#3-2-源码解析combineReducers" class="headerlink" title="3.2 源码解析combineReducers"></a>3.2 源码解析combineReducers</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 高阶函数，最后返回一个reducer</span><br><span class="line">export default function combineReducers(reducers) &#123;</span><br><span class="line">  // 提出不合法的reducers, finalReducers就是一个闭包变量</span><br><span class="line">  var finalReducers = pick(reducers, (val) =&gt; typeof val === &apos;function&apos;)</span><br><span class="line">  // 将各个reducer的初始state均设置为undefined</span><br><span class="line">  var defaultState = mapValues(finalReducers, () =&gt; undefined)</span><br><span class="line"></span><br><span class="line">  // 一个总reducer，内部包含子reducer</span><br><span class="line">  return function combination(state = defaultState, action) &#123;</span><br><span class="line">    var finalState = mapValues(finalReducers, (reducer, key) =&gt; &#123;</span><br><span class="line">      var previousStateForKey = state[key]</span><br><span class="line">      var nextStateForKey = reducer(previousStateForKey, action)</span><br><span class="line">      hasChanged = hasChanged || nextStateForKey !== previousStateForKey</span><br><span class="line">      return nextStateForKey</span><br><span class="line">    );</span><br><span class="line">    return hasChanged ? finalState : state</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-自动实现dispatch"><a href="#4-自动实现dispatch" class="headerlink" title="4. 自动实现dispatch"></a>4. 自动实现dispatch</h3><h4 id="4-1-demo介绍"><a href="#4-1-demo介绍" class="headerlink" title="4.1 demo介绍"></a>4.1 demo介绍</h4><p>在2.1中，要执行state的改变，需要手动dispatch:</p>
-<p>var action = { type: ‘<strong><em>‘, payload: ‘</em></strong>‘};<br>dispatch(action);<br>手动dispatch就显得啰嗦了，那么如何自动完成呢?<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var bindActionCreators = require(&apos;redux&apos;).bindActionCreators;</span><br><span class="line">// 可以在具体的应用框架隐式进行该过程(例如react-redux的connect组件中)</span><br><span class="line">bindActionCreators(action)</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-2-源码解析"><a href="#4-2-源码解析" class="headerlink" title="4.2 源码解析"></a>4.2 源码解析</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 隐式实现dispatch</span><br><span class="line">function bindActionCreator(actionCreator, dispatch) &#123;</span><br><span class="line">  return (...args) =&gt; dispatch(actionCreator(...args))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default function bindActionCreators(actionCreators, dispatch) &#123;</span><br><span class="line">  if (typeof actionCreators === &apos;function&apos;) &#123;</span><br><span class="line">    return bindActionCreator(actionCreators, dispatch)</span><br><span class="line">  &#125;</span><br><span class="line">  return mapValues(actionCreators, actionCreator =&gt;</span><br><span class="line">    bindAQctionCreator(actionCreator, dispatch)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5-支持插件-对dispatch的改造"><a href="#5-支持插件-对dispatch的改造" class="headerlink" title="5. 支持插件 - 对dispatch的改造"></a>5. 支持插件 - 对dispatch的改造</h3><h4 id="5-1-插件使用demo"><a href="#5-1-插件使用demo" class="headerlink" title="5.1 插件使用demo"></a>5.1 插件使用demo</h4><p>一个action可以是同步的，也可能是异步的，这是两种不同的情况， dispatch执行的时机是不一样的:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 同步的action creator, store可以默认实现dispatch</span><br><span class="line">function add() &#123;</span><br><span class="line">  return &#123; tyle: &apos;add&apos; &#125;</span><br><span class="line">&#125;</span><br><span class="line">dispatch(add());</span><br><span class="line"></span><br><span class="line">// 异步的action creator，因为异步完成的时间不确定，只能手工dispatch</span><br><span class="line">function fetchDataAsync() &#123;</span><br><span class="line">  return function (dispatch) &#123;</span><br><span class="line">    requst(url).end(function (err, res) &#123;</span><br><span class="line">      if (err) return dispatch(&#123; type: &apos;SET_ERR&apos;, payload: err&#125;);</span><br><span class="line">      if (res.status === &apos;success&apos;) &#123;</span><br><span class="line">        dispatch(&#123; type: &apos;FETCH_SUCCESS&apos;, payload: res.data &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面的问题就变成了，如何根据实际情况实现不同的dispatch方法，也即是根据需要实现不同的moddleware:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 普通的dispatch创建方法</span><br><span class="line">var store = createStore(reducer, initialState);</span><br><span class="line">console.log(store.dispatch);</span><br><span class="line"></span><br><span class="line">// 定制化的dispatch</span><br><span class="line">var applyMiddleware = require(&apos;redux&apos;).applyMiddleware;</span><br><span class="line">// 实现action异步的middleware</span><br><span class="line">var thunk = requre(&apos;redux-thunk&apos;);</span><br><span class="line">var store = applyMiddleware([thunk])(createStore);</span><br><span class="line">// 经过处理的dispatch方法</span><br><span class="line">console.log(store.dispatch);</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-2-源码解析"><a href="#5-2-源码解析" class="headerlink" title="5.2 源码解析"></a>5.2 源码解析</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// next: 其实就是createStore</span><br><span class="line">export default function applyMiddleware(...middlewares) &#123;</span><br><span class="line">  return (next) =&gt; (reducer, initialState) =&gt; &#123;</span><br><span class="line">    var store = next(reducer, initialState)</span><br><span class="line">    var dispatch = store.dispatch</span><br><span class="line">    var chain = []</span><br><span class="line"></span><br><span class="line">    var middlewareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: (action) =&gt; dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">    chain = middlewares.map(middleware =&gt; middleware(middlewareAPI))</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch // 实现新的dispatch方法</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 再看看redux-thunk的实现, next就是store里面的上一个dispatch</span><br><span class="line">function thunkMiddleware(&#123; dispatch, getState &#125;) &#123;</span><br><span class="line">  return function(next) &#123;</span><br><span class="line">    return function(action) &#123;</span><br><span class="line">      typeof action === &apos;function&apos; ? action(dispatch, getState) : next(action);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return next =&gt; action =&gt;</span><br><span class="line">    typeof action === &apos;function&apos; ?</span><br><span class="line">      action(dispatch, getState) :</span><br><span class="line">      next(action);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="6-与react框架的结合"><a href="#6-与react框架的结合" class="headerlink" title="6. 与react框架的结合"></a>6. 与react框架的结合</h3><p>####6.1 基本使用</p>
-<p>目前已经有现成的工具 react-redux 来实现二者的结合:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var rootReducers = combineReducers(reducers);</span><br><span class="line">var store = createStore(rootReducers);</span><br><span class="line">var Provider = require(&apos;react-redux&apos;).Provider;</span><br><span class="line">// App 为上层的Component</span><br><span class="line">class App extend React.Component&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;Provier store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;Container /&gt;</span><br><span class="line">      &lt;/Provider&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Container作用: 1. 获取store中的数据; 2.将dispatch与actionCreator结合起来</span><br><span class="line">var connect = require(&apos;react-redux&apos;).connect;</span><br><span class="line">var actionCreators = require(&apos;...&apos;);</span><br><span class="line">// MyComponent是与redux无关的组件</span><br><span class="line">var MyComponent = require(&apos;...&apos;);</span><br><span class="line"></span><br><span class="line">function select(state) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    count: state.count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default connect(select, actionCreators)(MyComponent)</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-2-Provider-–-提供store"><a href="#6-2-Provider-–-提供store" class="headerlink" title="6.2 Provider – 提供store"></a>6.2 Provider – 提供store</h4><p>React通过Context属性，可以将属性(props)直接给子孙component，无须通过props层层传递, Provider仅仅起到获得store，然后将其传递给子孙元素而已:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">export default class Provider extends Component &#123;</span><br><span class="line">  getChildContext() &#123; // getChildContext: 将store传递给子孙component</span><br><span class="line">    return &#123; store: this.store &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  constructor(props, context) &#123;</span><br><span class="line">    super(props, context)</span><br><span class="line">    this.store = props.store</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentWillReceiveProps(nextProps) &#123;</span><br><span class="line">    const &#123; store &#125; = this</span><br><span class="line">    const &#123; store: nextStore &#125; = nextProps</span><br><span class="line"></span><br><span class="line">    if (store !== nextStore) &#123;</span><br><span class="line">      warnAboutReceivingStore()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    let &#123; children &#125; = this.props</span><br><span class="line">    return Children.only(children)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-3-connect-–-获得store及dispatch-actionCreator"><a href="#6-3-connect-–-获得store及dispatch-actionCreator" class="headerlink" title="6.3 connect – 获得store及dispatch(actionCreator)"></a>6.3 connect – 获得store及dispatch(actionCreator)</h4><p>connect是一个高阶函数，首先传入mapStateToProps、mapDispatchToProps，然后返回一个生产 Component 的函数(wrapWithConnect)，然后再将真正的Component作为参数传入wrapWithConnect(MyComponent)，这样就生产出一个经过包裹的Connect组件，该组件具有如下特点:</p>
-<p>通过this.context获取祖先Component的store<br>props包括stateProps、dispatchProps、parentProps,合并在一起得到 nextState ，作为props传给真正的Component<br>componentDidMount时，添加事件this.store.subscribe(this.handleChange)，实现页面交互<br>shouldComponentUpdate时判断是否有避免进行渲染，提升页面性能，并得到nextState<br>componentWillUnmount时移除注册的事件this.handleChange<br>在非生产环境下，带有热重载功能<br>主要的代码逻辑:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = &#123;&#125;) &#123;</span><br><span class="line">  return function wrapWithConnect(WrappedComponent) &#123;</span><br><span class="line">    class Connect extends Component &#123;</span><br><span class="line">      constructor(props, context) &#123;</span><br><span class="line">        // 从祖先Component处获得store</span><br><span class="line">        this.store = props.store || context.store</span><br><span class="line">        this.stateProps = computeStateProps(this.store, props)</span><br><span class="line">        this.dispatchProps = computeDispatchProps(this.store, props)</span><br><span class="line">        this.state = &#123; storeState: null &#125;</span><br><span class="line">        // 对stateProps、dispatchProps、parentProps进行合并</span><br><span class="line">        this.updateState()</span><br><span class="line">      &#125;</span><br><span class="line">      shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">        // 进行判断，当数据发生改变时，Component重新渲染</span><br><span class="line">        if (propsChanged || mapStateProducedChange || dispatchPropsChanged) &#123;</span><br><span class="line">          this.updateState(nextProps)</span><br><span class="line">            return true</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        componentDidMount() &#123;</span><br><span class="line">          // 改变Component的state</span><br><span class="line">          this.store.subscribe(() = &#123;</span><br><span class="line">            this.setState(&#123;</span><br><span class="line">              storeState: this.store.getState()</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        render() &#123;</span><br><span class="line">          // 生成包裹组件Connect</span><br><span class="line">          return (</span><br><span class="line">            &lt;WrappedComponent &#123;...this.nextState&#125; /&gt;</span><br><span class="line">          )</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      Connect.contextTypes = &#123;</span><br><span class="line">        store: storeShape</span><br><span class="line">      &#125;</span><br><span class="line">      return Connect;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="7-redux与react-redux关系图"><a href="#7-redux与react-redux关系图" class="headerlink" title="7. redux与react-redux关系图"></a>7. redux与react-redux关系图</h3><p><img src="images/redux.png!web"></p>
+            <h1 id="React-Router使用教程"><a href="#React-Router使用教程" class="headerlink" title="React Router使用教程"></a>React Router使用教程</h1><h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><p>React Router 安装命令如下。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -S react-router</span><br></pre></td></tr></table></figure>
+<p>使用时，路由器 Router 就是React的一个组件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Router &#125; from &apos;react-router&apos;;</span><br><span class="line">render(&lt;Router/&gt;, document.getElementById(&apos;app&apos;));</span><br></pre></td></tr></table></figure>
+<p>Router 组件本身只是一个容器，真正的路由要通过 Route 组件定义。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Router, Route, hashHistory &#125; from &apos;react-router&apos;;</span><br><span class="line"></span><br><span class="line">render((</span><br><span class="line">  &lt;Router history=&#123;hashHistory&#125;&gt;</span><br><span class="line">    &lt;Route path=&quot;/&quot; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;/Router&gt;</span><br><span class="line">), document.getElementById(&apos;app&apos;));</span><br></pre></td></tr></table></figure>
+<p>上面代码中，用户访问根路由 / （比如 <a href="http://www.example.com/" target="_blank" rel="noopener">http://www.example.com/</a> ），组件 APP 就会加载到 document.getElementById(‘app’) 。</p>
+<p>你可能还注意到， Router 组件有一个参数 history ，它的值 hashHistory 表示，路由的切换由URL的hash变化决定，即URL的 # 部分发生变化。举例来说，用户访问 <a href="http://www.example.com/" target="_blank" rel="noopener">http://www.example.com/</a> ，实际会看到的是 <a href="http://www.example.com/#/" target="_blank" rel="noopener">http://www.example.com/#/</a> 。</p>
+<p>Route 组件定义了URL路径与组件的对应关系。你可以同时使用多个 Route 组件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router history=&#123;hashHistory&#125;&gt;</span><br><span class="line">  &lt;Route path=&quot;/&quot; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;Route path=&quot;/repos&quot; component=&#123;Repos&#125;/&gt;</span><br><span class="line">  &lt;Route path=&quot;/about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">&lt;/Router&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，用户访问 /repos （比如 <a href="http://localhost:8080/#/repos" target="_blank" rel="noopener">http://localhost:8080/#/repos</a> ）时，加载 Repos 组件；访问 /about （ <a href="http://localhost:8080/#/about" target="_blank" rel="noopener">http://localhost:8080/#/about</a> ）时，加载 About 组件。</p>
+<h2 id="二、嵌套路由"><a href="#二、嵌套路由" class="headerlink" title="二、嵌套路由"></a>二、嵌套路由</h2><p>Route 组件还可以嵌套。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router history=&#123;hashHistory&#125;&gt;</span><br><span class="line">  &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">  &lt;Route path=&quot;/repos&quot; component=&#123;Repos&#125;/&gt;</span><br><span class="line">    &lt;Route path=&quot;/about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">  &lt;/Route&gt;</span><br><span class="line">&lt;/Router&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，用户访问 /repos 时，会先加载 App 组件，然后在它的内部再加载 Repos 组件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;App&gt;</span><br><span class="line">  &lt;Repos/&gt;</span><br><span class="line">&lt;/App&gt;</span><br></pre></td></tr></table></figure>
+<p>App 组件要写成下面的样子。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export default React.createClass(&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;div&gt;</span><br><span class="line">      &#123;this.props.children&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上面代码中， App 组件的 this.props.children 属性就是子组件。</p>
+<p>子路由也可以不写在 Router 组件里面，单独传入 Router 组件的 routes 属性。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let routes = &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">  &lt;Route path=&quot;/repos&quot; component=&#123;Repos&#125;/&gt;</span><br><span class="line">  &lt;Route path=&quot;/about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">&lt;/Route&gt;;</span><br><span class="line"></span><br><span class="line">&lt;Router routes=&#123;routes&#125; history=&#123;browserHistory&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="三、-path-属性"><a href="#三、-path-属性" class="headerlink" title="三、 path 属性"></a>三、 path 属性</h2><p>Route 组件的 path 属性指定路由的匹配规则。这个属性是可以省略的，这样的话，不管路径是否匹配，总是会加载指定组件。</p>
+<p>请看下面的例子。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;inbox&quot; component=&#123;Inbox&#125;&gt;</span><br><span class="line">   &lt;Route path=&quot;messages/:id&quot; component=&#123;Message&#125; /&gt;</span><br><span class="line">&lt;/Route&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，当用户访问 /inbox/messages/:id 时，会加载下面的组件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Inbox&gt;</span><br><span class="line">  &lt;Message/&gt;</span><br><span class="line">&lt;/Inbox&gt;</span><br></pre></td></tr></table></figure>
+<p>如果省略外层 Route 的 path 参数，写成下面的样子。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route component=&#123;Inbox&#125;&gt;</span><br><span class="line">  &lt;Route path=&quot;inbox/messages/:id&quot; component=&#123;Message&#125; /&gt;</span><br><span class="line">&lt;/Route&gt;</span><br></pre></td></tr></table></figure>
+<p>现在用户访问 /inbox/messages/:id 时，组件加载还是原来的样子。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Inbox&gt;</span><br><span class="line">  &lt;Message/&gt;</span><br><span class="line">&lt;/Inbox&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="四、通配符"><a href="#四、通配符" class="headerlink" title="四、通配符"></a>四、通配符</h2><p>path 属性可以使用通配符。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/hello/:name&quot;&gt;</span><br><span class="line">// 匹配 /hello/michael</span><br><span class="line">// 匹配 /hello/ryan</span><br><span class="line"></span><br><span class="line">&lt;Route path=&quot;/hello(/:name)&quot;&gt;</span><br><span class="line">// 匹配 /hello</span><br><span class="line">// 匹配 /hello/michael</span><br><span class="line">// 匹配 /hello/ryan</span><br><span class="line"></span><br><span class="line">&lt;Route path=&quot;/files/*.*&quot;&gt;</span><br><span class="line">// 匹配 /files/hello.jpg</span><br><span class="line">// 匹配 /files/hello.html</span><br><span class="line"></span><br><span class="line">&lt;Route path=&quot;/files/*&quot;&gt;</span><br><span class="line">// 匹配 /files/</span><br><span class="line">// 匹配 /files/a</span><br><span class="line">// 匹配 /files/a/b</span><br><span class="line"></span><br><span class="line">&lt;Route path=&quot;/**/*.jpg&quot;&gt;</span><br><span class="line">// 匹配 /files/hello.jpg</span><br><span class="line">// 匹配 /files/path/to/file.jpg</span><br></pre></td></tr></table></figure>
+<p>通配符的规则如下。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">（1） :paramName</span><br><span class="line"></span><br><span class="line">:paramName 匹配URL的一个部分，直到遇到下一个 / 、 ? 、 # 为止。这个路径参数可以通过 this.props.params.paramName 取出。</span><br><span class="line"></span><br><span class="line">（2） ()</span><br><span class="line"></span><br><span class="line">() 表示URL的这个部分是可选的。</span><br><span class="line"></span><br><span class="line">（3） *</span><br><span class="line"></span><br><span class="line">* 匹配任意字符，直到模式里面的下一个字符为止。匹配方式是非贪婪模式。</span><br><span class="line"></span><br><span class="line">（4） **</span><br><span class="line"></span><br><span class="line">** 匹配任意字符，直到下一个 / 、 ? 、 # 为止。匹配方式是贪婪模式。</span><br></pre></td></tr></table></figure></p>
+<p>path 属性也可以使用相对路径（不以 / 开头），匹配时就会相对于父组件的路径，可以参考上一节的例子。嵌套路由如果想摆脱这个规则，可以使用绝对路由。</p>
+<p>路由匹配规则是从上到下执行，一旦发现匹配，就不再其余的规则了。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/comments&quot; ... /&gt;</span><br><span class="line">&lt;Route path=&quot;/comments&quot; ... /&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，路径 /comments 同时匹配两个规则，第二个规则不会生效。</p>
+<p>设置路径参数时，需要特别小心这一点。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router&gt;</span><br><span class="line">  &lt;Route path=&quot;/:userName/:id&quot; component=&#123;UserPage&#125;/&gt;</span><br><span class="line">  &lt;Route path=&quot;/about/me&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">&lt;/Router&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，用户访问 /about/me 时，不会触发第二个路由规则，因为它会匹配 /:userName/:id 这个规则。因此，带参数的路径一般要写在路由规则的底部。</p>
+<p>此外，URL的查询字符串 /foo?bar=baz ，可以用 this.props.location.query.bar 获取。</p>
+<h2 id="五、IndexRoute-组件"><a href="#五、IndexRoute-组件" class="headerlink" title="五、IndexRoute 组件"></a>五、IndexRoute 组件</h2><p>下面的例子，你会不会觉得有一点问题？</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router&gt;</span><br><span class="line">  &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">    &lt;Route path=&quot;accounts&quot; component=&#123;Accounts&#125;/&gt;</span><br><span class="line">    &lt;Route path=&quot;statements&quot; component=&#123;Statements&#125;/&gt;</span><br><span class="line">  &lt;/Route&gt;</span><br><span class="line">&lt;/Router&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，访问根路径 / ，不会加载任何子组件。也就是说， App 组件的 this.props.children ，这时是 undefined 。</p>
+<p>因此，通常会采用 {this.props.children || &lt;Home/&gt;} 这样的写法。这时， Home 明明是 Accounts 和 Statements 的同级组件，却没有写在 Route 中。</p>
+<p>IndexRoute 就是解决这个问题，显式指定 Home 是根路由的子组件，即指定默认情况下加载的子组件。你可以把 IndexRoute 想象成某个路径的 index.html 。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router&gt;</span><br><span class="line">  &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">    &lt;IndexRoute component=&#123;Home&#125;/&gt;</span><br><span class="line">    &lt;Route path=&quot;accounts&quot; component=&#123;Accounts&#125;/&gt;</span><br><span class="line">    &lt;Route path=&quot;statements&quot; component=&#123;Statements&#125;/&gt;</span><br><span class="line">  &lt;/Route&gt;</span><br><span class="line">&lt;/Router&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，用户访问 / 的时候，加载的组件结构如下。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;App&gt;</span><br><span class="line">  &lt;Home/&gt;</span><br><span class="line">&lt;/App&gt;</span><br></pre></td></tr></table></figure>
+<p>这种组件结构就很清晰了： App 只包含下级组件的共有元素，本身的展示内容则由 Home 组件定义。这样有利于代码分离，也有利于使用React Router提供的各种API。</p>
+<p>注意， IndexRoute 组件没有路径参数 path 。</p>
+<h2 id="六、Redirect-组件"><a href="#六、Redirect-组件" class="headerlink" title="六、Redirect 组件"></a>六、Redirect 组件</h2><p><redirect> 组件用于路由的跳转，即用户访问一个路由，会自动跳转到另一个路由。</redirect></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;inbox&quot; component=&#123;Inbox&#125;&gt;</span><br><span class="line">   &#123;/* 从 /inbox/messages/:id 跳转到 /messages/:id */&#125;</span><br><span class="line">   &lt;Redirect from=&quot;messages/:id&quot; to=&quot;/messages/:id&quot; /&gt;</span><br><span class="line">&lt;/Route&gt;</span><br></pre></td></tr></table></figure>
+<p>现在访问 /inbox/messages/5 ，会自动跳转到 /messages/5 。</p>
+<h2 id="七、IndexRedirect-组件"><a href="#七、IndexRedirect-组件" class="headerlink" title="七、IndexRedirect 组件"></a>七、IndexRedirect 组件</h2><p>IndexRedirect 组件用于访问根路由的时候，将用户重定向到某个子组件。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</span><br><span class="line">  &lt;IndexRedirect to=&quot;/welcome&quot; /&gt;</span><br><span class="line">  &lt;Route path=&quot;welcome&quot; component=&#123;Welcome&#125; /&gt;</span><br><span class="line">  &lt;Route path=&quot;about&quot; component=&#123;About&#125; /&gt;</span><br><span class="line">&lt;/Route&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，用户访问根路径时，将自动重定向到子组件 welcome 。</p>
+<h2 id="八、Link"><a href="#八、Link" class="headerlink" title="八、Link"></a>八、Link</h2><p>Link 组件用于取代 a标签，生成一个链接，允许用户点击后跳转到另一个路由。它基本上就是 a标签的React 版本，可以接收 Router 的状态。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">  return &lt;div&gt;</span><br><span class="line">    &lt;ul role=&quot;nav&quot;&gt;</span><br><span class="line">      &lt;li&gt;&lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">      &lt;li&gt;&lt;Link to=&quot;/repos&quot;&gt;Repos&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果希望当前的路由与其他路由有不同样式，这时可以使用 Link 组件的 activeStyle 属性。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=&quot;/about&quot; activeStyle=&#123;&#123;color: &apos;red&apos;&#125;&#125;&gt;About&lt;/Link&gt;</span><br><span class="line">&lt;Link to=&quot;/repos&quot; activeStyle=&#123;&#123;color: &apos;red&apos;&#125;&#125;&gt;Repos&lt;/Link&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，当前页面的链接会红色显示。</p>
+<p>另一种做法是，使用 activeClassName 指定当前路由的 Class 。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=&quot;/about&quot; activeClassName=&quot;active&quot;&gt;About&lt;/Link&gt;</span><br><span class="line">&lt;Link to=&quot;/repos&quot; activeClassName=&quot;active&quot;&gt;Repos&lt;/Link&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，当前页面的链接的 class 会包含 active 。</p>
+<p>在 Router 组件之外，导航到路由页面，可以使用浏览器的History API，像下面这样写。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; browserHistory &#125; from &apos;react-router&apos;;</span><br><span class="line">browserHistory.push(&apos;/some/path&apos;);</span><br></pre></td></tr></table></figure>
+<h2 id="九、IndexLink"><a href="#九、IndexLink" class="headerlink" title="九、IndexLink"></a>九、IndexLink</h2><p>如果链接到根路由 / ，不要使用 Link 组件，而要使用 IndexLink 组件。</p>
+<p>这是因为对于根路由来说， activeStyle 和 activeClassName 会失效，或者说总是生效，因为 / 会匹配任何子路由。而 IndexLink 组件会使用路径的精确匹配。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;IndexLink to=&quot;/&quot; activeClassName=&quot;active&quot;&gt;</span><br><span class="line">  Home</span><br><span class="line">&lt;/IndexLink&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，根路由只会在精确匹配时，才具有 activeClassName 。</p>
+<p>另一种方法是使用 Link 组件的 onlyActiveOnIndex 属性，也能达到同样效果。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=&quot;/&quot; activeClassName=&quot;active&quot; onlyActiveOnIndex=&#123;true&#125;&gt;</span><br><span class="line">  Home</span><br><span class="line">&lt;/Link&gt;</span><br></pre></td></tr></table></figure>
+<p>实际上， IndexLink 就是对 Link 组件的 onlyActiveOnIndex 属性的包装。</p>
+<h2 id="十、histroy-属性"><a href="#十、histroy-属性" class="headerlink" title="十、histroy 属性"></a>十、histroy 属性</h2><p>Router 组件的 history 属性，用来监听浏览器地址栏的变化，并将URL解析成一个地址对象，供 React Router 匹配。</p>
+<p>history 属性，一共可以设置三种值。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">browserHistory</span><br><span class="line">hashHistory</span><br><span class="line">createMemoryHistory</span><br></pre></td></tr></table></figure></p>
+<p>如果设为 hashHistory ，路由将通过URL的hash部分（ # ）切换，URL的形式类似 example.com/#/some/path 。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; hashHistory &#125; from &apos;react-router&apos;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;Router history=&#123;hashHistory&#125; routes=&#123;routes&#125; /&gt;,</span><br><span class="line">  document.getElementById(&apos;app&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>如果设为 browserHistory ，浏览器的路由就不再通过 Hash 完成了，而显示正常的路径 example.com/some/path ，背后调用的是浏览器的History API。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; browserHistory &#125; from &apos;react-router&apos;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;Router history=&#123;browserHistory&#125; routes=&#123;routes&#125; /&gt;,</span><br><span class="line">  document.getElementById(&apos;app&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>但是，这种情况需要对 服务器改造 。否则用户直接向服务器请求某个子路由，会显示网页找不到的404错误。</p>
+<p>如果开发服务器使用的是 webpack-dev-server ，加上 –history-api-fallback 参数就可以了。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ webpack-dev-server --inline --content-base . --history-api-fallback</span><br><span class="line"></span><br><span class="line">createMemoryHistory 主要用于服务器渲染。它创建一个内存中的 history 对象，不与浏览器URL互动。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const history = createMemoryHistory(location)</span><br></pre></td></tr></table></figure>
+<h2 id="十一、表单处理"><a href="#十一、表单处理" class="headerlink" title="十一、表单处理"></a>十一、表单处理</h2><p>Link 组件用于正常的用户点击跳转，但是有时还需要表单跳转、点击按钮跳转等操作。这些情况怎么跟React Router对接呢？</p>
+<p>下面是一个表单。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form onSubmit=&#123;this.handleSubmit&#125;&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; placeholder=&quot;userName&quot;/&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; placeholder=&quot;repo&quot;/&gt;</span><br><span class="line">  &lt;button type=&quot;submit&quot;&gt;Go&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>第一种方法是使用 browserHistory.push</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; browserHistory &#125; from &apos;react-router&apos;</span><br><span class="line"></span><br><span class="line">// ...</span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    event.preventDefault()</span><br><span class="line">    const userName = event.target.elements[0].value</span><br><span class="line">    const repo = event.target.elements[1].value</span><br><span class="line">    const path = `/repos/$&#123;userName&#125;/$&#123;repo&#125;`</span><br><span class="line">    browserHistory.push(path)</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>第二种方法是使用 context 对象。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export default React.createClass(&#123;</span><br><span class="line"></span><br><span class="line">  // ask for `router` from context</span><br><span class="line">  contextTypes: &#123;</span><br><span class="line">    router: React.PropTypes.object</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    // ...</span><br><span class="line">    this.context.router.push(path)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="十二、路由的钩子"><a href="#十二、路由的钩子" class="headerlink" title="十二、路由的钩子"></a>十二、路由的钩子</h2><p>每个路由都有 Enter 和 Leave 钩子，用户进入或离开该路由时触发。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;about&quot; component=&#123;About&#125; /&gt;</span><br><span class="line">&lt;Route path=&quot;inbox&quot; component=&#123;Inbox&#125;&gt;</span><br><span class="line">  &lt;Redirect from=&quot;messages/:id&quot; to=&quot;/messages/:id&quot; /&gt;</span><br><span class="line">&lt;/Route&gt;</span><br></pre></td></tr></table></figure>
+<p>上面的代码中，如果用户离开 /messages/:id ，进入 /about 时，会依次触发以下的钩子。</p>
+<p>/messages/:id 的 onLeave<br>/inbox 的 onLeave<br>/about 的 onEnter<br>下面是一个例子，使用 onEnter 钩子替代 <redirect> 组件。</redirect></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;inbox&quot; component=&#123;Inbox&#125;&gt;</span><br><span class="line">  &lt;Route</span><br><span class="line">    path=&quot;messages/:id&quot;</span><br><span class="line">    onEnter=&#123;</span><br><span class="line">      (&#123;params&#125;, replace) =&gt; replace(`/messages/$&#123;params.id&#125;`)</span><br><span class="line">    &#125;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/Route&gt;</span><br></pre></td></tr></table></figure>
+<p>下面是一个高级应用，当用户离开一个路径的时候，跳出一个提示框，要求用户确认是否离开。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const Home = withRouter(</span><br><span class="line">  React.createClass(&#123;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      this.props.router.setRouteLeaveHook(</span><br><span class="line">        this.props.route,</span><br><span class="line">        this.routerWillLeave</span><br><span class="line">      )</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    routerWillLeave(nextLocation) &#123;</span><br><span class="line">      // 返回 false 会继续停留当前页面，</span><br><span class="line">      // 否则，返回一个字符串，会显示给用户，让其自己决定</span><br><span class="line">      if (!this.state.isSaved)</span><br><span class="line">        return &apos;确认要离开？&apos;;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>上面代码中， setRouteLeaveHook 方法为 Leave 钩子指定 routerWillLeave 函数。该方法如果返回 false ，将阻止路由的切换，否则就返回一个字符串，提示用户决定是否要切换。</p>
 
         </div>
         
@@ -1246,18 +1352,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
+            <a href="/2019/07/13/other/chrome/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
+                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
                     </p>
                 </div>
             </div>
@@ -1284,18 +1390,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -1303,18 +1409,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/react/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -1322,18 +1428,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
+                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -1971,18 +2077,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
+            <a href="/2019/07/13/other/chrome/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
+                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
                     </p>
                 </div>
             </div>
@@ -2009,18 +2115,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -2028,18 +2134,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/react/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -2047,18 +2153,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
+                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>

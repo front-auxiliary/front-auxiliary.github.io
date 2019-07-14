@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 读完 (大约 1451 个字)
+                    12 分钟 读完 (大约 1861 个字)
                 </span>
                 
                 
@@ -194,7 +194,7 @@
 </blockquote>
 <p><strong>CMYK/CMY</strong></p>
 <blockquote>
-<p>印刷四色模式是彩色印刷时采用的一种套色模式，利用色料的三原色混色原理，加上黑色油墨，共计四种颜色混合叠加，形成所谓“全彩印刷”。四种标准颜色是：C：Cyan = 青色，又称为‘天蓝色’或是‘湛蓝’M：Magenta = 品红色，又称为‘洋红色’；Y：Yellow = 黄色；K：blacK=黑色，虽然有文献解释说这里的K应该是Key Color（定位套版色），但其实是和制版时所用的定位套版观念混淆而有此一说。此处缩写使用最后一个字母K而非开头的B，是因为在整体色彩学中已经将B给了RGB的Blue蓝色。CMYK/CMY模式又称减色模式。<br><img src="/2019/07/12/knowledge/color/cmyk.jpeg" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>C(Cyan:0~100),<br>M(Magenta:0~100),<br>Y(Yellow:0~100),<br>K(blacK:0~100),</p>
+<p>印刷四色模式是彩色印刷时采用的一种套色模式，利用色料的三原色混色原理，加上黑色油墨，共计四种颜色混合叠加，形成所谓“全彩印刷”。四种标准颜色是：C：Cyan = 青色，又称为‘天蓝色’或是‘湛蓝’M：Magenta = 品红色，又称为‘洋红色’；Y：Yellow = 黄色；K：blacK=黑色，虽然有文献解释说这里的K应该是Key Color（定位套版色），但其实是和制版时所用的定位套版观念混淆而有此一说。此处缩写使用最后一个字母K而非开头的B，是因为在整体色彩学中已经将B给了RGB的Blue蓝色。CMYK模式又称减色模式。<br><img src="/2019/07/12/knowledge/color/cmyk.jpeg" title="HSV/HSL示意图"><br><strong>取值范围：</strong><br>C(Cyan:0~100),<br>M(Magenta:0~100),<br>Y(Yellow:0~100),<br>K(blacK:0~100),</p>
 </blockquote>
 <p><strong>HEX 格式</strong></p>
 <blockquote>
@@ -227,7 +227,10 @@
 <p>CMYK 转 RGB 转换的公式<br>R = 255<em>(100-C)</em>(100-K)/10000；<br>G = 255<em>(100-M)</em>(100-K)/10000；<br>B = 255<em>(100-Y)</em>(100-K)/10000；</p>
 </blockquote>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function cmykToRgb(params)&#123;</span><br><span class="line">    const &#123;c,m,y,k&#125; = params;</span><br><span class="line">    for(let key in params)&#123;</span><br><span class="line">        if(!params[key])&#123;</span><br><span class="line">            throw new Error(`$&#123;key&#125;是必填项`);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;</span><br><span class="line">        r:255*(100-c)*(100-k)/10000,</span><br><span class="line">        g:255*(100-m)*(100-k)/10000,</span><br><span class="line">        b:255*(100-y)*(100-k)/10000</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="颜色选择器的实现思路"><a href="#颜色选择器的实现思路" class="headerlink" title="颜色选择器的实现思路"></a>颜色选择器的实现思路</h3><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/f03e9ac9c9ef" target="_blank" rel="noopener">深入理解color model(颜色模型)</a></p>
+<h3 id="颜色选择器的实现思路"><a href="#颜色选择器的实现思路" class="headerlink" title="颜色选择器的实现思路"></a>颜色选择器的实现思路</h3><blockquote>
+<p>颜色选择的选择和使用，原本 input 有 color 类型 来调用系统的颜色选择，但是这个方案有系统兼容问题，而且在mac 和window 两个系统的表现形式不一样所以只能放弃，自己实现一个颜色选择器。<br>既然这样我们来利用我们前面学习的知识来分析一下这样的需求，首先我们要看常用的颜色选择器，都是两个选择色板如下是mac的颜色选择器：<br><img src="/2019/07/12/knowledge/color/input-color.png" title="HSV/HSL示意图"><br>我们不难看出上边的圆是有两个参数控制下边的滑条是由一个参数控制也就是说三个参数控制的交互界面是比较友好的所以 CMYK 模式的方案被排除剩下 RGB SHV SHL CMY 这四个方案，由于RGB 和 CMY 模式是你必须选择三个颜色后才知道最终颜色所以这个方案不合适，最终只剩下 SHV 和 SHL 对比 mac 的颜色选择我们可以发现其实就是使用了这个模式<br>最终定的是SHV模式如下图滑条是 H(色调)选择取值范围是0~360 , 下面的矩形是由 S (饱和度) 和 V (明度) 分别表示 水平轴和垂直轴，最会在使用上面的色彩转换方法将 SHV 转为 RGB 设置到元素上。<br><img src="/2019/07/12/knowledge/color/my-color.png" title="HSV/HSL示意图"><br>具体实现这里就不展开了有了显现原理，具体实现就很简单了。</p>
+</blockquote>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/f03e9ac9c9ef" target="_blank" rel="noopener">深入理解color model(颜色模型)</a></p>
 
         </div>
         
@@ -608,18 +611,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
+            <a href="/2019/07/13/other/chrome/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
+                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
                     </p>
                 </div>
             </div>
@@ -646,18 +649,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -665,18 +668,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/react/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -684,18 +687,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
+                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -1333,18 +1336,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/vue/lifecyce/" class="media-left">
+            <a href="/2019/07/13/other/chrome/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="chrome扩展开发">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/vue/lifecyce/" class="has-link-black-ter is-size-6">vue生命周期</a>
+                    <a href="/2019/07/13/other/chrome/" class="has-link-black-ter is-size-6">chrome扩展开发</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                        <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
                     </p>
                 </div>
             </div>
@@ -1371,18 +1374,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -1390,18 +1393,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/React/react/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/babel-stage/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="react项目搭建">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="babel-stage-x">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/react/" class="has-link-black-ter is-size-6">react项目搭建</a>
+                    <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>
@@ -1409,18 +1412,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/git/git-capitalize/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/resolve/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git区分大小写">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack中resolve模块">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/git/git-capitalize/" class="has-link-black-ter is-size-6">git区分大小写</a>
+                    <a href="/2019/07/13/packaging/webpack/resolve/" class="has-link-black-ter is-size-6">webpack中resolve模块</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
                 </div>
             </div>

@@ -334,6 +334,61 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 245 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/IDE/macPath/">mac终端配置sublime和vsCode的快捷方式</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="vsCode的终端命令配置"><a href="#vsCode的终端命令配置" class="headerlink" title="vsCode的终端命令配置"></a>vsCode的终端命令配置</h2><h3 id="mac端配置"><a href="#mac端配置" class="headerlink" title="mac端配置"></a>mac端配置</h3><blockquote>
+<p>vsCode的终端命令配置较为简单，运行VS code并打开命令面板（ ⇧⌘P ），然后输入 shell command 找到: Install ‘code’ command in PATH 就行了。</p>
+</blockquote>
+<p>code命令还支持其他参数，具体看 <a href="http://www.jianshu.com/p/3dda4756eca5" target="_blank" rel="noopener">Visual Studio Code入门</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)</span><br><span class="line">code .</span><br></pre></td></tr></table></figure>
+<h2 id="sublime的终端配置"><a href="#sublime的终端配置" class="headerlink" title="sublime的终端配置"></a>sublime的终端配置</h2><h3 id="mac端配置-1"><a href="#mac端配置-1" class="headerlink" title="mac端配置"></a>mac端配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 1. 打开终端</span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">ls -la</span><br><span class="line">//找打.zshrc文件如果安装过atom 就输入 atom .zshrc 如果有 vim 就输入 vim .zshrc这里我用vim</span><br><span class="line"></span><br><span class="line">vim .zshrc</span><br><span class="line"></span><br><span class="line">//到 atom 中</span><br></pre></td></tr></table></figure>
+<p>//把下面内容粘贴到最后</p>
+<p>alias subl=”‘/Applications/Sublime.app/Contents/SharedSupport/bin/subl’”<br>alias nano=”subl”<br>export EDITOR=”subl”</p>
+<p>上面的第一行里是自己sublime的在、安装路径一般只有 Sublime.app 不一样</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)记得重启终端</span><br><span class="line">subl .</span><br></pre></td></tr></table></figure>
+<p>因为 atom 在这两款中显得较为鸡肋就不做介绍</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                 </div>
                 
@@ -472,127 +527,6 @@
 <p>提示： 由于asycn和await是ES7里面的内容，现阶段不建议使用。为了顺利运行上面的代码，建议用webpack进行编译。</p>
 <h3 id="transform-exponentiation-operator"><a href="#transform-exponentiation-operator" class="headerlink" title="transform-exponentiation-operator"></a>transform-exponentiation-operator</h3><p>transform-exponentiation-operator这个插件算是一个语法糖，可以通过**这个符号来进行幂操作，想当于Math.pow(a,b)。如下面的样例</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// x ** y</span><br><span class="line"></span><br><span class="line">let squared = 2 ** 2;</span><br><span class="line">// 相当于: 2 * 2</span><br><span class="line"></span><br><span class="line">let cubed = 2 ** 3;</span><br><span class="line">// 相当于: 2 * 2 * 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// x **= y</span><br><span class="line"></span><br><span class="line">let a = 2;</span><br><span class="line">a **= 2;</span><br><span class="line">// 相当于: a = a * a;</span><br><span class="line"></span><br><span class="line">let b = 3;</span><br><span class="line">b **= 3;</span><br><span class="line">// 相当于: b = b * b * b;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 481 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/packaging/parcel/parcelDev/">parcel使用</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="什么是pracel"><a href="#什么是pracel" class="headerlink" title="什么是pracel"></a>什么是pracel</h3><p>parcel是一个前端项目打包器，现在我们已有的打包器与webpack和gulp。</p>
-<h3 id="为什么要把pracel拿出来说一说"><a href="#为什么要把pracel拿出来说一说" class="headerlink" title="为什么要把pracel拿出来说一说"></a>为什么要把pracel拿出来说一说</h3><p>最近许多的网站推送pracel的相关消息，说什么零配置，打包速度快。</p>
-<h3 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h3><ol>
-<li>我们现在使用的打包工具有哪些？</li>
-<li>我们为什么要是用这些打包工具，使用这些打包工具为我们解决了什么问题？</li>
-<li>现在已用到的打包工具给我们造成了什么困扰？</li>
-</ol>
-<h3 id="用parcel建一个简单的项目"><a href="#用parcel建一个简单的项目" class="headerlink" title="用parcel建一个简单的项目"></a>用parcel建一个简单的项目</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Yarn:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add parcel-bundler</span><br></pre></td></tr></table></figure></p>
-<p>npm:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g parcel-bundler</span><br></pre></td></tr></table></figure></p>
-<h4 id="创建package-json"><a href="#创建package-json" class="headerlink" title="创建package.json"></a>创建package.json</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y</span><br></pre></td></tr></table></figure>
-<p>or<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
-<h4 id="创建一个-index-html-和-index-js-文件。"><a href="#创建一个-index-html-和-index-js-文件。" class="headerlink" title="创建一个 index.html 和 index.js 文件。"></a>创建一个 index.html 和 index.js 文件。</h4><p>index.html<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p>index.js<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;hello world&quot;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="在package-json重配置"><a href="#在package-json重配置" class="headerlink" title="在package.json重配置"></a>在package.json重配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;parcel index.html -p 4000&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<h4 id="Babel配置"><a href="#Babel配置" class="headerlink" title="Babel配置"></a>Babel配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-preset-env</span><br></pre></td></tr></table></figure>
-<p> .babelrc文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="PostCSS配置"><a href="#PostCSS配置" class="headerlink" title="PostCSS配置"></a>PostCSS配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-modules autoprefixer</span><br></pre></td></tr></table></figure>
-<p>.postcssrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;modules&quot;: true,</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;autoprefixer&quot;: &#123;</span><br><span class="line">      &quot;grid&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="PostHTML配置"><a href="#PostHTML配置" class="headerlink" title="PostHTML配置"></a>PostHTML配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add posthtml-img-autosize</span><br></pre></td></tr></table></figure>
-<p>.posthtmlrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;posthtml-img-autosize&quot;: &#123;</span><br><span class="line">      &quot;root&quot;: &quot;./images&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/yihaoliu/parcelReact" target="_blank" rel="noopener">parcelReact项目</a>。</p>
-<p>虽然说parcel是零配置但是在没有配置的情况下明显项目的灵活度降低许多，下载react有create-react-app进行构建，vue有vue-cli进行构架其实在项目配置相对来说已经非常少了，但是parcel没有配置文件还是让项目的开发有点难受，比如文件起别名，还有proxyConfig进行跨域处理在项目的开发时期都是很重有的事情，只能说对于一个初学web的人员来说配置变少了尤其是没有用到三大框架的项目组pracel还是使用很方便的，对于一些h5小网页比如基于canvas的小游戏的开发用pracel来构建还是非常方便的，但对于大型网站来说。。。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 245 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/IDE/macPath/">mac终端配置sublime和vsCode的快捷方式</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="vsCode的终端命令配置"><a href="#vsCode的终端命令配置" class="headerlink" title="vsCode的终端命令配置"></a>vsCode的终端命令配置</h2><h3 id="mac端配置"><a href="#mac端配置" class="headerlink" title="mac端配置"></a>mac端配置</h3><blockquote>
-<p>vsCode的终端命令配置较为简单，运行VS code并打开命令面板（ ⇧⌘P ），然后输入 shell command 找到: Install ‘code’ command in PATH 就行了。</p>
-</blockquote>
-<p>code命令还支持其他参数，具体看 <a href="http://www.jianshu.com/p/3dda4756eca5" target="_blank" rel="noopener">Visual Studio Code入门</a></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)</span><br><span class="line">code .</span><br></pre></td></tr></table></figure>
-<h2 id="sublime的终端配置"><a href="#sublime的终端配置" class="headerlink" title="sublime的终端配置"></a>sublime的终端配置</h2><h3 id="mac端配置-1"><a href="#mac端配置-1" class="headerlink" title="mac端配置"></a>mac端配置</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 1. 打开终端</span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">ls -la</span><br><span class="line">//找打.zshrc文件如果安装过atom 就输入 atom .zshrc 如果有 vim 就输入 vim .zshrc这里我用vim</span><br><span class="line"></span><br><span class="line">vim .zshrc</span><br><span class="line"></span><br><span class="line">//到 atom 中</span><br></pre></td></tr></table></figure>
-<p>//把下面内容粘贴到最后</p>
-<p>alias subl=”‘/Applications/Sublime.app/Contents/SharedSupport/bin/subl’”<br>alias nano=”subl”<br>export EDITOR=”subl”</p>
-<p>上面的第一行里是自己sublime的在、安装路径一般只有 Sublime.app 不一样</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//配好后的使用方法(打开当前路径)记得重启终端</span><br><span class="line">subl .</span><br></pre></td></tr></table></figure>
-<p>因为 atom 在这两款中显得较为鸡肋就不做介绍</p>
 
         </div>
         
@@ -796,14 +730,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 489 个字)
+                    11 分钟 读完 (大约 1609 个字)
                 </span>
                 
                 
@@ -812,16 +746,218 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/git/git-neglect/">Git设置上传忽略</a>
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/resolve/">webpack中resolve模块</a>
             
         </h1>
         <div class="content">
-            <h1 id="Git设置上传忽略"><a href="#Git设置上传忽略" class="headerlink" title="Git设置上传忽略"></a>Git设置上传忽略</h1><h2 id="忽略语法规则"><a href="#忽略语法规则" class="headerlink" title="忽略语法规则"></a>忽略语法规则</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 忽略*.o和*.a文件</span><br><span class="line"></span><br><span class="line"> *.[oa]</span><br><span class="line"></span><br><span class="line"># 忽略*.b和*.B文件，my.b除外</span><br><span class="line"></span><br><span class="line">*.[bB]</span><br><span class="line"></span><br><span class="line">!my.b</span><br><span class="line"></span><br><span class="line"># 忽略dbg文件和dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line"># 只忽略dbg目录，不忽略dbg文件</span><br><span class="line"></span><br><span class="line">dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略dbg文件，不忽略dbg目录</span><br><span class="line"></span><br><span class="line">dbg</span><br><span class="line"></span><br><span class="line">!dbg/</span><br><span class="line"></span><br><span class="line"># 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内</span><br><span class="line"></span><br><span class="line">/dbg</span><br><span class="line"></span><br><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"># 但 lib.a 除外</span><br><span class="line">!lib.a </span><br><span class="line"></span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO </span><br><span class="line"></span><br><span class="line"># 忽略 build/ 目录下的所有文件</span><br><span class="line">build/ </span><br><span class="line"></span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/*.txt</span><br></pre></td></tr></table></figure>
-<p>下面介绍3种方法来设置上传忽略配置：</p>
-<h2 id="【方法一】"><a href="#【方法一】" class="headerlink" title="【方法一】"></a>【方法一】</h2><p> 通过配置.git/info/exclude文件来忽略文件。这种方式对仓库全局有效，只能对自己本地仓库有作用，其他人没办法通过这种方式来共享忽略规则，除非他人也修改其本地仓库的该文件。</p>
-<h2 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h2><p> 通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径），如下图所示。忽略规则在文件e:/gitignore.txt中（当然该文件名可以任意取）。在config的[remote “origin”]上一行添加 excludesfile = e:/gitignore.text即可<br> <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> [core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = false</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	symlinks = false</span><br><span class="line">	ignorecase = true</span><br><span class="line">    excludesfile = e:/gitignore.text</span><br><span class="line">[remote &quot;origin&quot;]</span><br></pre></td></tr></table></figure></p>
-<p> 该方式的作用域是也全局的。</p>
-<h2 id="【方式三】"><a href="#【方式三】" class="headerlink" title="【方式三】"></a>【方式三】</h2><p> 在项目根目录下创建.gitignore文件如果已经创建则不用创建然后在该文件中添加忽略语法<br> .gitignore文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，以共享同一套忽略规则。</p>
+            <h1 id="Resolve"><a href="#Resolve" class="headerlink" title="Resolve"></a>Resolve</h1><blockquote>
+<p>这些选项能设置模块如何被解析。webpack 提供合理的默认值，但是还是可能会修改一些解析的细节。</p>
+</blockquote>
+<h3 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h3><p>object</p>
+<blockquote>
+<p>配置模块如何解析。例如，当在 ES2015 中调用 import “lodash”，resolve 选项能够对 webpack 查找 “lodash” 的方式去做修改（查看模块）。</p>
+</blockquote>
+<h3 id="resolve-alias"><a href="#resolve-alias" class="headerlink" title="resolve.alias"></a>resolve.alias</h3><p>object</p>
+<p>创建 import 或 require 的别名，来确保模块引入变得更简单。例如，一些位于 src/ 文件夹下的常用模块：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">  Utilities: path.resolve(__dirname, &apos;src/utilities/&apos;),</span><br><span class="line">  Templates: path.resolve(__dirname, &apos;src/templates/&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在，替换「在导入时使用相对路径」这种方式，就像这样：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Utility from &apos;../../utilities/utility&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>你可以这样使用别名：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Utility from &apos;Utilities/utility&apos;;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 也可以在给定对象的键后的末尾添加 $，以表示精准匹配：</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">  xyz$: path.resolve(__dirname, &apos;path/to/file.js&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这将产生以下结果：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Test1 from &apos;xyz&apos;; // 精确匹配，所以 path/to/file.js 被解析和导入</span><br><span class="line">import Test2 from &apos;xyz/file.js&apos;; // 精确匹配，触发普通解析</span><br></pre></td></tr></table></figure></p>
+<p>下面的表格展示了一些其他情况：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">别名:</th>
+<th style="text-align:left">import”xyz”</th>
+<th style="text-align:left">import”xyz/file.js”</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">{}</td>
+<td style="text-align:left">/abc/node_modules/xyz/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “/abs/path/to/file.js” }</td>
+<td style="text-align:left">/abs/path/to/file.js</td>
+<td style="text-align:left">error</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “/abs/path/to/file.js” }</td>
+<td style="text-align:left">/abs/path/to/file.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “./dir/file.js” }</td>
+<td style="text-align:left">/abc/dir/file.js</td>
+<td style="text-align:left">error</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “./dir/file.js” }</td>
+<td style="text-align:left">/abc/dir/file.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “/some/dir” }</td>
+<td style="text-align:left">/some/dir/index.js</td>
+<td style="text-align:left">/some/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “/some/dir” }</td>
+<td style="text-align:left">/some/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “./dir” }</td>
+<td style="text-align:left">/abc/dir/index.js</td>
+<td style="text-align:left">/abc/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “modu” }</td>
+<td style="text-align:left">/abc/node_modules/modu/index.js</td>
+<td style="text-align:left">/abc/node_modules/modu/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “modu” }</td>
+<td style="text-align:left">/abc/node_modules/modu/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “modu/some/file.js” }</td>
+<td style="text-align:left">/abc/node_modules/modu/some/file.js</td>
+<td style="text-align:left">error</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “modu/dir” }</td>
+<td style="text-align:left">/abc/node_modules/modu/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “xyz/dir” }</td>
+<td style="text-align:left">/abc/node_modules/xyz/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “xyz/dir” }</td>
+<td style="text-align:left">/abc/node_modules/xyz/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+</tbody>
+</table>
+<p>如果在 package.json 中定义，index.js 可能会被解析为另一个文件。</p>
+<p><strong> /abc/node_modules 也可能在 /node_modules 中解析。</strong></p>
+<h3 id="resolve-aliasFields"><a href="#resolve-aliasFields" class="headerlink" title="resolve.aliasFields"></a>resolve.aliasFields</h3><p>string</p>
+<p>指定一个字段，例如 browser，根据此规范进行解析。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aliasFields: [&quot;browser&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-cacheWithContext"><a href="#resolve-cacheWithContext" class="headerlink" title="resolve.cacheWithContext"></a>resolve.cacheWithContext</h3><p>boolean ( webpack 3.1.0 以后版本)</p>
+<p>如果启用了不安全的缓存，则包含request.context在缓存中。该enhanced-resolve模块考虑了该选项。因为解析缓存中的webpack 3.1.0上下文在提供解析或解析的插件时被忽略。这解决了性能回归。</p>
+<h3 id="resolve-descriptionFiles"><a href="#resolve-descriptionFiles" class="headerlink" title="resolve.descriptionFiles"></a>resolve.descriptionFiles</h3><p>array</p>
+<p>用于描述的 JSON 文件。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">descriptionFiles: [&quot;package.json&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-enforceExtension"><a href="#resolve-enforceExtension" class="headerlink" title="resolve.enforceExtension"></a>resolve.enforceExtension</h3><p>boolean</p>
+<p>如果是 true，将不允许无扩展名(extension-less)文件。默认如果 ./foo 有 .js 扩展，require(‘./foo’) 可以正常运行。但如果启用此选项，只有 require(‘./foo.js’) 能够正常工作。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enforceExtension: false</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-enforceModuleExtension"><a href="#resolve-enforceModuleExtension" class="headerlink" title="resolve.enforceModuleExtension"></a>resolve.enforceModuleExtension</h3><p>boolean</p>
+<p>对模块是否需要使用的扩展（例如 loader）。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enforceModuleExtension: false</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-extensions"><a href="#resolve-extensions" class="headerlink" title="resolve.extensions"></a>resolve.extensions</h3><p>array</p>
+<p>自动解析确定的扩展。默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extensions: [&quot;.js&quot;, &quot;.json&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>能够使用户在引入模块时不带扩展：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import File from &apos;../path/to/file&apos;</span><br></pre></td></tr></table></figure>
+<p>使用此选项，会覆盖默认数组，这就意味着 webpack 将不再尝试使用默认扩展来解析模块。对于使用其扩展导入的模块，例如，import SomeFile from “./somefile.ext”，要想正确的解析，一个包含“*”的字符串必须包含在数组中。</p>
+<h3 id="resolve-mainFields"><a href="#resolve-mainFields" class="headerlink" title="resolve.mainFields"></a>resolve.mainFields</h3><p>array</p>
+<p>当从 npm 包中导入模块时（例如，import * as D3 from “d3”），此选项将决定在 package.json 中使用哪个字段导入模块。根据 webpack 配置中指定的 target 不同，默认值也会有所不同。</p>
+<p>当 target 属性设置为 webworker, web 或者没有指定，默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFields: [&quot;browser&quot;, &quot;module&quot;, &quot;main&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>对于其他任意的 target（包括 node），默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFields: [&quot;module&quot;, &quot;main&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>例如，D3 的 package.json 含有这些字段：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  main: &apos;build/d3.Node.js&apos;,</span><br><span class="line">  browser: &apos;build/d3.js&apos;,</span><br><span class="line">  module: &apos;index&apos;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这意味着当我们 import * as D3 from “d3”，实际从 browser 属性解析文件。在这里 browser 属性是最优先选择的，因为它是 mainFields 的第一项。同时，由 webpack 打包的 Node.js 应用程序默认会从 module 字段中解析文件。</p>
+<h3 id="resolve-mainFiles"><a href="#resolve-mainFiles" class="headerlink" title="resolve.mainFiles"></a>resolve.mainFiles</h3><p>array</p>
+<p>解析目录时要使用的文件名。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFiles: [&quot;index&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-modules"><a href="#resolve-modules" class="headerlink" title="resolve.modules"></a>resolve.modules</h3><p>array</p>
+<p>告诉 webpack 解析模块时应该搜索的目录。</p>
+<p>绝对路径和相对路径都能使用，但是要知道它们之间有一点差异。</p>
+<p>通过查看当前目录以及祖先路径（即 ./node_modules, ../node_modules 等等），相对路径将类似于 Node 查找 ‘node_modules’ 的方式进行查找。</p>
+<p>使用绝对路径，将只在给定目录中搜索。</p>
+<p>resolve.modules defaults to:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modules: [&quot;node_modules&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modules: [path.resolve(__dirname, &quot;src&quot;), &quot;node_modules&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-unsafeCache"><a href="#resolve-unsafeCache" class="headerlink" title="resolve.unsafeCache"></a>resolve.unsafeCache</h3><p>regex array boolean</p>
+<p>启用，会主动缓存模块，但并不安全。传递 true 将缓存一切。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafeCache: true</span><br></pre></td></tr></table></figure></p>
+<p>正则表达式，或正则表达式数组，可以用于匹配文件路径或只缓存某些模块。例如，只缓存 utilities 模块：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafeCache: /src\/utilities/</span><br></pre></td></tr></table></figure></p>
+<p>修改缓存路径可能在极少数情况下导致失败。</p>
+<h3 id="resolve-plugins"><a href="#resolve-plugins" class="headerlink" title="resolve.plugins"></a>resolve.plugins</h3><p>应该使用的额外的解析插件列表。它允许插件，如 DirectoryNamedWebpackPlugin。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: [new DirectoryNamedWebpackPlugin()]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-symlinks"><a href="#resolve-symlinks" class="headerlink" title="resolve.symlinks"></a>resolve.symlinks</h3><p>boolean</p>
+<p>是否将符号链接(symlink)解析到它们的符号链接位置(symlink location)。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">symlinks: true</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-cachePredicate"><a href="#resolve-cachePredicate" class="headerlink" title="resolve.cachePredicate"></a>resolve.cachePredicate</h3><p>function</p>
+<p>决定请求是否应该被缓存的函数。函数传入一个带有 path 和 request 属性的对象。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cachePredicate: function() &#123; return true &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolveLoader"><a href="#resolveLoader" class="headerlink" title="resolveLoader"></a>resolveLoader</h3><p>object</p>
+<p>这组选项与上面的 resolve 对象的属性集合相同，但仅用于解析 webpack 的 loader 包。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    modules: [&quot;node_modules&quot;],</span><br><span class="line">    extensions: [&quot;.js&quot;, &quot;.json&quot;],</span><br><span class="line">    mainFields: [&quot;loader&quot;, &quot;main&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，这里你可以使用别名，并且其他特性类似于 resolve 对象。例如，{ txt: ‘raw-loader’ } 会使用 raw-loader 去 shim(填充) txt!templates/demo.txt。</p>
+<h3 id="resolveLoader-moduleExtensions"><a href="#resolveLoader-moduleExtensions" class="headerlink" title="resolveLoader.moduleExtensions"></a>resolveLoader.moduleExtensions</h3><p>array</p>
+<p>在解析模块（例如，loader）时尝试使用的扩展。默认是一个空数组。</p>
+<p>如果你想要不带 -loader 后缀使用 loader，你可以使用：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moduleExtensions: [&apos;-loader&apos;]</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 481 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/parcel/parcelDev/">parcel使用</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="什么是pracel"><a href="#什么是pracel" class="headerlink" title="什么是pracel"></a>什么是pracel</h3><p>parcel是一个前端项目打包器，现在我们已有的打包器与webpack和gulp。</p>
+<h3 id="为什么要把pracel拿出来说一说"><a href="#为什么要把pracel拿出来说一说" class="headerlink" title="为什么要把pracel拿出来说一说"></a>为什么要把pracel拿出来说一说</h3><p>最近许多的网站推送pracel的相关消息，说什么零配置，打包速度快。</p>
+<h3 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h3><ol>
+<li>我们现在使用的打包工具有哪些？</li>
+<li>我们为什么要是用这些打包工具，使用这些打包工具为我们解决了什么问题？</li>
+<li>现在已用到的打包工具给我们造成了什么困扰？</li>
+</ol>
+<h3 id="用parcel建一个简单的项目"><a href="#用parcel建一个简单的项目" class="headerlink" title="用parcel建一个简单的项目"></a>用parcel建一个简单的项目</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Yarn:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<p>npm:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g parcel-bundler</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建package-json"><a href="#创建package-json" class="headerlink" title="创建package.json"></a>创建package.json</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y</span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建一个-index-html-和-index-js-文件。"><a href="#创建一个-index-html-和-index-js-文件。" class="headerlink" title="创建一个 index.html 和 index.js 文件。"></a>创建一个 index.html 和 index.js 文件。</h4><p>index.html<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>index.js<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;hello world&quot;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="在package-json重配置"><a href="#在package-json重配置" class="headerlink" title="在package.json重配置"></a>在package.json重配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;parcel index.html -p 4000&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="Babel配置"><a href="#Babel配置" class="headerlink" title="Babel配置"></a>Babel配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add babel-preset-env</span><br></pre></td></tr></table></figure>
+<p> .babelrc文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostCSS配置"><a href="#PostCSS配置" class="headerlink" title="PostCSS配置"></a>PostCSS配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add postcss-modules autoprefixer</span><br></pre></td></tr></table></figure>
+<p>.postcssrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;modules&quot;: true,</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;autoprefixer&quot;: &#123;</span><br><span class="line">      &quot;grid&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PostHTML配置"><a href="#PostHTML配置" class="headerlink" title="PostHTML配置"></a>PostHTML配置</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add posthtml-img-autosize</span><br></pre></td></tr></table></figure>
+<p>.posthtmlrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;posthtml-img-autosize&quot;: &#123;</span><br><span class="line">      &quot;root&quot;: &quot;./images&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/yihaoliu/parcelReact" target="_blank" rel="noopener">parcelReact项目</a>。</p>
+<p>虽然说parcel是零配置但是在没有配置的情况下明显项目的灵活度降低许多，下载react有create-react-app进行构建，vue有vue-cli进行构架其实在项目配置相对来说已经非常少了，但是parcel没有配置文件还是让项目的开发有点难受，比如文件起别名，还有proxyConfig进行跨域处理在项目的开发时期都是很重有的事情，只能说对于一个初学web的人员来说配置变少了尤其是没有用到三大框架的项目组pracel还是使用很方便的，对于一些h5小网页比如基于canvas的小游戏的开发用pracel来构建还是非常方便的，但对于大型网站来说。。。</p>
 
         </div>
         
@@ -1044,6 +1180,28 @@
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.w3.org/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3c</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3.org</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.ecma-international.org/default.htm" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">ecma</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.ecma-international.org</span>
                     </span>
                 </a>
             </li>
@@ -1317,6 +1475,25 @@
         
         <article class="media">
             
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
@@ -1348,25 +1525,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>
@@ -2042,6 +2200,25 @@
         
         <article class="media">
             
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
@@ -2073,25 +2250,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>

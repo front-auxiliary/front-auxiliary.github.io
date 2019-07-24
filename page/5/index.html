@@ -147,114 +147,6 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 744 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/mouse/">获取鼠标的位置</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="获取鼠标的位置"><a href="#获取鼠标的位置" class="headerlink" title="获取鼠标的位置"></a>获取鼠标的位置</h3><h4 id="获取鼠标的位置可以分为多个情况"><a href="#获取鼠标的位置可以分为多个情况" class="headerlink" title="获取鼠标的位置可以分为多个情况"></a>获取鼠标的位置可以分为多个情况</h4><ol>
-<li><p>获取鼠标相对于浏览器窗口的位置</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.clientX;</span><br><span class="line">let y = event.clientY;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取鼠标相对于整个页面的位置</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.pageX;</span><br><span class="line">let y = event.pageY;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取鼠标相对点击元素的位置</p>
-<p>这一个获取有点难度，因为在JavaScript原生方法中没有这个方法，那么需要分析如何获取，突破点一获取点击元素的相对其父本元素的偏移量这个属性在event的target属性下边绑定可以循环的方法获取点击元素相对于页面的位置方法如下</p>
-</li>
-</ol>
-  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  /*</span><br><span class="line">  *该方法是获取点击元素相对于页面的距离</span><br><span class="line">  *传入的参数为event.target</span><br><span class="line">  */</span><br><span class="line">  function getOffset(obj)&#123;</span><br><span class="line">   var tmp=&#123;</span><br><span class="line">      val:obj.offsetParent, //获取点击元素的父本</span><br><span class="line">      x:obj.offsetLeft, //获取点击元素的相对于父本的水平偏移</span><br><span class="line">      y:obj.offsetTop, //获取点击元素的相对于父本的垂直偏移</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   while(tmp.val != null)&#123; //当父级不存在是停止循环</span><br><span class="line">    tmp.x += tmp.val.offsetLeft; //水平偏移量累计</span><br><span class="line">    tmp.y += tmp.val.offsetTop; //垂直偏移量累计</span><br><span class="line">    tmp.val = tmp.val.offsetParent; //获取父本</span><br><span class="line">   &#125;</span><br><span class="line">   return tmp; //返回点击元素相对于页面的偏移值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上函数是获取了点击元素相对于页面的水平和垂直偏移，依赖以上获得的值，只需要鼠标相对于页面的偏移减去点击元素相对于页面的偏移方法如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">*该方法是获取鼠标相对于点击元素的位移</span><br><span class="line">*传入的参数为event</span><br><span class="line">*/</span><br><span class="line">function getCurrent(elem)&#123;</span><br><span class="line">  let off = getOffset(elem.target); //获取元素相对于页面的位置</span><br><span class="line">  let tmp = &#123;&#125;;</span><br><span class="line">  return tmp = &#123;</span><br><span class="line">    x:elem.pageX - off.x,</span><br><span class="line">    y:elem.pageY - off.y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.getBoundingClientRect用于获取某个html元素相对于页面的位置集合<br>执行 object.getBoundingClientRect();会得到元素的top、right、bottom、left、width、height属性，这些属性以一个对象的方式返回。</p>
-<p>主要是left和bottom要解释一下，left是指右边到页面最左边的距离，bottom是指底边到页面顶边的距离。</p>
-<h6 id="ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。"><a href="#ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。" class="headerlink" title="(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)"></a>(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)</h6><p><img src="http://www.51xuediannao.com/uploads/allimg/160811/2340295W5-0.jpg?_=6179964" alt="图解"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;test&quot; style=&quot;width: 100px; height: 100px; background: #ddd;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function getObjXy(obj)&#123;</span><br><span class="line">        var xy = obj.getBoundingClientRect();</span><br><span class="line">        var top = xy.top-document.documentElement.clientTop+document.documentElement.scrollTop,//document.documentElement.clientTop 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            bottom = xy.bottom,</span><br><span class="line">            left = xy.left-document.documentElement.clientLeft+document.documentElement.scrollLeft,//document.documentElement.clientLeft 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            right = xy.right,</span><br><span class="line">            width = xy.width||right - left, //IE67不存在width 使用right - left获得</span><br><span class="line">            height = xy.height||bottom - top;</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            top:top,</span><br><span class="line">            right:right,</span><br><span class="line">            bottom:bottom,</span><br><span class="line">            left:left,</span><br><span class="line">            width:width,</span><br><span class="line">            height:height</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var test = getObjXy(document.getElementById(&apos;test&apos;));</span><br><span class="line">    alert(&quot;top:&quot; + test.top + &quot;, right:&quot; + test.right + &quot;, bottom:&quot; + test.bottom + &quot;, left:&quot; + test.left);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>以上就是常用的获取鼠标位置的方法</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 197 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
-            
-        </h1>
-        <div class="content">
-            <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
                 </div>
                 
@@ -354,6 +246,102 @@
                 <span class="level-item has-text-grey">
                     
                     
+                    1 分钟 读完 (大约 180 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <p>其实javascript的new关键字只不过做了五件事情。</p>
+<p>1.创建Object</p>
+<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
+<p>3.将构造函数classA内部的this指向创建的Object</p>
+<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
+<p>5.执行构造函数class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 197 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
                     14 分钟 读完 (大约 2114 个字)
                 </span>
                 
@@ -416,14 +404,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript阅读/">javaScript阅读</a>
+                <a class="has-link-grey -link" href="/categories/html5/">html5</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 190 个字)
+                    2 分钟 读完 (大约 334 个字)
                 </span>
                 
                 
@@ -432,27 +420,139 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/you-dont-know-js/">你不知道的js（上）</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/webSocket/">webSocket</a>
             
         </h1>
         <div class="content">
-            <h3 id="LHS与RHS"><a href="#LHS与RHS" class="headerlink" title="LHS与RHS"></a>LHS与RHS</h3><blockquote>
-<p>LHS可以理解为某变量被赋值，RHS可以理解为被调用</p>
-</blockquote>
-<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo(a)&#123;</span><br><span class="line">  console.log(a); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(2)</span><br></pre></td></tr></table></figure>
+            <h4 id="目录结构如下"><a href="#目录结构如下" class="headerlink" title="目录结构如下"></a>目录结构如下</h4><img src="/2016/08/25/javaScript/webSocket/directory.png" title="RGB示意图">
+<!-- ![目录](./images/webSocket/directory.png) -->
+<h5 id="WebSocketTestChat-java里的代码"><a href="#WebSocketTestChat-java里的代码" class="headerlink" title="WebSocketTestChat.java里的代码:"></a>WebSocketTestChat.java里的代码:</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.moven.websockets;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import javax.websocket.OnClose;</span><br><span class="line">import javax.websocket.OnError;</span><br><span class="line">import javax.websocket.OnMessage;</span><br><span class="line">import javax.websocket.OnOpen;</span><br><span class="line">import javax.websocket.Session;</span><br><span class="line">import javax.websocket.server.PathParam;</span><br><span class="line">import javax.websocket.server.ServerEndpoint;</span><br><span class="line"></span><br><span class="line">@ServerEndpoint(&quot;/chat/&#123;username&#125;&quot;)</span><br><span class="line">public class WebSocketTestChat &#123;</span><br><span class="line">	Set&lt;Session&gt; session_list = null;</span><br><span class="line"></span><br><span class="line">	@OnMessage</span><br><span class="line">	public void onMessage(String message, Session session) &#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			session_list = session.getOpenSessions();</span><br><span class="line">			HttpSession httpSession = null;</span><br><span class="line">			String username = &quot;&quot;;</span><br><span class="line">			if(session instanceof HttpSession)&#123;</span><br><span class="line">				httpSession = (HttpSession)session;</span><br><span class="line">				Object param = httpSession.getAttribute(&quot;username&quot;);</span><br><span class="line">				if(null != param)&#123;</span><br><span class="line">					username = param.toString();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				username = session.getId();</span><br><span class="line">			&#125;</span><br><span class="line">			for (Session s : session_list) &#123;</span><br><span class="line">				s.getBasicRemote().sendText(&quot;当前总人数[&quot; + session_list.size() + &quot;]---&quot; + username + &quot;说:&quot; + message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch(IOException e)&#123;</span><br><span class="line">			System.out.println(&quot;Client error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnError</span><br><span class="line">    public void onError(Throwable t) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;Client error = &quot;+t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@OnOpen</span><br><span class="line">	public void onOpen(@PathParam(&quot;username&quot;) String username, Session session) &#123;</span><br><span class="line">		HttpSession httpSession = null;</span><br><span class="line">		if(session instanceof HttpSession)&#123;</span><br><span class="line">			httpSession = (HttpSession)session;</span><br><span class="line">			httpSession.setAttribute(&quot;username&quot;, username);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;Client connected&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@OnClose</span><br><span class="line">	public void onClose() &#123;</span><br><span class="line">		System.out.println(&quot;Connection closed&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="chat-html里边的代码"><a href="#chat-html里边的代码" class="headerlink" title="chat.html里边的代码"></a>chat.html里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Testing websockets&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&lt;textarea name=&quot;text&quot; id=&quot;text&quot; rows=&quot;3&quot; cols=&quot;20&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;send&quot; onclick=&quot;start()&quot; /&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		var webSocket = new WebSocket(</span><br><span class="line">				&apos;ws://local.moven.cn:8081/moven_im/chat/msw/lyh&apos;);</span><br><span class="line"></span><br><span class="line">		webSocket.onerror = function(event) &#123;</span><br><span class="line">			onError(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onopen = function(event) &#123;</span><br><span class="line">			onOpen(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		webSocket.onmessage = function(event) &#123;</span><br><span class="line">			onMessage(event)</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		function onMessage(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML += &apos;&lt;br /&gt;&apos;</span><br><span class="line">					+ event.data;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onOpen(event) &#123;</span><br><span class="line">			document.getElementById(&apos;messages&apos;).innerHTML = &apos;Connection established&apos;;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function onError(event) &#123;</span><br><span class="line">			alert(event.data);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function start() &#123;</span><br><span class="line">			var text = document.getElementById(&apos;text&apos;).value;</span><br><span class="line">			if(text)&#123;</span><br><span class="line">				webSocket.send(text);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				alert(&quot;Message can&apos;t be null&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			document.getElementById(&apos;text&apos;).value = &apos;&apos;;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="web-xml里边的代码"><a href="#web-xml里边的代码" class="headerlink" title="web.xml里边的代码"></a>web.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">	id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;Simple web application&lt;/display-name&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="pom-xml里边的代码"><a href="#pom-xml里边的代码" class="headerlink" title="pom.xml里边的代码"></a>pom.xml里边的代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;groupId&gt;com.moven&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;moven_im&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;source&gt;1.7&lt;/source&gt;</span><br><span class="line">					&lt;target&gt;1.7&lt;/target&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;javax&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;javaee-api&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;7.0&lt;/version&gt;</span><br><span class="line">			&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    22 分钟 读完 (大约 3367 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/this/">this</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="this的常见绑定形式"><a href="#this的常见绑定形式" class="headerlink" title="this的常见绑定形式"></a>this的常见绑定形式</h3><p>1.默认绑定<br>2.隐式绑定<br>3.显示绑定<br>4.new绑定</p>
 <blockquote>
-<p>foo进行RHS  foo的形参相当于a=2  所以a进行LHS  console是RHS  console里的a是RHS</p>
+<p>判断this 现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断:</p>
+<ol>
+<li>函数是否在new中调用(new绑定)?如果是的话this绑定的是新创建的对象。<br>  var bar = new foo()</li>
+<li>函数是否通过call、apply(显式绑定)或者硬绑定调用?如果是的话，this绑定的是 指定的对象。<br>  var bar = foo.call(obj2)</li>
+<li>函数是否在某个上下文对象中调用(隐式绑定)?如果是的话，this 绑定的是那个上 下文对象。<br>  var bar = obj1.foo()</li>
+<li>如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到 全局对象。<br>  var bar = foo()</li>
+</ol>
 </blockquote>
-<h3 id="理解作用于"><a href="#理解作用于" class="headerlink" title="理解作用于"></a>理解作用于</h3><h5 id="作用于嵌套"><a href="#作用于嵌套" class="headerlink" title="作用于嵌套"></a>作用于嵌套</h5><blockquote>
-<p>现在当前作用于找某变量，找不到时引擎会向外层嵌套的作用于中继续寻找，直到找到该变量，或抵达最外层的作用域（也就是全局作用于）为止。</p>
+<p>关于call、apply、bind的区别：</p>
+<p>|函数|参数|返回|</p>
+<p>|:—–:|:—–:|:—–:|</p>
+<p>|call|第一个参数是context,后边可传多个参数|立即调用|</p>
+<p>|apply|第一个参数是context,后边是一个数组|立即调用|</p>
+<p>|bind|第一个参数是context,后边可传多个参数|返回对应函数|</p>
+<p>在弄清楚这些绑定之前来弄清楚几个概念调用栈和调用位置<br>下面我们来看看到底什么是调用栈和调用位置:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function baz() &#123;</span><br><span class="line">// 当前调用栈是:baz</span><br><span class="line">// 因此，当前调用位置是全局作用域</span><br><span class="line">         console.log( &quot;baz&quot; );</span><br><span class="line">bar(); // &lt;-- bar 的调用位置 &#125;</span><br><span class="line">function bar() &#123;</span><br><span class="line">// 当前调用栈是 baz -&gt; bar</span><br><span class="line">// 因此，当前调用位置在 baz 中</span><br><span class="line">         console.log( &quot;bar&quot; );</span><br><span class="line">foo(); // &lt;-- foo 的调用位置 &#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">// 当前调用栈是 baz -&gt; bar -&gt; foo // 因此，当前调用位置在 bar 中</span><br><span class="line">         console.log( &quot;foo&quot; );</span><br><span class="line">     &#125;</span><br><span class="line">baz(); // &lt;-- baz 的调用位置</span><br></pre></td></tr></table></figure>
+<p>上面的代码让我们初步明白了调用栈，和调用位置</p>
+<h3 id="默认绑定-指绑定全局变量"><a href="#默认绑定-指绑定全局变量" class="headerlink" title="默认绑定(指绑定全局变量)"></a>默认绑定(指绑定全局变量)</h3><p>思考下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">   console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var a = 2;</span><br><span class="line">foo(); // 2</span><br></pre></td></tr></table></figure></p>
+<p>上面函数的当前当前调用位置是全局作用域，所以this默认绑定的是window<br><em>如果使用严格模式(strict mode)，那么全局对象将无法使用默认绑定，因此 this 会绑定 到 undefined:</em><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123; &quot;use strict&quot;;</span><br><span class="line">         console.log( this.a );</span><br><span class="line">     &#125;</span><br><span class="line">var a = 2;</span><br><span class="line">foo(); // TypeError: this is undefined</span><br></pre></td></tr></table></figure></p>
+<h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><p>在一些复杂的结构中我们经常会碰到隐式绑定<br>先来看下面的代码：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a: 2,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">obj.foo(); // 2</span><br></pre></td></tr></table></figure></p>
+<p>foo函数绑定在了obj下边的foo属性上边，所以他的当前调用位置在obj中所以this指向obj。</p>
+<p><em>对象属性引用链中只有最顶层或者说最后一层会影响调用位置</em><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">   console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var obj2 = &#123;</span><br><span class="line">  a: 42,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">   a: 2,</span><br><span class="line">   obj2: obj2</span><br><span class="line">&#125;;</span><br><span class="line">obj1.obj2.foo(); // 42</span><br></pre></td></tr></table></figure></p>
+<h3 id="隐式丢失"><a href="#隐式丢失" class="headerlink" title="隐式丢失"></a>隐式丢失</h3><p>看下面的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a: 2,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">var bar = obj.foo; // 函数别名!</span><br><span class="line">var a = &quot;oops, global&quot;; // a 是全局对象的属性 bar(); // &quot;oops, global&quot;</span><br></pre></td></tr></table></figure></p>
+<p>是不是结果让人诧异<br>虽然 bar 是 obj.foo 的一个引用，但是实际上，它引用的是 foo 函数本身，因此此时的 bar() 其实是一个不带任何修饰的函数调用，因此应用了默认绑定。（这是你不知道的JavaScript上中的解释，但是我感觉没有说服力，后面会查明真象）</p>
+<p><em>以形参传入其实就是隐式赋值</em><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">function doFoo(fn) &#123;</span><br><span class="line">  // fn 其实引用的是 foo</span><br><span class="line">  fn();</span><br><span class="line">  // &lt;-- 调用位置!</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a: 2,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">var a = &quot;oops, global&quot;; // a 是全局对象的属性</span><br><span class="line">doFoo( obj.foo ); // &quot;oops, global&quot;</span><br></pre></td></tr></table></figure></p>
+<p>如果把函数传入语言内置的函数而不是传入你自己声明的函数，也会隐式赋值</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123; a: 2,</span><br><span class="line">foo: foo &#125;;</span><br><span class="line">var a = &quot;oops, global&quot;; // a 是全局对象的属性</span><br><span class="line">setTimeout( obj.foo, 100 ); // &quot;oops, global&quot;</span><br></pre></td></tr></table></figure>
+<p>通过上面的代码可以看出来不做显示绑定还是比较危险的而且隐式绑定还是很危险的</p>
+<h3 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h3><ol>
+<li>硬绑定（常用的是call，apply，bind）三种方式的使用</li>
+</ol>
+<p><strong>call</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a:2</span><br><span class="line">&#125;;</span><br><span class="line">var bar = function() &#123;</span><br><span class="line">  foo.call( obj );</span><br><span class="line">&#125;;</span><br><span class="line"> bar(); // 2</span><br><span class="line"> setTimeout( bar, 100 ); // 2</span><br><span class="line">// 硬绑定的 bar 不可能再修改它的</span><br><span class="line">this bar.call( window ); // 2</span><br></pre></td></tr></table></figure>
+<p><strong>apply</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo(something) &#123;</span><br><span class="line">  console.log( this.a, something );</span><br><span class="line">  return this.a + something;</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a:2</span><br><span class="line">&#125;;</span><br><span class="line">var bar = function() &#123;</span><br><span class="line">  return foo.apply( obj, arguments );</span><br><span class="line">&#125;;</span><br><span class="line">var b = bar( 3 ); // 2 3</span><br><span class="line">console.log( b ); // 5</span><br></pre></td></tr></table></figure>
+<p>另一种使用方法是创建一个 i 可以重复使用的辅助函数:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function foo(something) &#123;</span><br><span class="line">  console.log( this.a, something );</span><br><span class="line">  return this.a + something;</span><br><span class="line">&#125;</span><br><span class="line">// 简单的辅助绑定函数</span><br><span class="line">function bind(fn, obj) &#123;</span><br><span class="line">  return function() &#123;</span><br><span class="line">    return fn.apply( obj, arguments );</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a:2</span><br><span class="line">&#125;;</span><br><span class="line">var bar = bind( foo, obj );</span><br><span class="line">var b = bar( 3 ); // 2 3</span><br><span class="line">console.log( b ); // 5</span><br></pre></td></tr></table></figure></p>
+<p><strong>bind</strong></p>
+<p>在ES5中内置了bind方法</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function foo(something) &#123;</span><br><span class="line">   console.log( this.a, something );</span><br><span class="line">   return this.a + something;</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a:2</span><br><span class="line">&#125;;</span><br><span class="line">var bar = foo.bind( obj );</span><br><span class="line">var b = bar( 3 ); // 2 3</span><br><span class="line">console.log( b ); // 5</span><br></pre></td></tr></table></figure>
+<p>这里说明一下bind返回的是方法名要想运行样加();比如foo.bind( obj )();这才是运行状态；<br>(bind(..) 会返回一个硬编码的新函数，它会把参数设置为 this 的上下文并调用原始函数)你不知道的JavaScript中的解释</p>
+<ol start="2">
+<li>API调用的“上下文”</li>
+</ol>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function foo(el) &#123;</span><br><span class="line">  console.log( el, this.id );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  id: &quot;awesome&quot;</span><br><span class="line">&#125;;</span><br><span class="line">// 调用 foo(..) 时把 this 绑定到 obj</span><br><span class="line">[1, 2, 3].forEach( foo, obj );</span><br><span class="line">// 1 awesome 2 awesome 3 awesome</span><br></pre></td></tr></table></figure>
+<p>有没有一丝懵逼，看解释<br>第三方库的许多函数，以及 JavaScript 语言和宿主环境中许多新的内置函数，都提供了一 个可选的参数，通常被称为“上下文”(context)，其作用和 bind(..) 一样，确保你的回调 函数使用指定的 this。这些函数实际上就是通过 call(..) 或者 apply(..) 实现了显式绑定，这样你可以少些一些 代码。</p>
+<p>###new绑定</p>
+<p><strong>在 JavaScript 中，构造函数只是一些 使用 new 操作符时被调用的函数。它们并不会属于某个类，也不会实例化一个类。实际上， 它们甚至都不能说是一种特殊的函数类型，它们只是被 new 操作符调用的普通函数而已。</strong><br>使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。</p>
+<ol>
+<li>创建(或者说构造)一个全新的对象。</li>
+<li>这个新对象会被执行[[原型]]连接。</li>
+<li>这个新对象会绑定到函数调用的this。</li>
+<li>如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。<br>思考下面的代码:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line">  this.a = a;</span><br><span class="line">&#125;</span><br><span class="line">var bar = new foo(2);</span><br><span class="line">console.log( bar.a ); // 2</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用 new 来调用 foo(..) 时，我们会构造一个新对象并把它绑定到 foo(..) 调用中的 this 上。new 是最后一种可以影响函数调用时 this 绑定行为的方法，我们称之为 new 绑定。</p>
+<p>###优先级<br>1.先比较一下隐式绑定和显示绑定</p>
+<p>看下面代码</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">  a: 2,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = &#123;</span><br><span class="line">  a: 3,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">obj1.foo(); // 2</span><br><span class="line">obj2.foo(); // 3</span><br><span class="line"></span><br><span class="line">obj1.foo.call( obj2 ); // 3</span><br><span class="line">obj2.foo.call( obj1 ); // 2</span><br></pre></td></tr></table></figure>
+<p>可以明显的看到显示绑定比隐式绑定的优先级高</p>
+<p>2.现在比较一下new 绑定和隐式绑定<br>看如下代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function foo(something) &#123;</span><br><span class="line">  this.a = something;</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = &#123;&#125;;</span><br><span class="line">obj1.foo( 2 );</span><br><span class="line">console.log( obj1.a ); // 2</span><br><span class="line">obj1.foo.call( obj2, 3 );</span><br><span class="line">console.log( obj2.a ); // 3</span><br><span class="line">var bar = new obj1.foo( 4 );</span><br><span class="line">console.log( obj1.a ); // 2</span><br><span class="line">console.log( bar.a ); // 4</span><br></pre></td></tr></table></figure></p>
+<p>可以看到 new 绑定比隐式绑定优先级高<br>3.new 绑定和显式绑定<br>在看代码之前先回忆一下硬绑定是如何工作的。Function.prototype.bind(..) 会创建一个 新的包装函数，这个函数会忽略它当前的 this 绑定(无论绑定的对象是什么)，并把我们 提供的对象绑定到 this 上。<br>看下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function foo(something) &#123; this.a = something;</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;&#125;;</span><br><span class="line">var bar = foo.bind( obj1 );</span><br><span class="line">bar( 2 );</span><br><span class="line">console.log( obj1.a ); // 2</span><br><span class="line">var baz = new bar(3);</span><br><span class="line">console.log( obj1.a ); // 2</span><br><span class="line">console.log( baz.a ); // 3</span><br></pre></td></tr></table></figure></p>
+<p>出乎意料! bar 被硬绑定到 obj1 上，但是 new<br>修改为 3。相反，new 修改了硬绑定(到 obj1 的)调用 bar(..) 中的 this。因为使用了 new 绑定，我们得到了一个名字为 baz 的新对象，并且 baz.a 的值是 3。<br>ES5 中内置的 Function.prototype.bind(..) 更加复杂。下面是 MDN 提供的一种<br>bind(..) 实现<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">if (!Function.prototype.bind) &#123;</span><br><span class="line">  Function.prototype.bind = function(oThis) &#123;</span><br><span class="line">      if (typeof this !== &quot;function&quot;) &#123;</span><br><span class="line">        // 与 ECMAScript 5 最接近的</span><br><span class="line">        // 内部 IsCallable 函数</span><br><span class="line">          throw new TypeError(&quot;Function.prototype.bind - what is trying &quot; +&quot;to be bound is not callable&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      var aArgs = Array.prototype.slice.call( arguments, 1 ),</span><br><span class="line">          fToBind = this,</span><br><span class="line">          fNOP = function()&#123;&#125;,</span><br><span class="line">          fBound = function()&#123;</span><br><span class="line">            return fToBind.apply(</span><br><span class="line">              (</span><br><span class="line">                this instanceof fNOP &amp;&amp;</span><br><span class="line">                oThis ? this : oThis</span><br><span class="line">              ),</span><br><span class="line">             aArgs.concat(</span><br><span class="line">               Array.prototype.slice.call( arguments )</span><br><span class="line">             );</span><br><span class="line">          &#125;;</span><br><span class="line">      fNOP.prototype = this.prototype;</span><br><span class="line">      fBound.prototype = new fNOP();</span><br><span class="line">      return fBound;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这种 bind(..) 是一种 polyfill 代码(polyfill 就是我们常说的刮墙用的腻 子，polyfill 代码主要用于旧浏览器的兼容，比如说在旧的浏览器中并没 有内置 bind 函数，因此可以使用 polyfill 代码在旧浏览器中实现新的功 能)，对于 new 使用的硬绑定函数来说，这段 polyfill 代码和 ES5 内置的 bind(..) 函数并不完全相同(后面会介绍为什么要在 new 中使用硬绑定函 数)。由于 polyfill 并不是内置函数，所以无法创建一个不包含 .prototype 的函数，因此会具有一些副作用。如果你要在 new 中使用硬绑定函数并且依 赖 polyfill 代码的话，一定要非常小心。</p>
 </blockquote>
-<h5 id="注意一下代码"><a href="#注意一下代码" class="headerlink" title="注意一下代码"></a>注意一下代码</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //4</span><br><span class="line">&#125;</span><br><span class="line">var b = 2;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b);  //NaN</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br><span class="line">var b = 2;</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //NaN</span><br><span class="line">  var b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo (a)&#123;</span><br><span class="line">  console.log(a + b); //ReferenceError: b is not defined</span><br><span class="line">  b = 2</span><br><span class="line">&#125;</span><br><span class="line">foo(2);</span><br></pre></td></tr></table></figure>
+<p>###绑定例外</p>
+<p>####1.把 null 或者 undefined 作为 this 的绑定对象传入 call、apply 或者 bind<br>看下面代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var a = 2;</span><br><span class="line">foo.call( null ); // 2</span><br></pre></td></tr></table></figure></p>
+<p>应用场景<br>使用 apply(..) 来“展开”一个数组<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo(a,b) &#123;</span><br><span class="line">  console.log( &quot;a:&quot; + a + &quot;, b:&quot; + b );</span><br><span class="line">&#125;</span><br><span class="line">// 把数组“展开”成参数</span><br><span class="line">foo.apply( null, [2, 3] ); // a:2, b:3</span><br><span class="line">// 使用 bind(..) 进行柯里化</span><br><span class="line">var bar = foo.bind( null, 2 );</span><br><span class="line">bar( 3 ); // a:2, b:3</span><br></pre></td></tr></table></figure></p>
+<p>####2.间接引用<br>另一个需要注意的是，你有可能(有意或者无意地)创建一个函数的“间接引用”，在这 种情况下，调用这个函数会应用默认绑定规则。</p>
+<p>间接引用最容易在赋值时发生:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( this.a );</span><br><span class="line">&#125;</span><br><span class="line">var a = 2;</span><br><span class="line">var o = &#123;</span><br><span class="line">          a: 3,</span><br><span class="line">          foo: foo</span><br><span class="line">        &#125;;</span><br><span class="line">var p = &#123; a: 4 &#125;;</span><br><span class="line">o.foo(); // 3</span><br><span class="line">(p.foo = o.foo)(); // 2</span><br></pre></td></tr></table></figure></p>
+<p>赋值表达式 p.foo = o.foo 的返回值是目标函数的引用，因此调用位置是 foo() 而不是 p.foo() 或者 o.foo()。根据我们之前说过的，这里会应用默认绑定。<br>注意:对于默认绑定来说，决定 this 绑定对象的并不是调用位置是否处于严格模式，而是 函数体是否处于严格模式。如果函数体处于严格模式，this 会被绑定到 undefined，否则 this 会被绑定到全局对象。</p>
+<p>####3.软绑定<br>之前我们已经看到过，硬绑定这种方式可以把 this 强制绑定到指定的对象(除了使用 new 时)，防止函数调用应用默认绑定规则。问题在于，硬绑定会大大降低函数的灵活性，使 用硬绑定之后就无法使用隐式绑定或者显式绑定来修改 this。<br>如果可以给默认绑定指定一个全局对象和 undefined 以外的值，那就可以实现和硬绑定相 同的效果，同时保留隐式绑定或者显式绑定修改 this 的能力。<br>可以通过一种被称为软绑定的方法来实现我们想要的效果:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">if (!Function.prototype.softBind) &#123;</span><br><span class="line">  Function.prototype.softBind = function(obj) &#123;</span><br><span class="line">      var fn = this;</span><br><span class="line">      // 捕获所有 curried 参数</span><br><span class="line">      var curried = [].slice.call( arguments, 1 );</span><br><span class="line">      var bound = function() &#123;</span><br><span class="line">          return fn.apply(</span><br><span class="line">          (!this || this === (window || global)) ? obj : this;</span><br><span class="line">          curried.concat.apply( curried, arguments );</span><br><span class="line">      &#125;;</span><br><span class="line">      bound.prototype = Object.create( fn.prototype );</span><br><span class="line">      return bound;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">除了软绑定之外，softBind(..) 的其他原理和 ES5 内置的 bind(..) 类似。它会对指定的函 数进行封装，首先检查调用时的 this，如果 this 绑定到全局对象或者 undefined，那就把 指定的默认对象 obj 绑定到 this，否则不会修改 this。此外，这段代码还支持可选的柯里化</span><br></pre></td></tr></table></figure></p>
+<p>下面我们看看 softBind 是否实现了软绑定功能:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(&quot;name: &quot; + this.name);</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123; name: &quot;obj&quot; &#125;,</span><br><span class="line">    obj2 = &#123; name: &quot;obj2&quot; &#125;,</span><br><span class="line">    obj3 = &#123; name: &quot;obj3&quot; &#125;;</span><br><span class="line">var fooOBJ = foo.softBind( obj );</span><br><span class="line">    fooOBJ(); // name: obj</span><br><span class="line">    obj2.foo = foo.softBind(obj);</span><br><span class="line">    obj2.foo(); // name: obj2 &lt;---- 看!!!</span><br><span class="line">    fooOBJ.call( obj3 ); // name: obj3 &lt;---- 看!</span><br><span class="line">    setTimeout( obj2.foo, 10 );</span><br><span class="line">    // name: obj &lt;---- 应用了软绑定</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，软绑定版本的 foo() 可以手动将 this 绑定到 obj2 或者 obj3 上，但如果应用默<br>认绑定，则会将 this 绑定到 obj。</p>
+<p>###this词法<br><strong>（箭头函数没有执行上下为this指向父级）箭头函数不使用 this 的四种标准规则，而是根据外层(函数或者全局)作用域来决定 this</strong><br>看下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">// 返回一个箭头函数</span><br><span class="line">  return (a) =&gt; &#123;</span><br><span class="line">  //this 继承自 foo()</span><br><span class="line">    console.log( this.a );</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">  a:2</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = &#123;</span><br><span class="line">  a:3</span><br><span class="line">&#125;;</span><br><span class="line">var bar = foo.call( obj1 );</span><br><span class="line">bar.call( obj2 ); // 2, 不是 3 !</span><br></pre></td></tr></table></figure></p>
+<p>箭头函数最常用于回调函数中，例如事件处理器或者定时器:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    // 这里的 this 在此法上继承自 foo()</span><br><span class="line">    console.log( this.a );</span><br><span class="line">  &#125;,100);</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">      a:2</span><br><span class="line">     &#125;;</span><br><span class="line">foo.call( obj ); // 2</span><br></pre></td></tr></table></figure></p>
+<p>上面代码不用箭头函数的写法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">var self = this; // lexical capture of this</span><br><span class="line">  setTimeout( function()&#123;</span><br><span class="line">     console.log( self.a );</span><br><span class="line">  &#125;, 100 );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a: 2</span><br><span class="line">&#125;;</span><br><span class="line">foo.call( obj ); // 2</span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -507,74 +607,6 @@
 <h5 id="6-EvalError（eval错误）"><a href="#6-EvalError（eval错误）" class="headerlink" title="6.EvalError（eval错误）"></a>6.EvalError（eval错误）</h5><p>eval函数没有被正确执行时，会抛出EvalError错误。该错误类型已经不再在ES5中出现了，只是为了保证与以前代码兼容，才继续保留。</p>
 <p>以上这6种派生错误，连同原始的Error对象，都是构造函数。开发者可以使用它们，人为生成错误对象的实例。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Error(&quot;出错了！&quot;);</span><br><span class="line">new RangeError(&quot;出错了，变量超出有效范围！&quot;);</span><br><span class="line">new TypeError(&quot;出错了，变量类型无效！&quot;);</span><br></pre></td></tr></table></figure></p>
 <p>上面代码表示新建错误对象的实例，实质就是手动抛出错误。可以看到，错误对象的构造函数接受一个参数，代表错误提示信息（message）。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1741 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/slice/">Array.prototype.slice应用和原理探析</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h3><p>Array.prototype.slice常见于两种调用场景：</p>
-<h5 id="一是对函数arguments对象的转换"><a href="#一是对函数arguments对象的转换" class="headerlink" title="一是对函数arguments对象的转换"></a>一是对函数arguments对象的转换</h5><p>Array.prototype.slice.call(arguments)</p>
-<h5 id="二是类似jQuery原型对象的定义中"><a href="#二是类似jQuery原型对象的定义中" class="headerlink" title="二是类似jQuery原型对象的定义中"></a>二是类似jQuery原型对象的定义中</h5><p>toArray: function() {<br>return slice.call( this, 0 );<br>},</p>
-<p>有必要探究一番其使用方式和内部原理。</p>
-<h3 id="问题拆解"><a href="#问题拆解" class="headerlink" title="问题拆解"></a>问题拆解</h3><p>Array.prototype.slice作为Array.prototype对象的一个方法，对其调用在API中有详细说明，并不费解，对Array.prototype.slice的疑问可拆解为两个方面：一是该函数究竟返回什么对象？二是该函数可应用于什么对象？即非数组对象需要满足什么条件才能借用(复用)该函数？</p>
-<h3 id="该函数究竟返回什么对象"><a href="#该函数究竟返回什么对象" class="headerlink" title="该函数究竟返回什么对象"></a>该函数究竟返回什么对象</h3><p>为了探究返回对象的类型信息，写一个简单的对象工具集合：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objs = &#123;  </span><br><span class="line">    &quot;descType&quot;:function(o)&#123;  </span><br><span class="line">        console.info(o);  </span><br><span class="line">        console.info(&quot;typeof o:&quot; + (typeof o));  </span><br><span class="line">        console.info(&quot;o.constructor:&quot; + (o.constructor));  </span><br><span class="line">        console.info(&quot;o instanceof Object:&quot; + (o instanceof Object));  </span><br><span class="line">        console.info(&quot;o instanceof Array:&quot; + (o instanceof Array));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>然后测试几个简单的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var v = [&apos;a&apos;,true,9].slice(0);  </span><br><span class="line">objs.descType(v);</span><br><span class="line">// typeof o:object</span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;</span><br><span class="line">// o instanceof Object:true</span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
-<p>数组对象自身上调用slice方法当然不必再使用“var v = Array.prototype.slice.call([‘a’,true,9]);”这种方法，虽然是可以这样用的，结果表明返回的对象的确是Array类型的对象。</p>
-<h3 id="该函数可应用于什么对象"><a href="#该函数可应用于什么对象" class="headerlink" title="该函数可应用于什么对象"></a>该函数可应用于什么对象</h3><p>1 既然该方法是作为Array.prototype的方法，那么数组对象本身当然可以调用该方法。</p>
-<p>2 Arguments类型的对象可正确调用该函数。</p>
-<p>同样用一个简单的例子测试下arguments对象借用该函数后的对象类型。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;  </span><br><span class="line">    objs.descType(arguments);  </span><br><span class="line">    var newArg = Array.prototype.slice.call(arguments, 0);  </span><br><span class="line">    objs.descType(newArg);  </span><br><span class="line">&#125;  </span><br><span class="line">f(&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;);</span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">/// o.constructor:function Object() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:false  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// [&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">// typeof o:object  </span><br><span class="line">// o.constructor:function Array() &#123; [native code] &#125;  </span><br><span class="line">// o instanceof Object:true  </span><br><span class="line">// o instanceof Array:true</span><br></pre></td></tr></table></figure></p>
-<p>可以看到arguments对象本身并不是Array类型的–o instanceof Array:false，进一步展开该对象细节，可以看到其属性列表如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">callee:function f()  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
-<p>有length属性，有’0’,’1’,’2’属性，有’callee’属性，是一个Arguments类型的一个对象实例。而经过Array.prototype.slice.call调用后返回的对象就是一个真真正正的Array对象：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]  </span><br><span class="line">0:&quot;aa&quot;  </span><br><span class="line">1:&quot;bb&quot;  </span><br><span class="line">2:&quot;cc&quot;  </span><br><span class="line">length:3</span><br></pre></td></tr></table></figure>
-<p>这说明arguments对象和转换后的array对象非常类似–不仅属性类似，连用法也类似，比如arguments对象也支持[]运算符调用其属性值(其实本质是对象元素访问的通用语法，只不过属性名刚好为转换为字符串的整数而已)。所以结论是在js语言中，对arguments对象调用Array.prototype.slice.call(arguments, 0)纯属“闲的蛋疼”的做法(除非设计的函数用法非常的动态，比如需要对参数做shift等之类的数组操作)。</p>
-<p>那么除了arguments对象之外，其他类型的对象可以借用Array.prototype.slice函数么？继续简单的测试几个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(true,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&apos;abc&apos;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(256,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(&#123;&#125;,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(undefined,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(null,0));  </span><br><span class="line">objs.descType(Array.prototype.slice.call(NaN,0));</span><br></pre></td></tr></table></figure></p>
-<p>对undefined和null调用slice抛出异常，这是预期的行为，对NaN/true/256/{}返回一个空数组对象，对字符串’abc’返回一个数组：[“a”, “b”, “c”]，现在的重点是对对象调用的探究，传入一个初始化为空的对象直接量返回的是一个空数组对象，而上面测试在arguments对象上调用slice返回一个正常的数组–两者有何区别？</p>
-<p>一个很容易联想的点子是该调用对象应该具备length属性才可以被slice正确处理，测试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5&#125;,0));</span><br></pre></td></tr></table></figure></p>
-<p>结果果然是一个length值为5的数组对象，但其中5个元素值都为undefined。那么更进一步的想法应该是：调用对象除了有length属性之外，是不是也应该有索引属性名？即自动转换为字符类型的整数数字属性名？再试一下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs.descType(Array.prototype.slice.call(&#123;&apos;length&apos;:5,&apos;0&apos;:&apos;gebilaowang&apos;,&apos;1&apos;:&apos;ximenqin&apos;&#125;,0));</span><br></pre></td></tr></table></figure></p>
-<p>ok，大功告成，结果果然是预期数组：[“gebilaowang”,”ximenqin”,undefined,undefined,undefined]。因此结论是：只有具备”可转换为数值型的length属性”并且同时具备”索引属性”的对象才可以正确被slice函数处理(返回或者说转换为预期数组)，这种类型的对象经过查阅果然有一种专属称谓–Array-like Object。</p>
-<h3 id="3-Array-like对象可正确调用该函数。"><a href="#3-Array-like对象可正确调用该函数。" class="headerlink" title="3 Array-like对象可正确调用该函数。"></a>3 Array-like对象可正确调用该函数。</h3><p>现在来探究jQuery中对Array.prototype.slice方法的使用场景，jQuery对各种原型方法的应用当然是非常牛逼的甚至达到炉火纯青的境界，其实jQuery对象本身就是一个Array-like对象，因为其有length属性，也有索引属性，分析其初始化构造函数(1.6.1版本)即可明白(特别注意对this.length和this[index]属性的设置)：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype.init: function( selector, context, rootjQuery ) &#123;  </span><br><span class="line">            var match, elem, ret, doc;  </span><br><span class="line"></span><br><span class="line">            // Handle $(&quot;&quot;), $(null), or $(undefined)  </span><br><span class="line">            if ( !selector ) &#123;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle $(DOMElement)  </span><br><span class="line">            if ( selector.nodeType ) &#123;  </span><br><span class="line">                this.context = this[0] = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // The body element only exists once, optimize finding it  </span><br><span class="line">            if ( selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body ) &#123;  </span><br><span class="line">                this.context = document;  </span><br><span class="line">                this[0] = document.body;  </span><br><span class="line">                this.selector = selector;  </span><br><span class="line">                this.length = 1;  </span><br><span class="line">                return this;  </span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">            // Handle HTML strings  </span><br><span class="line">            if ( typeof selector === &quot;string&quot; ) &#123;  </span><br><span class="line">              // Are we dealing with HTML string or an ID?  </span><br><span class="line">               if ( selector.charAt(0) === &quot;&lt;&quot; &amp;&amp; selector.charAt( selector.length - 1 ) === &quot;&gt;&quot; &amp;&amp; selector.length &gt;= 3 ) &#123;  </span><br><span class="line">                   // Assume that strings that start and end with &lt;&gt; are HTML and skip the regex check  </span><br><span class="line">                   match = [ null, selector, null ];  </span><br><span class="line"></span><br><span class="line">               &#125; else &#123;  </span><br><span class="line">                   match = quickExpr.exec( selector );  </span><br><span class="line">               &#125;  </span><br><span class="line"></span><br><span class="line">               // Verify a match, and that no context was specified for #id  </span><br><span class="line">               if ( match &amp;&amp; (match[1] || !context) ) &#123;  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(html) -&gt; $(array)  </span><br><span class="line">                   if ( match[1] ) &#123;  </span><br><span class="line">                       context = context instanceof jQuery ? context[0] : context;  </span><br><span class="line">                       doc = (context ? context.ownerDocument || context : document);  </span><br><span class="line"></span><br><span class="line">                       // If a single string is passed in and it&apos;s a single tag  </span><br><span class="line">                       // just do a createElement and skip the rest  </span><br><span class="line">                       ret = rsingleTag.exec( selector );  </span><br><span class="line"></span><br><span class="line">                       if ( ret ) &#123;  </span><br><span class="line">                           if ( jQuery.isPlainObject( context ) ) &#123;  </span><br><span class="line">                               selector = [ document.createElement( ret[1] ) ];  </span><br><span class="line">                               jQuery.fn.attr.call( selector, context, true );  </span><br><span class="line"></span><br><span class="line">                           &#125; else &#123;  </span><br><span class="line">                               selector = [ doc.createElement( ret[1] ) ];  </span><br><span class="line">                           &#125;  </span><br><span class="line"></span><br><span class="line">                       &#125; else &#123;  </span><br><span class="line">                           ret = jQuery.buildFragment( [ match[1] ], [ doc ] );  </span><br><span class="line">                           selector = (ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment).childNodes;  </span><br><span class="line">                       &#125;  </span><br><span class="line"></span><br><span class="line">                       return jQuery.merge( this, selector );  </span><br><span class="line"></span><br><span class="line">                   // HANDLE: $(&quot;#id&quot;)  </span><br><span class="line">                   &#125; else &#123;  </span><br><span class="line">                        elem = document.getElementById( match[2] );  </span><br><span class="line"></span><br><span class="line">                        // Check parentNode to catch when Blackberry 4.6 returns  </span><br><span class="line">                        // nodes that are no longer in the document #6963  </span><br><span class="line">                        if ( elem &amp;&amp; elem.parentNode ) &#123;  </span><br><span class="line">                            // Handle the case where IE and Opera return items  </span><br><span class="line">                            // by name instead of ID  </span><br><span class="line">                            if ( elem.id !== match[2] ) &#123;  </span><br><span class="line">                                return rootjQuery.find( selector );  </span><br><span class="line">                            &#125;  </span><br><span class="line"></span><br><span class="line">                            // Otherwise, we inject the element directly into the jQuery object  </span><br><span class="line">                            this.length = 1;  </span><br><span class="line">                            this[0] = elem;  </span><br><span class="line">                        &#125;  </span><br><span class="line"></span><br><span class="line">                        this.context = document;  </span><br><span class="line">                        this.selector = selector;  </span><br><span class="line">                        return this;  </span><br><span class="line">                    &#125;  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, $(...))  </span><br><span class="line">                &#125; else if ( !context || context.jquery ) &#123;  </span><br><span class="line">                    return (context || rootjQuery).find( selector );  </span><br><span class="line"></span><br><span class="line">                // HANDLE: $(expr, context)  </span><br><span class="line">                // (which is just equivalent to: $(context).find(expr)  </span><br><span class="line">                &#125; else &#123;  </span><br><span class="line">                    return this.constructor( context ).find( selector );  </span><br><span class="line">                &#125;  </span><br><span class="line"></span><br><span class="line">            // HANDLE: $(function)  </span><br><span class="line">            // Shortcut for document ready  </span><br><span class="line">            &#125; else if ( jQuery.isFunction( selector ) ) &#123;  </span><br><span class="line">               return rootjQuery.ready( selector );  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           if (selector.selector !== undefined) &#123;  </span><br><span class="line">               this.selector = selector.selector;  </span><br><span class="line">               this.context = selector.context;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           return jQuery.makeArray( selector, this );  </span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure></p>
-<p>这是分析并理解jQuery背后原理的最基础最前提的一步。</p>
-<h3 id="原理探析"><a href="#原理探析" class="headerlink" title="原理探析"></a>原理探析</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function slice(start, end) &#123;   </span><br><span class="line">    var startToUse = start || 0,   </span><br><span class="line">        endToUse = end || ToUint32(this.length),   </span><br><span class="line">        result = [];   </span><br><span class="line">    for(var i = startToUse; i &lt; endToUse; i++) &#123;   </span><br><span class="line">        result.push(this[i]);   </span><br><span class="line">    &#125;  </span><br><span class="line">    return result;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -1144,6 +1176,28 @@
             </li>
         
             <li>
+                <a class="level is-mobile" href="https://www.w3.org/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">w3c</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.w3.org</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.ecma-international.org/default.htm" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">ecma</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.ecma-international.org</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
                 <a class="level is-mobile" href="https://github.com/front-auxiliary" target="_blank">
                     <span class="level-left">
                         <span class="level-item">front-auxiliary</span>
@@ -1412,6 +1466,25 @@
         
         <article class="media">
             
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
@@ -1443,25 +1516,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>
@@ -2137,6 +2191,25 @@
         
         <article class="media">
             
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
@@ -2168,25 +2241,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/parcel/parcelDev/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="parcel使用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/parcel/parcelDev/" class="has-link-black-ter is-size-6">parcel使用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                     </p>
                 </div>
             </div>

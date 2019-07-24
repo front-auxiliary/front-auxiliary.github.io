@@ -160,6 +160,8 @@ widgets:
         # Links to be shown in the links widget
         links:
             Hexo: 'https://hexo.io'
+            w3c: 'https://www.w3.org/'
+            ecma: 'https://www.ecma-international.org/default.htm'
             front-auxiliary: 'https://github.com/front-auxiliary'
     -
         # Widget name

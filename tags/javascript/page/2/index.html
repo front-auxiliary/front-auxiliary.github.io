@@ -157,14 +157,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 902 个字)
+                    5 分钟 读完 (大约 810 个字)
                 </span>
                 
                 
@@ -173,157 +173,28 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/number/">Number深入解析</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/promise/">promise原理解析</a>
             
         </h1>
         <div class="content">
-            <h3 id="Number简介"><a href="#Number简介" class="headerlink" title="Number简介"></a>Number简介</h3><blockquote>
-<p>javaScript不区分整数值和浮点数值。javaScript中所有的数字均用浮点数值表示。javaScript应用的是IEEE754标准定义64位浮点格式表示的数字。它表示的最大值是+/-1.7976931348623157<em>10<sup>308</sup>,最小值是+/-5 </em>10<sup>-324</sup>。javaScript能够表示的正数范围是-2<sup>53</sup>~2<sup>53</sup>,包含界限。如果使用了超出此范围的整数，则无法保证低位数字的精度。还需要注意的是javaScript中实际的操作（比如数组索引）则是基于32位整数。在javaScript中直接出现的数值称之为数字直接量（numneric lieral）。</p>
-</blockquote>
-<h3 id="整型直接量"><a href="#整型直接量" class="headerlink" title="整型直接量"></a>整型直接量</h3><p>javaScript中识别十进制整数以及八进制（严格模式中是禁止使用八进制的）和十六进制</p>
-<h3 id="浮点型直接量"><a href="#浮点型直接量" class="headerlink" title="浮点型直接量"></a>浮点型直接量</h3><p>浮点型直接量可以包含有小数点。下面是浮点型的书写方案：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3.14</span><br><span class="line">033.56</span><br><span class="line">.777</span><br><span class="line">6.7e33</span><br><span class="line">6.7E33</span><br><span class="line">6.7e-33</span><br><span class="line">6.7e3.3 //会报错 Uncaught SyntaxError: Unexpected number</span><br></pre></td></tr></table></figure></p>
-<p>书写语法表示为：<br>[digits][.digits][(E|e)[+|-]digits]</p>
-<h3 id="算数运算"><a href="#算数运算" class="headerlink" title="算数运算"></a>算数运算</h3><p>算数运算的运算符有：加法运算符（+）、减法运算符（-）、乘法运算符（*）、除法运算符（/）、求余运算符（%）。以及Math的属性和方法。</p>
-<ol>
-<li>Math对象的属性：</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">E</td>
-<td style="text-align:left">返回算术常量 e，即自然对数的底数（约等于2.718）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LN2</td>
-<td style="text-align:left">返回 2 的自然对数（约等于0.693）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LN10</td>
-<td style="text-align:left">返回 10 的自然对数（约等于2.302）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LOG2E</td>
-<td style="text-align:left">返回以 2 为底的 e 的对数（约等于 1.414）。</td>
-</tr>
-<tr>
-<td style="text-align:left">PI</td>
-<td style="text-align:left">返回圆周率（约等于3.14159）。</td>
-</tr>
-<tr>
-<td style="text-align:left">LOG10E</td>
-<td style="text-align:left">返回以 10 为底的 e 的对数（约等于0.434）。</td>
-</tr>
-<tr>
-<td style="text-align:left">SQRT1_2</td>
-<td style="text-align:left">返回返回 2 的平方根的倒数（约等于 0.707）。</td>
-</tr>
-<tr>
-<td style="text-align:left">SQRT2</td>
-<td style="text-align:left">返回 2 的平方根（约等于 1.414）。</td>
-</tr>
-</tbody>
-</table>
-<ol start="2">
-<li>Math 对象方法</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">abs(x)</td>
-<td style="text-align:left">返回数的绝对值。</td>
-</tr>
-<tr>
-<td style="text-align:left">acos(x)</td>
-<td style="text-align:left">返回数的反余弦值。</td>
-</tr>
-<tr>
-<td style="text-align:left">asin(x)</td>
-<td style="text-align:left">返回数的反正弦值。</td>
-</tr>
-<tr>
-<td style="text-align:left">atan(x)</td>
-<td style="text-align:left">以介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值。</td>
-</tr>
-<tr>
-<td style="text-align:left">atan2(y,x)</td>
-<td style="text-align:left">返回从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）。</td>
-</tr>
-<tr>
-<td style="text-align:left">ceil(x)</td>
-<td style="text-align:left">对数进行上舍入。</td>
-</tr>
-<tr>
-<td style="text-align:left">cos(x)</td>
-<td style="text-align:left">返回数的余弦</td>
-</tr>
-<tr>
-<td style="text-align:left">exp(x)</td>
-<td style="text-align:left">返回 e 的指数</td>
-</tr>
-<tr>
-<td style="text-align:left">floor(x)</td>
-<td style="text-align:left">对数进行下舍入</td>
-</tr>
-<tr>
-<td style="text-align:left">log(x)</td>
-<td style="text-align:left">返回数的自然对数（底为e）</td>
-</tr>
-<tr>
-<td style="text-align:left">max(x,y)</td>
-<td style="text-align:left">返回 x 和 y 中的最高值</td>
-</tr>
-<tr>
-<td style="text-align:left">min(x,y)</td>
-<td style="text-align:left">返回 x 和 y 中的最低值</td>
-</tr>
-<tr>
-<td style="text-align:left">pow(x,y)</td>
-<td style="text-align:left">返回 x 的 y 次幂</td>
-</tr>
-<tr>
-<td style="text-align:left">random()</td>
-<td style="text-align:left">返回 0 ~ 1 之间的随机数</td>
-</tr>
-<tr>
-<td style="text-align:left">round(x)</td>
-<td style="text-align:left">把数四舍五入为最接近的整数</td>
-</tr>
-<tr>
-<td style="text-align:left">sin(x)</td>
-<td style="text-align:left">返回数的正弦。</td>
-</tr>
-<tr>
-<td style="text-align:left">sqrt(x)</td>
-<td style="text-align:left">返回数的平方根</td>
-</tr>
-<tr>
-<td style="text-align:left">tan(x)</td>
-<td style="text-align:left">返回角的正切</td>
-</tr>
-<tr>
-<td style="text-align:left">toSource()</td>
-<td style="text-align:left">返回该对象的源代码</td>
-</tr>
-<tr>
-<td style="text-align:left">valueOf()</td>
-<td style="text-align:left">返回 Math 对象的原始值</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Infinity与NAN"><a href="#Infinity与NAN" class="headerlink" title="Infinity与NAN"></a>Infinity与NAN</h3><p>在JavaScript的算术运算在溢出(overflow)、下益(underflow)或被零整除时不会报错。<br><strong>溢出</strong><br>当数字超出数字的上限结果用Infinity表示超出下线用-Infinity表示。关于无穷大的行为特性为：基于它们的加、减、乘、除运算的结果还是无穷大。<br><strong>下益</strong><br>当运算结果无限接近零并比JavaScript能表示的最小值还小的时候发生的一种情形。这种情况下JavaScript将会返回0，当负数发生下益时，JavaScript会返回一个特殊的值“负零”。</p>
-<p>寄语：生活想让我们缴械，但是从这一刻起我们要做的是反击 。:)</p>
+            <h5 id="promise模式"><a href="#promise模式" class="headerlink" title="promise模式"></a>promise模式</h5><p>这几种方式的可维护性逐级递增，理解难度也逐级递增。这篇总结也是针对promise模式的。</p>
+<p>promise模式那么多中异步编程的方式，为什么选择promise, 因为前面几种方式不够灵活，用起来不够痛快，不优雅。为了降低异步编程的复杂性，所以promise。</p>
+<p>promise的核心是有一个promise对象，这个对象有一个重要的then()方法, 它用于指定回调函数，如：<br>f1().then(f2);</p>
+<p>promise模式在任何时刻都有三种状态：已完成（resolved），未完成（unfulfilled），那么then()方法就是为状态变化指定不同的回调函数，并总是返回一个promise对象，方便链式调用。</p>
+<p>那promise模式下，返回的数据如何在各个回调函数之间传播呢，通过resolve方法，你可以将一个函数的返回值作为参数传递给另一个函数，并且将另一个函数的返回值作为参数再传递给下一个函数……像一条“链”一样无限的这么做下去。</p>
+<h5 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//constructor</span><br><span class="line">var promise = function() &#123;</span><br><span class="line">	this.callbacks = [];</span><br><span class="line">&#125;</span><br><span class="line">promise.prototype = &#123;</span><br><span class="line">  construct: promise,</span><br><span class="line">	//成功的操作</span><br><span class="line">	resolve: function(result) &#123;</span><br><span class="line">		this.complete(&apos;resolve&apos;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//失败</span><br><span class="line">	reject: function(result) &#123;</span><br><span class="line">		this.complete(&quot;reject&quot;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//执行回调</span><br><span class="line">	complete: function(type, result) &#123;</span><br><span class="line">		while(this.callbacks[0]) &#123;</span><br><span class="line">			this.callbacks.shift()[type](result);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	then: function(successHandler, failedHandler) &#123;</span><br><span class="line">		this.callbacks.push(&#123;</span><br><span class="line">			resolve: successHandler,</span><br><span class="line">			reject: failedHandler</span><br><span class="line">		&#125;);</span><br><span class="line">		return this;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//运行下边是方法的调用</span><br><span class="line">var pro = new promise();</span><br><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		pro.resolve(&apos;数据1&apos;);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return pro;</span><br><span class="line">&#125;;</span><br><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delay1().then(callback1)</span><br><span class="line">console.log(&quot;我是最后吗&quot;);</span><br><span class="line"> /*</span><br><span class="line"> *以上方法输出的结果分别是</span><br><span class="line"> *我是最后吗</span><br><span class="line"> *数据1</span><br><span class="line"> *数据2</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>#####代码分析<br>我们可看到一个简单的promise对象的构造函数的结构：</p>
+<pre><code>callbacks: 用于管理回调函数
+resolve: 请求成功时执行的方法
+reject:请求失败时执行的方法
+complete: 执行回调
+then：绑定回调函数
+</code></pre><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		promise.resolve(‘数据1’);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return promise;</span><br><span class="line">&#125;;</span><br><span class="line">//这个函数通过setTimeout方法， 异步传递一个数据1， 并返回一个promise对象(必须)。</span><br></pre></td></tr></table></figure>
+<p>#####第二步<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">	promise.resolve(re);</span><br><span class="line">&#125;;</span><br><span class="line">//callback1和callback2都是要通过then方法注册的回调函数， 其中callback1通过resolve方法把数据往下传递。</span><br></pre></td></tr></table></figure></p>
+<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delay1().then(callback1).then(callback2);</span><br><span class="line">//delay1() 方法执行完， 因为返回了一个promise对象， 所以可以再调用then() 方法为delay1() 的setTimeout异步执行操作指定回调函数, 又因为then() 方法也返回的是promise对象， 所以还可以再调用then方法</span><br></pre></td></tr></table></figure>
+<h5 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">	promise.resolve(&apos;数据1&apos;);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">//一秒之后， 当其他代码执行完成， 开始执行异步代码promise.resolve(‘数据1’);，</span><br><span class="line">//这里调用promise的resolve() 方法， 指定了一个成功状态， 并把数据1作为参数。</span><br></pre></td></tr></table></figure>
+<h5 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resolve: function(result) &#123;</span><br><span class="line">  this.complete(&quot;resolve&quot;, result);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"><a href="#第六步：循环执行回调，将上一个回调的结果传递给下一个回调" class="headerlink" title="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"></a>第六步：循环执行回调，将上一个回调的结果传递给下一个回调</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">complete: function(type, result) &#123;</span><br><span class="line">	while(this.callbacks[0]) &#123;</span><br><span class="line">		this.callbacks.shift()[type](result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -416,14 +287,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 810 个字)
+                    11 分钟 读完 (大约 1637 个字)
                 </span>
                 
                 
@@ -432,28 +303,59 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/promise/">promise原理解析</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/prototype/">原型到原型链</a>
             
         </h1>
         <div class="content">
-            <h5 id="promise模式"><a href="#promise模式" class="headerlink" title="promise模式"></a>promise模式</h5><p>这几种方式的可维护性逐级递增，理解难度也逐级递增。这篇总结也是针对promise模式的。</p>
-<p>promise模式那么多中异步编程的方式，为什么选择promise, 因为前面几种方式不够灵活，用起来不够痛快，不优雅。为了降低异步编程的复杂性，所以promise。</p>
-<p>promise的核心是有一个promise对象，这个对象有一个重要的then()方法, 它用于指定回调函数，如：<br>f1().then(f2);</p>
-<p>promise模式在任何时刻都有三种状态：已完成（resolved），未完成（unfulfilled），那么then()方法就是为状态变化指定不同的回调函数，并总是返回一个promise对象，方便链式调用。</p>
-<p>那promise模式下，返回的数据如何在各个回调函数之间传播呢，通过resolve方法，你可以将一个函数的返回值作为参数传递给另一个函数，并且将另一个函数的返回值作为参数再传递给下一个函数……像一条“链”一样无限的这么做下去。</p>
-<h5 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//constructor</span><br><span class="line">var promise = function() &#123;</span><br><span class="line">	this.callbacks = [];</span><br><span class="line">&#125;</span><br><span class="line">promise.prototype = &#123;</span><br><span class="line">  construct: promise,</span><br><span class="line">	//成功的操作</span><br><span class="line">	resolve: function(result) &#123;</span><br><span class="line">		this.complete(&apos;resolve&apos;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//失败</span><br><span class="line">	reject: function(result) &#123;</span><br><span class="line">		this.complete(&quot;reject&quot;, result);</span><br><span class="line">	&#125;,</span><br><span class="line">	//执行回调</span><br><span class="line">	complete: function(type, result) &#123;</span><br><span class="line">		while(this.callbacks[0]) &#123;</span><br><span class="line">			this.callbacks.shift()[type](result);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	then: function(successHandler, failedHandler) &#123;</span><br><span class="line">		this.callbacks.push(&#123;</span><br><span class="line">			resolve: successHandler,</span><br><span class="line">			reject: failedHandler</span><br><span class="line">		&#125;);</span><br><span class="line">		return this;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//运行下边是方法的调用</span><br><span class="line">var pro = new promise();</span><br><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		pro.resolve(&apos;数据1&apos;);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return pro;</span><br><span class="line">&#125;;</span><br><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delay1().then(callback1)</span><br><span class="line">console.log(&quot;我是最后吗&quot;);</span><br><span class="line"> /*</span><br><span class="line"> *以上方法输出的结果分别是</span><br><span class="line"> *我是最后吗</span><br><span class="line"> *数据1</span><br><span class="line"> *数据2</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
-<p>#####代码分析<br>我们可看到一个简单的promise对象的构造函数的结构：</p>
-<pre><code>callbacks: 用于管理回调函数
-resolve: 请求成功时执行的方法
-reject:请求失败时执行的方法
-complete: 执行回调
-then：绑定回调函数
-</code></pre><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var delay1 = function() &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		promise.resolve(‘数据1’);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">	return promise;</span><br><span class="line">&#125;;</span><br><span class="line">//这个函数通过setTimeout方法， 异步传递一个数据1， 并返回一个promise对象(必须)。</span><br></pre></td></tr></table></figure>
-<p>#####第二步<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var callback1 = function(re) &#123;</span><br><span class="line">	re = re + &apos;数据2&apos;;</span><br><span class="line">	console.log(re);</span><br><span class="line">	promise.resolve(re);</span><br><span class="line">&#125;;</span><br><span class="line">//callback1和callback2都是要通过then方法注册的回调函数， 其中callback1通过resolve方法把数据往下传递。</span><br></pre></td></tr></table></figure></p>
-<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delay1().then(callback1).then(callback2);</span><br><span class="line">//delay1() 方法执行完， 因为返回了一个promise对象， 所以可以再调用then() 方法为delay1() 的setTimeout异步执行操作指定回调函数, 又因为then() 方法也返回的是promise对象， 所以还可以再调用then方法</span><br></pre></td></tr></table></figure>
-<h5 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">	promise.resolve(&apos;数据1&apos;);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">//一秒之后， 当其他代码执行完成， 开始执行异步代码promise.resolve(‘数据1’);，</span><br><span class="line">//这里调用promise的resolve() 方法， 指定了一个成功状态， 并把数据1作为参数。</span><br></pre></td></tr></table></figure>
-<h5 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resolve: function(result) &#123;</span><br><span class="line">  this.complete(&quot;resolve&quot;, result);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<h5 id="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"><a href="#第六步：循环执行回调，将上一个回调的结果传递给下一个回调" class="headerlink" title="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"></a>第六步：循环执行回调，将上一个回调的结果传递给下一个回调</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">complete: function(type, result) &#123;</span><br><span class="line">	while(this.callbacks[0]) &#123;</span><br><span class="line">		this.callbacks.shift()[type](result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+            <h3 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h3><p>我们先使用构造函数创建一个对象：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &apos;Kevin&apos;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<p>很简单吧，接下来进入正题：</p>
+<ul>
+<li>prototype</li>
+</ul>
+<p>每个函数都有一个 prototype 属性，就是我们经常在各种例子中看到的那个 prototype ，比如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 虽然写在注释里，但是你要注意：</span><br><span class="line">// prototype是函数才会有的属性</span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // Kevin</span><br><span class="line">console.log(person2.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>那这个函数的 prototype 属性到底指向的是什么呢？是这个函数的原型吗？</p>
+<p>其实，函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型，也就是这个例子中的 person1 和 person2 的原型。</p>
+<p>那什么是原型呢？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p>
+<p>让我们用一张图表示构造函数和实例原型之间的关系：<br><img src="/2016/08/25/javaScript/prototype/prototype.png" title="让我们用一张图表示构造函数和实例原型之间的关系"></p>
+<p>在这张图中我们用 Object.prototype 表示实例原型。</p>
+<p>那么我们该怎么表示实例与实例原型，也就是 person 和 Person.prototype 之间的关系呢，这时候我们就要讲到第二个属性：</p>
+<ul>
+<li><strong>proto</strong></li>
+</ul>
+<p>这是每一个JavaScript对象(除了 null )都具有的一个属性，叫<strong>proto</strong>，这个属性会指向该对象的原型。</p>
+<p>为了证明这一点,我们可以在火狐或者谷歌中输入：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure></p>
+<p>于是我们更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/proto.png" title="于是我们更新下关系图"></p>
+<p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
+<ul>
+<li>constructor</li>
+</ul>
+<p>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor﻿，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<p>为了验证这一点，我们可以尝试：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure></p>
+<p>所以再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/constructor.png" title="于是我们更新下关系图"></p>
+<p>综上我们已经得出：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure></p>
+<p>了解了构造函数、实例原型、和实例之间的关系，接下来我们讲讲实例和原型的关系：</p>
+<p>实例与原型<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。</p>
+<p>举个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">person.name = &apos;Daisy&apos;;</span><br><span class="line">console.log(person.name) // Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) // Kevin</span><br><span class="line">在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</span><br><span class="line"></span><br><span class="line">但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.__proto__ ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</span><br></pre></td></tr></table></figure></p>
+<p>但是万一还没有找到呢？原型的原型又是什么呢？</p>
+<p>原型的原型<br>在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object();</span><br><span class="line">obj.name = &apos;Kevin&apos;</span><br><span class="line">console.log(obj.name) // Kevin</span><br></pre></td></tr></table></figure></p>
+<p>所以原型对象是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：<br><img src="/2016/08/25/javaScript/prototype/obj.png" title="于是我们更新下关系图"></p>
+<p>原型链<br>那 Object.prototype 的原型呢？</p>
+<p>null，不信我们可以打印：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure></p>
+<p>所以查到属性的时候查到 Object.prototype 就可以停止查找了。</p>
+<p>所以最后一张关系图就是<br><img src="/2016/08/25/javaScript/prototype/objEnd.png" title="于是我们更新下关系图"></p>
+<p>顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+<p>补充<br>最后，补充三点大家可能不会注意的地方：</p>
+<p>constructor</p>
+<p>首先是 constructor 属性，我们看个例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.constructor === Person); // true</span><br></pre></td></tr></table></figure></p>
+<p>当获取 person.constructor 时，其实 person 中并没有 constructor 属性,当不能读取到constructor 属性时，会从 person 的原型也就是 Person.prototype 中读取，正好原型中有该属性，所以：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person.constructor === Person.prototype.constructor</span><br></pre></td></tr></table></figure></p>
+<p><strong>proto</strong></p>
+<p>其次是 <strong>proto</strong> ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.<strong>proto</strong> 时，可以理解成返回了<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(obj)。</span><br></pre></td></tr></table></figure></p>
+<p>真的是继承吗？<br>最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》中的话，就是：</p>
+<blockquote>
+<p>继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。</p>
+</blockquote>
 
         </div>
         
@@ -478,14 +380,14 @@ then：绑定回调函数
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 331 个字)
+                    3 分钟 读完 (大约 474 个字)
                 </span>
                 
                 
@@ -494,20 +396,20 @@ then：绑定回调函数
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/to-bottom/">滚到底部加载</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/error/">javaScript各种错误类型</a>
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>其实这个功能的实现就是监听滚动条是否滚动到底部，如果滚动到底部则向后后台获取数据废话不多说上代码</p>
-</blockquote>
-<p>浏览器视口的高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">getWindowHeight = () =&gt; &#123;</span><br><span class="line">　　var windowHeight = 0;</span><br><span class="line">　　if(document.compatMode == &quot;CSS1Compat&quot;)&#123;</span><br><span class="line">　　　　windowHeight = document.documentElement.clientHeight;</span><br><span class="line">　　&#125;else&#123;</span><br><span class="line">　　　　windowHeight = document.body.clientHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　return windowHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>文档的总高度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getScrollHeight = () =&gt; &#123;</span><br><span class="line">　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;</span><br><span class="line">　　if(document.body)&#123;</span><br><span class="line">　　　　bodyScrollHeight = document.body.scrollHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　if(document.documentElement)&#123;</span><br><span class="line">　　　　documentScrollHeight = document.documentElement.scrollHeight;</span><br><span class="line">　　&#125;</span><br><span class="line">　　scrollHeight = (bodyScrollHeight - documentScrollHeight &gt; 0) ? bodyScrollHeight : documentScrollHeight;</span><br><span class="line">　　return scrollHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>滚动条在Y轴上的滚动距离<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getScrollTop = () =&gt; &#123;</span><br><span class="line">　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;</span><br><span class="line">　　if(document.body)&#123;</span><br><span class="line">　　　　bodyScrollTop = document.body.scrollTop;</span><br><span class="line">　　&#125;</span><br><span class="line">　　if(document.documentElement)&#123;</span><br><span class="line">　　　　documentScrollTop = document.documentElement.scrollTop;</span><br><span class="line">　　&#125;</span><br><span class="line">　　scrollTop = (bodyScrollTop - documentScrollTop &gt; 0) ? bodyScrollTop : documentScrollTop;</span><br><span class="line">　　return scrollTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>那么剩下的就是在js里边进行判断这里主要说在react里的用法<br>这里把所有的操作写在一个方法里<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">onScrollListener = () =&gt;&#123;</span><br><span class="line">  if(getScrollTop() + getWindowHeight() == getScrollHeight())&#123;</span><br><span class="line">    alert(&quot;滚动条已经滚动到了底部&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在react的componentDidMount生命周期里写一下代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount()&#123;</span><br><span class="line">		//滚轮监听</span><br><span class="line">		addEventListener(&quot;scroll&quot;,this.onscrollListener,false)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在react的componentWillUnmount生命周期里写一下代码(注册事件要在组件销毁以后注销这样可以提高性能)</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount()&#123;</span><br><span class="line">		window.removeEventListener(&quot;scroll&quot;,this.onscrollListener)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h4 id="1-SyntaxError（语法错误）"><a href="#1-SyntaxError（语法错误）" class="headerlink" title="1.SyntaxError（语法错误）"></a>1.SyntaxError（语法错误）</h4><p>解析代码时发生的语法错误<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:var 1a;</span><br><span class="line"></span><br><span class="line">　　Uncaught SyntaxError: Unexpected number</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-ReferenceError（引用错误）"><a href="#2-ReferenceError（引用错误）" class="headerlink" title="2.ReferenceError（引用错误）"></a>2.ReferenceError（引用错误）</h4><p>a.引用了一个不存在的变量<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg: console.log(a);</span><br><span class="line"></span><br><span class="line">　　Uncaught ReferenceError: a is not defined</span><br></pre></td></tr></table></figure></p>
+<p>b.将变量赋值给一个无法被赋值的对象<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:console.log()= 1;</span><br><span class="line"></span><br><span class="line">　　Uncaught ReferenceError: Invalid left-hand side in assignment</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-RangeError（范围错误）"><a href="#3-RangeError（范围错误）" class="headerlink" title="3.RangeError（范围错误）"></a>3.RangeError（范围错误）</h4><p>超出有效范围<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:var a= new Array(-1);</span><br><span class="line"></span><br><span class="line">　　Uncaught RangeError: Invalid array length</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-TypeError（类型错误）"><a href="#4-TypeError（类型错误）" class="headerlink" title="4.TypeError（类型错误）"></a>4.TypeError（类型错误）</h4><p>a.变量或参数不是预期类型，比如，对字符串、布尔值、数值等原始类型的值使用new命令，就会抛出这种错误，因为new命令的参数应该是一个构造函数。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg: var a= new 123;</span><br><span class="line"></span><br><span class="line">　　Uncaught TypeError: 123 is not a function</span><br></pre></td></tr></table></figure></p>
+<p>b.调用对象不存在的方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg:var a;a.aa();</span><br><span class="line"></span><br><span class="line">　　Uncaught TypeError: Cannot read property &apos;aa&apos; of undefined</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-URLError（URL错误）"><a href="#5-URLError（URL错误）" class="headerlink" title="5.URLError（URL错误）"></a>5.URLError（URL错误）</h4><p>与url相关函数参数不正确，主要是encodeURI()、decodeURI()、encodeURIComponent()、decodeURIComponent()、escape()和unescape()这六个函数。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg: decodeURI(&apos;%2&apos;)</span><br><span class="line"></span><br><span class="line">　　Uncaught URIError: URI malformed</span><br></pre></td></tr></table></figure></p>
+<h5 id="6-EvalError（eval错误）"><a href="#6-EvalError（eval错误）" class="headerlink" title="6.EvalError（eval错误）"></a>6.EvalError（eval错误）</h5><p>eval函数没有被正确执行时，会抛出EvalError错误。该错误类型已经不再在ES5中出现了，只是为了保证与以前代码兼容，才继续保留。</p>
+<p>以上这6种派生错误，连同原始的Error对象，都是构造函数。开发者可以使用它们，人为生成错误对象的实例。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Error(&quot;出错了！&quot;);</span><br><span class="line">new RangeError(&quot;出错了，变量超出有效范围！&quot;);</span><br><span class="line">new TypeError(&quot;出错了，变量类型无效！&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示新建错误对象的实例，实质就是手动抛出错误。可以看到，错误对象的构造函数接受一个参数，代表错误提示信息（message）。</p>
 
         </div>
         
@@ -1045,7 +947,7 @@ then：绑定回调函数
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 391 个字)
+                    2 分钟 读完 (大约 314 个字)
                 </span>
                 
                 
@@ -1054,17 +956,32 @@ then：绑定回调函数
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/ascension/">js变量提升</a>
             
         </h1>
         <div class="content">
-            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
-<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
-<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
-
+            <blockquote>
+<p>在JavaScript中存在提升的情况，这种提升有两种提升分别是变量提升与函数提升，而且是函数会首先被提升，然后才是变量。</p>
+</blockquote>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log( a ); //undefined。</span><br><span class="line">var a = 2;</span><br></pre></td></tr></table></figure>
+<p>上面代码可以写成下面的形式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">console.log( a ); //undefined</span><br><span class="line">a=2;</span><br></pre></td></tr></table></figure>
+<p>再看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a=2;</span><br><span class="line">console.log(a); //2</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以写成下面的形式：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">a=2;</span><br><span class="line">console.log(a) //2</span><br></pre></td></tr></table></figure>
+<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><p>看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子可以转化成下面的形式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>再看下面的例子：</p>
+<h4 id="函数声明会被提升，但是函数表达式却不会被提升"><a href="#函数声明会被提升，但是函数表达式却不会被提升" class="headerlink" title="函数声明会被提升，但是函数表达式却不会被提升"></a>函数声明会被提升，但是函数表达式却不会被提升</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = foo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者是转化成下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = ...self...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再看下面的例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foo(); // 3</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); // 3</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
+<h5 id="非常有意思的现象"><a href="#非常有意思的现象" class="headerlink" title="非常有意思的现象"></a>非常有意思的现象</h5>
         </div>
         
         
@@ -1506,16 +1423,16 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -1525,35 +1442,16 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -1575,6 +1473,25 @@ then：绑定回调函数
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -2231,16 +2148,16 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -2250,35 +2167,16 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/webpack2/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="webpack1  到 webpack2的变化">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/webpack2/" class="has-link-black-ter is-size-6">webpack1  到 webpack2的变化</a>
+                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                     </p>
@@ -2300,6 +2198,25 @@ then：绑定回调函数
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/React/lifecyce/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

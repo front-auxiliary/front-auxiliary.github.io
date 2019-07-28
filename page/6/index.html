@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 314 个字)
+                    2 分钟 读完 (大约 310 个字)
                 </span>
                 
                 
@@ -163,32 +163,65 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/ascension/">js变量提升</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/call/">javaScript的call,apply,bind</a>
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>在JavaScript中存在提升的情况，这种提升有两种提升分别是变量提升与函数提升，而且是函数会首先被提升，然后才是变量。</p>
-</blockquote>
-<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>看下面的例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log( a ); //undefined。</span><br><span class="line">var a = 2;</span><br></pre></td></tr></table></figure>
-<p>上面代码可以写成下面的形式</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">console.log( a ); //undefined</span><br><span class="line">a=2;</span><br></pre></td></tr></table></figure>
-<p>再看下面的例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a=2;</span><br><span class="line">console.log(a); //2</span><br></pre></td></tr></table></figure>
-<p>上面的代码可以写成下面的形式：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">a=2;</span><br><span class="line">console.log(a) //2</span><br></pre></td></tr></table></figure>
-<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><p>看下面的例子：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的例子可以转化成下面的形式</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
-<p>再看下面的例子：</p>
-<h4 id="函数声明会被提升，但是函数表达式却不会被提升"><a href="#函数声明会被提升，但是函数表达式却不会被提升" class="headerlink" title="函数声明会被提升，但是函数表达式却不会被提升"></a>函数声明会被提升，但是函数表达式却不会被提升</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = foo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>或者是转化成下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = ...self...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>再看下面的例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foo(); // 3</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
-<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); // 3</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
-<h5 id="非常有意思的现象"><a href="#非常有意思的现象" class="headerlink" title="非常有意思的现象"></a>非常有意思的现象</h5>
+            <p>1、方法定义<br>call方法:<br>语法：call([thisObj[,arg1[, arg2[,   [,.argN]]]]])<br>定义：调用一个对象的一个方法，以另一个对象替换当前对象。<br>说明：<br>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。<br>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。</p>
+<p>apply方法：<br>语法：apply([thisObj[,argArray]])<br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：<br>如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。<br>如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数</p>
+<p>bind方法：<br>语法：bind([thisObj[,arg1[,arg2[,[,.argN]]]]])<br>bind()方法会创建一个新的函数，称为绑定函数,fun方法在this环境下调用</p>
+<p>该方法可传入两个参数，第一个参数作为this，第二个及以后的参数则作为函数的参数调用</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 391 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
+<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
+<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
+
         </div>
         
         
@@ -280,56 +313,6 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 391 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
-<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
-<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                 </div>
                 
@@ -391,7 +374,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 42 个字)
+                    3 分钟 读完 (大约 497 个字)
                 </span>
                 
                 
@@ -400,11 +383,22 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/atom/">atom快捷键总结</a>
             
         </h1>
         <div class="content">
-            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
+            <h3 id="atom"><a href="#atom" class="headerlink" title="atom"></a>atom</h3><h3 id="一、快捷键部分"><a href="#一、快捷键部分" class="headerlink" title="一、快捷键部分"></a>一、快捷键部分</h3><h4 id="A-光标及选取部分"><a href="#A-光标及选取部分" class="headerlink" title="A:光标及选取部分"></a>A:光标及选取部分</h4><h5 id="行部分："><a href="#行部分：" class="headerlink" title="行部分："></a>行部分：</h5><p> cmd+up          光标移动至文件开始处<br> cmd+down        光标移动至文件结束处<br> cmd+click       多行同时输入<br> cmd+l           选取此行<br> ctrl+shift+n    选取下一行<br> ctrl+shift+p    选取下一行<br> cmd+shift+left  选取至此行开始处<br> cmd+shift+right 选取至此行结束处<br> cmd+shift+up    选取至文件开始<br> cmd+shift+down  选取至文件结尾   </p>
+<h5 id="单词-字符-部分："><a href="#单词-字符-部分：" class="headerlink" title="单词(字符)部分："></a>单词(字符)部分：</h5><p> cmd+shift+w     选中此单词<br> alt+shift+left  选取至此单词开始处<br> alt+shift+right 选取至此单词结束处<br> cmd+d           选取文件中和当前单词相同的下一处并增加光标<br> ctrl+cmd+g      选取文档中所有和当前光标单词相同的位置并增加光标   </p>
+<h5 id="括号部分："><a href="#括号部分：" class="headerlink" title="括号部分："></a>括号部分：</h5><p> ctrl-m 相应括号之间，html tag之间等跳转<br> ctrl-cmd-m 括号(tag)之间文本选取   </p>
+<h4 id="B-编辑操作"><a href="#B-编辑操作" class="headerlink" title="B:编辑操作"></a>B:编辑操作</h4><h5 id="行部分：-1"><a href="#行部分：-1" class="headerlink" title="行部分："></a>行部分：</h5><p>cmd-J 将下一行与当前行合并<br>ctrl-cmd-up, ctrl-cmd-down 使当前行向上或者向下移动<br>cmd-shift-D 复制当前行到下一行<br>ctrl-K 剪切到当前行结束<br>ctrl-shift-K 删除当前行<br>cmd-backspace 删除到当前行开始<br>cmd-fn-backspace 删除到当前行结束   </p>
+<h5 id="字符-单词-部分："><a href="#字符-单词-部分：" class="headerlink" title="字符(单词)部分："></a>字符(单词)部分：</h5><p> ctrl-T 使光标前后字符交换<br> alt-backspace 或 alt-H 删除到当前单词开始<br> alt-delete 或 alt-D 删除到当前单词结束<br> cmd-K+cmd-U 使当前字符大写<br> cmd-K+cmd-L 使当前字符小写   </p>
+<h4 id="C-功能部分"><a href="#C-功能部分" class="headerlink" title="C:功能部分"></a>C:功能部分</h4><p> cmd+,      打开setting<br> control+tab 切换标签页<br> control+数字 切换标签页<br> 忽略文件显示更改：<br> setting=&gt;open config Folder=&gt;config.cson=&gt;最后那个h开头的改为false   </p>
+<h3 id="二、atom实用插件"><a href="#二、atom实用插件" class="headerlink" title="二、atom实用插件"></a>二、atom实用插件</h3><h4 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1 Emmet"></a>1 Emmet</h4><p> 用法：Ctrl+Alt+Enter   </p>
+<h4 id="2-Atom-Beautify"><a href="#2-Atom-Beautify" class="headerlink" title="2 Atom Beautify"></a>2 Atom Beautify</h4><p>  代码优化   </p>
+<h4 id="3-Minimap"><a href="#3-Minimap" class="headerlink" title="3 Minimap"></a>3 Minimap</h4><p>  sublime右上角代码缩略图   </p>
+<h4 id="4-file-icons"><a href="#4-file-icons" class="headerlink" title="4 file-icons"></a>4 file-icons</h4><p>  文件图标   </p>
+<h4 id="5-atom-ternjs"><a href="#5-atom-ternjs" class="headerlink" title="5 atom-ternjs"></a>5 atom-ternjs</h4><p>  js代码提示   </p>
+<h4 id="6-atom-react-autocomplete"><a href="#6-atom-react-autocomplete" class="headerlink" title="6 atom-react-autocomplete"></a>6 atom-react-autocomplete</h4><p>  jsx代码提示   </p>
 
         </div>
         
@@ -539,6 +533,51 @@
 <p>####{在文件中调用Git命令17}<br><strong>17.)Git</strong></p>
 <p>   可以参考此链接：<a href="https://packagecontrol.io/packages/Git" target="_blank" rel="noopener">https://packagecontrol.io/packages/Git</a><br>   安装完git后可以在mac中用命令打开：cmd+shift+p，输入git就会出现很多git命令。</p>
 <p> <strong>(但是git status可以用，其他的怎么用？)</strong></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 42 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
 
         </div>
         
@@ -704,14 +743,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
+                <a class="has-link-grey -link" href="/categories/css应用/">css应用</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 497 个字)
+                    1 分钟 读完 (大约 190 个字)
                 </span>
                 
                 
@@ -720,201 +759,18 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/atom/">atom快捷键总结</a>
+                <a class="has-link-black-ter" href="/2016/08/25/CSS/ellipsis/">CSS省略号实现</a>
             
         </h1>
         <div class="content">
-            <h3 id="atom"><a href="#atom" class="headerlink" title="atom"></a>atom</h3><h3 id="一、快捷键部分"><a href="#一、快捷键部分" class="headerlink" title="一、快捷键部分"></a>一、快捷键部分</h3><h4 id="A-光标及选取部分"><a href="#A-光标及选取部分" class="headerlink" title="A:光标及选取部分"></a>A:光标及选取部分</h4><h5 id="行部分："><a href="#行部分：" class="headerlink" title="行部分："></a>行部分：</h5><p> cmd+up          光标移动至文件开始处<br> cmd+down        光标移动至文件结束处<br> cmd+click       多行同时输入<br> cmd+l           选取此行<br> ctrl+shift+n    选取下一行<br> ctrl+shift+p    选取下一行<br> cmd+shift+left  选取至此行开始处<br> cmd+shift+right 选取至此行结束处<br> cmd+shift+up    选取至文件开始<br> cmd+shift+down  选取至文件结尾   </p>
-<h5 id="单词-字符-部分："><a href="#单词-字符-部分：" class="headerlink" title="单词(字符)部分："></a>单词(字符)部分：</h5><p> cmd+shift+w     选中此单词<br> alt+shift+left  选取至此单词开始处<br> alt+shift+right 选取至此单词结束处<br> cmd+d           选取文件中和当前单词相同的下一处并增加光标<br> ctrl+cmd+g      选取文档中所有和当前光标单词相同的位置并增加光标   </p>
-<h5 id="括号部分："><a href="#括号部分：" class="headerlink" title="括号部分："></a>括号部分：</h5><p> ctrl-m 相应括号之间，html tag之间等跳转<br> ctrl-cmd-m 括号(tag)之间文本选取   </p>
-<h4 id="B-编辑操作"><a href="#B-编辑操作" class="headerlink" title="B:编辑操作"></a>B:编辑操作</h4><h5 id="行部分：-1"><a href="#行部分：-1" class="headerlink" title="行部分："></a>行部分：</h5><p>cmd-J 将下一行与当前行合并<br>ctrl-cmd-up, ctrl-cmd-down 使当前行向上或者向下移动<br>cmd-shift-D 复制当前行到下一行<br>ctrl-K 剪切到当前行结束<br>ctrl-shift-K 删除当前行<br>cmd-backspace 删除到当前行开始<br>cmd-fn-backspace 删除到当前行结束   </p>
-<h5 id="字符-单词-部分："><a href="#字符-单词-部分：" class="headerlink" title="字符(单词)部分："></a>字符(单词)部分：</h5><p> ctrl-T 使光标前后字符交换<br> alt-backspace 或 alt-H 删除到当前单词开始<br> alt-delete 或 alt-D 删除到当前单词结束<br> cmd-K+cmd-U 使当前字符大写<br> cmd-K+cmd-L 使当前字符小写   </p>
-<h4 id="C-功能部分"><a href="#C-功能部分" class="headerlink" title="C:功能部分"></a>C:功能部分</h4><p> cmd+,      打开setting<br> control+tab 切换标签页<br> control+数字 切换标签页<br> 忽略文件显示更改：<br> setting=&gt;open config Folder=&gt;config.cson=&gt;最后那个h开头的改为false   </p>
-<h3 id="二、atom实用插件"><a href="#二、atom实用插件" class="headerlink" title="二、atom实用插件"></a>二、atom实用插件</h3><h4 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1 Emmet"></a>1 Emmet</h4><p> 用法：Ctrl+Alt+Enter   </p>
-<h4 id="2-Atom-Beautify"><a href="#2-Atom-Beautify" class="headerlink" title="2 Atom Beautify"></a>2 Atom Beautify</h4><p>  代码优化   </p>
-<h4 id="3-Minimap"><a href="#3-Minimap" class="headerlink" title="3 Minimap"></a>3 Minimap</h4><p>  sublime右上角代码缩略图   </p>
-<h4 id="4-file-icons"><a href="#4-file-icons" class="headerlink" title="4 file-icons"></a>4 file-icons</h4><p>  文件图标   </p>
-<h4 id="5-atom-ternjs"><a href="#5-atom-ternjs" class="headerlink" title="5 atom-ternjs"></a>5 atom-ternjs</h4><p>  js代码提示   </p>
-<h4 id="6-atom-react-autocomplete"><a href="#6-atom-react-autocomplete" class="headerlink" title="6 atom-react-autocomplete"></a>6 atom-react-autocomplete</h4><p>  jsx代码提示   </p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/css3/">css3</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    11 分钟 读完 (大约 1679 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/CSS/flex/">Flex布局</a>
-            
-        </h1>
-        <div class="content">
-            <p>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
-<p>[flex学习地址]（<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/）" target="_blank" rel="noopener">https://css-tricks.com/snippets/css/a-guide-to-flexbox/）</a></p>
-<h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><img src="/2016/08/25/CSS/flex/flexBox.png" title="flexbox">
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flex容器（flex container）：采用Flex布局的元素。</span><br><span class="line">水平的主轴（main axis）和垂直的交叉轴（cross axis）。</span><br><span class="line">主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；</span><br><span class="line">交叉轴的开始位置叫做cross start，结束位置叫做cross end</span><br></pre></td></tr></table></figure>
-<h3 id="二、容器的属性"><a href="#二、容器的属性" class="headerlink" title="二、容器的属性"></a>二、容器的属性</h3><p>有六个属性设置在容器上</p>
-<ul>
-<li>flex-direction</li>
-<li>flex-wrap</li>
-<li>flex-flow</li>
-<li>justify-content</li>
-<li>align-items</li>
-<li>align-content</li>
-</ul>
-<h5 id="flex-direction属性"><a href="#flex-direction属性" class="headerlink" title="flex-direction属性"></a>flex-direction属性</h5><p>决定主轴的方向（即子元素的排列方向）<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/flex/direction.png" title="direction">
-<p>他有四个值</p>
-<ul>
-<li>row(默认值)：主轴为水平方向，起点在左边</li>
-<li>row-reverse:主轴为水平方向，起点为右边</li>
-<li>column：主轴为垂直方向，起点在上方</li>
-<li>column-reverse：主轴为垂直方向，起点在下方</li>
-</ul>
-<h5 id="flex-wrap属性"><a href="#flex-wrap属性" class="headerlink" title="flex-wrap属性"></a>flex-wrap属性</h5><p>定义如果一条轴放不下，该如何换行<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  flex-wrap: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>他有三个可取值</p>
-<ol>
-<li>nowrap(默认)：不换行<br><img src="images/flex/nowrap.png" width="700px"></li>
-<li>wrap:换行，第一行在上方<br><img src="images/flex/wrap.jpg" width="700px"></li>
-<li>wrap-reverse:换行，第一行在下方<br><img src="images/flex/wrap-reverse.jpg" width="700px"></li>
-</ol>
-<h5 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h5><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h5><p>定义了子元素在主轴上的对齐方向<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  justify-content: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>他有5个值</p>
-<ul>
-<li>flex-start(默认值)：左对齐</li>
-<li>flex-end:右对齐</li>
-<li>center：居中</li>
-<li>space-between：两端对齐，项目之间的间隔都相等</li>
-<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
-</ul>
-<img src="/2016/08/25/CSS/flex/justify-content.png" title="justify-content">
-<h5 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h5><p>align-items属性定义项目在交叉轴上如何对齐<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  align-items: flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>flex-start：交叉轴的起点对齐</li>
-<li>flex-end:交叉轴的终点对齐</li>
-<li>center：交叉轴的中点对齐</li>
-<li>baseline：项目的第一行文字的基线对齐</li>
-<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度</li>
-</ul>
-<h5 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h5><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  align-content: flex-start | flex-end | center | space-between | space-around | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>flex-start：交叉轴的起点对齐</li>
-<li>flex-end:交叉轴的终点对齐</li>
-<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
-<li>center：与交叉轴的中点对齐。</li>
-<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
-<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
-</ul>
-<img src="/2016/08/25/CSS/flex/align-content.png" title="align-content">
-<h3 id="三、项目的属性"><a href="#三、项目的属性" class="headerlink" title="三、项目的属性"></a>三、项目的属性</h3><p>以下6个属性设置在项目上</p>
-<ul>
-<li>order</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex-basis</li>
-<li>flex</li>
-<li>align-self</li>
-</ul>
-<h6 id="order"><a href="#order" class="headerlink" title="order"></a>order</h6><p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  order: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/flex/order.png" title="order">
-<h5 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h5><p>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。<br>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。<br><img src="images/flex/flex-grow.png" width="500px"></p>
-<h5 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h5><p>定义项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-shrink: &lt;number&gt;; /* default 1 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="images/flex/flex-shrink.jpg" width="500px"><br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小</p>
-<h5 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h5><p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-basis: &lt;length&gt; | auto; /* default auto */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间</p>
-<h5 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h5><p>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex: none | [ &lt;&apos;flex-grow&apos;&gt; &lt;&apos;flex-shrink&apos;&gt;? || &lt;&apos;flex-basis&apos;&gt; ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。<br>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值.</p>
-<h5 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h5><p>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  align-self: auto | flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/flex/align-self.png" title="align-self">
-<h3 id="四、flex兼容性"><a href="#四、flex兼容性" class="headerlink" title="四、flex兼容性"></a>四、flex兼容性</h3><p>flex更新版本</p>
-<ul>
-<li>display:box是2009年的语法版本，使用时需要加上浏览器的前缀，不过现在已经过时了。</li>
-<li>display:flex是2012年最新修正的语法版本，浏览器支持较好，也将成为以后标准的语法。</li>
-<li>中间2011年也提出了一个奇葩的语法版本display:flexbox，非官方的，当时主要是为IE浏览器使用。</li>
-</ul>
-<h4 id="PC端："><a href="#PC端：" class="headerlink" title="PC端："></a>PC端：</h4><p>display:box 浏览器支持</p>
-<table>
-<thead>
-<tr>
-<th>IE</th>
-<th style="text-align:center">Firefox</th>
-<th style="text-align:center">Chrome</th>
-<th style="text-align:center">Safari</th>
-<th>Opera</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>不支持</td>
-<td style="text-align:center">2.0-40.0（-moz-）</td>
-<td style="text-align:center">4.0-45.0(-webkit-)</td>
-<td style="text-align:center">6.0-8.0(-webkit-)</td>
-<td>15.0-29.0(-webkit-)</td>
-</tr>
-</tbody>
-</table>
-<p>display:flex浏览器支持</p>
-<table>
-<thead>
-<tr>
-<th>IE</th>
-<th style="text-align:center">Firefox</th>
-<th style="text-align:center">Chrome</th>
-<th style="text-align:center">Safari</th>
-<th>Opera</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>11.0+</td>
-<td style="text-align:center">22.0+</td>
-<td style="text-align:center">21.0+(-webkit-) 29.0+</td>
-<td style="text-align:center">6.1+(-webkit-) 9.0+</td>
-<td>15.0+(-webkit-) 17.0+</td>
-</tr>
-</tbody>
-</table>
-<h4 id="移动端："><a href="#移动端：" class="headerlink" title="移动端："></a>移动端：</h4><h5 id="display-flex"><a href="#display-flex" class="headerlink" title="display:flex"></a>display:flex</h5><ul>
-<li>iOS的原生safari浏览器是支持的；UC浏览器支持的很好；微信浏览器不支持</li>
-<li>安卓的原生浏览器不支持，能够正常显示模块，文档流依次排列；UC浏览器不支持，显示为空白；微信浏览器不支持</li>
-</ul>
-<h5 id="display-box"><a href="#display-box" class="headerlink" title="display:box"></a>display:box</h5><ul>
-<li>ios的原生safari浏览器是支持的；UC浏览器支持的很好</li>
-<li>安卓的原生浏览器支持；UC浏览器支持</li>
-</ul>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">其实要使多浏览器兼容flexbox容器样式，可以使用如下CSS样式进行定义：</span><br><span class="line">.box &#123;</span><br><span class="line">    display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */</span><br><span class="line">    display: -moz-box; /* Firefox 17- */</span><br><span class="line">    display: -webkit-flex; /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */</span><br><span class="line">    display: -moz-flex; /* Firefox 18+ */</span><br><span class="line">    display: -ms-flexbox; /* IE 10 */</span><br><span class="line">    display: flex; /* Chrome 29+, Firefox 22+, IE 11+, Opera 12.1/17/18, Android 4.4+ */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h1 id="CSS实现单行多行添加省略号"><a href="#CSS实现单行多行添加省略号" class="headerlink" title="CSS实现单行多行添加省略号"></a>CSS实现单行多行添加省略号</h1><p>先介绍一下单行文本添加省略号的css代码</p>
+<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">overflow: hidden;</span><br><span class="line">text-overflow:ellipsis;</span><br><span class="line">white-space: nowrap;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/ellipsis/ellipsis1.png" title="单行省略">
+<p>先介绍一下多行文本添加省略号的css代码</p>
+<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span><br><span class="line">-webkit-box-orient: vertical;</span><br><span class="line">-webkit-line-clamp: 3;</span><br><span class="line">overflow: hidden;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/ellipsis/ellipsis2.png" title="多行省略">
+<p>先介绍一下多行文本添加省略号的css代码的优化</p>
+<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div&#123;position: relative; line-height: 20px; max-height: 40px;overflow: hidden;&#125;</span><br><span class="line">div::after&#123;content: &quot;...&quot;; position: absolute; bottom: 0; right: 0; padding-left: 40px;</span><br><span class="line">background: -webkit-linear-gradient(left, transparent, #fff 55%);</span><br><span class="line">background: -o-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: -moz-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: linear-gradient(to right, transparent, #fff 55%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -1359,16 +1215,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -2084,16 +1940,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>

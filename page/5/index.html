@@ -147,14 +147,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 744 个字)
+                    6 分钟 读完 (大约 902 个字)
                 </span>
                 
                 
@@ -163,74 +163,157 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/mouse/">获取鼠标的位置</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/number/">Number深入解析</a>
             
         </h1>
         <div class="content">
-            <h3 id="获取鼠标的位置"><a href="#获取鼠标的位置" class="headerlink" title="获取鼠标的位置"></a>获取鼠标的位置</h3><h4 id="获取鼠标的位置可以分为多个情况"><a href="#获取鼠标的位置可以分为多个情况" class="headerlink" title="获取鼠标的位置可以分为多个情况"></a>获取鼠标的位置可以分为多个情况</h4><ol>
-<li><p>获取鼠标相对于浏览器窗口的位置</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.clientX;</span><br><span class="line">let y = event.clientY;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取鼠标相对于整个页面的位置</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.pageX;</span><br><span class="line">let y = event.pageY;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取鼠标相对点击元素的位置</p>
-<p>这一个获取有点难度，因为在JavaScript原生方法中没有这个方法，那么需要分析如何获取，突破点一获取点击元素的相对其父本元素的偏移量这个属性在event的target属性下边绑定可以循环的方法获取点击元素相对于页面的位置方法如下</p>
-</li>
+            <h3 id="Number简介"><a href="#Number简介" class="headerlink" title="Number简介"></a>Number简介</h3><blockquote>
+<p>javaScript不区分整数值和浮点数值。javaScript中所有的数字均用浮点数值表示。javaScript应用的是IEEE754标准定义64位浮点格式表示的数字。它表示的最大值是+/-1.7976931348623157<em>10<sup>308</sup>,最小值是+/-5 </em>10<sup>-324</sup>。javaScript能够表示的正数范围是-2<sup>53</sup>~2<sup>53</sup>,包含界限。如果使用了超出此范围的整数，则无法保证低位数字的精度。还需要注意的是javaScript中实际的操作（比如数组索引）则是基于32位整数。在javaScript中直接出现的数值称之为数字直接量（numneric lieral）。</p>
+</blockquote>
+<h3 id="整型直接量"><a href="#整型直接量" class="headerlink" title="整型直接量"></a>整型直接量</h3><p>javaScript中识别十进制整数以及八进制（严格模式中是禁止使用八进制的）和十六进制</p>
+<h3 id="浮点型直接量"><a href="#浮点型直接量" class="headerlink" title="浮点型直接量"></a>浮点型直接量</h3><p>浮点型直接量可以包含有小数点。下面是浮点型的书写方案：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3.14</span><br><span class="line">033.56</span><br><span class="line">.777</span><br><span class="line">6.7e33</span><br><span class="line">6.7E33</span><br><span class="line">6.7e-33</span><br><span class="line">6.7e3.3 //会报错 Uncaught SyntaxError: Unexpected number</span><br></pre></td></tr></table></figure></p>
+<p>书写语法表示为：<br>[digits][.digits][(E|e)[+|-]digits]</p>
+<h3 id="算数运算"><a href="#算数运算" class="headerlink" title="算数运算"></a>算数运算</h3><p>算数运算的运算符有：加法运算符（+）、减法运算符（-）、乘法运算符（*）、除法运算符（/）、求余运算符（%）。以及Math的属性和方法。</p>
+<ol>
+<li>Math对象的属性：</li>
 </ol>
-  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  /*</span><br><span class="line">  *该方法是获取点击元素相对于页面的距离</span><br><span class="line">  *传入的参数为event.target</span><br><span class="line">  */</span><br><span class="line">  function getOffset(obj)&#123;</span><br><span class="line">   var tmp=&#123;</span><br><span class="line">      val:obj.offsetParent, //获取点击元素的父本</span><br><span class="line">      x:obj.offsetLeft, //获取点击元素的相对于父本的水平偏移</span><br><span class="line">      y:obj.offsetTop, //获取点击元素的相对于父本的垂直偏移</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   while(tmp.val != null)&#123; //当父级不存在是停止循环</span><br><span class="line">    tmp.x += tmp.val.offsetLeft; //水平偏移量累计</span><br><span class="line">    tmp.y += tmp.val.offsetTop; //垂直偏移量累计</span><br><span class="line">    tmp.val = tmp.val.offsetParent; //获取父本</span><br><span class="line">   &#125;</span><br><span class="line">   return tmp; //返回点击元素相对于页面的偏移值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上函数是获取了点击元素相对于页面的水平和垂直偏移，依赖以上获得的值，只需要鼠标相对于页面的偏移减去点击元素相对于页面的偏移方法如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">*该方法是获取鼠标相对于点击元素的位移</span><br><span class="line">*传入的参数为event</span><br><span class="line">*/</span><br><span class="line">function getCurrent(elem)&#123;</span><br><span class="line">  let off = getOffset(elem.target); //获取元素相对于页面的位置</span><br><span class="line">  let tmp = &#123;&#125;;</span><br><span class="line">  return tmp = &#123;</span><br><span class="line">    x:elem.pageX - off.x,</span><br><span class="line">    y:elem.pageY - off.y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.getBoundingClientRect用于获取某个html元素相对于页面的位置集合<br>执行 object.getBoundingClientRect();会得到元素的top、right、bottom、left、width、height属性，这些属性以一个对象的方式返回。</p>
-<p>主要是left和bottom要解释一下，left是指右边到页面最左边的距离，bottom是指底边到页面顶边的距离。</p>
-<h6 id="ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。"><a href="#ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。" class="headerlink" title="(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)"></a>(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)</h6><p><img src="http://www.51xuediannao.com/uploads/allimg/160811/2340295W5-0.jpg?_=6179964" alt="图解"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;test&quot; style=&quot;width: 100px; height: 100px; background: #ddd;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function getObjXy(obj)&#123;</span><br><span class="line">        var xy = obj.getBoundingClientRect();</span><br><span class="line">        var top = xy.top-document.documentElement.clientTop+document.documentElement.scrollTop,//document.documentElement.clientTop 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            bottom = xy.bottom,</span><br><span class="line">            left = xy.left-document.documentElement.clientLeft+document.documentElement.scrollLeft,//document.documentElement.clientLeft 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            right = xy.right,</span><br><span class="line">            width = xy.width||right - left, //IE67不存在width 使用right - left获得</span><br><span class="line">            height = xy.height||bottom - top;</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            top:top,</span><br><span class="line">            right:right,</span><br><span class="line">            bottom:bottom,</span><br><span class="line">            left:left,</span><br><span class="line">            width:width,</span><br><span class="line">            height:height</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var test = getObjXy(document.getElementById(&apos;test&apos;));</span><br><span class="line">    alert(&quot;top:&quot; + test.top + &quot;, right:&quot; + test.right + &quot;, bottom:&quot; + test.bottom + &quot;, left:&quot; + test.left);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>以上就是常用的获取鼠标位置的方法</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 197 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/foreach/">forEach实现原理</a>
-            
-        </h1>
-        <div class="content">
-            <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">function forEach(object, block, context, fn) &#123;</span><br><span class="line">	if(object == null) return;</span><br><span class="line">	if(!fn) &#123;</span><br><span class="line">		if(typeof object == &quot;function&quot; &amp;&amp; object.call) &#123;</span><br><span class="line">			//遍历普通对象</span><br><span class="line">			fn = Function;</span><br><span class="line">		&#125; else if(typeof object.forEach == &quot;function&quot; &amp;&amp; object.forEach != arguments.callee) &#123;</span><br><span class="line">			//如果目标已经实现了forEach方法，则使用它自己的forEach方法（如标准游览器的Array对象）</span><br><span class="line">			object.forEach(block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125; else if(typeof object.length == &quot;number&quot;) &#123;</span><br><span class="line">			// 如果是类数组对象或IE的数组对象</span><br><span class="line">			_Array_forEach(object, block, context);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	_Function_forEach(fn || Object, object, block, context);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function _Array_forEach(array, block, context) &#123;</span><br><span class="line">	if(array == null) return;</span><br><span class="line">	var i = 0,</span><br><span class="line">		length = array.length;</span><br><span class="line">	if(typeof array == &quot;string&quot;) &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array.charAt(i), i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for(; i &lt; length; i++) &#123;</span><br><span class="line">			block.call(context, array[i], i, array);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">_Function_forEach = function(fn, object, block, context) &#123;</span><br><span class="line">	// 这里的fn恒为Function</span><br><span class="line">	for(var key in object) &#123;</span><br><span class="line">		//只遍历本地属性</span><br><span class="line">		if(object.hasOwnProperty(key)) &#123;</span><br><span class="line">			//相当于 block(object[key], key)</span><br><span class="line">			block.call(context, object[key], key, object);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">E</td>
+<td style="text-align:left">返回算术常量 e，即自然对数的底数（约等于2.718）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LN2</td>
+<td style="text-align:left">返回 2 的自然对数（约等于0.693）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LN10</td>
+<td style="text-align:left">返回 10 的自然对数（约等于2.302）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LOG2E</td>
+<td style="text-align:left">返回以 2 为底的 e 的对数（约等于 1.414）。</td>
+</tr>
+<tr>
+<td style="text-align:left">PI</td>
+<td style="text-align:left">返回圆周率（约等于3.14159）。</td>
+</tr>
+<tr>
+<td style="text-align:left">LOG10E</td>
+<td style="text-align:left">返回以 10 为底的 e 的对数（约等于0.434）。</td>
+</tr>
+<tr>
+<td style="text-align:left">SQRT1_2</td>
+<td style="text-align:left">返回返回 2 的平方根的倒数（约等于 0.707）。</td>
+</tr>
+<tr>
+<td style="text-align:left">SQRT2</td>
+<td style="text-align:left">返回 2 的平方根（约等于 1.414）。</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>Math 对象方法</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">abs(x)</td>
+<td style="text-align:left">返回数的绝对值。</td>
+</tr>
+<tr>
+<td style="text-align:left">acos(x)</td>
+<td style="text-align:left">返回数的反余弦值。</td>
+</tr>
+<tr>
+<td style="text-align:left">asin(x)</td>
+<td style="text-align:left">返回数的反正弦值。</td>
+</tr>
+<tr>
+<td style="text-align:left">atan(x)</td>
+<td style="text-align:left">以介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值。</td>
+</tr>
+<tr>
+<td style="text-align:left">atan2(y,x)</td>
+<td style="text-align:left">返回从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）。</td>
+</tr>
+<tr>
+<td style="text-align:left">ceil(x)</td>
+<td style="text-align:left">对数进行上舍入。</td>
+</tr>
+<tr>
+<td style="text-align:left">cos(x)</td>
+<td style="text-align:left">返回数的余弦</td>
+</tr>
+<tr>
+<td style="text-align:left">exp(x)</td>
+<td style="text-align:left">返回 e 的指数</td>
+</tr>
+<tr>
+<td style="text-align:left">floor(x)</td>
+<td style="text-align:left">对数进行下舍入</td>
+</tr>
+<tr>
+<td style="text-align:left">log(x)</td>
+<td style="text-align:left">返回数的自然对数（底为e）</td>
+</tr>
+<tr>
+<td style="text-align:left">max(x,y)</td>
+<td style="text-align:left">返回 x 和 y 中的最高值</td>
+</tr>
+<tr>
+<td style="text-align:left">min(x,y)</td>
+<td style="text-align:left">返回 x 和 y 中的最低值</td>
+</tr>
+<tr>
+<td style="text-align:left">pow(x,y)</td>
+<td style="text-align:left">返回 x 的 y 次幂</td>
+</tr>
+<tr>
+<td style="text-align:left">random()</td>
+<td style="text-align:left">返回 0 ~ 1 之间的随机数</td>
+</tr>
+<tr>
+<td style="text-align:left">round(x)</td>
+<td style="text-align:left">把数四舍五入为最接近的整数</td>
+</tr>
+<tr>
+<td style="text-align:left">sin(x)</td>
+<td style="text-align:left">返回数的正弦。</td>
+</tr>
+<tr>
+<td style="text-align:left">sqrt(x)</td>
+<td style="text-align:left">返回数的平方根</td>
+</tr>
+<tr>
+<td style="text-align:left">tan(x)</td>
+<td style="text-align:left">返回角的正切</td>
+</tr>
+<tr>
+<td style="text-align:left">toSource()</td>
+<td style="text-align:left">返回该对象的源代码</td>
+</tr>
+<tr>
+<td style="text-align:left">valueOf()</td>
+<td style="text-align:left">返回 Math 对象的原始值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Infinity与NAN"><a href="#Infinity与NAN" class="headerlink" title="Infinity与NAN"></a>Infinity与NAN</h3><p>在JavaScript的算术运算在溢出(overflow)、下益(underflow)或被零整除时不会报错。<br><strong>溢出</strong><br>当数字超出数字的上限结果用Infinity表示超出下线用-Infinity表示。关于无穷大的行为特性为：基于它们的加、减、乘、除运算的结果还是无穷大。<br><strong>下益</strong><br>当运算结果无限接近零并比JavaScript能表示的最小值还小的时候发生的一种情形。这种情况下JavaScript将会返回0，当负数发生下益时，JavaScript会返回一个特殊的值“负零”。</p>
+<p>寄语：生活想让我们缴械，但是从这一刻起我们要做的是反击 。:)</p>
 
         </div>
         
@@ -323,6 +406,57 @@
 <p>9.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
 <p>第二段代码就留给大家去尝试模拟它的执行过程。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f;</span><br><span class="line">&#125;</span><br><span class="line">checkscope()();</span><br></pre></td></tr></table></figure></p>
 <p>不过，在下一篇《JavaScript深入之闭包》中也会提及这段代码的执行过程。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 180 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <p>其实javascript的new关键字只不过做了五件事情。</p>
+<p>1.创建Object</p>
+<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
+<p>3.将构造函数classA内部的this指向创建的Object</p>
+<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
+<p>5.执行构造函数class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -661,7 +795,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 310 个字)
+                    2 分钟 读完 (大约 314 个字)
                 </span>
                 
                 
@@ -670,15 +804,32 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/call/">javaScript的call,apply,bind</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/ascension/">js变量提升</a>
             
         </h1>
         <div class="content">
-            <p>1、方法定义<br>call方法:<br>语法：call([thisObj[,arg1[, arg2[,   [,.argN]]]]])<br>定义：调用一个对象的一个方法，以另一个对象替换当前对象。<br>说明：<br>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。<br>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。</p>
-<p>apply方法：<br>语法：apply([thisObj[,argArray]])<br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：<br>如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。<br>如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数</p>
-<p>bind方法：<br>语法：bind([thisObj[,arg1[,arg2[,[,.argN]]]]])<br>bind()方法会创建一个新的函数，称为绑定函数,fun方法在this环境下调用</p>
-<p>该方法可传入两个参数，第一个参数作为this，第二个及以后的参数则作为函数的参数调用</p>
-
+            <blockquote>
+<p>在JavaScript中存在提升的情况，这种提升有两种提升分别是变量提升与函数提升，而且是函数会首先被提升，然后才是变量。</p>
+</blockquote>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log( a ); //undefined。</span><br><span class="line">var a = 2;</span><br></pre></td></tr></table></figure>
+<p>上面代码可以写成下面的形式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">console.log( a ); //undefined</span><br><span class="line">a=2;</span><br></pre></td></tr></table></figure>
+<p>再看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a=2;</span><br><span class="line">console.log(a); //2</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以写成下面的形式：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">a=2;</span><br><span class="line">console.log(a) //2</span><br></pre></td></tr></table></figure>
+<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><p>看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子可以转化成下面的形式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>再看下面的例子：</p>
+<h4 id="函数声明会被提升，但是函数表达式却不会被提升"><a href="#函数声明会被提升，但是函数表达式却不会被提升" class="headerlink" title="函数声明会被提升，但是函数表达式却不会被提升"></a>函数声明会被提升，但是函数表达式却不会被提升</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = foo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者是转化成下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = ...self...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再看下面的例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foo(); // 3</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); // 3</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
+<h5 id="非常有意思的现象"><a href="#非常有意思的现象" class="headerlink" title="非常有意思的现象"></a>非常有意思的现象</h5>
         </div>
         
         
@@ -1470,16 +1621,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>
@@ -2195,16 +2346,16 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/application/" class="media-left">
+            <a href="/2019/07/13/node/try-catch/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
+                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
                     </p>

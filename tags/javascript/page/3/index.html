@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 391 个字)
+                    7 分钟 读完 (大约 1016 个字)
                 </span>
                 
                 
@@ -173,16 +173,34 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/arguments/">javaScript的arguments, caller, callee</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/Currying/">柯里化函数</a>
             
         </h1>
         <div class="content">
-            <h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments:  在函数调用时， 会自动在该函数内部生成一个名为 arguments的隐藏对象。 该对象类似于数组， 但又不是数组。可以使用[]操作符获取函数调用时传递的实参。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function testArg()  </span><br><span class="line">&#123;  </span><br><span class="line">    alert(&quot;real parameter count: &quot;+arguments.length);  </span><br><span class="line">    for(var i = 0; i &lt; arguments.length; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        alert(arguments[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是 argument 保存的实参的信息<br>arguments 不是一个数组,验证代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;  </span><br><span class="line">  alert(arguments instanceof Array); // false  </span><br><span class="line">  alert(typeof(arguments)); // object  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>只有函数被调用时，arguments对象才会创建，未调用时其值为null：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(new Function().arguments);//return null</span><br></pre></td></tr></table></figure></p>
-<p>arguments 的完整语法如下：<br>[function.]arguments[n]<br>参数function ：选项。当前正在执行的 Function 对象的名字。 n ：选项。要传递给 Function 对象的从0开始的参数值索引。</p>
-<h3 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h3><p>在一个函数调用另一个函数时，被调用函数会自动生成一个caller属性，指向调用它的函数对象。如果该函数当前未被调用，或并非被其他函数调用，则caller为null。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function testCaller() &#123;  </span><br><span class="line">    var caller = testCaller.caller;  </span><br><span class="line">    console.log(caller);  </span><br><span class="line">&#125;  </span><br><span class="line">testCaller();  //null</span><br><span class="line">function aCaller() &#123;  </span><br><span class="line">    testCaller();  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();  //function aCaller() &#123;testCaller();&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>当函数被调用时，它的arguments.callee对象就会指向自身，也就是一个对自己的引用。<br>由于arguments在函数被调用时才有效，因此arguments.callee在函数未调用时是不存在的（即null.callee），且解引用它会产生异常。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function aCallee(arg) &#123;  </span><br><span class="line">  console.log(arguments.callee);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">function aCaller(arg1, arg2) &#123;</span><br><span class="line">  aCallee();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">aCaller();</span><br></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>在计算机科学中，柯里化（英语：Currying），又译为卡瑞化或加里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家哈斯凯尔·加里命名的，尽管它是 Moses Schönfinkel 和 Gottlob Frege 发明的。</p>
+</blockquote>
+<h5 id="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"><a href="#这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。" class="headerlink" title="这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。"></a>这是来自维基百科的名词解释。顾名思义，柯里化其实本身是固定一个可以预期的参数，并返回一个特定的函数，处理批特定的需求。这增加了函数的适用性，但同时也降低了函数的适用范围。</h5><p>看一下通用实现：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function currying(fn) &#123;</span><br><span class="line">    var slice = Array.prototype.slice,</span><br><span class="line">    __args = slice.call(arguments, 1);</span><br><span class="line">    return function () &#123;</span><br><span class="line">        var __inargs = slice.call(arguments);</span><br><span class="line">        return fn.apply(null, __args.concat(__inargs));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="柯里化的实用性体现在很多方面："><a href="#柯里化的实用性体现在很多方面：" class="headerlink" title="柯里化的实用性体现在很多方面："></a>柯里化的实用性体现在很多方面：</h3><h5 id="1-提高适用性。"><a href="#1-提高适用性。" class="headerlink" title="1 提高适用性。"></a>1 提高适用性。</h5><blockquote>
+<p>【通用函数】解决了兼容性问题，但同时也会再来，使用的不便利性，不同的应用场景往，要传递很多参数，以达到解决特定问题的目的。有时候应用中，同一种规则可能会反复使用，这就可能会造成代码的重复性。</p>
+</blockquote>
+<p>看下面一个例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 数组的每一项平方</span><br><span class="line">map(square, [1, 2, 3, 4, 5]);</span><br><span class="line">map(square, [6, 7, 8, 9, 10]);</span><br><span class="line">map(square, [10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">// 数组的每一项加倍</span><br><span class="line">map(dubble, [1, 2, 3, 4, 5]);</span><br><span class="line">map(dubble, [6, 7, 8, 9, 10]);</span><br><span class="line">map(dubble, [10, 20, 30, 40, 50]);</span><br></pre></td></tr></table></figure>
+<p>例子中，创建了一个map通用函数，用于适应不同的应用场景。显然，通用性不用怀疑。同时，例子中重复传入了相同的处理函数：square和dubble。</p>
+<p>应用中这种可能会更多。当然，通用性的增强必然带来适用性的减弱。但是，我们依然可以在中间找到一种平衡。</p>
+<p>看下面，我们利用柯里化改造一下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function square(i) &#123;</span><br><span class="line">    return i * i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dubble(i) &#123;</span><br><span class="line">    return i *= 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function map(handeler, list) &#123;</span><br><span class="line">    return list.map(handeler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var mapSQ = currying(map, square);</span><br><span class="line">mapSQ([1, 2, 3, 4, 5]);</span><br><span class="line">mapSQ([6, 7, 8, 9, 10]);</span><br><span class="line">mapSQ([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br><span class="line"></span><br><span class="line">var mapDB = currying(map, dubble);</span><br><span class="line">mapDB([1, 2, 3, 4, 5]);</span><br><span class="line">mapDB([6, 7, 8, 9, 10]);</span><br><span class="line">mapDB([10, 20, 30, 40, 50]);</span><br><span class="line">// ......</span><br></pre></td></tr></table></figure>
+<p>我们缩小了函数的适用范围，但同时提高函数的适性。当然，也有扩展函数适用范围的方法–反柯里化，留到下一篇再讨论。</p>
+<p>由此，可知柯里化不仅仅是提高了代码的合理性，更重的它突出一种思想—降低适用范围，提高适用性。</p>
+<p>下面再看一个例子，一个应用范围更广泛更熟悉的例子：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function Ajax() &#123;</span><br><span class="line">    this.xhr = new XMLHttpRequest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ajax.prototype.open = function(type, url, data, callback) &#123;</span><br><span class="line">    this.onload = function() &#123;</span><br><span class="line">        callback(this.xhr.responseText, this.xhr.status, this.xhr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.xhr.open(type, url, data.async);</span><br><span class="line">    this.xhr.send(data.paras);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&apos;get post&apos;.split(&apos; &apos;).forEach(function(mt) &#123;</span><br><span class="line">    Ajax.prototype[mt] = currying(Ajax.prototype.open, mt);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr = new Ajax();</span><br><span class="line">xhr.get(&apos;/articles/list.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var xhr1 = new Ajax();</span><br><span class="line">xhr1.post(&apos;/articles/add.php&apos;, &#123;&#125;,</span><br><span class="line">function(datas) &#123;</span><br><span class="line">    // done(datas)    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-延迟执行。"><a href="#2-延迟执行。" class="headerlink" title="2 延迟执行。"></a>2 延迟执行。</h5><p> 柯里化的另一个应用场景是延迟执行。不断的柯里化，累积传入的参数，最后执行。</p>
+<p>看下面：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var add = function() &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = arguments</span><br><span class="line">    return function() &#123;</span><br><span class="line">        if (!arguments.length) &#123;</span><br><span class="line">            var sum = 0;</span><br><span class="line">            for (var i = 0,</span><br><span class="line">            c; c = _args[i++];) sum += c</span><br><span class="line">            return sum</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Array.prototype.push.apply(_args, arguments) return arguments.callee</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">add(1)(2)(3)(4)();//10</span><br></pre></td></tr></table></figure></p>
+<p>通用的写法：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var curry = function(fn) &#123;</span><br><span class="line">    var _args = []</span><br><span class="line">    return function cb() &#123;</span><br><span class="line">        if (arguments.length == 0) &#123;</span><br><span class="line">            return fn.apply(this, _args)</span><br><span class="line">        &#125;</span><br><span class="line">        Array.prototype.push.apply(_args, arguments);</span><br><span class="line">        return cb;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面累加的例子，可以实验一下怎么写？</p>
+<h5 id="3-固定易变因素。"><a href="#3-固定易变因素。" class="headerlink" title="3 固定易变因素。"></a>3 固定易变因素。</h5><p>柯里化特性决定了它这应用场景。提前把易变因素，传参固定下来，生成一个更明确的应用函数。最典型的代表应用，是bind函数用以固定this这个易变对象。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.bind = function(context) &#123;</span><br><span class="line">    var _this = this,</span><br><span class="line">    _args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return _this.apply(context, _args.concat(Array.prototype.slice.call(arguments)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -207,14 +225,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript应用/">javaScript应用</a>
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 744 个字)
+                    1 分钟 读完 (大约 180 个字)
                 </span>
                 
                 
@@ -223,29 +241,17 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/mouse/">获取鼠标的位置</a>
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
             
         </h1>
         <div class="content">
-            <h3 id="获取鼠标的位置"><a href="#获取鼠标的位置" class="headerlink" title="获取鼠标的位置"></a>获取鼠标的位置</h3><h4 id="获取鼠标的位置可以分为多个情况"><a href="#获取鼠标的位置可以分为多个情况" class="headerlink" title="获取鼠标的位置可以分为多个情况"></a>获取鼠标的位置可以分为多个情况</h4><ol>
-<li><p>获取鼠标相对于浏览器窗口的位置</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.clientX;</span><br><span class="line">let y = event.clientY;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取鼠标相对于整个页面的位置</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = event.pageX;</span><br><span class="line">let y = event.pageY;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取鼠标相对点击元素的位置</p>
-<p>这一个获取有点难度，因为在JavaScript原生方法中没有这个方法，那么需要分析如何获取，突破点一获取点击元素的相对其父本元素的偏移量这个属性在event的target属性下边绑定可以循环的方法获取点击元素相对于页面的位置方法如下</p>
-</li>
-</ol>
-  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  /*</span><br><span class="line">  *该方法是获取点击元素相对于页面的距离</span><br><span class="line">  *传入的参数为event.target</span><br><span class="line">  */</span><br><span class="line">  function getOffset(obj)&#123;</span><br><span class="line">   var tmp=&#123;</span><br><span class="line">      val:obj.offsetParent, //获取点击元素的父本</span><br><span class="line">      x:obj.offsetLeft, //获取点击元素的相对于父本的水平偏移</span><br><span class="line">      y:obj.offsetTop, //获取点击元素的相对于父本的垂直偏移</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   while(tmp.val != null)&#123; //当父级不存在是停止循环</span><br><span class="line">    tmp.x += tmp.val.offsetLeft; //水平偏移量累计</span><br><span class="line">    tmp.y += tmp.val.offsetTop; //垂直偏移量累计</span><br><span class="line">    tmp.val = tmp.val.offsetParent; //获取父本</span><br><span class="line">   &#125;</span><br><span class="line">   return tmp; //返回点击元素相对于页面的偏移值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上函数是获取了点击元素相对于页面的水平和垂直偏移，依赖以上获得的值，只需要鼠标相对于页面的偏移减去点击元素相对于页面的偏移方法如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">*该方法是获取鼠标相对于点击元素的位移</span><br><span class="line">*传入的参数为event</span><br><span class="line">*/</span><br><span class="line">function getCurrent(elem)&#123;</span><br><span class="line">  let off = getOffset(elem.target); //获取元素相对于页面的位置</span><br><span class="line">  let tmp = &#123;&#125;;</span><br><span class="line">  return tmp = &#123;</span><br><span class="line">    x:elem.pageX - off.x,</span><br><span class="line">    y:elem.pageY - off.y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.getBoundingClientRect用于获取某个html元素相对于页面的位置集合<br>执行 object.getBoundingClientRect();会得到元素的top、right、bottom、left、width、height属性，这些属性以一个对象的方式返回。</p>
-<p>主要是left和bottom要解释一下，left是指右边到页面最左边的距离，bottom是指底边到页面顶边的距离。</p>
-<h6 id="ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。"><a href="#ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px-并且没有width、height属性。" class="headerlink" title="(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)"></a>(ie5以上都能支持，但是又一点点地方需要修正一下，IE67的left、top会少2px,并且没有width、height属性。)</h6><p><img src="http://www.51xuediannao.com/uploads/allimg/160811/2340295W5-0.jpg?_=6179964" alt="图解"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;test&quot; style=&quot;width: 100px; height: 100px; background: #ddd;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function getObjXy(obj)&#123;</span><br><span class="line">        var xy = obj.getBoundingClientRect();</span><br><span class="line">        var top = xy.top-document.documentElement.clientTop+document.documentElement.scrollTop,//document.documentElement.clientTop 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            bottom = xy.bottom,</span><br><span class="line">            left = xy.left-document.documentElement.clientLeft+document.documentElement.scrollLeft,//document.documentElement.clientLeft 在IE67中始终为2，其他高级点的浏览器为0</span><br><span class="line">            right = xy.right,</span><br><span class="line">            width = xy.width||right - left, //IE67不存在width 使用right - left获得</span><br><span class="line">            height = xy.height||bottom - top;</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            top:top,</span><br><span class="line">            right:right,</span><br><span class="line">            bottom:bottom,</span><br><span class="line">            left:left,</span><br><span class="line">            width:width,</span><br><span class="line">            height:height</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var test = getObjXy(document.getElementById(&apos;test&apos;));</span><br><span class="line">    alert(&quot;top:&quot; + test.top + &quot;, right:&quot; + test.right + &quot;, bottom:&quot; + test.bottom + &quot;, left:&quot; + test.left);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>以上就是常用的获取鼠标位置的方法</p>
+            <p>其实javascript的new关键字只不过做了五件事情。</p>
+<p>1.创建Object</p>
+<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
+<p>3.将构造函数classA内部的this指向创建的Object</p>
+<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
+<p>5.执行构造函数class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -688,18 +694,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -738,25 +763,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1413,18 +1419,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -1463,25 +1488,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

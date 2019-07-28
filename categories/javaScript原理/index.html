@@ -210,57 +210,6 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 180 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
-            
-        </h1>
-        <div class="content">
-            <p>其实javascript的new关键字只不过做了五件事情。</p>
-<p>1.创建Object</p>
-<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
-<p>3.将构造函数classA内部的this指向创建的Object</p>
-<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
-<p>5.执行构造函数class</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
                     5 分钟 读完 (大约 810 个字)
                 </span>
                 
@@ -292,6 +241,57 @@ then：绑定回调函数
 <h5 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">	promise.resolve(&apos;数据1&apos;);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">//一秒之后， 当其他代码执行完成， 开始执行异步代码promise.resolve(‘数据1’);，</span><br><span class="line">//这里调用promise的resolve() 方法， 指定了一个成功状态， 并把数据1作为参数。</span><br></pre></td></tr></table></figure>
 <h5 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resolve: function(result) &#123;</span><br><span class="line">  this.complete(&quot;resolve&quot;, result);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 <h5 id="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"><a href="#第六步：循环执行回调，将上一个回调的结果传递给下一个回调" class="headerlink" title="第六步：循环执行回调，将上一个回调的结果传递给下一个回调"></a>第六步：循环执行回调，将上一个回调的结果传递给下一个回调</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">complete: function(type, result) &#123;</span><br><span class="line">	while(this.callbacks[0]) &#123;</span><br><span class="line">		this.callbacks.shift()[type](result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript原理/">javaScript原理</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 180 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/new/">new实现原理</a>
+            
+        </h1>
+        <div class="content">
+            <p>其实javascript的new关键字只不过做了五件事情。</p>
+<p>1.创建Object</p>
+<p>2.查找class的prototype上的所有方法、属性，复制一份给创建的Object（注意，如果prototype上有属性是function或者数组或者Object，那么只复制指针）</p>
+<p>3.将构造函数classA内部的this指向创建的Object</p>
+<p>4.创建的Object的<strong>proto</strong>指向class的prototype</p>
+<p>5.执行构造函数class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 定义类 类名字是 classA  </span><br><span class="line">function classA()&#123;  </span><br><span class="line">    this.b=1;  </span><br><span class="line">&#125;  </span><br><span class="line">classA.prototype.b=44;  </span><br><span class="line">classA.prototype.show = function()&#123;  </span><br><span class="line">    alert(this.b);  </span><br><span class="line">&#125;;  </span><br><span class="line">// 用new实例化  </span><br><span class="line">var b = new classA();  </span><br><span class="line">b.show();  </span><br><span class="line">// 用函数实例化  </span><br><span class="line">function newClass(cls,args)&#123;  </span><br><span class="line">    var obj = &#123;&#125;;  </span><br><span class="line">    for(var p in cls.prototype)  </span><br><span class="line">        obj[p] = cls.prototype[p];  </span><br><span class="line">    obj.__proto__ = cls.prototype;  </span><br><span class="line">    cls.apply(obj,args||[]);  </span><br><span class="line">    return obj;  </span><br><span class="line">&#125;;  </span><br><span class="line">var k = newClass(classA);  </span><br><span class="line">k.show();</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -850,18 +850,37 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -900,25 +919,6 @@ then：绑定回调函数
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1575,18 +1575,37 @@ then：绑定回调函数
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -1625,25 +1644,6 @@ then：绑定回调函数
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

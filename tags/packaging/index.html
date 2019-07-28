@@ -157,54 +157,6 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 130 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
-<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>stage 不再是配置项，以 presets 的形式添加。</p>
-<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/parcel/">parcel</a>
                 </div>
                 
@@ -247,6 +199,54 @@
 <p>.posthtmlrc<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: &#123;</span><br><span class="line">    &quot;posthtml-img-autosize&quot;: &#123;</span><br><span class="line">      &quot;root&quot;: &quot;./images&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><a href="https://github.com/yihaoliu/parcelReact" target="_blank" rel="noopener">parcelReact项目</a>。</p>
 <p>虽然说parcel是零配置但是在没有配置的情况下明显项目的灵活度降低许多，下载react有create-react-app进行构建，vue有vue-cli进行构架其实在项目配置相对来说已经非常少了，但是parcel没有配置文件还是让项目的开发有点难受，比如文件起别名，还有proxyConfig进行跨域处理在项目的开发时期都是很重有的事情，只能说对于一个初学web的人员来说配置变少了尤其是没有用到三大框架的项目组pracel还是使用很方便的，对于一些h5小网页比如基于canvas的小游戏的开发用pracel来构建还是非常方便的，但对于大型网站来说。。。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 130 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
+<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>stage 不再是配置项，以 presets 的形式添加。</p>
+<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
 
         </div>
         
@@ -1137,18 +1137,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -1187,25 +1206,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -1862,18 +1862,37 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/node/application/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="thinkjs项目目录解析">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/node/application/" class="has-link-black-ter is-size-6">thinkjs项目目录解析</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/node/">node</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -1912,25 +1931,6 @@
                     <a href="/2019/07/13/packaging/webpack/babel-stage/" class="has-link-black-ter is-size-6">babel-stage-x</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/React/lifecyce/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="React生命周期">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/React/lifecyce/" class="has-link-black-ter is-size-6">React生命周期</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>

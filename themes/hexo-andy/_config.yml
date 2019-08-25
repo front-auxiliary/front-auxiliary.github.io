@@ -163,6 +163,9 @@ widgets:
             w3c: 'https://www.w3.org/'
             ecma: 'https://www.ecma-international.org/default.htm'
             front-auxiliary: 'https://github.com/front-auxiliary'
+            HTTP-1.1官方规范: 'https://www.ietf.org/rfc/rfc2616.txt'
+            Web复制缓存方法分类法: 'https://datatracker.ietf.org/doc/rfc3040/?include_text=1'
+            antd基础组件库: 'https://github.com/react-component'
     -
         # Widget name
         type: category

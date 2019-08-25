@@ -154,6 +154,75 @@
                 <span class="level-item has-text-grey">
                     
                     
+                    13 分钟 读完 (大约 2010 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/React/redux/">Redux使用入门</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Redux使用入门"><a href="#Redux使用入门" class="headerlink" title="Redux使用入门"></a>Redux使用入门</h1><p><a href="http://cn.redux.js.org/" target="_blank" rel="noopener">参考网站</a></p>
+<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>随着WEB应用变得越来越复杂，再加上node前后端分离越来越流行，那么对数据流动的控制就显得越发重要。redux是在flux的基础上产生的，基本思想是保证数据的单向流动，同时便于控制、使用、测试。</p>
+<p>redux不依赖于任意框架(库)，只要subscribe相应框架(库)的内部方法，就可以使用该应用框架保证数据流动的一致性。</p>
+<p>那么如何使用redux呢？下面一步步进行解析，并带有源码说明，不仅做到 知其然 ，还要做到 知其所以然 。</p>
+<h3 id="2-主干逻辑介绍-createStore"><a href="#2-主干逻辑介绍-createStore" class="headerlink" title="2. 主干逻辑介绍(createStore)"></a>2. 主干逻辑介绍(createStore)</h3><h4 id="2-1-简单demo入门"><a href="#2-1-简单demo入门" class="headerlink" title="2.1 简单demo入门"></a>2.1 简单demo入门</h4><p>先来一个直观的认识：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// 首先定义一个改变数据的plain函数，成为reducer</span><br><span class="line">function count (state, action) &#123;</span><br><span class="line">  var defaultState = &#123;</span><br><span class="line">    year: 2015,</span><br><span class="line">  &#125;;</span><br><span class="line">  state = state || defaultState;</span><br><span class="line">  switch (action.type) &#123;</span><br><span class="line">    case &apos;add&apos;:</span><br><span class="line">      return &#123;</span><br><span class="line">        year: state.year + 1</span><br><span class="line">      &#125;;</span><br><span class="line">    case &apos;sub&apos;:</span><br><span class="line">      return &#123;</span><br><span class="line">        year: state.year - 1</span><br><span class="line">      &#125;</span><br><span class="line">    default :</span><br><span class="line">      return state;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">// store的创建</span><br><span class="line">var createStore = require(&apos;redux&apos;).createStore;</span><br><span class="line">var store = createStore(count);</span><br><span class="line"></span><br><span class="line">// store里面的数据发生改变时，触发的回调函数</span><br><span class="line">store.subscribe(function () &#123;</span><br><span class="line">  console.log(&apos;the year is: &apos;, store.getState().year);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// action: 触发state改变的唯一方法(按照redux的设计思路)</span><br><span class="line">var action1 = &#123; type: &apos;add&apos; &#125;;</span><br><span class="line">var action2 = &#123; type: &apos;add&apos; &#125;;</span><br><span class="line">var action3 = &#123; type: &apos;sub&apos; &#125;;</span><br><span class="line"></span><br><span class="line">// 改变store里面的方法</span><br><span class="line">store.dispatch(action1); // &apos;the year is: 2016</span><br><span class="line">store.dispatch(action2); // &apos;the year is: 2017</span><br><span class="line">store.dispatch(action3); // &apos;the year is: 2016</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-2-挖掘createStore实现"><a href="#2-2-挖掘createStore实现" class="headerlink" title="2.2 挖掘createStore实现"></a>2.2 挖掘createStore实现</h4><p>为了说明主要问题，仅列出其中的关键代码，全部代码，可以点击 这里 阅读。</p>
+<p>a首先看createStore到底都返回的内容:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default function createStore(reducer, initialState) &#123;</span><br><span class="line">  ...</span><br><span class="line">  return &#123;</span><br><span class="line">    dispatch,</span><br><span class="line">    subscribe,</span><br><span class="line">    getState,</span><br><span class="line">    replaceReducer</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>每个属性的含义是: - dispatch: 用于action的分发，改变store里面的state - subscribe: 注册listener，store里面state发生改变后，执行该listener - getState: 读取store里面的state - replaceReducer: 替换reducer，改变state修改的逻辑</p>
+<p>b关键代码解析<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">export default function createStore(reducer, initialState) &#123;</span><br><span class="line">  // 这些都是闭包变量</span><br><span class="line">  var currentReducer = reducer</span><br><span class="line">  var currentState = initialState</span><br><span class="line">  var listeners = []</span><br><span class="line">  var isDispatching = false;</span><br><span class="line"></span><br><span class="line">  // 返回当前的state</span><br><span class="line">  function getState() &#123;</span><br><span class="line">    return currentState</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 注册listener，同时返回一个取消事件注册的方法</span><br><span class="line">  function subscribe(listener) &#123;</span><br><span class="line">    listeners.push(listener)</span><br><span class="line">    var isSubscribed = true</span><br><span class="line"></span><br><span class="line">    return function unsubscribe() &#123;</span><br><span class="line">    if (!isSubscribed) &#123;</span><br><span class="line">	   return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isSubscribed = false</span><br><span class="line">    var index = listeners.indexOf(listener)</span><br><span class="line">      listeners.splice(index, 1)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 通过action该改变state，然后执行subscribe注册的方法</span><br><span class="line">  function dispatch(action) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      isDispatching = true</span><br><span class="line">      currentState = currentReducer(currentState, action)</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      isDispatching = false</span><br><span class="line">    &#125;</span><br><span class="line">    listeners.slice().forEach(listener =&gt; listener())</span><br><span class="line">    return action</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 替换reducer，修改state变化的逻辑</span><br><span class="line">  function replaceReducer(nextReducer) &#123;</span><br><span class="line">    currentReducer = nextReducer</span><br><span class="line">    dispatch(&#123; type: ActionTypes.INIT &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  // 初始化时，执行内部一个dispatch，得到初始state</span><br><span class="line">  dispatch(&#123; type: ActionTypes.INIT &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果还按照2.1的方式进行开发，那跟flux没有什么大的区别，需要手动解决很多问题，那redux如何将整个流程模板化(Boilerplate)呢?</p>
+<h3 id="3-保证store的唯一性"><a href="#3-保证store的唯一性" class="headerlink" title="3. 保证store的唯一性"></a>3. 保证store的唯一性</h3><p>随着应用越来越大，一方面，不能把所有的数据都放到一个reducer里面，另一方面，为每个reducer创建一个store，后续store的维护就显得比较麻烦。如何将二者统一起来呢？</p>
+<h4 id="3-1-demo入手"><a href="#3-1-demo入手" class="headerlink" title="3.1 demo入手"></a>3.1 demo入手</h4><p>通过combineReducers将多个reducer合并成一个rootReducer: // 创建两个reducer: count year function count (state, action) { state = state || {count: 1} switch (action.type) { default: return state; } } function year (state, action) { state = state || {year: 2015} switch (action.type) { default: return state; } }<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 将多个reducer合并成一个</span><br><span class="line">var combineReducers = require(&apos;./&apos;).combineReducers;</span><br><span class="line">var rootReducer = combineReducers(&#123;</span><br><span class="line">  count: count,</span><br><span class="line">  year: year,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 创建store，跟2.1没有任何区别</span><br><span class="line">var createStore = require(&apos;./&apos;).createStore;</span><br><span class="line">var store = createStore(rootReducer);</span><br><span class="line"></span><br><span class="line">var util = require(&apos;util&apos;);</span><br><span class="line">console.log(util.inspect(store));</span><br><span class="line">//输出的结果，跟2.1的store在结构上不存在区别</span><br><span class="line">// &#123; dispatch: [Function: dispatch],</span><br><span class="line">//   subscribe: [Function: subscribe],</span><br><span class="line">//   getState: [Function: getState],</span><br><span class="line">//   replaceReducer: [Function: replaceReducer]</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-2-源码解析combineReducers"><a href="#3-2-源码解析combineReducers" class="headerlink" title="3.2 源码解析combineReducers"></a>3.2 源码解析combineReducers</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 高阶函数，最后返回一个reducer</span><br><span class="line">export default function combineReducers(reducers) &#123;</span><br><span class="line">  // 提出不合法的reducers, finalReducers就是一个闭包变量</span><br><span class="line">  var finalReducers = pick(reducers, (val) =&gt; typeof val === &apos;function&apos;)</span><br><span class="line">  // 将各个reducer的初始state均设置为undefined</span><br><span class="line">  var defaultState = mapValues(finalReducers, () =&gt; undefined)</span><br><span class="line"></span><br><span class="line">  // 一个总reducer，内部包含子reducer</span><br><span class="line">  return function combination(state = defaultState, action) &#123;</span><br><span class="line">    var finalState = mapValues(finalReducers, (reducer, key) =&gt; &#123;</span><br><span class="line">      var previousStateForKey = state[key]</span><br><span class="line">      var nextStateForKey = reducer(previousStateForKey, action)</span><br><span class="line">      hasChanged = hasChanged || nextStateForKey !== previousStateForKey</span><br><span class="line">      return nextStateForKey</span><br><span class="line">    );</span><br><span class="line">    return hasChanged ? finalState : state</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-自动实现dispatch"><a href="#4-自动实现dispatch" class="headerlink" title="4. 自动实现dispatch"></a>4. 自动实现dispatch</h3><h4 id="4-1-demo介绍"><a href="#4-1-demo介绍" class="headerlink" title="4.1 demo介绍"></a>4.1 demo介绍</h4><p>在2.1中，要执行state的改变，需要手动dispatch:</p>
+<p>var action = { type: ‘<strong><em>‘, payload: ‘</em></strong>‘};<br>dispatch(action);<br>手动dispatch就显得啰嗦了，那么如何自动完成呢?<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var bindActionCreators = require(&apos;redux&apos;).bindActionCreators;</span><br><span class="line">// 可以在具体的应用框架隐式进行该过程(例如react-redux的connect组件中)</span><br><span class="line">bindActionCreators(action)</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-2-源码解析"><a href="#4-2-源码解析" class="headerlink" title="4.2 源码解析"></a>4.2 源码解析</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 隐式实现dispatch</span><br><span class="line">function bindActionCreator(actionCreator, dispatch) &#123;</span><br><span class="line">  return (...args) =&gt; dispatch(actionCreator(...args))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default function bindActionCreators(actionCreators, dispatch) &#123;</span><br><span class="line">  if (typeof actionCreators === &apos;function&apos;) &#123;</span><br><span class="line">    return bindActionCreator(actionCreators, dispatch)</span><br><span class="line">  &#125;</span><br><span class="line">  return mapValues(actionCreators, actionCreator =&gt;</span><br><span class="line">    bindAQctionCreator(actionCreator, dispatch)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-支持插件-对dispatch的改造"><a href="#5-支持插件-对dispatch的改造" class="headerlink" title="5. 支持插件 - 对dispatch的改造"></a>5. 支持插件 - 对dispatch的改造</h3><h4 id="5-1-插件使用demo"><a href="#5-1-插件使用demo" class="headerlink" title="5.1 插件使用demo"></a>5.1 插件使用demo</h4><p>一个action可以是同步的，也可能是异步的，这是两种不同的情况， dispatch执行的时机是不一样的:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 同步的action creator, store可以默认实现dispatch</span><br><span class="line">function add() &#123;</span><br><span class="line">  return &#123; tyle: &apos;add&apos; &#125;</span><br><span class="line">&#125;</span><br><span class="line">dispatch(add());</span><br><span class="line"></span><br><span class="line">// 异步的action creator，因为异步完成的时间不确定，只能手工dispatch</span><br><span class="line">function fetchDataAsync() &#123;</span><br><span class="line">  return function (dispatch) &#123;</span><br><span class="line">    requst(url).end(function (err, res) &#123;</span><br><span class="line">      if (err) return dispatch(&#123; type: &apos;SET_ERR&apos;, payload: err&#125;);</span><br><span class="line">      if (res.status === &apos;success&apos;) &#123;</span><br><span class="line">        dispatch(&#123; type: &apos;FETCH_SUCCESS&apos;, payload: res.data &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面的问题就变成了，如何根据实际情况实现不同的dispatch方法，也即是根据需要实现不同的moddleware:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 普通的dispatch创建方法</span><br><span class="line">var store = createStore(reducer, initialState);</span><br><span class="line">console.log(store.dispatch);</span><br><span class="line"></span><br><span class="line">// 定制化的dispatch</span><br><span class="line">var applyMiddleware = require(&apos;redux&apos;).applyMiddleware;</span><br><span class="line">// 实现action异步的middleware</span><br><span class="line">var thunk = requre(&apos;redux-thunk&apos;);</span><br><span class="line">var store = applyMiddleware([thunk])(createStore);</span><br><span class="line">// 经过处理的dispatch方法</span><br><span class="line">console.log(store.dispatch);</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-2-源码解析"><a href="#5-2-源码解析" class="headerlink" title="5.2 源码解析"></a>5.2 源码解析</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// next: 其实就是createStore</span><br><span class="line">export default function applyMiddleware(...middlewares) &#123;</span><br><span class="line">  return (next) =&gt; (reducer, initialState) =&gt; &#123;</span><br><span class="line">    var store = next(reducer, initialState)</span><br><span class="line">    var dispatch = store.dispatch</span><br><span class="line">    var chain = []</span><br><span class="line"></span><br><span class="line">    var middlewareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: (action) =&gt; dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">    chain = middlewares.map(middleware =&gt; middleware(middlewareAPI))</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch // 实现新的dispatch方法</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 再看看redux-thunk的实现, next就是store里面的上一个dispatch</span><br><span class="line">function thunkMiddleware(&#123; dispatch, getState &#125;) &#123;</span><br><span class="line">  return function(next) &#123;</span><br><span class="line">    return function(action) &#123;</span><br><span class="line">      typeof action === &apos;function&apos; ? action(dispatch, getState) : next(action);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return next =&gt; action =&gt;</span><br><span class="line">    typeof action === &apos;function&apos; ?</span><br><span class="line">      action(dispatch, getState) :</span><br><span class="line">      next(action);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-与react框架的结合"><a href="#6-与react框架的结合" class="headerlink" title="6. 与react框架的结合"></a>6. 与react框架的结合</h3><p>####6.1 基本使用</p>
+<p>目前已经有现成的工具 react-redux 来实现二者的结合:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var rootReducers = combineReducers(reducers);</span><br><span class="line">var store = createStore(rootReducers);</span><br><span class="line">var Provider = require(&apos;react-redux&apos;).Provider;</span><br><span class="line">// App 为上层的Component</span><br><span class="line">class App extend React.Component&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;Provier store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;Container /&gt;</span><br><span class="line">      &lt;/Provider&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Container作用: 1. 获取store中的数据; 2.将dispatch与actionCreator结合起来</span><br><span class="line">var connect = require(&apos;react-redux&apos;).connect;</span><br><span class="line">var actionCreators = require(&apos;...&apos;);</span><br><span class="line">// MyComponent是与redux无关的组件</span><br><span class="line">var MyComponent = require(&apos;...&apos;);</span><br><span class="line"></span><br><span class="line">function select(state) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    count: state.count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default connect(select, actionCreators)(MyComponent)</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-2-Provider-–-提供store"><a href="#6-2-Provider-–-提供store" class="headerlink" title="6.2 Provider – 提供store"></a>6.2 Provider – 提供store</h4><p>React通过Context属性，可以将属性(props)直接给子孙component，无须通过props层层传递, Provider仅仅起到获得store，然后将其传递给子孙元素而已:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">export default class Provider extends Component &#123;</span><br><span class="line">  getChildContext() &#123; // getChildContext: 将store传递给子孙component</span><br><span class="line">    return &#123; store: this.store &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  constructor(props, context) &#123;</span><br><span class="line">    super(props, context)</span><br><span class="line">    this.store = props.store</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentWillReceiveProps(nextProps) &#123;</span><br><span class="line">    const &#123; store &#125; = this</span><br><span class="line">    const &#123; store: nextStore &#125; = nextProps</span><br><span class="line"></span><br><span class="line">    if (store !== nextStore) &#123;</span><br><span class="line">      warnAboutReceivingStore()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    let &#123; children &#125; = this.props</span><br><span class="line">    return Children.only(children)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-3-connect-–-获得store及dispatch-actionCreator"><a href="#6-3-connect-–-获得store及dispatch-actionCreator" class="headerlink" title="6.3 connect – 获得store及dispatch(actionCreator)"></a>6.3 connect – 获得store及dispatch(actionCreator)</h4><p>connect是一个高阶函数，首先传入mapStateToProps、mapDispatchToProps，然后返回一个生产 Component 的函数(wrapWithConnect)，然后再将真正的Component作为参数传入wrapWithConnect(MyComponent)，这样就生产出一个经过包裹的Connect组件，该组件具有如下特点:</p>
+<p>通过this.context获取祖先Component的store<br>props包括stateProps、dispatchProps、parentProps,合并在一起得到 nextState ，作为props传给真正的Component<br>componentDidMount时，添加事件this.store.subscribe(this.handleChange)，实现页面交互<br>shouldComponentUpdate时判断是否有避免进行渲染，提升页面性能，并得到nextState<br>componentWillUnmount时移除注册的事件this.handleChange<br>在非生产环境下，带有热重载功能<br>主要的代码逻辑:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = &#123;&#125;) &#123;</span><br><span class="line">  return function wrapWithConnect(WrappedComponent) &#123;</span><br><span class="line">    class Connect extends Component &#123;</span><br><span class="line">      constructor(props, context) &#123;</span><br><span class="line">        // 从祖先Component处获得store</span><br><span class="line">        this.store = props.store || context.store</span><br><span class="line">        this.stateProps = computeStateProps(this.store, props)</span><br><span class="line">        this.dispatchProps = computeDispatchProps(this.store, props)</span><br><span class="line">        this.state = &#123; storeState: null &#125;</span><br><span class="line">        // 对stateProps、dispatchProps、parentProps进行合并</span><br><span class="line">        this.updateState()</span><br><span class="line">      &#125;</span><br><span class="line">      shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">        // 进行判断，当数据发生改变时，Component重新渲染</span><br><span class="line">        if (propsChanged || mapStateProducedChange || dispatchPropsChanged) &#123;</span><br><span class="line">          this.updateState(nextProps)</span><br><span class="line">            return true</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        componentDidMount() &#123;</span><br><span class="line">          // 改变Component的state</span><br><span class="line">          this.store.subscribe(() = &#123;</span><br><span class="line">            this.setState(&#123;</span><br><span class="line">              storeState: this.store.getState()</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        render() &#123;</span><br><span class="line">          // 生成包裹组件Connect</span><br><span class="line">          return (</span><br><span class="line">            &lt;WrappedComponent &#123;...this.nextState&#125; /&gt;</span><br><span class="line">          )</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      Connect.contextTypes = &#123;</span><br><span class="line">        store: storeShape</span><br><span class="line">      &#125;</span><br><span class="line">      return Connect;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-redux与react-redux关系图"><a href="#7-redux与react-redux关系图" class="headerlink" title="7. redux与react-redux关系图"></a>7. redux与react-redux关系图</h3><p><img src="images/redux.png!web"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/react/">react</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
                     15 分钟 读完 (大约 2179 个字)
                 </span>
                 
@@ -604,246 +673,6 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 128 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/other/cmd/">自定义命令行配置</a>
-            
-        </h1>
-        <div class="content">
-            <p>平常在开发的时候因为项目多集合项目之间频繁切换非常浪费时间，因为启动项目是命令行所以想配置一个自定义命令来快速的进行项目切换和编辑器打开以及启动。</p>
-<h3 id="mac下自定义命令的配置"><a href="#mac下自定义命令的配置" class="headerlink" title="mac下自定义命令的配置"></a>mac下自定义命令的配置</h3><p>在命令行里用 VSCode 打开 .zshrc 文件如图：<br><img src="/2019/07/13/other/cmd/zshrc.jpg" title="mac的path路径文件"></p>
-<p>上图是我自定的自定义命令</p>
-<h3 id="window-下自定义命令"><a href="#window-下自定义命令" class="headerlink" title="window 下自定义命令"></a>window 下自定义命令</h3>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 577 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/other/chrome/">chrome扩展开发</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>在平时的前端开发中chrome的扩展应用是非常常见的我平常应用的chrome扩展程序用Postman、React Developer Tools、Redux DevTools 等使用了这么长时间了扩展就想开发一款属于自己的chrome扩展，下面来介绍一下一个简单的扩展开发。</p>
-</blockquote>
-<h2 id="chrome扩展与chrome应用的区别"><a href="#chrome扩展与chrome应用的区别" class="headerlink" title="chrome扩展与chrome应用的区别"></a>chrome扩展与chrome应用的区别</h2><p>Chrome应用更强调是独立的程序，你可以不打开Chrome浏览器而运行这些程序。同时这些程序可以调用更加底层的系统接口，比如串口、USB、本地文件读写等等。同时Chrome应用可以拥有样式更加自由的独立窗口，而Chrome扩展的界面只能限定在浏览器窗口中。</p>
-<p>Chrome扩展是一系列文件的集合，这些文件包括HTML文件、CSS样式文件、JavaScript脚本文件、图片等静态文件以及manifest.json。个别扩展还会包含二进制文件，如DLL动态库和so动态库等，但这需要调用NPAPI，而Google出于安全性考虑已经决定逐渐淘汰NPAPI</p>
-<h2 id="一个简单的chrome扩展"><a href="#一个简单的chrome扩展" class="headerlink" title="一个简单的chrome扩展"></a>一个简单的chrome扩展</h2><p>新建文件夹 my_chrome 为项目目录<br>开发目录<br>——   images<br>——   js<br>——   css<br>——   index.html<br>——   manifest.json</p>
-<p>项目目录搭建完毕</p>
-<h2 id="manifest-json-文件"><a href="#manifest-json-文件" class="headerlink" title="manifest.json 文件"></a>manifest.json 文件</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;manifest_version&quot;: 2,</span><br><span class="line">    &quot;name&quot;: &quot;my_chrome&quot;,//扩展名称</span><br><span class="line">    &quot;version&quot;: &quot;1.0&quot;,//版本号</span><br><span class="line">    &quot;description&quot;: &quot;我的第一个Chrome扩展&quot;,//项目描述</span><br><span class="line">    &quot;icons&quot;: &#123;  //icons定义了扩展相关图标文件的位置</span><br><span class="line">        &quot;16&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;48&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;128&quot;: &quot;images/icon.png&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;browser_action&quot;: &#123;</span><br><span class="line">        &quot;default_icon&quot;: &#123; //定义了相应图标文件的位置</span><br><span class="line">            &quot;19&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">            &quot;38&quot;: &quot;images/icon.png&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;default_title&quot;: &quot;我的时钟&quot;,//当用户鼠标悬停于扩展图标上所显示的文字</span><br><span class="line">        &quot;default_popup&quot;: &quot;index.html&quot; //当用户单击扩展图标时所显示页面的文件位置。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="html的代码"><a href="#html的代码" class="headerlink" title="html的代码"></a>html的代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;style&gt;</span><br><span class="line">            * &#123;</span><br><span class="line">                margin: 0;</span><br><span class="line">                padding: 0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            body &#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            div &#123;</span><br><span class="line">                line-height: 100px;</span><br><span class="line">                font-size: 42px;</span><br><span class="line">                text-align: center;</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/style&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;div id=&quot;clock_div&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;script src=&quot;js/my_clock.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="js-代码"><a href="#js-代码" class="headerlink" title="js 代码"></a>js 代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function my_clock(el)&#123;</span><br><span class="line">    var today=new Date();</span><br><span class="line">    var h=today.getHours();</span><br><span class="line">    var m=today.getMinutes();</span><br><span class="line">    var s=today.getSeconds();</span><br><span class="line">    m=m&gt;=10?m:(&apos;0&apos;+m);</span><br><span class="line">    s=s&gt;=10?s:(&apos;0&apos;+s);</span><br><span class="line">    el.innerHTML = h+&quot;:&quot;+m+&quot;:&quot;+s;</span><br><span class="line">    setTimeout(function()&#123;my_clock(el)&#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var clock_div = document.getElementById(&apos;clock_div&apos;);</span><br><span class="line">my_clock(clock_div);</span><br></pre></td></tr></table></figure>
-<h2 id="扩展导入"><a href="#扩展导入" class="headerlink" title="扩展导入"></a>扩展导入</h2><img src="/2019/07/13/other/chrome/play.png" title="扩展导入">
-<h2 id="到这了一个简单的chrome扩展就完成了"><a href="#到这了一个简单的chrome扩展就完成了" class="headerlink" title="到这了一个简单的chrome扩展就完成了"></a>到这了一个简单的chrome扩展就完成了</h2>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 576 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/nuxt/init/">nuxt服务端项目集成引入iView</a>
-            
-        </h1>
-        <div class="content">
-            <p>Nuxt.js 是一个基于 Vue.js 的通用应用框架。</p>
-<p>通过对客户端/服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI渲染。</p>
-<p>我们的目标是创建一个灵活的应用框架，你可以基于它初始化新项目的基础结构代码，或者在已有 Node.js 项目中使用 Nuxt.js。</p>
-<p>Nuxt.js 预设了利用Vue.js开发服务端渲染的应用所需要的各种配置。</p>
-<p>除此之外，我们还提供了一种命令叫：nuxt generate，为基于 Vue.js 的应用提供生成对应的静态站点的功能。</p>
-<p>我们相信这个命令所提供的功能，是向开发集成各种微服务（microservices）的 Web 应用迈开的新一步。</p>
-<p>作为框架，Nuxt.js 为 客户端/服务端 这种典型的应用架构模式提供了许多有用的特性，例如异步数据加载、中间件支持、布局支持等。</p>
-<h2 id="Nuxt-项目–构建"><a href="#Nuxt-项目–构建" class="headerlink" title="Nuxt 项目–构建"></a>Nuxt 项目–构建</h2><p>因为Nuxt是基于vue的通用应用框架所以构建Nuxt项目可以同vue-cil来构建</p>
-<h3 id="1-安装vue-cil"><a href="#1-安装vue-cil" class="headerlink" title="1. 安装vue-cil"></a>1. 安装vue-cil</h3><p>相信有vue使用经验的开发者对这款cil工具是非常熟悉的</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global vue-cli</span><br></pre></td></tr></table></figure>
-<h3 id="2-用vue-cil搭建项目"><a href="#2-用vue-cil搭建项目" class="headerlink" title="2. 用vue-cil搭建项目"></a>2. 用vue-cil搭建项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ vue init nuxt-community/starter-template nuxt </span><br><span class="line">//(你要构建的项目名称我的项目叫做nuxt)</span><br><span class="line">$ cd nuxt</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<h3 id="3-接着通过以下命令启动项目"><a href="#3-接着通过以下命令启动项目" class="headerlink" title="3. 接着通过以下命令启动项目"></a>3. 接着通过以下命令启动项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>访问 <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br><img src="/2019/07/13/nuxt/init/init.png" title="启动页"></p>
-<h3 id="集成-iview-UI框架"><a href="#集成-iview-UI框架" class="headerlink" title="集成 iview UI框架"></a>集成 iview UI框架</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装 iview</span><br><span class="line">$ npm install iview --save</span><br></pre></td></tr></table></figure>
-<h3 id="在根目录的-plugins-中新建-iview-js"><a href="#在根目录的-plugins-中新建-iview-js" class="headerlink" title="在根目录的 plugins 中新建 iview.js"></a>在根目录的 plugins 中新建 iview.js</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import iView from &apos;iview&apos;</span><br><span class="line">Vue.use(iView)</span><br></pre></td></tr></table></figure>
-<p>这里有个大坑因为Nuxt语法检测机制在Vue.use(iView)的后面要加一个回车要不会报一下错误，这个问题当时让我很郁闷</p>
-<img src="/2019/07/13/nuxt/init/error.png" title="启动页">
-<h3 id="修改-nuxt-config-js"><a href="#修改-nuxt-config-js" class="headerlink" title="修改 nuxt.config.js"></a>修改 nuxt.config.js</h3><p>在module.exports最后添加如下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugins: [ &#123; src: &apos;~plugins/iview&apos;, ssr: false &#125; ],</span><br><span class="line">css: [&apos;iview/dist/styles/iview.css&apos;],</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/07/13/nuxt/init/add.png" title="添加">
-<h3 id="在pages-index-vue-加入-Button-标签"><a href="#在pages-index-vue-加入-Button-标签" class="headerlink" title="在pages/index.vue,加入 Button 标签"></a>在pages/index.vue,加入 Button 标签</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button type=&quot;primary&quot;&gt;Primary&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
-<img src="/2019/07/13/nuxt/init/add.png" title="按钮">
-<h3 id="再次启动页面"><a href="#再次启动页面" class="headerlink" title="再次启动页面"></a>再次启动页面</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>效果页面如下：</p>
-<img src="/2019/07/13/nuxt/init/end.png" title="最后的效果">
-<h3 id="大功告成-后续会添加nuxt的相关内容"><a href="#大功告成-后续会添加nuxt的相关内容" class="headerlink" title="大功告成 后续会添加nuxt的相关内容"></a>大功告成 后续会添加nuxt的相关内容</h3>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/node/">node</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 分钟 读完 (大约 868 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/node/application/">thinkjs项目目录解析</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><img src="/2019/07/13/node/application/directory.png" title="目录结构">
-<p>注：指定不同的模式创建的项目目录机构可能有细微的差别，但总体是类似的</p>
-<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><p>nginx 的配置文件，建议线上使用 nginx 做反向代理。</p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>源代码目录，使用 –es6 参数创建项目才有该目录。项目启动时会自动将 src 目录下的文件编译到 app 目录下。</p>
-<p>如果没有使用 ES6 特性创建项目，则直接有 app/ 目录。</p>
-<h3 id="src-common"><a href="#src-common" class="headerlink" title="src/common"></a>src/common</h3><p>通用模块目录，项目目录都是按模块来划分的，common 模块下存放一些通用的处理逻辑。</p>
-<h3 id="src-common-bootstrap"><a href="#src-common-bootstrap" class="headerlink" title="src/common/bootstrap"></a>src/common/bootstrap</h3><p>项目启动目录，该目录下的文件会自动加载，无需手动 require 。</p>
-<p>可以在这个目录下文件里定义一些全局函数、注册中间件等常用的功能。</p>
-<p>定义全局函数<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/fn.js global.formatDate = obj =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里定义了一个全局函数 formatDate，那么项目里任何地方都可以直接使用该函数。</p>
-<p>注册中间件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/middleware.js think.middleware(&quot;replace_image&quot;, http =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>这里定义了一个中间件 replace_image，那么就可以在配置文件 hook.js 里将该中间件注册进去了。</p>
-<p>注：bootstrap 只能放在 common 模块里。</p>
-<h3 id="src-common-config"><a href="#src-common-config" class="headerlink" title="src/common/config"></a>src/common/config</h3><p>配置文件，这里放一些通用的配置。</p>
-<p>其中：路由配置、hook 配置、本地化配置等必须放在这里。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * config</span><br><span class="line"> */ export default &#123; //key: value &#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="src-common-controller"><a href="#src-common-controller" class="headerlink" title="src/common/controller"></a>src/common/controller</h3><p>控制器，放一些通用的控制器。其中 error.js 里错误处理的不同行为，项目里可以根据需要进行修改。</p>
-<h3 id="src-common-runtime"><a href="#src-common-runtime" class="headerlink" title="src/common/runtime"></a>src/common/runtime</h3><p>项目运行时生成的一些目录，如：缓存文件目录，用户上传的文件临时存放的目录。</p>
-<h3 id="src-home"><a href="#src-home" class="headerlink" title="src/home"></a>src/home</h3><p>home 模块，项目默认模块。可以在 src/common/config/config.js 中修改配置 default_module 来重新定义默认模块。</p>
-<h3 id="src-home-logic"><a href="#src-home-logic" class="headerlink" title="src/home/logic"></a>src/home/logic</h3><p>逻辑处理。每个操作执行前可以先进行逻辑校验，可以包含：参数是否合法、提交的数据是否正常、当前用户是否已经登录、当前用户是否有权限等。这样可以降低 controller 里的 action 的复杂度。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * logic</span><br><span class="line"> * @param  &#123;&#125; []</span><br><span class="line"> * @return &#123;&#125;     []</span><br><span class="line"> */ export default class extends think.logic.base &#123; /**</span><br><span class="line">   * index action logic</span><br><span class="line">   * @return &#123;&#125; []</span><br><span class="line">   */ indexAction()&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="src-home-controller"><a href="#src-home-controller" class="headerlink" title="src/home/controller"></a>src/home/controller</h3><p>控制器。一个 url 对应一个 controller 下的 action。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; import Base from &quot;./base.js&quot;; export default class extends Base &#123; /**</span><br><span class="line">   * index action</span><br><span class="line">   * @return &#123;Promise&#125; []</span><br><span class="line">   */ indexAction()&#123; //auto render template file index_index.html return this.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="src-home-model"><a href="#src-home-model" class="headerlink" title="src/home/model"></a>src/home/model</h3><p>模型。数据库相关操作。</p>
-<h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>视图目录，存放对应的模版文件。如果支持国际化和多主题，那么视图目录下需要有对应的子目录。</p>
-<h3 id="www"><a href="#www" class="headerlink" title="www"></a>www</h3><p>项目的可访问根目录，nginx 里的根目录会配置到此目录下。</p>
-<h3 id="www-development-js"><a href="#www-development-js" class="headerlink" title="www/development.js"></a>www/development.js</h3><p>开发模式下项目的入口文件，可以根据项目需要进行修改。www/production.js 为线上的入口文件。</p>
-<p>入口文件的代码类似如下，可以根据项目需要进行修改。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var thinkjs = require(&quot;thinkjs&quot;); var path = require(&quot;path&quot;); var rootPath = path.dirname(__dirname); var instance = new thinkjs(&#123;</span><br><span class="line">  APP_PATH: rootPath + &quot;/app&quot;,</span><br><span class="line">  ROOT_PATH: rootPath,</span><br><span class="line">  RESOURCE_PATH: __dirname,</span><br><span class="line">  env: &quot;development&quot; &#125;);</span><br><span class="line"></span><br><span class="line">instance.compile(&#123;retainLines: true, log: true&#125;);</span><br><span class="line"></span><br><span class="line">instance.run();</span><br></pre></td></tr></table></figure></p>
-<h3 id="www-static"><a href="#www-static" class="headerlink" title="www/static"></a>www/static</h3><p>存放一些静态资源文件。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
                 </div>
                 
@@ -949,6 +778,178 @@
 
 
 
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 128 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/other/cmd/">自定义命令行配置</a>
+            
+        </h1>
+        <div class="content">
+            <p>平常在开发的时候因为项目多集合项目之间频繁切换非常浪费时间，因为启动项目是命令行所以想配置一个自定义命令来快速的进行项目切换和编辑器打开以及启动。</p>
+<h3 id="mac下自定义命令的配置"><a href="#mac下自定义命令的配置" class="headerlink" title="mac下自定义命令的配置"></a>mac下自定义命令的配置</h3><p>在命令行里用 VSCode 打开 .zshrc 文件如图：<br><img src="/2019/07/13/other/cmd/zshrc.jpg" title="mac的path路径文件"></p>
+<p>上图是我自定的自定义命令</p>
+<h3 id="window-下自定义命令"><a href="#window-下自定义命令" class="headerlink" title="window 下自定义命令"></a>window 下自定义命令</h3>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/chrome/">chrome</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 577 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/other/chrome/">chrome扩展开发</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>在平时的前端开发中chrome的扩展应用是非常常见的我平常应用的chrome扩展程序用Postman、React Developer Tools、Redux DevTools 等使用了这么长时间了扩展就想开发一款属于自己的chrome扩展，下面来介绍一下一个简单的扩展开发。</p>
+</blockquote>
+<h2 id="chrome扩展与chrome应用的区别"><a href="#chrome扩展与chrome应用的区别" class="headerlink" title="chrome扩展与chrome应用的区别"></a>chrome扩展与chrome应用的区别</h2><p>Chrome应用更强调是独立的程序，你可以不打开Chrome浏览器而运行这些程序。同时这些程序可以调用更加底层的系统接口，比如串口、USB、本地文件读写等等。同时Chrome应用可以拥有样式更加自由的独立窗口，而Chrome扩展的界面只能限定在浏览器窗口中。</p>
+<p>Chrome扩展是一系列文件的集合，这些文件包括HTML文件、CSS样式文件、JavaScript脚本文件、图片等静态文件以及manifest.json。个别扩展还会包含二进制文件，如DLL动态库和so动态库等，但这需要调用NPAPI，而Google出于安全性考虑已经决定逐渐淘汰NPAPI</p>
+<h2 id="一个简单的chrome扩展"><a href="#一个简单的chrome扩展" class="headerlink" title="一个简单的chrome扩展"></a>一个简单的chrome扩展</h2><p>新建文件夹 my_chrome 为项目目录<br>开发目录<br>——   images<br>——   js<br>——   css<br>——   index.html<br>——   manifest.json</p>
+<p>项目目录搭建完毕</p>
+<h2 id="manifest-json-文件"><a href="#manifest-json-文件" class="headerlink" title="manifest.json 文件"></a>manifest.json 文件</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;manifest_version&quot;: 2,</span><br><span class="line">    &quot;name&quot;: &quot;my_chrome&quot;,//扩展名称</span><br><span class="line">    &quot;version&quot;: &quot;1.0&quot;,//版本号</span><br><span class="line">    &quot;description&quot;: &quot;我的第一个Chrome扩展&quot;,//项目描述</span><br><span class="line">    &quot;icons&quot;: &#123;  //icons定义了扩展相关图标文件的位置</span><br><span class="line">        &quot;16&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;48&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">        &quot;128&quot;: &quot;images/icon.png&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;browser_action&quot;: &#123;</span><br><span class="line">        &quot;default_icon&quot;: &#123; //定义了相应图标文件的位置</span><br><span class="line">            &quot;19&quot;: &quot;images/icon.png&quot;,</span><br><span class="line">            &quot;38&quot;: &quot;images/icon.png&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;default_title&quot;: &quot;我的时钟&quot;,//当用户鼠标悬停于扩展图标上所显示的文字</span><br><span class="line">        &quot;default_popup&quot;: &quot;index.html&quot; //当用户单击扩展图标时所显示页面的文件位置。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="html的代码"><a href="#html的代码" class="headerlink" title="html的代码"></a>html的代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;style&gt;</span><br><span class="line">            * &#123;</span><br><span class="line">                margin: 0;</span><br><span class="line">                padding: 0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            body &#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            div &#123;</span><br><span class="line">                line-height: 100px;</span><br><span class="line">                font-size: 42px;</span><br><span class="line">                text-align: center;</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/style&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;div id=&quot;clock_div&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;script src=&quot;js/my_clock.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="js-代码"><a href="#js-代码" class="headerlink" title="js 代码"></a>js 代码</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function my_clock(el)&#123;</span><br><span class="line">    var today=new Date();</span><br><span class="line">    var h=today.getHours();</span><br><span class="line">    var m=today.getMinutes();</span><br><span class="line">    var s=today.getSeconds();</span><br><span class="line">    m=m&gt;=10?m:(&apos;0&apos;+m);</span><br><span class="line">    s=s&gt;=10?s:(&apos;0&apos;+s);</span><br><span class="line">    el.innerHTML = h+&quot;:&quot;+m+&quot;:&quot;+s;</span><br><span class="line">    setTimeout(function()&#123;my_clock(el)&#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var clock_div = document.getElementById(&apos;clock_div&apos;);</span><br><span class="line">my_clock(clock_div);</span><br></pre></td></tr></table></figure>
+<h2 id="扩展导入"><a href="#扩展导入" class="headerlink" title="扩展导入"></a>扩展导入</h2><img src="/2019/07/13/other/chrome/play.png" title="扩展导入">
+<h2 id="到这了一个简单的chrome扩展就完成了"><a href="#到这了一个简单的chrome扩展就完成了" class="headerlink" title="到这了一个简单的chrome扩展就完成了"></a>到这了一个简单的chrome扩展就完成了</h2>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/node/">node</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 868 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/node/application/">thinkjs项目目录解析</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><img src="/2019/07/13/node/application/directory.png" title="目录结构">
+<p>注：指定不同的模式创建的项目目录机构可能有细微的差别，但总体是类似的</p>
+<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><p>nginx 的配置文件，建议线上使用 nginx 做反向代理。</p>
+<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>源代码目录，使用 –es6 参数创建项目才有该目录。项目启动时会自动将 src 目录下的文件编译到 app 目录下。</p>
+<p>如果没有使用 ES6 特性创建项目，则直接有 app/ 目录。</p>
+<h3 id="src-common"><a href="#src-common" class="headerlink" title="src/common"></a>src/common</h3><p>通用模块目录，项目目录都是按模块来划分的，common 模块下存放一些通用的处理逻辑。</p>
+<h3 id="src-common-bootstrap"><a href="#src-common-bootstrap" class="headerlink" title="src/common/bootstrap"></a>src/common/bootstrap</h3><p>项目启动目录，该目录下的文件会自动加载，无需手动 require 。</p>
+<p>可以在这个目录下文件里定义一些全局函数、注册中间件等常用的功能。</p>
+<p>定义全局函数<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/fn.js global.formatDate = obj =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个全局函数 formatDate，那么项目里任何地方都可以直接使用该函数。</p>
+<p>注册中间件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// src/common/bootstrap/middleware.js think.middleware(&quot;replace_image&quot;, http =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个中间件 replace_image，那么就可以在配置文件 hook.js 里将该中间件注册进去了。</p>
+<p>注：bootstrap 只能放在 common 模块里。</p>
+<h3 id="src-common-config"><a href="#src-common-config" class="headerlink" title="src/common/config"></a>src/common/config</h3><p>配置文件，这里放一些通用的配置。</p>
+<p>其中：路由配置、hook 配置、本地化配置等必须放在这里。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * config</span><br><span class="line"> */ export default &#123; //key: value &#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-common-controller"><a href="#src-common-controller" class="headerlink" title="src/common/controller"></a>src/common/controller</h3><p>控制器，放一些通用的控制器。其中 error.js 里错误处理的不同行为，项目里可以根据需要进行修改。</p>
+<h3 id="src-common-runtime"><a href="#src-common-runtime" class="headerlink" title="src/common/runtime"></a>src/common/runtime</h3><p>项目运行时生成的一些目录，如：缓存文件目录，用户上传的文件临时存放的目录。</p>
+<h3 id="src-home"><a href="#src-home" class="headerlink" title="src/home"></a>src/home</h3><p>home 模块，项目默认模块。可以在 src/common/config/config.js 中修改配置 default_module 来重新定义默认模块。</p>
+<h3 id="src-home-logic"><a href="#src-home-logic" class="headerlink" title="src/home/logic"></a>src/home/logic</h3><p>逻辑处理。每个操作执行前可以先进行逻辑校验，可以包含：参数是否合法、提交的数据是否正常、当前用户是否已经登录、当前用户是否有权限等。这样可以降低 controller 里的 action 的复杂度。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; /**</span><br><span class="line"> * logic</span><br><span class="line"> * @param  &#123;&#125; []</span><br><span class="line"> * @return &#123;&#125;     []</span><br><span class="line"> */ export default class extends think.logic.base &#123; /**</span><br><span class="line">   * index action logic</span><br><span class="line">   * @return &#123;&#125; []</span><br><span class="line">   */ indexAction()&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-home-controller"><a href="#src-home-controller" class="headerlink" title="src/home/controller"></a>src/home/controller</h3><p>控制器。一个 url 对应一个 controller 下的 action。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;; import Base from &quot;./base.js&quot;; export default class extends Base &#123; /**</span><br><span class="line">   * index action</span><br><span class="line">   * @return &#123;Promise&#125; []</span><br><span class="line">   */ indexAction()&#123; //auto render template file index_index.html return this.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-home-model"><a href="#src-home-model" class="headerlink" title="src/home/model"></a>src/home/model</h3><p>模型。数据库相关操作。</p>
+<h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>视图目录，存放对应的模版文件。如果支持国际化和多主题，那么视图目录下需要有对应的子目录。</p>
+<h3 id="www"><a href="#www" class="headerlink" title="www"></a>www</h3><p>项目的可访问根目录，nginx 里的根目录会配置到此目录下。</p>
+<h3 id="www-development-js"><a href="#www-development-js" class="headerlink" title="www/development.js"></a>www/development.js</h3><p>开发模式下项目的入口文件，可以根据项目需要进行修改。www/production.js 为线上的入口文件。</p>
+<p>入口文件的代码类似如下，可以根据项目需要进行修改。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var thinkjs = require(&quot;thinkjs&quot;); var path = require(&quot;path&quot;); var rootPath = path.dirname(__dirname); var instance = new thinkjs(&#123;</span><br><span class="line">  APP_PATH: rootPath + &quot;/app&quot;,</span><br><span class="line">  ROOT_PATH: rootPath,</span><br><span class="line">  RESOURCE_PATH: __dirname,</span><br><span class="line">  env: &quot;development&quot; &#125;);</span><br><span class="line"></span><br><span class="line">instance.compile(&#123;retainLines: true, log: true&#125;);</span><br><span class="line"></span><br><span class="line">instance.run();</span><br></pre></td></tr></table></figure></p>
+<h3 id="www-static"><a href="#www-static" class="headerlink" title="www/static"></a>www/static</h3><p>存放一些静态资源文件。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
 
     
 <div class="card card-transparent">
@@ -1019,7 +1020,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        59
+                        60
                     </p>
                 </div>
             </div>
@@ -1029,7 +1030,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        22
+                        23
                     </p>
                 </div>
             </div>
@@ -1039,7 +1040,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        80
+                        83
                     </p>
                 </div>
             </div>
@@ -1136,6 +1137,39 @@
                 <a class="level is-mobile" href="https://github.com/front-auxiliary" target="_blank">
                     <span class="level-left">
                         <span class="level-item">front-auxiliary</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.ietf.org/rfc/rfc2616.txt" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">HTTP-1.1官方规范</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.ietf.org</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://datatracker.ietf.org/doc/rfc3040/?include_text=1" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Web复制缓存方法分类法</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">datatracker.ietf.org</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/react-component" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">antd基础组件库</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -1319,6 +1353,14 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/网络协议/">
+            <span class="level-start">
+                <span class="level-item">网络协议</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/辅助工具/">
             <span class="level-start">
                 <span class="level-item">辅助工具</span>
@@ -1346,7 +1388,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Array-prototype-slice/" style="font-size: 10px;">Array.prototype.slice</a> <a href="/tags/ECMAScript提案/" style="font-size: 10px;">ECMAScript提案</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/IDE/" style="font-size: 13.75px;">IDE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/arguments/" style="font-size: 10px;">arguments</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/babel/" style="font-size: 11.25px;">babel</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/callee/" style="font-size: 10px;">callee</a> <a href="/tags/caller/" style="font-size: 10px;">caller</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clamp/" style="font-size: 10px;">clamp</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/css/" style="font-size: 11.25px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/flex/" style="font-size: 10px;">flex</a> <a href="/tags/forEach/" style="font-size: 10px;">forEach</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javasript/" style="font-size: 10px;">javasript</a> <a href="/tags/mac/" style="font-size: 11.25px;">mac</a> <a href="/tags/mobx/" style="font-size: 10px;">mobx</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/node/" style="font-size: 17.5px;">node</a> <a href="/tags/number/" style="font-size: 10px;">number</a> <a href="/tags/nuxt/" style="font-size: 10px;">nuxt</a> <a href="/tags/package-json/" style="font-size: 10px;">package.json</a> <a href="/tags/packaging/" style="font-size: 16.25px;">packaging</a> <a href="/tags/parcel/" style="font-size: 10px;">parcel</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/resolve/" style="font-size: 10px;">resolve</a> <a href="/tags/router/" style="font-size: 12.5px;">router</a> <a href="/tags/stage/" style="font-size: 10px;">stage</a> <a href="/tags/thinkjs/" style="font-size: 10px;">thinkjs</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/touch/" style="font-size: 10px;">touch</a> <a href="/tags/try-catch/" style="font-size: 10px;">try-catch</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue/" style="font-size: 13.75px;">vue</a> <a href="/tags/webSocket/" style="font-size: 10px;">webSocket</a> <a href="/tags/webpack/" style="font-size: 17.5px;">webpack</a> <a href="/tags/webpack2-x的变化/" style="font-size: 10px;">webpack2.x的变化</a> <a href="/tags/webpack路径简写/" style="font-size: 10px;">webpack路径简写</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/上拉加载/" style="font-size: 10px;">上拉加载</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/布局/" style="font-size: 11.25px;">布局</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/异常处理/" style="font-size: 11.25px;">异常处理</a> <a href="/tags/执行上下文/" style="font-size: 10px;">执行上下文</a> <a href="/tags/数据层/" style="font-size: 11.25px;">数据层</a> <a href="/tags/服务端项目集成/" style="font-size: 10px;">服务端项目集成</a> <a href="/tags/柯里化函数/" style="font-size: 10px;">柯里化函数</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/生命周期/" style="font-size: 11.25px;">生命周期</a> <a href="/tags/目录结构/" style="font-size: 10px;">目录结构</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a> <a href="/tags/辅助工具/" style="font-size: 18.75px;">辅助工具</a> <a href="/tags/辅助知识/" style="font-size: 10px;">辅助知识</a> <a href="/tags/配置/" style="font-size: 11.25px;">配置</a> <a href="/tags/错误类型/" style="font-size: 10px;">错误类型</a> <a href="/tags/项目打包/" style="font-size: 10px;">项目打包</a> <a href="/tags/项目搭建/" style="font-size: 12.5px;">项目搭建</a> <a href="/tags/颜色/" style="font-size: 10px;">颜色</a> <a href="/tags/颜色算法/" style="font-size: 10px;">颜色算法</a> <a href="/tags/颜色转换/" style="font-size: 10px;">颜色转换</a> <a href="/tags/颜色选择器/" style="font-size: 10px;">颜色选择器</a> <a href="/tags/鼠标相关/" style="font-size: 10px;">鼠标相关</a>
+        <a href="/tags/Array-prototype-slice/" style="font-size: 10px;">Array.prototype.slice</a> <a href="/tags/ECMAScript提案/" style="font-size: 10px;">ECMAScript提案</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/IDE/" style="font-size: 13.75px;">IDE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/arguments/" style="font-size: 10px;">arguments</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/babel/" style="font-size: 11.25px;">babel</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/callee/" style="font-size: 10px;">callee</a> <a href="/tags/caller/" style="font-size: 10px;">caller</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clamp/" style="font-size: 10px;">clamp</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/css/" style="font-size: 11.25px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/flex/" style="font-size: 10px;">flex</a> <a href="/tags/forEach/" style="font-size: 10px;">forEach</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javasript/" style="font-size: 10px;">javasript</a> <a href="/tags/mac/" style="font-size: 11.25px;">mac</a> <a href="/tags/mobx/" style="font-size: 10px;">mobx</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/node/" style="font-size: 17.5px;">node</a> <a href="/tags/number/" style="font-size: 10px;">number</a> <a href="/tags/nuxt/" style="font-size: 10px;">nuxt</a> <a href="/tags/package-json/" style="font-size: 10px;">package.json</a> <a href="/tags/packaging/" style="font-size: 16.25px;">packaging</a> <a href="/tags/parcel/" style="font-size: 10px;">parcel</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/resolve/" style="font-size: 10px;">resolve</a> <a href="/tags/router/" style="font-size: 12.5px;">router</a> <a href="/tags/stage/" style="font-size: 10px;">stage</a> <a href="/tags/thinkjs/" style="font-size: 10px;">thinkjs</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/touch/" style="font-size: 10px;">touch</a> <a href="/tags/try-catch/" style="font-size: 10px;">try-catch</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue/" style="font-size: 13.75px;">vue</a> <a href="/tags/webSocket/" style="font-size: 10px;">webSocket</a> <a href="/tags/webpack/" style="font-size: 17.5px;">webpack</a> <a href="/tags/webpack2-x的变化/" style="font-size: 10px;">webpack2.x的变化</a> <a href="/tags/webpack路径简写/" style="font-size: 10px;">webpack路径简写</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/上拉加载/" style="font-size: 10px;">上拉加载</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/协议/" style="font-size: 10px;">协议</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/布局/" style="font-size: 11.25px;">布局</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/异常处理/" style="font-size: 11.25px;">异常处理</a> <a href="/tags/执行上下文/" style="font-size: 10px;">执行上下文</a> <a href="/tags/数据层/" style="font-size: 11.25px;">数据层</a> <a href="/tags/服务端项目集成/" style="font-size: 10px;">服务端项目集成</a> <a href="/tags/柯里化函数/" style="font-size: 10px;">柯里化函数</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/生命周期/" style="font-size: 11.25px;">生命周期</a> <a href="/tags/目录结构/" style="font-size: 10px;">目录结构</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a> <a href="/tags/辅助工具/" style="font-size: 18.75px;">辅助工具</a> <a href="/tags/辅助知识/" style="font-size: 10px;">辅助知识</a> <a href="/tags/通信/" style="font-size: 10px;">通信</a> <a href="/tags/配置/" style="font-size: 11.25px;">配置</a> <a href="/tags/错误类型/" style="font-size: 10px;">错误类型</a> <a href="/tags/项目打包/" style="font-size: 10px;">项目打包</a> <a href="/tags/项目搭建/" style="font-size: 12.5px;">项目搭建</a> <a href="/tags/颜色/" style="font-size: 10px;">颜色</a> <a href="/tags/颜色算法/" style="font-size: 10px;">颜色算法</a> <a href="/tags/颜色转换/" style="font-size: 10px;">颜色转换</a> <a href="/tags/颜色选择器/" style="font-size: 10px;">颜色选择器</a> <a href="/tags/鼠标相关/" style="font-size: 10px;">鼠标相关</a>
     </div>
 </div>
 
@@ -1360,6 +1402,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/14/knowledge/protocol/classification/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="网络传输协议">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/protocol/classification/" class="has-link-black-ter is-size-6">网络传输协议</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络协议/">网络协议</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1382,56 +1443,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/nuxt/init/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/node/">node</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/IDE/macPath/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
                     </p>
                 </div>
             </div>
@@ -1456,6 +1479,25 @@
             </div>
         </article>
         
+        <article class="media">
+            
+            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
     </div>
 </div>
 
@@ -1474,7 +1516,7 @@
                     <span class="level-item">七月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">30</span>
+                    <span class="level-item tag">31</span>
                 </span>
             </a>
         </li>
@@ -1889,6 +1931,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/协议/">
+                        <span class="tag">协议</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/原型链/">
                         <span class="tag">原型链</span>
                         <span class="tag is-grey">1</span>
@@ -1980,6 +2029,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/路由/">
                         <span class="tag">路由</span>
                         <span class="tag is-grey">1</span>
@@ -1996,6 +2052,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/辅助知识/">
                         <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/通信/">
+                        <span class="tag">通信</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -2088,6 +2151,25 @@
         
         <article class="media">
             
+            <a href="/2019/07/14/knowledge/protocol/classification/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="网络传输协议">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T23:39:59.000Z">2019-07-14</time></div>
+                    <a href="/2019/07/14/knowledge/protocol/classification/" class="has-link-black-ter is-size-6">网络传输协议</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络协议/">网络协议</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/07/14/knowledge/color/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="颜色转换">
@@ -2107,56 +2189,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/node/try-catch/" class="media-left">
+            <a href="/2019/07/13/nuxt/init/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="node异常处理机制详解">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/node/try-catch/" class="has-link-black-ter is-size-6">node异常处理机制详解</a>
+                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/node/">node</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/IDE/macPath/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/13/packaging/webpack/cache/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浏览器缓存">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/packaging/webpack/cache/" class="has-link-black-ter is-size-6">浏览器缓存</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
                     </p>
                 </div>
             </div>
@@ -2181,6 +2225,25 @@
             </div>
         </article>
         
+        <article class="media">
+            
+            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
     </div>
 </div>
 
@@ -2199,7 +2262,7 @@
                     <span class="level-item">七月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">30</span>
+                    <span class="level-item tag">31</span>
                 </span>
             </a>
         </li>
@@ -2614,6 +2677,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/协议/">
+                        <span class="tag">协议</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/原型链/">
                         <span class="tag">原型链</span>
                         <span class="tag is-grey">1</span>
@@ -2705,6 +2775,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/路由/">
                         <span class="tag">路由</span>
                         <span class="tag is-grey">1</span>
@@ -2721,6 +2798,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/辅助知识/">
                         <span class="tag">辅助知识</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/通信/">
+                        <span class="tag">通信</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>

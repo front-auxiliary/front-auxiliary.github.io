@@ -426,6 +426,54 @@
                 <span class="level-item has-text-grey">
                     
                     
+                    1 分钟 读完 (大约 130 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
+<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>stage 不再是配置项，以 presets 的形式添加。</p>
+<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
                     11 分钟 读完 (大约 1609 个字)
                 </span>
                 
@@ -581,54 +629,6 @@
 <h3 id="resolveLoader-moduleExtensions"><a href="#resolveLoader-moduleExtensions" class="headerlink" title="resolveLoader.moduleExtensions"></a>resolveLoader.moduleExtensions</h3><p>array</p>
 <p>在解析模块（例如，loader）时尝试使用的扩展。默认是一个空数组。</p>
 <p>如果你想要不带 -loader 后缀使用 loader，你可以使用：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moduleExtensions: [&apos;-loader&apos;]</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 130 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
-<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>stage 不再是配置项，以 presets 的形式添加。</p>
-<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
 
         </div>
         
@@ -1309,18 +1309,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/nuxt/init/" class="media-left">
+            <a href="/2019/07/13/other/cmd/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="自定义命令行配置">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
+                    <a href="/2019/07/13/other/cmd/" class="has-link-black-ter is-size-6">自定义命令行配置</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                        <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                     </p>
                 </div>
             </div>
@@ -1347,18 +1347,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -2055,18 +2055,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/nuxt/init/" class="media-left">
+            <a href="/2019/07/13/other/cmd/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="自定义命令行配置">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
+                    <a href="/2019/07/13/other/cmd/" class="has-link-black-ter is-size-6">自定义命令行配置</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                        <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                     </p>
                 </div>
             </div>
@@ -2093,18 +2093,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>

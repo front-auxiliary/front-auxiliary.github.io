@@ -298,14 +298,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 576 个字)
+                    1 分钟 读完 (大约 128 个字)
                 </span>
                 
                 
@@ -314,35 +314,14 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/nuxt/init/">nuxt服务端项目集成引入iView</a>
+                <a class="has-link-black-ter" href="/2019/07/13/other/cmd/">自定义命令行配置</a>
             
         </h1>
         <div class="content">
-            <p>Nuxt.js 是一个基于 Vue.js 的通用应用框架。</p>
-<p>通过对客户端/服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI渲染。</p>
-<p>我们的目标是创建一个灵活的应用框架，你可以基于它初始化新项目的基础结构代码，或者在已有 Node.js 项目中使用 Nuxt.js。</p>
-<p>Nuxt.js 预设了利用Vue.js开发服务端渲染的应用所需要的各种配置。</p>
-<p>除此之外，我们还提供了一种命令叫：nuxt generate，为基于 Vue.js 的应用提供生成对应的静态站点的功能。</p>
-<p>我们相信这个命令所提供的功能，是向开发集成各种微服务（microservices）的 Web 应用迈开的新一步。</p>
-<p>作为框架，Nuxt.js 为 客户端/服务端 这种典型的应用架构模式提供了许多有用的特性，例如异步数据加载、中间件支持、布局支持等。</p>
-<h2 id="Nuxt-项目–构建"><a href="#Nuxt-项目–构建" class="headerlink" title="Nuxt 项目–构建"></a>Nuxt 项目–构建</h2><p>因为Nuxt是基于vue的通用应用框架所以构建Nuxt项目可以同vue-cil来构建</p>
-<h3 id="1-安装vue-cil"><a href="#1-安装vue-cil" class="headerlink" title="1. 安装vue-cil"></a>1. 安装vue-cil</h3><p>相信有vue使用经验的开发者对这款cil工具是非常熟悉的</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global vue-cli</span><br></pre></td></tr></table></figure>
-<h3 id="2-用vue-cil搭建项目"><a href="#2-用vue-cil搭建项目" class="headerlink" title="2. 用vue-cil搭建项目"></a>2. 用vue-cil搭建项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ vue init nuxt-community/starter-template nuxt </span><br><span class="line">//(你要构建的项目名称我的项目叫做nuxt)</span><br><span class="line">$ cd nuxt</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<h3 id="3-接着通过以下命令启动项目"><a href="#3-接着通过以下命令启动项目" class="headerlink" title="3. 接着通过以下命令启动项目"></a>3. 接着通过以下命令启动项目</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>访问 <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br><img src="/2019/07/13/nuxt/init/init.png" title="启动页"></p>
-<h3 id="集成-iview-UI框架"><a href="#集成-iview-UI框架" class="headerlink" title="集成 iview UI框架"></a>集成 iview UI框架</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装 iview</span><br><span class="line">$ npm install iview --save</span><br></pre></td></tr></table></figure>
-<h3 id="在根目录的-plugins-中新建-iview-js"><a href="#在根目录的-plugins-中新建-iview-js" class="headerlink" title="在根目录的 plugins 中新建 iview.js"></a>在根目录的 plugins 中新建 iview.js</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import iView from &apos;iview&apos;</span><br><span class="line">Vue.use(iView)</span><br></pre></td></tr></table></figure>
-<p>这里有个大坑因为Nuxt语法检测机制在Vue.use(iView)的后面要加一个回车要不会报一下错误，这个问题当时让我很郁闷</p>
-<img src="/2019/07/13/nuxt/init/error.png" title="启动页">
-<h3 id="修改-nuxt-config-js"><a href="#修改-nuxt-config-js" class="headerlink" title="修改 nuxt.config.js"></a>修改 nuxt.config.js</h3><p>在module.exports最后添加如下内容：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugins: [ &#123; src: &apos;~plugins/iview&apos;, ssr: false &#125; ],</span><br><span class="line">css: [&apos;iview/dist/styles/iview.css&apos;],</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/07/13/nuxt/init/add.png" title="添加">
-<h3 id="在pages-index-vue-加入-Button-标签"><a href="#在pages-index-vue-加入-Button-标签" class="headerlink" title="在pages/index.vue,加入 Button 标签"></a>在pages/index.vue,加入 Button 标签</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button type=&quot;primary&quot;&gt;Primary&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
-<img src="/2019/07/13/nuxt/init/add.png" title="按钮">
-<h3 id="再次启动页面"><a href="#再次启动页面" class="headerlink" title="再次启动页面"></a>再次启动页面</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
-<p>效果页面如下：</p>
-<img src="/2019/07/13/nuxt/init/end.png" title="最后的效果">
-<h3 id="大功告成-后续会添加nuxt的相关内容"><a href="#大功告成-后续会添加nuxt的相关内容" class="headerlink" title="大功告成 后续会添加nuxt的相关内容"></a>大功告成 后续会添加nuxt的相关内容</h3>
+            <p>平常在开发的时候因为项目多集合项目之间频繁切换非常浪费时间，因为启动项目是命令行所以想配置一个自定义命令来快速的进行项目切换和编辑器打开以及启动。</p>
+<h3 id="mac下自定义命令的配置"><a href="#mac下自定义命令的配置" class="headerlink" title="mac下自定义命令的配置"></a>mac下自定义命令的配置</h3><p>在命令行里用 VSCode 打开 .zshrc 文件如图：<br><img src="/2019/07/13/other/cmd/zshrc.jpg" title="mac的path路径文件"></p>
+<p>上图是我自定的自定义命令</p>
+<h3 id="window-下自定义命令"><a href="#window-下自定义命令" class="headerlink" title="window 下自定义命令"></a>window 下自定义命令</h3>
         </div>
         
         
@@ -420,121 +399,6 @@
 <p>提示： 由于asycn和await是ES7里面的内容，现阶段不建议使用。为了顺利运行上面的代码，建议用webpack进行编译。</p>
 <h3 id="transform-exponentiation-operator"><a href="#transform-exponentiation-operator" class="headerlink" title="transform-exponentiation-operator"></a>transform-exponentiation-operator</h3><p>transform-exponentiation-operator这个插件算是一个语法糖，可以通过**这个符号来进行幂操作，想当于Math.pow(a,b)。如下面的样例</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// x ** y</span><br><span class="line"></span><br><span class="line">let squared = 2 ** 2;</span><br><span class="line">// 相当于: 2 * 2</span><br><span class="line"></span><br><span class="line">let cubed = 2 ** 3;</span><br><span class="line">// 相当于: 2 * 2 * 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// x **= y</span><br><span class="line"></span><br><span class="line">let a = 2;</span><br><span class="line">a **= 2;</span><br><span class="line">// 相当于: a = a * a;</span><br><span class="line"></span><br><span class="line">let b = 3;</span><br><span class="line">b **= 3;</span><br><span class="line">// 相当于: b = b * b * b;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/array/">array</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 325 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/13/javaScript/array/function/">关于数组的使用</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Array-方法"><a href="#Array-方法" class="headerlink" title="Array 方法"></a>Array 方法</h1><h2 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h2><blockquote>
-<p>连接两个或者多个数组并返回新的数组，该方法不会影响原数组。</p>
-</blockquote>
-<h3 id="es6-实现concat"><a href="#es6-实现concat" class="headerlink" title="es6 实现concat"></a>es6 实现concat</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr1 = [2,3];</span><br><span class="line">let arr2 = [4,5];</span><br><span class="line">let arr3 = [...arr1,...arr2]</span><br></pre></td></tr></table></figure>
-<h3 id="实现一个concat"><a href="#实现一个concat" class="headerlink" title="实现一个concat"></a>实现一个concat</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.myConcat = function () &#123;</span><br><span class="line">  let arr = this.slice(0);</span><br><span class="line">  arguments.length &amp;&amp; [].forEach.call(arguments,(value) =&gt; &#123;</span><br><span class="line">    if (Array.isArray(value)) &#123;</span><br><span class="line">     value.forEach(val =&gt; &#123;</span><br><span class="line">       arr.push(val);</span><br><span class="line">     &#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      arr.push(value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">方法</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">concat()</td>
-<td style="text-align:center">连接两个或更多的数组，并返回结果。</td>
-</tr>
-<tr>
-<td style="text-align:center">join()</td>
-<td style="text-align:center">把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。</td>
-</tr>
-<tr>
-<td style="text-align:center">pop()</td>
-<td style="text-align:center">删除并返回数组的最后一个元素</td>
-</tr>
-<tr>
-<td style="text-align:center">push()</td>
-<td style="text-align:center">向数组的末尾添加一个或更多元素，并返回新的长度。</td>
-</tr>
-<tr>
-<td style="text-align:center">reverse()</td>
-<td style="text-align:center">颠倒数组中元素的顺序。</td>
-</tr>
-<tr>
-<td style="text-align:center">shift()</td>
-<td style="text-align:center">删除并返回数组的第一个元素</td>
-</tr>
-<tr>
-<td style="text-align:center">slice()</td>
-<td style="text-align:center">从某个已有的数组返回选定的元素</td>
-</tr>
-<tr>
-<td style="text-align:center">sort()</td>
-<td style="text-align:center">对数组的元素进行排序</td>
-</tr>
-<tr>
-<td style="text-align:center">splice()</td>
-<td style="text-align:center">删除元素，并向数组添加新元素。</td>
-</tr>
-<tr>
-<td style="text-align:center">toSource()</td>
-<td style="text-align:center">返回该对象的源代码。</td>
-</tr>
-<tr>
-<td style="text-align:center">toString()</td>
-<td style="text-align:center">把数组转换为字符串，并返回结果。</td>
-</tr>
-<tr>
-<td style="text-align:center">toLocaleString()</td>
-<td style="text-align:center">把数组转换为本地数组，并返回结果。</td>
-</tr>
-<tr>
-<td style="text-align:center">unshift()</td>
-<td style="text-align:center">向数组的开头添加一个或更多元素，并返回新的长度。</td>
-</tr>
-<tr>
-<td style="text-align:center">valueOf()</td>
-<td style="text-align:center">返回数组对象的原始值</td>
-</tr>
-</tbody>
-</table>
 
         </div>
         
@@ -843,14 +707,14 @@
                 <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 168 个字)
+                    11 分钟 读完 (大约 1609 个字)
                 </span>
                 
                 
@@ -859,20 +723,200 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/git/git-capitalize/">git区分大小写</a>
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/resolve/">webpack中resolve模块</a>
             
         </h1>
         <div class="content">
-            <p>其实 git 默认对于文件名大小写是不敏感的,所以上面你修改了首字母大写,但是git 并没有发现代码任何改动.</p>
-<p>那么如何才能让 git 识别文件名大小写变化.</p>
-<p>一  配置git 使其对文件名大小写敏感</p>
-<p>git config core.ignorecase false</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git config core.ignorecase false</span><br></pre></td></tr></table></figure>
-<p>二 从git 本地仓库删除此文件,然后添加再提交</p>
-<p>(1) 删除<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git rm readme.md</span><br></pre></td></tr></table></figure></p>
-<p>(2) 重新添加<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git add Readme.md</span><br></pre></td></tr></table></figure></p>
-<p>(3)提交<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Administrator@SC-202102021413 F:\xunlian\hexo</span><br><span class="line">&gt;git commit -m &apos;Readme.md&apos;</span><br></pre></td></tr></table></figure></p>
-<p>推荐第一种方法,配置好git 对文件名大小写敏感.</p>
+            <h1 id="Resolve"><a href="#Resolve" class="headerlink" title="Resolve"></a>Resolve</h1><blockquote>
+<p>这些选项能设置模块如何被解析。webpack 提供合理的默认值，但是还是可能会修改一些解析的细节。</p>
+</blockquote>
+<h3 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h3><p>object</p>
+<blockquote>
+<p>配置模块如何解析。例如，当在 ES2015 中调用 import “lodash”，resolve 选项能够对 webpack 查找 “lodash” 的方式去做修改（查看模块）。</p>
+</blockquote>
+<h3 id="resolve-alias"><a href="#resolve-alias" class="headerlink" title="resolve.alias"></a>resolve.alias</h3><p>object</p>
+<p>创建 import 或 require 的别名，来确保模块引入变得更简单。例如，一些位于 src/ 文件夹下的常用模块：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">  Utilities: path.resolve(__dirname, &apos;src/utilities/&apos;),</span><br><span class="line">  Templates: path.resolve(__dirname, &apos;src/templates/&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在，替换「在导入时使用相对路径」这种方式，就像这样：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Utility from &apos;../../utilities/utility&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>你可以这样使用别名：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Utility from &apos;Utilities/utility&apos;;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 也可以在给定对象的键后的末尾添加 $，以表示精准匹配：</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">  xyz$: path.resolve(__dirname, &apos;path/to/file.js&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这将产生以下结果：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Test1 from &apos;xyz&apos;; // 精确匹配，所以 path/to/file.js 被解析和导入</span><br><span class="line">import Test2 from &apos;xyz/file.js&apos;; // 精确匹配，触发普通解析</span><br></pre></td></tr></table></figure></p>
+<p>下面的表格展示了一些其他情况：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">别名:</th>
+<th style="text-align:left">import”xyz”</th>
+<th style="text-align:left">import”xyz/file.js”</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">{}</td>
+<td style="text-align:left">/abc/node_modules/xyz/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “/abs/path/to/file.js” }</td>
+<td style="text-align:left">/abs/path/to/file.js</td>
+<td style="text-align:left">error</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “/abs/path/to/file.js” }</td>
+<td style="text-align:left">/abs/path/to/file.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “./dir/file.js” }</td>
+<td style="text-align:left">/abc/dir/file.js</td>
+<td style="text-align:left">error</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “./dir/file.js” }</td>
+<td style="text-align:left">/abc/dir/file.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “/some/dir” }</td>
+<td style="text-align:left">/some/dir/index.js</td>
+<td style="text-align:left">/some/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “/some/dir” }</td>
+<td style="text-align:left">/some/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “./dir” }</td>
+<td style="text-align:left">/abc/dir/index.js</td>
+<td style="text-align:left">/abc/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “modu” }</td>
+<td style="text-align:left">/abc/node_modules/modu/index.js</td>
+<td style="text-align:left">/abc/node_modules/modu/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “modu” }</td>
+<td style="text-align:left">/abc/node_modules/modu/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “modu/some/file.js” }</td>
+<td style="text-align:left">/abc/node_modules/modu/some/file.js</td>
+<td style="text-align:left">error</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “modu/dir” }</td>
+<td style="text-align:left">/abc/node_modules/modu/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz: “xyz/dir” }</td>
+<td style="text-align:left">/abc/node_modules/xyz/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/dir/file.js</td>
+</tr>
+<tr>
+<td style="text-align:left">{ xyz$: “xyz/dir” }</td>
+<td style="text-align:left">/abc/node_modules/xyz/dir/index.js</td>
+<td style="text-align:left">/abc/node_modules/xyz/file.js</td>
+</tr>
+</tbody>
+</table>
+<p>如果在 package.json 中定义，index.js 可能会被解析为另一个文件。</p>
+<p><strong> /abc/node_modules 也可能在 /node_modules 中解析。</strong></p>
+<h3 id="resolve-aliasFields"><a href="#resolve-aliasFields" class="headerlink" title="resolve.aliasFields"></a>resolve.aliasFields</h3><p>string</p>
+<p>指定一个字段，例如 browser，根据此规范进行解析。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aliasFields: [&quot;browser&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-cacheWithContext"><a href="#resolve-cacheWithContext" class="headerlink" title="resolve.cacheWithContext"></a>resolve.cacheWithContext</h3><p>boolean ( webpack 3.1.0 以后版本)</p>
+<p>如果启用了不安全的缓存，则包含request.context在缓存中。该enhanced-resolve模块考虑了该选项。因为解析缓存中的webpack 3.1.0上下文在提供解析或解析的插件时被忽略。这解决了性能回归。</p>
+<h3 id="resolve-descriptionFiles"><a href="#resolve-descriptionFiles" class="headerlink" title="resolve.descriptionFiles"></a>resolve.descriptionFiles</h3><p>array</p>
+<p>用于描述的 JSON 文件。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">descriptionFiles: [&quot;package.json&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-enforceExtension"><a href="#resolve-enforceExtension" class="headerlink" title="resolve.enforceExtension"></a>resolve.enforceExtension</h3><p>boolean</p>
+<p>如果是 true，将不允许无扩展名(extension-less)文件。默认如果 ./foo 有 .js 扩展，require(‘./foo’) 可以正常运行。但如果启用此选项，只有 require(‘./foo.js’) 能够正常工作。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enforceExtension: false</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-enforceModuleExtension"><a href="#resolve-enforceModuleExtension" class="headerlink" title="resolve.enforceModuleExtension"></a>resolve.enforceModuleExtension</h3><p>boolean</p>
+<p>对模块是否需要使用的扩展（例如 loader）。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enforceModuleExtension: false</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-extensions"><a href="#resolve-extensions" class="headerlink" title="resolve.extensions"></a>resolve.extensions</h3><p>array</p>
+<p>自动解析确定的扩展。默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extensions: [&quot;.js&quot;, &quot;.json&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>能够使用户在引入模块时不带扩展：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import File from &apos;../path/to/file&apos;</span><br></pre></td></tr></table></figure>
+<p>使用此选项，会覆盖默认数组，这就意味着 webpack 将不再尝试使用默认扩展来解析模块。对于使用其扩展导入的模块，例如，import SomeFile from “./somefile.ext”，要想正确的解析，一个包含“*”的字符串必须包含在数组中。</p>
+<h3 id="resolve-mainFields"><a href="#resolve-mainFields" class="headerlink" title="resolve.mainFields"></a>resolve.mainFields</h3><p>array</p>
+<p>当从 npm 包中导入模块时（例如，import * as D3 from “d3”），此选项将决定在 package.json 中使用哪个字段导入模块。根据 webpack 配置中指定的 target 不同，默认值也会有所不同。</p>
+<p>当 target 属性设置为 webworker, web 或者没有指定，默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFields: [&quot;browser&quot;, &quot;module&quot;, &quot;main&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>对于其他任意的 target（包括 node），默认值为：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFields: [&quot;module&quot;, &quot;main&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>例如，D3 的 package.json 含有这些字段：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  main: &apos;build/d3.Node.js&apos;,</span><br><span class="line">  browser: &apos;build/d3.js&apos;,</span><br><span class="line">  module: &apos;index&apos;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这意味着当我们 import * as D3 from “d3”，实际从 browser 属性解析文件。在这里 browser 属性是最优先选择的，因为它是 mainFields 的第一项。同时，由 webpack 打包的 Node.js 应用程序默认会从 module 字段中解析文件。</p>
+<h3 id="resolve-mainFiles"><a href="#resolve-mainFiles" class="headerlink" title="resolve.mainFiles"></a>resolve.mainFiles</h3><p>array</p>
+<p>解析目录时要使用的文件名。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainFiles: [&quot;index&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-modules"><a href="#resolve-modules" class="headerlink" title="resolve.modules"></a>resolve.modules</h3><p>array</p>
+<p>告诉 webpack 解析模块时应该搜索的目录。</p>
+<p>绝对路径和相对路径都能使用，但是要知道它们之间有一点差异。</p>
+<p>通过查看当前目录以及祖先路径（即 ./node_modules, ../node_modules 等等），相对路径将类似于 Node 查找 ‘node_modules’ 的方式进行查找。</p>
+<p>使用绝对路径，将只在给定目录中搜索。</p>
+<p>resolve.modules defaults to:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modules: [&quot;node_modules&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modules: [path.resolve(__dirname, &quot;src&quot;), &quot;node_modules&quot;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-unsafeCache"><a href="#resolve-unsafeCache" class="headerlink" title="resolve.unsafeCache"></a>resolve.unsafeCache</h3><p>regex array boolean</p>
+<p>启用，会主动缓存模块，但并不安全。传递 true 将缓存一切。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafeCache: true</span><br></pre></td></tr></table></figure></p>
+<p>正则表达式，或正则表达式数组，可以用于匹配文件路径或只缓存某些模块。例如，只缓存 utilities 模块：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafeCache: /src\/utilities/</span><br></pre></td></tr></table></figure></p>
+<p>修改缓存路径可能在极少数情况下导致失败。</p>
+<h3 id="resolve-plugins"><a href="#resolve-plugins" class="headerlink" title="resolve.plugins"></a>resolve.plugins</h3><p>应该使用的额外的解析插件列表。它允许插件，如 DirectoryNamedWebpackPlugin。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: [new DirectoryNamedWebpackPlugin()]</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-symlinks"><a href="#resolve-symlinks" class="headerlink" title="resolve.symlinks"></a>resolve.symlinks</h3><p>boolean</p>
+<p>是否将符号链接(symlink)解析到它们的符号链接位置(symlink location)。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">symlinks: true</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolve-cachePredicate"><a href="#resolve-cachePredicate" class="headerlink" title="resolve.cachePredicate"></a>resolve.cachePredicate</h3><p>function</p>
+<p>决定请求是否应该被缓存的函数。函数传入一个带有 path 和 request 属性的对象。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cachePredicate: function() &#123; return true &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="resolveLoader"><a href="#resolveLoader" class="headerlink" title="resolveLoader"></a>resolveLoader</h3><p>object</p>
+<p>这组选项与上面的 resolve 对象的属性集合相同，但仅用于解析 webpack 的 loader 包。默认：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    modules: [&quot;node_modules&quot;],</span><br><span class="line">    extensions: [&quot;.js&quot;, &quot;.json&quot;],</span><br><span class="line">    mainFields: [&quot;loader&quot;, &quot;main&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，这里你可以使用别名，并且其他特性类似于 resolve 对象。例如，{ txt: ‘raw-loader’ } 会使用 raw-loader 去 shim(填充) txt!templates/demo.txt。</p>
+<h3 id="resolveLoader-moduleExtensions"><a href="#resolveLoader-moduleExtensions" class="headerlink" title="resolveLoader.moduleExtensions"></a>resolveLoader.moduleExtensions</h3><p>array</p>
+<p>在解析模块（例如，loader）时尝试使用的扩展。默认是一个空数组。</p>
+<p>如果你想要不带 -loader 后缀使用 loader，你可以使用：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moduleExtensions: [&apos;-loader&apos;]</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 130 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/13/packaging/webpack/babel6/">babel6</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="babel-分离为多个包"><a href="#babel-分离为多个包" class="headerlink" title="babel 分离为多个包"></a>babel 分离为多个包</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">babel-cli 命令行</span><br><span class="line">babel-core node api 以及 require hook</span><br><span class="line">babel-polyfill 提供es2015的环境</span><br></pre></td></tr></table></figure>
+<h2 id="preset-机制"><a href="#preset-机制" class="headerlink" title="preset 机制"></a>preset 机制</h2><p>babel6 默认不再默认支持 es2015 以及 react。 需要手动在 .babelrc 中添加presets。<br>所谓的 presets 其实就是一些同类plugin打包的结果，方便进行添加。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>stage 不再是配置项，以 presets 的形式添加。</p>
+<p>博客推荐：<br><a href="https://segmentfault.com/a/1190000004301150" target="_blank" rel="noopener">babel6 升级总结</a><br><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">软大师 Babel 入门教程</a></p>
 
         </div>
         
@@ -1377,18 +1421,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/nuxt/init/" class="media-left">
+            <a href="/2019/07/13/other/cmd/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="自定义命令行配置">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
+                    <a href="/2019/07/13/other/cmd/" class="has-link-black-ter is-size-6">自定义命令行配置</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                        <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                     </p>
                 </div>
             </div>
@@ -1415,18 +1459,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -2123,18 +2167,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/nuxt/init/" class="media-left">
+            <a href="/2019/07/13/other/cmd/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="自定义命令行配置">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
+                    <a href="/2019/07/13/other/cmd/" class="has-link-black-ter is-size-6">自定义命令行配置</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                        <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                     </p>
                 </div>
             </div>
@@ -2161,18 +2205,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>

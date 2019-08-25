@@ -154,6 +154,119 @@
                 <span class="level-item has-text-grey">
                     
                     
+                    2 分钟 读完 (大约 310 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/call/">javaScript的call,apply,bind</a>
+            
+        </h1>
+        <div class="content">
+            <p>1、方法定义<br>call方法:<br>语法：call([thisObj[,arg1[, arg2[,   [,.argN]]]]])<br>定义：调用一个对象的一个方法，以另一个对象替换当前对象。<br>说明：<br>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。<br>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。</p>
+<p>apply方法：<br>语法：apply([thisObj[,argArray]])<br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：<br>如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。<br>如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数</p>
+<p>bind方法：<br>语法：bind([thisObj[,arg1[,arg2[,[,.argN]]]]])<br>bind()方法会创建一个新的函数，称为绑定函数,fun方法在this环境下调用</p>
+<p>该方法可传入两个参数，第一个参数作为this，第二个及以后的参数则作为函数的参数调用</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 314 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/javaScript/ascension/">js变量提升</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>在JavaScript中存在提升的情况，这种提升有两种提升分别是变量提升与函数提升，而且是函数会首先被提升，然后才是变量。</p>
+</blockquote>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log( a ); //undefined。</span><br><span class="line">var a = 2;</span><br></pre></td></tr></table></figure>
+<p>上面代码可以写成下面的形式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">console.log( a ); //undefined</span><br><span class="line">a=2;</span><br></pre></td></tr></table></figure>
+<p>再看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a=2;</span><br><span class="line">console.log(a); //2</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以写成下面的形式：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">a=2;</span><br><span class="line">console.log(a) //2</span><br></pre></td></tr></table></figure>
+<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><p>看下面的例子：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子可以转化成下面的形式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); // undefined var a = 2;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>再看下面的例子：</p>
+<h4 id="函数声明会被提升，但是函数表达式却不会被提升"><a href="#函数声明会被提升，但是函数表达式却不会被提升" class="headerlink" title="函数声明会被提升，但是函数表达式却不会被提升"></a>函数声明会被提升，但是函数表达式却不会被提升</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = foo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者是转化成下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">foo(); // TypeError</span><br><span class="line">bar(); // ReferenceError</span><br><span class="line">foo = function() &#123;</span><br><span class="line">  var bar = ...self...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再看下面的例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foo(); // 3</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码可以转化下面的代码<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 1 );</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log( 3 );</span><br><span class="line">&#125;</span><br><span class="line">foo(); // 3</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">  console.log( 2 );</span><br><span class="line">&#125;;</span><br><span class="line">foo(); //2</span><br></pre></td></tr></table></figure></p>
+<h5 id="非常有意思的现象"><a href="#非常有意思的现象" class="headerlink" title="非常有意思的现象"></a>非常有意思的现象</h5>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
                     3 分钟 读完 (大约 391 个字)
                 </span>
                 
@@ -265,54 +378,6 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/javaScript基础/">javaScript基础</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 310 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/javaScript/call/">javaScript的call,apply,bind</a>
-            
-        </h1>
-        <div class="content">
-            <p>1、方法定义<br>call方法:<br>语法：call([thisObj[,arg1[, arg2[,   [,.argN]]]]])<br>定义：调用一个对象的一个方法，以另一个对象替换当前对象。<br>说明：<br>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。<br>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。</p>
-<p>apply方法：<br>语法：apply([thisObj[,argArray]])<br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：<br>如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。<br>如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数</p>
-<p>bind方法：<br>语法：bind([thisObj[,arg1[,arg2[,[,.argN]]]]])<br>bind()方法会创建一个新的函数，称为绑定函数,fun方法在this环境下调用</p>
-<p>该方法可传入两个参数，第一个参数作为this，第二个及以后的参数则作为函数的参数调用</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                 </div>
                 
@@ -343,51 +408,6 @@
 <h3 id="Git远程仓库管理"><a href="#Git远程仓库管理" class="headerlink" title="Git远程仓库管理"></a>Git远程仓库管理</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GitHub</span><br><span class="line"></span><br><span class="line">git remote -v # 查看远程服务器地址和仓库名称</span><br><span class="line"></span><br><span class="line">git remote show origin # 查看远程服务器仓库状态</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github:robbin/robbin_site.git # 添加远程仓库地址</span><br><span class="line"></span><br><span class="line">git remote set-url origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm &lt;repository&gt; # 删除远程仓库</span><br></pre></td></tr></table></figure>
 <h3 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare robbin_site robbin_site.git # 用带版本的项目创建纯版本仓库</span><br><span class="line"></span><br><span class="line">scp -r my_project.git git@ git.csdn.net:~ # 将纯仓库上传到服务器上</span><br><span class="line"></span><br><span class="line">mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git --bare init # 在服务器创建纯仓库</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址</span><br><span class="line"></span><br><span class="line">git push -u origin master # 客户端首次提交</span><br><span class="line"></span><br><span class="line">git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track</span><br><span class="line"></span><br><span class="line">git remote set-head origin master # 设置远程仓库的HEAD指向master分支</span><br></pre></td></tr></table></figure>
 <h3 id="也可以命令设置跟踪远程库和本地库"><a href="#也可以命令设置跟踪远程库和本地库" class="headerlink" title="也可以命令设置跟踪远程库和本地库"></a>也可以命令设置跟踪远程库和本地库</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream master origin/master</span><br><span class="line"></span><br><span class="line">git branch --set-upstream develop origin/develop</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 42 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
 
         </div>
         
@@ -742,14 +762,14 @@
                 <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/css应用/">css应用</a>
+                <a class="has-link-grey -link" href="/categories/IDE/">IDE</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 190 个字)
+                    几秒 读完 (大约 42 个字)
                 </span>
                 
                 
@@ -758,160 +778,12 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2016/08/25/CSS/ellipsis/">CSS省略号实现</a>
+                <a class="has-link-black-ter" href="/2016/08/25/IDE/vscode/">vsCode  编辑器</a>
             
         </h1>
         <div class="content">
-            <h1 id="CSS实现单行多行添加省略号"><a href="#CSS实现单行多行添加省略号" class="headerlink" title="CSS实现单行多行添加省略号"></a>CSS实现单行多行添加省略号</h1><p>先介绍一下单行文本添加省略号的css代码</p>
-<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">overflow: hidden;</span><br><span class="line">text-overflow:ellipsis;</span><br><span class="line">white-space: nowrap;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/ellipsis/ellipsis1.png" title="单行省略">
-<p>先介绍一下多行文本添加省略号的css代码</p>
-<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span><br><span class="line">-webkit-box-orient: vertical;</span><br><span class="line">-webkit-line-clamp: 3;</span><br><span class="line">overflow: hidden;</span><br></pre></td></tr></table></figure></p>
-<img src="/2016/08/25/CSS/ellipsis/ellipsis2.png" title="多行省略">
-<p>先介绍一下多行文本添加省略号的css代码的优化</p>
-<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div&#123;position: relative; line-height: 20px; max-height: 40px;overflow: hidden;&#125;</span><br><span class="line">div::after&#123;content: &quot;...&quot;; position: absolute; bottom: 0; right: 0; padding-left: 40px;</span><br><span class="line">background: -webkit-linear-gradient(left, transparent, #fff 55%);</span><br><span class="line">background: -o-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: -moz-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: linear-gradient(to right, transparent, #fff 55%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <h2 id="vsCode-编辑器"><a href="#vsCode-编辑器" class="headerlink" title="vsCode  编辑器"></a>vsCode  编辑器</h2><p><a href="https://jeasonstudio.gitbooks.io/vscode-cn-doc/content/md/%E5%AE%9A%E5%88%B6%E5%8C%96/%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5.html" target="_blank" rel="noopener">相关文档</a></p>
 
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    11 分钟 读完 (大约 1677 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2016/08/25/IDE/vim/">vim命令总结</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="vim-的基本概念"><a href="#vim-的基本概念" class="headerlink" title="vim 的基本概念"></a>vim 的基本概念</h4><p>vim大致分可为这么几种状态，分别是命令模式、插入模式、视图模式、和底行模式，各模式的功能区分如下：</p>
-<h4 id="1-命令行模式"><a href="#1-命令行模式" class="headerlink" title="1) 命令行模式"></a>1) 命令行模式</h4><p>控制屏幕光标的移动，字符、字或行的删除，移动复制某区段</p>
-<h4 id="2-插入模式"><a href="#2-插入模式" class="headerlink" title="2) 插入模式"></a>2) 插入模式</h4><p>按 i 进入插入模式,对文件的内容进行编辑操作，按 ESC 键可回到命令行模式</p>
-<h4 id="3-视图模式"><a href="#3-视图模式" class="headerlink" title="3) 视图模式"></a>3) 视图模式</h4><p>按 v 或者 V 进入视图模式，对文字区段进行选择,然后进行相应的操作（比如复制一段文字，删除一段文字等等）</p>
-<h4 id="4-底行模式"><a href="#4-底行模式" class="headerlink" title="4) 底行模式"></a>4) 底行模式</h4><p>按 : 或者 / 进入底行模式,其实底行模式也是命令模式的一种等</p>
-<p>常使用底行模式对文件文件保存或退出vim，也可以设置编辑环境，如寻找字符串、列出行号……等</p>
-<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><h4 id="1-命令行模式-1"><a href="#1-命令行模式-1" class="headerlink" title="1) 命令行模式"></a>1) 命令行模式</h4><p>h 向左移动光标</p>
-<p>j 向下移动光标</p>
-<p>k 向上移动光标</p>
-<p>l 向右移动光标</p>
-<p>0 移到文件的开头</p>
-<p>G 移动到文件的最后</p>
-<p>$ 移动到光标所在行的“行尾”</p>
-<p>^ 移动到光标所在行的“行首”</p>
-<p>w 光标跳到下个字的开头</p>
-<p>e 光标跳到下个字的字尾</p>
-<p>b 光标回到上个字的开头</p>
-<p>nl 光标移到该行的第n的位置，其中n是数字 如：5l 将光标移动到当前行的第5个字符处</p>
-<p>x 每按一次，删除光标所在位置的“后面”一个字符</p>
-<p>nx 删除光标所在位置的“后面”n个字符,n是数字,比如 5x</p>
-<p>X 删除光标所在位置的“前面”一个字符</p>
-<p>nX 删除光标所在位置的“前面”n个字符,n是数字,比如 5X</p>
-<p>dd 删除光标所在行</p>
-<p>ndd 从光标所在行开始删除n行</p>
-<p>yw 将光标所在之处到字尾的字符复制到缓冲区中</p>
-<p>nyw 复制n个字到缓冲区</p>
-<p>yy 复制光标所在行到缓冲区</p>
-<p>nyy 例如，6yy表示拷贝从光标所在的该行“往下数”6行文字</p>
-<p>p 将缓冲区内的字符贴到光标所在位置注意：所有与“y”有关的复制命令都必须与“p”配合才能完成复制与粘贴功能</p>
-<p>r 替换光标所在处的字符</p>
-<p>R 替换光标所到之处的字符，直到按下「ESC」键为止</p>
-<p>u 如果您误执行一个命令，可以马上按下「u」，回到上一个操作按多次“u”可以执行多次回复</p>
-<p>cw 更改光标所在处的字到字尾处</p>
-<p>cnw 例如，c3w表示更改3个字,其中n是数字</p>
-<p>nG(或者ngg)例如，15G表示移动光标至文件的第15行的行首,其中n是数字</p>
-<p>ctrl+g 列出光标所在行的行号</p>
-<p>ci”清除引号内容</p>
-<p>ci&gt; 清除尖括号内容</p>
-<p>cit 清除标签内的内容</p>
-<p>zc 折叠</p>
-<p>zC 对所在范围内所有嵌套的折叠点进行折叠</p>
-<p>zo 展开折叠</p>
-<p>zO 对所在范围内所有嵌套的折叠点展开</p>
-<p>[z 到当前打开的折叠的开始处</p>
-<p>]z 到当前打开的折叠的末尾处</p>
-<p>zj 向下移动,到达下一个折叠的开始处,关闭的折叠也被计入</p>
-<p>zk 向上移动到前一折叠的结束处,关闭的折叠也被计入</p>
-<p>xp 交换两个字符的位置</p>
-<p>ddp 上下两行调换</p>
-<h4 id="移动屏幕"><a href="#移动屏幕" class="headerlink" title="移动屏幕"></a>移动屏幕</h4><p>ctrl+g 列出光标所在行的行</p>
-<p>ctrl+b 屏幕往“后”移动一页</p>
-<p>ctrl+f 屏幕往“前”移动一页</p>
-<p>ctrl+u 屏幕往“后”移动半页</p>
-<p>ctrl+d 屏幕往“前”移动半页</p>
-<p>shift +3 选中并查找该词组</p>
-<h4 id="跳转位置"><a href="#跳转位置" class="headerlink" title="跳转位置"></a>跳转位置</h4><p>ctrl+o 回到更老的跳转位置</p>
-<p>ctrl+i 向前跳转位置(两个命令前面可以加数字来表示倍数)</p>
-<h4 id="改变大小写"><a href="#改变大小写" class="headerlink" title="改变大小写"></a>改变大小写</h4><p>~ 将光标下的字母改变大小写</p>
-<p>3~ 将光标位置开始的3个字母改变其大小写</p>
-<p>g~~ 改变当前行字母的大小写</p>
-<p>U 将可视模式下选择的字母全改成大写字母</p>
-<p>u 将可视模式下选择的字母全改成小写</p>
-<p>gUU 将当前行的字母改成大写</p>
-<p>3gUU 将从光标开始到下面3行字母改成大写</p>
-<p>guu 将当前行的字母全改成小写</p>
-<p>gUw 将光标下的单词改成大写。</p>
-<p>guw 将光标下的单词改成小写。</p>
-<h4 id="2-插入模式-1"><a href="#2-插入模式-1" class="headerlink" title="2) 插入模式"></a>2) 插入模式</h4><p>i 在光标的前面插入字符</p>
-<p>I 在当前行的第一个字符前插入字符</p>
-<p>o 在当前行的下一行插入新的一行,并在新的一行的第一个字符处插入字符</p>
-<p>O 在当前行的上一行插入新的一行,并在新的一行的第一个字符处插入字符</p>
-<p>a 在光标的后面插入字符</p>
-<p>A 在当前行的最后面插入字符</p>
-<p>按[Esc]回到命令模式</p>
-<h4 id="3-视图模式-1"><a href="#3-视图模式-1" class="headerlink" title="3) 视图模式"></a>3) 视图模式</h4><p>vi” 选择引号内容</p>
-<p>vi&gt; 选择尖括号内容</p>
-<p>vit 选择标签内的内容</p>
-<p>va” 选择包括引号在内的内容</p>
-<p>va&gt; 选择包括尖括号在内的内容</p>
-<p>vat 选择整个标签</p>
-<p>4) 底行模式</p>
-<p>:w filename 将文件以指定的文件名filename保存</p>
-<p>:wq 存盘并退出vim</p>
-<p>:q! 不存盘强制退出vim</p>
-<p>:set nu 显示行号</p>
-<p>:15 回车，跳到文件第15行</p>
-<p>/关键字, 先按「/」键，再输入您想寻找的字符，如果第一次找的关键字不是您想要的，可以一直按「n」会往后寻找到您要的关键字为止</p>
-<p>?关键字, 先按「?」键，再输入您想寻找的字符，如果第一次找的关键字ä¡</p>
-<p>:-n,+n d ‘-‘表示当前行的上n行，’+’表示当前行的下n行,比如命令’:-2,+2 d’的意思，就是说删除但前行的上2行到当前行的下2行</p>
-<p>:n pu 将剪切板中的内容粘贴到n行</p>
-<p>:e filename 在当前编辑的窗口中打开指定的“filename”的文件进行编辑操作</p>
-<p>:p 文件操作，前一个文件</p>
-<p>:n 文件操作，下一个文件</p>
-<p>:last 文件操作，最后一个文件</p>
-<p>:!cmd 执行shell命令</p>
-<p>:sh 进入shell</p>
-<p>:exit 退出shell</p>
-<h4 id="按-Esc-回到命令模式"><a href="#按-Esc-回到命令模式" class="headerlink" title="按[Esc]回到命令模式"></a>按[Esc]回到命令模式</h4>
         </div>
         
         
@@ -967,6 +839,58 @@
 <h4 id="4-file-icons"><a href="#4-file-icons" class="headerlink" title="4 file-icons"></a>4 file-icons</h4><p>  文件图标   </p>
 <h4 id="5-atom-ternjs"><a href="#5-atom-ternjs" class="headerlink" title="5 atom-ternjs"></a>5 atom-ternjs</h4><p>  js代码提示   </p>
 <h4 id="6-atom-react-autocomplete"><a href="#6-atom-react-autocomplete" class="headerlink" title="6 atom-react-autocomplete"></a>6 atom-react-autocomplete</h4><p>  jsx代码提示   </p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-08-25T12:23:37.000Z">2016-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/css应用/">css应用</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 190 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2016/08/25/CSS/ellipsis/">CSS省略号实现</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="CSS实现单行多行添加省略号"><a href="#CSS实现单行多行添加省略号" class="headerlink" title="CSS实现单行多行添加省略号"></a>CSS实现单行多行添加省略号</h1><p>先介绍一下单行文本添加省略号的css代码</p>
+<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">overflow: hidden;</span><br><span class="line">text-overflow:ellipsis;</span><br><span class="line">white-space: nowrap;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/ellipsis/ellipsis1.png" title="单行省略">
+<p>先介绍一下多行文本添加省略号的css代码</p>
+<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span><br><span class="line">-webkit-box-orient: vertical;</span><br><span class="line">-webkit-line-clamp: 3;</span><br><span class="line">overflow: hidden;</span><br></pre></td></tr></table></figure></p>
+<img src="/2016/08/25/CSS/ellipsis/ellipsis2.png" title="多行省略">
+<p>先介绍一下多行文本添加省略号的css代码的优化</p>
+<p>以下代码实现的效果为下图<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div&#123;position: relative; line-height: 20px; max-height: 40px;overflow: hidden;&#125;</span><br><span class="line">div::after&#123;content: &quot;...&quot;; position: absolute; bottom: 0; right: 0; padding-left: 40px;</span><br><span class="line">background: -webkit-linear-gradient(left, transparent, #fff 55%);</span><br><span class="line">background: -o-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: -moz-linear-gradient(right, transparent, #fff 55%);</span><br><span class="line">background: linear-gradient(to right, transparent, #fff 55%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -1471,18 +1395,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/nuxt/init/" class="media-left">
+            <a href="/2019/07/13/other/cmd/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="自定义命令行配置">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
+                    <a href="/2019/07/13/other/cmd/" class="has-link-black-ter is-size-6">自定义命令行配置</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                        <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                     </p>
                 </div>
             </div>
@@ -1509,18 +1433,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
@@ -2217,18 +2141,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/nuxt/init/" class="media-left">
+            <a href="/2019/07/13/other/cmd/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="nuxt服务端项目集成引入iView">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="自定义命令行配置">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/nuxt/init/" class="has-link-black-ter is-size-6">nuxt服务端项目集成引入iView</a>
+                    <a href="/2019/07/13/other/cmd/" class="has-link-black-ter is-size-6">自定义命令行配置</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/nuxt/">nuxt</a>
+                        <a class="has-link-grey -link" href="/categories/命令行/">命令行</a>
                     </p>
                 </div>
             </div>
@@ -2255,18 +2179,18 @@
         
         <article class="media">
             
-            <a href="/2019/07/13/javaScript/array/function/" class="media-left">
+            <a href="/2019/07/13/IDE/macPath/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于数组的使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mac终端配置sublime和vsCode的快捷方式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T09:50:46.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/javaScript/array/function/" class="has-link-black-ter is-size-6">关于数组的使用</a>
+                    <a href="/2019/07/13/IDE/macPath/" class="has-link-black-ter is-size-6">mac终端配置sublime和vsCode的快捷方式</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/array/">array</a>
+                        <a class="has-link-grey -link" href="/categories/辅助工具/">辅助工具</a>
                     </p>
                 </div>
             </div>
